@@ -106,7 +106,7 @@
 14. 在Master节点上操作，cd /usr/local/hadoop/etc/hadoop,进入root模式<br>
     a. 修改slaves文件,将localhost注释，添加Slave1,换行，Slave2<br><br>
     b. 修改core-site.xml<br>
-    ```html
+    ```markdown
     <configuration>
            <property>
                 <name>fs.defaultFS</name>
