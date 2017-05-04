@@ -48,9 +48,9 @@
     rpm -qa | grep java版本的名称<br>
       
 >### 3.安装配置hadoop2集群
-1. 下载hadoop压缩包，选择[hadoop-2.x.y.tar.gz][5]文件,这里我选择的是2.6.2版本<br><br>
+1. 下载hadoop压缩包，选择[hadoop-2.x.y.tar.gz][5]文件,这里我选择的是2.6.1版本<br><br>
 2. 解压<br>
-    sudo tar -zxf ~/下载/hadoop-2.6.2.tar.gz -C /usr/local    # 解压到/usr/local中<br>
+    sudo tar -zxf ~/下载/hadoop-2.6.1.tar.gz -C /usr/local    # 解压到/usr/local中<br>
     cd /usr/local/<br>
     sudo mv ./hadoop-2.6.1/ ./hadoop  # 将文件夹名改为hadoop<br>
     sudo chown -R hadoop:hadoop ./hadoop  # 修改文件权限，冒号后没有空格<br><br>
@@ -210,4 +210,4 @@
 [2]: http://www.vmware.com/cn/products/workstation/workstation-evaluation.html "Vmware 下载地址"
 [3]: https://raw.githubusercontent.com/jChanJi/jchanji.github.com/master/software/VMware12.Keymaker.exe "VMware12.Keymaker"
 [4]: http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1611.iso "CentOS 7"
-[5]: http://www.powerxing.com/install-hadoop-in-centos/ "hadoop"
+[5]: http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-2.6.1/hadoop-2.6.1.tar.gz "hadoop"
