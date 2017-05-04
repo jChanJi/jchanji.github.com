@@ -201,7 +201,12 @@
     stop-yarn.sh<br>
     stop-dfs.sh<br>
     mr-jobhistory-daemon.sh stop historyserver<br>
-
+    
+ <div style="height:200px;widh=100%;">
+<center>Author：Chanji</center>
+<center>转载请与作者联系</center>
+<center>邮箱：1138552873@qq.com</center>
+</div>
 
 
 
