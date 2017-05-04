@@ -21,15 +21,16 @@
 >&ensp; 5.2、OmniMarkup Previewer //在浏览器中实时预览
 
 ### 2、常用快捷键
-* Ctrl + Alt + O //在浏览器中打开
-* Alt + M  //生成html文件
-* Ctrl+Alt+O: Preview Markup in Browser.
-* Ctrl+Alt+X: Export Markup as HTML.
-* Ctrl+Alt+C: Copy Markup as HTML.
+> 1. Ctrl + Alt + O //在浏览器中打开
+> 2. Alt + M  //生成html文件
+> 3. Ctrl+Alt+O: Preview Markup in Browser.
+> 4. Ctrl+Alt+X: Export Markup as HTML.
+> 5. Ctrl+Alt+C: Copy Markup as HTML.
+
 ## 二、使用Cmd markdown在线编辑
->* 在线[编辑] [1] 网址
->* 也可以下载客户端离线编辑[客户端] [2]
->* 如果想转成html等其他功能需要付费，不过基础功能已经差不多够用了
+> 1. 在线[编辑] [1] 网址
+> 2. 也可以下载客户端离线编辑[客户端] [2]
+> 3. 如果想转成html等其他功能需要付费，不过基础功能已经差不多够用了
 
 <div style="height:200px;widh=100%;">
 <center>Author：Chanji</center>
