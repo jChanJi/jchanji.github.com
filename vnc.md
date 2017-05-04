@@ -13,7 +13,7 @@ sudo yum install -y tigervnc tigervnc-server
 ```markdown
 sudo yum grouplist
 ```
-###### 查看自己的服务器里中Available Environment Groups下面有哪些可以安装的Desktop,我这里的是GNOME Desktop
+#### 查看自己的服务器里中Available Environment Groups下面有哪些可以安装的Desktop,我这里的是GNOME Desktop
 ## 4. 安装GNOME Desktop
 ```markdown
 sudo yum groupinstall GNOME Desktop
