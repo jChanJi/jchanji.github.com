@@ -31,6 +31,11 @@
 >* 也可以下载客户端离线编辑[客户端] [2]
 >* 如果想转成html等其他功能需要付费，不过基础功能已经差不多够用了
 
+<div style="height:200px;widh=100%;">
+<center>Author：Chanji</center>
+<center>转载请与作者联系</center>
+<center>邮箱：1138552873@qq.com</center>
+</div>
 
 [1]: https://www.zybuluo.com/mdeditor "Cmd Markdown"
 [2]: https://www.zybuluo.com/cmd/ "下载"
