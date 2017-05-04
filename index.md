@@ -6,10 +6,10 @@
 ***
 ### [hadoop分布式集群配置](https://jchanji.github.io/hadoop.html)
 ***
-<div style="height:200px;widh=100%;text-align=center">
-<p>Author：Chanji</p>
-<p>转载请与作者联系</p>
-<p>邮箱：1138552873@qq.com</p>
+<div style="height:200px;widh=100%;">
+<center>Author：Chanji</center>
+<center>转载请与作者联系</center>
+<center>邮箱：1138552873@qq.com</center>
 </div>
 
 
