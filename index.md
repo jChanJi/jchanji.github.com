@@ -6,6 +6,8 @@
 ***
 ### [hadoop分布式集群配置](https://jchanji.github.io/hadoop.html)
 ***
+### [CentOS 7 下安装eclipse](https://jchanji.github.io/install_eclipse.html)
+***
 <div style="height:200px;widh=100%;">
 <center>Author：Chanji</center>
 <center>转载请与作者联系</center>
