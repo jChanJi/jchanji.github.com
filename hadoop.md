@@ -82,7 +82,7 @@
     在末尾加上:<br>
     ip(Master的ip)   Master<br>
     ip(Slave1的ip)   Slave1<br>
-    ip(Slave1的ip)   Slave2<br><br>
+    ip(Slave2的ip)   Slave2<br><br>
 11. 设置开机启动网络<br>
     修改 /etc/sysconfig/network-scripts/ifcfg-ens*,将ONBOOT 改为yes<br><br>
 12. 通过ping Master，ping Slave1，ping Slave2,看是否能通，ctrl+c停止<br><br>
