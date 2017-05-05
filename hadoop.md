@@ -55,6 +55,7 @@
    java -version 
    %JAVA_HOME/bin/java -version
 ```
+如果java -version 和 %JAVA_HOME/bin/java -version一样表示成功,否则看5<br><br>
 5. 如果和以前的jdk版本冲突的:<br>
     查找当前的安装的jdk版本<br>
 ```markdown
@@ -62,16 +63,17 @@
 ```  
     删除openjdk版本意外的版本<br>
 ```markdown
-    rpm -e --nodeps java版本的名称
+    rpm -e --nodeps java版本的名称
 ```  
+
 >### 3.安装配置hadoop2集群
 
 1. 下载hadoop压缩包，选择[hadoop-2.x.y.tar.gz][5]文件,这里我选择的是2.6.1版本<br><br>
 2. 解压<br>
 ```markdown
     sudo tar -zxf ~/下载/hadoop-2.6.1.tar.gz -C /usr/local    # 解压到/usr/local中
-    cd /usr/local/
-    sudo mv ./hadoop-2.6.1/ ./hadoop  # 将文件夹名改为hadoop
+    cd /usr/local/  #打开/usr/local目录
+    sudo mv ./hadoop-2.6.1/ ./hadoop  # 将文件夹名改为hadoop
     sudo chown -R hadoop:hadoop ./hadoop  # 修改文件权限，冒号后没有空格
 ```
 4. 显示版本<br>
@@ -118,7 +120,7 @@
 ```markdown
     hostnamectl  set-hostname Slave2
 ```
-10. 修改ip映射：<br>
+10. 修改ip映射（三个节点都要修改）：<br>
 ```markdown
     sudo vim /etc/hosts
 ```
@@ -126,30 +128,44 @@
 ```markdown
     ip1   Master
     ip2   Slave1
-    ip3   Slave2
+   ip3   Slave2
 ```
 11. 设置开机启动网络<br>
-    修改 /etc/sysconfig/network-scripts/ifcfg-ens*（具体文件名每个人有可能不同）,将最后一行的ONBOOT 改为yes<br><br>
+    修改 /etc/sysconfig/network-scripts/ifcfg-ens*（具体文件名每个人有可能不同）,将最后一行的ONBOOT 改为yes<br>
+```markdown
+vim  /etc/sysconfig/network-scripts/ifcfg-ens33 #我的文件名称为ifcfg-ens33
+```  
 12. 通过在终端分别执行ping Master，ping Slave1，ping Slave2,看是否能通，ctrl+c停止<br><br>
 13. 主节点Master使用ssh无密钥登陆节点（注意ssh登陆的用户名）<br><br>
     a. 首先生成 Master 节点的公匙，在 Master 节点的终端中执行：<br>
-       su hadoop               #登陆到hadoop用户,所有操作都使hadoop用户的行为<br>
-       cd ~/.ssh               # 如果没有该目录，先执行一次ssh Master<br>
-       rm ./id_rsa*            # 删除之前生成的公匙（如果有）<br>
-       ssh-keygen -t rsa       # 一直按回车就可以<br><br>
-    b. 让Master节点需能无密码ssh本机，在 Master 节点上执行：<br>
+```markdown
+       su hadoop               #登陆到hadoop用户,所有操作都使hadoop用户的行为
+       cd ~/.ssh               # 如果没有该目录，先执行一次ssh Master
+       rm ./id_rsa*            # 删除之前生成的公匙（如果有）
+       ssh-keygen -t rsa       # 一直按回车就可以
+```
+    b. 让Master节点需能无密码ssh本机，在 Master 节点上执行：<br>
+```markdown
        cat ./id_rsa.pub >> ./authorized_keys<br>
        chmod 600 ./authorized_keys    # 修改文件权限<br>
-       完成后可执行 ssh Master 验证一下（可能需要输入 yes，成功后执行 exit 返回原来的终端）。<br><br>
+```
+      完成后可执行 ssh Master 验证一下（可能需要输入 yes，成功后执行 exit 返回原来的终端）。<br><br>
     c. 将上公匙传输到 Slave1 节点(Slave2也是一样操作将Slave1改成Slave2):<br>
+```markdown
        scp ~/.ssh/id_rsa.pub hadoop@Slave1:/home/hadoop/<br><br>
+``` 
     d. 在Slave1和Slave2节点上 操作：<br>
+```markdown
        mkdir ~/.ssh       # 如果不存在该文件夹需先创建，若已存在则忽略<br>
        cat ~/id_rsa.pub >> ~/.ssh/authorized_keys<br>
        rm ~/id_rsa.pub    # 用完就可以删掉了<br><br>
+````
     e. 在Master节点上ssh Slave1和Slave1，验证是否能连接上<br><br>
 14. 在Master节点上操作，cd /usr/local/hadoop/etc/hadoop,进入root模式<br>
     a. 修改slaves文件,将localhost注释，添加Slave1,换行，Slave2<br><br>
+```markdown
+    vim slaves
+```
     b. 修改core-site.xml<br>
     ```markdown
     <configuration>
@@ -185,7 +201,7 @@
             </property>
       </configuration>
     ````
-    d. 重命名 mapred-site.xml.template为mapred-site.xml,并修改mapred-site.xml
+    d. 重命名 mapred-site.xml.template为mapred-site.xml,并修改mapred-site.xml<br>
     ```html
     <configuration>
             <property>
@@ -202,7 +218,7 @@
             </property>
     </configuration>
     ````
-    e. 修改yarn.site.xml
+    e. 修改yarn.site.xml<br>
     ```html
     <configuration>
             <property>
