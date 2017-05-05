@@ -133,7 +133,7 @@
 11. 设置开机启动网络<br>
     修改 /etc/sysconfig/network-scripts/ifcfg-ens*（具体文件名每个人有可能不同）,将最后一行的ONBOOT 改为yes<br>
 ```markdown
-vim  /etc/sysconfig/network-scripts/ifcfg-ens33 #我的文件名称为ifcfg-ens33
+    vim  /etc/sysconfig/network-scripts/ifcfg-ens33 #我的文件名称为ifcfg-ens33
 ```  
 12. 通过在终端分别执行ping Master，ping Slave1，ping Slave2,看是否能通，ctrl+c停止<br><br>
 13. 主节点Master使用ssh无密钥登陆节点（注意ssh登陆的用户名）<br><br>
@@ -146,8 +146,8 @@ vim  /etc/sysconfig/network-scripts/ifcfg-ens33 #我的文件名称为ifcfg-ens3
 ```
     b. 让Master节点需能无密码ssh本机，在 Master 节点上执行：<br>
 ```markdown
-       cat ./id_rsa.pub >> ./authorized_keys<br>
-       chmod 600 ./authorized_keys    # 修改文件权限<br>
+       cat ./id_rsa.pub >> ./authorized_keys
+       chmod 600 ./authorized_keys    # 修改文件权限
 ```
       完成后可执行 ssh Master 验证一下（可能需要输入 yes，成功后执行 exit 返回原来的终端）。<br><br>
     c. 将上公匙传输到 Slave1 节点(Slave2也是一样操作将Slave1改成Slave2):<br>
@@ -156,9 +156,9 @@ vim  /etc/sysconfig/network-scripts/ifcfg-ens33 #我的文件名称为ifcfg-ens3
 ``` 
     d. 在Slave1和Slave2节点上 操作：<br>
 ```markdown
-       mkdir ~/.ssh       # 如果不存在该文件夹需先创建，若已存在则忽略<br>
-       cat ~/id_rsa.pub >> ~/.ssh/authorized_keys<br>
-       rm ~/id_rsa.pub    # 用完就可以删掉了<br><br>
+       mkdir ~/.ssh       # 如果不存在该文件夹需先创建，若已存在则忽略
+       cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
+       rm ~/id_rsa.pub    # 用完就可以删掉了
 ````
     e. 在Master节点上ssh Slave1和Slave1，验证是否能连接上<br><br>
 14. 在Master节点上操作，cd /usr/local/hadoop/etc/hadoop,进入root模式<br>
@@ -232,37 +232,52 @@ vim  /etc/sysconfig/network-scripts/ifcfg-ens33 #我的文件名称为ifcfg-ens3
     </configuration>
     ```
 15. 配置好后,将Master上的/usr/local/hadoop文件夹复制到各个节点上。如果有临时文件和日志文件先删除,在Master节点上执行:<br>
-    cd /usr/local<br>
-    sudo rm -r ./hadoop/tmp                    # 删除 Hadoop 临时文件<br>
-    sudo rm -r ./hadoop/logs/*                 # 删除日志文件<br>
-    tar -zcf ~/hadoop.master.tar.gz ./hadoop   # 先压缩再复制<br>
-    cd ~<br>
-    scp ./hadoop.master.tar.gz Slave1:/home/hadoop<br>
+```markdown
+    cd /usr/local
+    sudo rm -r ./hadoop/tmp                    # 删除 Hadoop 临时文件
+    sudo rm -r ./hadoop/logs/*                 # 删除日志文件
+    tar -zcf ~/hadoop.master.tar.gz ./hadoop   # 先压缩再复制
+    cd ~
+    scp ./hadoop.master.tar.gz Slave1:/home/hadoop
+```
     如果有其他节点再执行：scp ./hadoop.master.tar.gz Slave(n):/home/hadoop<br><br>
 16. 分别在slave节点上执行<br>
-    sudo rm -r /usr/local/hadoop    # 删掉旧的（如果存在）<br>
-    sudo tar -zxf ~/hadoop.master.tar.gz -C /usr/local<br>
-    sudo chown -R hadoop /usr/local/hadoop   #给hadoop用户读写/usr/local/hadoop的权限<br><br>
+```markdown
+    sudo rm -r /usr/local/hadoop    # 删掉旧的（如果存在）
+    sudo tar -zxf ~/hadoop.master.tar.gz -C /usr/local
+    sudo chown -R hadoop /usr/local/hadoop   #给hadoop用户读写/usr/local/hadoop的权限
+```
 17. 首次启动需要先在 Master 节点执行 NameNode 的格式化：<br>
+```markdown
     hdfs namenode -format       # 首次运行需要执行初始化，之后不需要，status=0，表示成功<br><br>
+```
 18. 关闭防火墙(所有机器)：<br>
+```markdown
     systemctl stop firewalld.service    # 关闭firewall<br>
     systemctl disable firewalld.service # 禁止firewall开机启动<br><br>
+```
 19. 启动服务<br>
-    start-yarn.sh<br>
-    start-dfs.sh<br>
-    mr-jobhistory-daemon.sh start historyserver<br><br>
+```markdown
+   start-yarn.sh
+   start-dfs.sh
+   mr-jobhistory-daemon.sh start historyserver
+```
 20. 在master节点上查看java进程<br>
-    jps<br>
+```markdown
+    jps
+```
     如果有JobHistoryServer,SecondaryNameNode,Jsp,ResourceManager,NameNode四个进程代表Master上没问题<br><br>
 21. 在slave节点上执行<br>
-    jps<br>
+```markdown
+    jps
+```
     如果有Jps，DataNode,NodeManager,三个节点表示配置成功<br><br>
 22. 关闭服务<br>
-    stop-yarn.sh<br>
-    stop-dfs.sh<br>
-    mr-jobhistory-daemon.sh stop historyserver<br>
-    
+```markdown
+    stop-yarn.sh
+    stop-dfs.sh
+    mr-jobhistory-daemon.sh stop historyserver
+```
  <div style="height:200px;widh=100%;">
 <center>Author：Chanji</center>
 <center>转载请与作者联系</center>
