@@ -45,7 +45,7 @@
     查找当前的安装的jdk版本<br>
     rpm -q |grep java<br>
     删除openjdk版本意外的版本<br>
-    rpm -qa | grep java版本的名称<br>
+    rpm -e --nodeps java版本的名称<br>
       
 >### 3.安装配置hadoop2集群
 1. 下载hadoop压缩包，选择[hadoop-2.x.y.tar.gz][5]文件,这里我选择的是2.6.1版本<br><br>
