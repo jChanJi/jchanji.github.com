@@ -110,15 +110,15 @@
 9. 修改各自的主机名(Matser，Slave1，Slave2)：<br>
 在master节点上：<br>
 ```markdown
-    hostnamectl  set-hostname Master
+    sudo hostnamectl  set-hostname Master
 ```
 在Slave1节点上：<br>
 ```markdown
-    hostnamectl  set-hostname Slave1
+    sudo hostnamectl  set-hostname Slave1
 ```
 在Slave2节点上：<br>
 ```markdown
-    hostnamectl  set-hostname Slave2
+    sudo hostnamectl  set-hostname Slave2
 ```
 10. 修改ip映射（三个节点都要修改）：<br>
 ```markdown
@@ -126,16 +126,18 @@
 ```
     在末尾加上:<br>
 ```markdown
-    ip1   Master
-    ip2   Slave1
+   ip1   Master
+   ip2   Slave1
    ip3   Slave2
 ```
 11. 设置开机启动网络<br>
-    修改 /etc/sysconfig/network-scripts/ifcfg-ens*（具体文件名每个人有可能不同）,将最后一行的ONBOOT 改为yes<br>
+    修改 /etc/sysconfig/network-scripts/ifcfg-ens*（具体文件名每个人有可能不同）,将最后一行的ONBOOT 改为yes
+    
 ```markdown
-    vim  /etc/sysconfig/network-scripts/ifcfg-ens33 #我的文件名称为ifcfg-ens33
-```  
-12. 通过在终端分别执行ping Master，ping Slave1，ping Slave2,看是否能通，ctrl+c停止<br><br>
+    vim  /etc/sysconfig/network-scripts/ifcfg-ens33  #我的文件名称为ifcfg-ens33
+``` 
+
+12. 通过在终端分别执行ping Master，ping Slave1，ping Slave2,看是否能通，ctrl+C停止<br><br>
 13. 主节点Master使用ssh无密钥登陆节点（注意ssh登陆的用户名）<br><br>
     a. 首先生成 Master 节点的公匙，在 Master 节点的终端中执行：<br>
 ```markdown
@@ -160,7 +162,12 @@
        cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
        rm ~/id_rsa.pub    # 用完就可以删掉了
 ````
-    e. 在Master节点上ssh Slave1和Slave1，验证是否能连接上<br><br>
+    e. 在Master节点上ssh Slave1和Slave2，验证是否能连接上<br><br>
+```markdown
+    ssh Slave1
+    
+    ssh Slave2
+```
 14. 在Master节点上操作，cd /usr/local/hadoop/etc/hadoop,进入root模式<br>
     a. 修改slaves文件,将localhost注释，添加Slave1,换行，Slave2<br><br>
 ```markdown
@@ -180,7 +187,7 @@
             </property>
     </configuration>
     ```
-    c. 修改hdfs-site.xml<br>
+    c. 修改hdfs-site.xml,其中的dfs.replication的value根据Slave的个数填写<br>
     ```html
      <configuration>
             <property>
@@ -189,7 +196,7 @@
             </property>
             <property>
                     <name>dfs.replication</name>
-                    <value>2</value>(有几台Slave就设置为几)
+                    <value>2</value>
             </property>
             <property>
                     <name>dfs.namenode.name.dir</name>
@@ -201,7 +208,7 @@
             </property>
       </configuration>
     ````
-    d. 重命名 mapred-site.xml.template为mapred-site.xml,并修改mapred-site.xml<br>
+    d. 重命名 mapred-site.xml.template为mapred-site.xml,并修改mapred-site.xml为：<br>
     ```html
     <configuration>
             <property>
@@ -218,7 +225,7 @@
             </property>
     </configuration>
     ````
-    e. 修改yarn.site.xml<br>
+    e. 修改yarn.site.xml为：<br>
     ```html
     <configuration>
             <property>
