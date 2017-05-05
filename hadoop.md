@@ -256,12 +256,12 @@
 ```
 17. 首次启动需要先在 Master 节点执行 NameNode 的格式化：<br>
 ```markdown
-    hdfs namenode -format       # 首次运行需要执行初始化，之后不需要，status=0，表示成功<br><br>
+    hdfs namenode -format       # 首次运行需要执行初始化，之后不需要，status=0，表示成功
 ```
 18. 关闭防火墙(所有机器)：<br>
 ```markdown
-    systemctl stop firewalld.service    # 关闭firewall<br>
-    systemctl disable firewalld.service # 禁止firewall开机启动<br><br>
+    systemctl stop firewalld.service    # 关闭firewall<
+    systemctl disable firewalld.service # 禁止firewall开机启动
 ```
 19. 启动服务<br>
 ```markdown
