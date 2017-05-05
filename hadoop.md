@@ -21,10 +21,13 @@
 #### 分布式集群：<http://www.powerxing.com/install-hadoop-cluster/>
 
 >### 1. 创建hadoop用户(如果没有)
+
+```markdown
 1. su                               # 上述提到的以 root 用户登录<br>
 2. useradd -m hadoop -s /bin/bash   # 创建新用户hadoop<br>
 3. passwd hadoop                    #设置密码<br>
 4. visudo                           #增加管理员权限<br>
+```
 5. 找到 root  ALL=(ALL)  ALL 这行,下一行增加:hadoop  ALL=(ALL)  ALL<br> 
 
 
