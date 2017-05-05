@@ -131,12 +131,10 @@
    ip3   Slave2
 ```
 11. 设置开机启动网络<br>
-    修改 /etc/sysconfig/network-scripts/ifcfg-ens*（具体文件名每个人有可能不同）,将最后一行的ONBOOT 改为yes
-    
+    修改 /etc/sysconfig/network-scripts/ifcfg-ens*（具体文件名每个人有可能不同）,将最后一行的ONBOOT 改为yes    
 ```markdown
     vim  /etc/sysconfig/network-scripts/ifcfg-ens33  #我的文件名称为ifcfg-ens33
 ``` 
-
 12. 通过在终端分别执行ping Master，ping Slave1，ping Slave2,看是否能通，ctrl+C停止<br><br>
 13. 主节点Master使用ssh无密钥登陆节点（注意ssh登陆的用户名）<br><br>
     a. 首先生成 Master 节点的公匙，在 Master 节点的终端中执行：<br>
