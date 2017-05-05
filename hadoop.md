@@ -23,85 +23,114 @@
 >### 1. 创建hadoop用户(如果没有)
 
 ```markdown
-1. su                               # 上述提到的以 root 用户登录<br>
-2. useradd -m hadoop -s /bin/bash   # 创建新用户hadoop<br>
-3. passwd hadoop                    #设置密码<br>
-4. visudo                           #增加管理员权限<br>
+1. su                               # 上述提到的以 root 用户登录
+2. useradd -m hadoop -s /bin/bash   # 创建新用户hadoop
+3. passwd hadoop                    #设置密码
+4. visudo                           #增加管理员权限
 ```
-找到 root  ALL=(ALL)  ALL 这行,下一行增加:hadoop  ALL=(ALL)  ALL<br> 
+找到 root  ALL=(ALL)  ALL 这行,下一行增加:hadoop ensp; ensp; ALL=(ALL)  ensp;ensp; ALL<br>
 
 
 >### 2. 安装Java环境(在hadoop用户下)
+
 1. 安装openjdk<br>
 ```markdown
-    sudo yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel<br><br>
+    sudo yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel
 ```
 2. 配置JAVA_HOME<br>
 ```markdown
-    vim ~/.bashrc<br>
+    vim ~/.bashrc
 ```
     在文件最后面添加如下单独一行（指向 JDK 的安装位置)<br>
 ```markdown
-    export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk<br><br>
+    export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk
 ```
 3. 使配置生效<br>
 ```markdown
-    source ~/.bashrc<br><br>
+    source ~/.bashrc
 ```
 4. 检验是否配置成功<br>
 ```markdown
-   echo $JAVA_HOME  #检验变量值<br>
-   java -version <br>
-   %JAVA_HOME/bin/java -version<br><br>
+   echo $JAVA_HOME  #检验变量值
+   java -version 
+   %JAVA_HOME/bin/java -version
 ```
 5. 如果和以前的jdk版本冲突的:<br>
     查找当前的安装的jdk版本<br>
 ```markdown
-    rpm -q |grep java<br>
+    rpm -q |grep java
 ```  
     删除openjdk版本意外的版本<br>
 ```markdown
-    rpm -e --nodeps java版本的名称<br>
+    rpm -e --nodeps java版本的名称
 ```  
 >### 3.安装配置hadoop2集群
+
 1. 下载hadoop压缩包，选择[hadoop-2.x.y.tar.gz][5]文件,这里我选择的是2.6.1版本<br><br>
 2. 解压<br>
-    sudo tar -zxf ~/下载/hadoop-2.6.1.tar.gz -C /usr/local    # 解压到/usr/local中<br>
-    cd /usr/local/<br>
-    sudo mv ./hadoop-2.6.1/ ./hadoop  # 将文件夹名改为hadoop<br>
-    sudo chown -R hadoop:hadoop ./hadoop  # 修改文件权限，冒号后没有空格<br><br>
+```markdown
+    sudo tar -zxf ~/下载/hadoop-2.6.1.tar.gz -C /usr/local    # 解压到/usr/local中
+    cd /usr/local/
+    sudo mv ./hadoop-2.6.1/ ./hadoop  # 将文件夹名改为hadoop
+    sudo chown -R hadoop:hadoop ./hadoop  # 修改文件权限，冒号后没有空格
+```
 4. 显示版本<br>
-    cd /usr/local/hadoop<br>
-    ./bin/hadoop version<br><br>
+```markdown
+    cd  /usr/local/hadoop
+    ./bin/hadoop version
+```
 5. 配置环境变量<br>
-    gedit ~/.bashrc (vim ~/.bashrc)<br>
+```markdown
+    gedit ~/.bashrc (vim ~/.bashrc)
+```
     在文件中添加：<br>
-    #Hadoop Environment Variables<br>
-    export HADOOP_HOME=/usr/local/hadoop<br>
-    export HADOOP_INSTALL=$HADOOP_HOME<br>
-    export HADOOP_MAPRED_HOME=$HADOOP_HOME<br>
-    export HADOOP_COMMON_HOME=$HADOOP_HOME<br>
-    export HADOOP_HDFS_HOME=$HADOOP_HOME<br>
-    export YARN_HOME=$HADOOP_HOME<br>
-    export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native<br>
-    export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin<br><br>
+```markdown
+    #Hadoop Environment Variables
+    export HADOOP_HOME=/usr/local/hadoop
+    export HADOOP_INSTALL=$HADOOP_HOME
+    export HADOOP_MAPRED_HOME=$HADOOP_HOME
+    export HADOOP_COMMON_HOME=$HADOOP_HOME
+    export HADOOP_HDFS_HOME=$HADOOP_HOME
+    export YARN_HOME=$HADOOP_HOME
+    export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+    export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+```
 6. 使配置生效<br>
-    source ~/.bashrc<br>
-    hadoop version #验证<br><br>
+```markdown
+    source ~/.bashrc
+    hadoop version #验证
+```
 7. 关闭虚拟机，克隆两个虚拟机，命名为CentOSSlave1,CentOSSlave2,注意要选择完整克隆<br><br>
-8. 依次打开CentOSMaster,CentOSSlave1,CentOSSlave2,查看各自的ip<br>
-    ifconfig(ens**下的inet内容)<br><br>
-9. 修改主机名：<br>
-    hostnamectl  set-hostname Master/Slave1/Slave2<br><br>
+8. 依次打开CentOSMaster,CentOSSlave1,CentOSSlave2,查看各自的ip,(ens**下的inet内容)<br>
+```markdown
+    ifconfig
+```   
+9. 修改各自的主机名(Matser，Slave1，Slave2)：<br>
+在master节点上：<br>
+```markdown
+    hostnamectl  set-hostname Master
+```
+在Slave1节点上：<br>
+```markdown
+    hostnamectl  set-hostname Slave1
+```
+在Slave2节点上：<br>
+```markdown
+    hostnamectl  set-hostname Slave2
+```
 10. 修改ip映射：<br>
-    sudo vim /etc/hosts<br>
+```markdown
+    sudo vim /etc/hosts
+```
     在末尾加上:<br>
-    ip(Master的ip)   Master<br>
-    ip(Slave1的ip)   Slave1<br>
-    ip(Slave2的ip)   Slave2<br><br>
+```markdown
+    ip1   Master
+    ip2   Slave1
+    ip3   Slave2
+```
 11. 设置开机启动网络<br>
-    修改 /etc/sysconfig/network-scripts/ifcfg-ens*,将ONBOOT 改为yes<br><br>
-12. 通过ping Master，ping Slave1，ping Slave2,看是否能通，ctrl+c停止<br><br>
+    修改 /etc/sysconfig/network-scripts/ifcfg-ens*（具体文件名每个人有可能不同）,将最后一行的ONBOOT 改为yes<br><br>
+12. 通过在终端分别执行ping Master，ping Slave1，ping Slave2,看是否能通，ctrl+c停止<br><br>
 13. 主节点Master使用ssh无密钥登陆节点（注意ssh登陆的用户名）<br><br>
     a. 首先生成 Master 节点的公匙，在 Master 节点的终端中执行：<br>
        su hadoop               #登陆到hadoop用户,所有操作都使hadoop用户的行为<br>
