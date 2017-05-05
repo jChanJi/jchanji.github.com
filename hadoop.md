@@ -28,28 +28,41 @@
 3. passwd hadoop                    #设置密码<br>
 4. visudo                           #增加管理员权限<br>
 ```
-5. 找到 root  ALL=(ALL)  ALL 这行,下一行增加:hadoop  ALL=(ALL)  ALL<br> 
+找到 root  ALL=(ALL)  ALL 这行,下一行增加:hadoop  ALL=(ALL)  ALL<br> 
 
 
 >### 2. 安装Java环境(在hadoop用户下)
 1. 安装openjdk<br>
+```markdown
     sudo yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel<br><br>
+```
 2. 配置JAVA_HOME<br>
+```markdown
     vim ~/.bashrc<br>
+```
     在文件最后面添加如下单独一行（指向 JDK 的安装位置)<br>
+```markdown
     export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk<br><br>
-3. 使配置生效<br> 
+```
+3. 使配置生效<br>
+```markdown
     source ~/.bashrc<br><br>
+```
 4. 检验是否配置成功<br>
-    echo $JAVA_HOME  #检验变量值<br>
-    java -version <br>
-    %JAVA_HOME/bin/java -version<br><br>
+```markdown
+   echo $JAVA_HOME  #检验变量值<br>
+   java -version <br>
+   %JAVA_HOME/bin/java -version<br><br>
+```
 5. 如果和以前的jdk版本冲突的:<br>
     查找当前的安装的jdk版本<br>
+```markdown
     rpm -q |grep java<br>
+```  
     删除openjdk版本意外的版本<br>
+```markdown
     rpm -e --nodeps java版本的名称<br>
-      
+```  
 >### 3.安装配置hadoop2集群
 1. 下载hadoop压缩包，选择[hadoop-2.x.y.tar.gz][5]文件,这里我选择的是2.6.1版本<br><br>
 2. 解压<br>
