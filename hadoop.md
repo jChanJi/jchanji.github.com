@@ -1,5 +1,10 @@
 # [Go to home page] [1]
 <center>2017-5-2</center><br>
+
+## [简单的的vim命令](http://www.cnblogs.com/jeakon/archive/2012/08/13/2816802.html)
+## [linux常用命令]（http://www.weixuehao.com/archives/25）
+## [linux命令查找网站](http://man.linuxde.net/)
+
 # CentOS 下安装hadoop<br>
 
 ## 一、安装Vmware 12
