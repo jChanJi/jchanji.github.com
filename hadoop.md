@@ -299,6 +299,6 @@
 
 [1]: https://jchanji.github.io "主页"
 [2]: http://www.vmware.com/cn/products/workstation/workstation-evaluation.html "Vmware 下载地址"
-[3]: https://raw.githubusercontent.com/jChanJi/jchanji.github.com/master/software/VMware12.Keymaker.exe "VMware12.Keymaker"
+[3]: http://chanji-1252400803.costj.myqcloud.com/VMware12.Keymaker.exe "VMware12.Keymaker"
 [4]: http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1611.iso "CentOS 7"
 [5]: http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-2.6.1/hadoop-2.6.1.tar.gz "hadoop"
