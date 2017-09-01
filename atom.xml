@@ -105,7 +105,7 @@
     <link href="https://github.com/jChanJi/year/08/29/tensorflow_step/"/>
     <id>https://github.com/jChanJi/year/08/29/tensorflow_step/</id>
     <published>2017-08-29T13:38:28.881Z</published>
-    <updated>2017-08-29T13:48:12.932Z</updated>
+    <updated>2017-09-01T23:57:21.316Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>目前深度学习炙手可热的框架毫无疑问是tensorflow,在本教程主要介绍tensorflow在anaconda中的安装，在火车上实在是无聊，电脑又没有网络，只能打发一下时间。</p>
@@ -135,8 +135,6 @@
 &lt;/blockquote&gt;
     
     </summary>
-    
-      <category term="deeplearning" scheme="https://github.com/jChanJi/categories/deeplearning/"/>
     
     
       <category term="-deeplearning" scheme="https://github.com/jChanJi/tags/deeplearning/"/>
