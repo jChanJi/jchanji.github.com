@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Chanji</title>
+  <subtitle>Stay Hungry,Stay Foolish</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://github.com/jChanJi/"/>
+  <updated>2017-08-31T02:35:31.456Z</updated>
+  <id>https://github.com/jChanJi/</id>
+  
+  <author>
+    <name>Chanji</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>伪分布式hbase安装配置</title>
+    <link href="https://github.com/jChanJi/year/08/30/hbase_step/"/>
+    <id>https://github.com/jChanJi/year/08/30/hbase_step/</id>
+    <published>2017-08-30T14:36:02.631Z</published>
+    <updated>2017-08-31T02:35:31.456Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 <a href="http://www.powerxing.com/install-hadoop-in-centos/" target="_blank" rel="external">hadoop伪分布式教程</a>,hbase官方<a href="http://abloz.com/hbase/book.html" target="_blank" rel="external">中文文档</a></p>
+</blockquote>
+<a id="more"></a>
+<h2 id="一、版本"><a href="#一、版本" class="headerlink" title="一、版本"></a>一、版本</h2><ol>
+<li>CentOS7</li>
+<li>jdk:openjdk1.7.0_141</li>
+<li>hadoop：2.6.0</li>
+<li>hbase:0.98.13</li>
+<li>一定要注意jdk,hadoop和hbase的版本匹配问题,可到官网查看！</li>
+</ol>
+<h2 id="二、下载"><a href="#二、下载" class="headerlink" title="二、下载"></a>二、下载</h2><p>1.<a href="http://archive.apache.org/dist/hbase/0.98.13/hbase-0.98.13-hadoop2-bin.tar.gz" target="_blank" rel="external">hbase-0.98.13-hadoop2-bin.tar.gz</a></p>
+<h2 id="三、安装配置"><a href="#三、安装配置" class="headerlink" title="三、安装配置"></a>三、安装配置</h2><h3 id="1、解压文件到指定目录"><a href="#1、解压文件到指定目录" class="headerlink" title="1、解压文件到指定目录"></a>1、解压文件到指定目录</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zxvf hbase-0.98.13-hadoop2-bin.tar.gz -C /usr/local</div></pre></td></tr></table></figure>
+<h3 id="2、重命名"><a href="#2、重命名" class="headerlink" title="2、重命名"></a>2、重命名</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local</div><div class="line">sudo mv [解压后的文件名] [hbase]</div></pre></td></tr></table></figure>
+<h3 id="3、修改hbase-site-xml"><a href="#3、修改hbase-site-xml" class="headerlink" title="3、修改hbase-site.xml"></a>3、修改hbase-site.xml</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /hbase/conf</div><div class="line">sudo vim hbase-site.xml</div></pre></td></tr></table></figure>
+<p>将内容改为<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></div><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span></div><div class="line"><span class="code">    &lt;name&gt;hbase.rootdir&lt;/name&gt;</span></div><div class="line"><span class="code">    &lt;value&gt;hdfs://localhost:9000/hbase&lt;/value&gt;</span></div><div class="line">  <span class="xml"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></div><div class="line">  <span class="xml"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span></div><div class="line"><span class="code">    &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;</span></div><div class="line"><span class="code">    &lt;value&gt;/usr/local/hbase/data/zkData&lt;/value&gt;</span></div><div class="line">  <span class="xml"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></div><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span></div><div class="line"><span class="code">    &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</span></div><div class="line"><span class="code">    &lt;value&gt;true&lt;/value&gt;</span></div><div class="line">  <span class="xml"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></div></pre></td></tr></table></figure></p>
+<p>说明：<br><br>1、很多教程的hbase.rootdir的hdfs的端口都和官网配置一样是8020，这里根据你自己的实际端口号配置，我的默认的为9000（一般都是），如果端口配置错误的话，之后的进程都能启动，但是在hdfs中没有创建hbase文件，也不能通过60010端口访问web UI.<br><br>2、dataDir的目录可以自己定义，不需要预先创建，hbase会根据配置自动生成。</p>
+<h3 id="3、修改hbase-env-sh"><a href="#3、修改hbase-env-sh" class="headerlink" title="3、修改hbase-env.sh"></a>3、修改hbase-env.sh</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim hbase-env.sh</div></pre></td></tr></table></figure>
+<p>添加自己的JAVA_HOME路径<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk/</div></pre></td></tr></table></figure></p>
+<h3 id="4、修改regionservers"><a href="#4、修改regionservers" class="headerlink" title="4、修改regionservers"></a>4、修改regionservers</h3><p>在/etc/hosts文件中添加主机名映射，再regionservers中默认的localhost改为主机名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim etc/hosts</div></pre></td></tr></table></figure></p>
+<p>在最后一行添加 127.0.0.1 master<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim regionservers</div></pre></td></tr></table></figure></p>
+<p>将localhost改为mater<br><br>说明：如果ip映射出现问题后面的regionserver会启动不了</p>
+<h3 id="5、启动服务"><a href="#5、启动服务" class="headerlink" title="5、启动服务"></a>5、启动服务</h3><p>首先先启动hadoop<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">start-all.sh</div></pre></td></tr></table></figure></p>
+<p>再启动hbase<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/hbase/bin</div><div class="line">./hbase-daemon.sh start zookeeper</div><div class="line">./hbase-daemon.sh start regionserver</div><div class="line">./hbase-daemon.sh start master</div></pre></td></tr></table></figure></p>
+<h3 id="6、查看web-UI"><a href="#6、查看web-UI" class="headerlink" title="6、查看web UI"></a>6、查看web UI</h3><p>在浏览器中输入localhost:60010<br><br>如果能正常显示页面说明配置成功<br><br>说明：刚开启服务后由于hadoop处于安全模式导致不能访问，可以等几十秒再次访问或者通过命令<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hadoop dfsadmin -safemode leave</div></pre></td></tr></table></figure></p>
+<p>解除保护</p>
+<h2 id="四、常用的一些命令"><a href="#四、常用的一些命令" class="headerlink" title="四、常用的一些命令"></a>四、常用的一些命令</h2><h3 id="1、从hdfs导入导出表"><a href="#1、从hdfs导入导出表" class="headerlink" title="1、从hdfs导入导出表"></a>1、从hdfs导入导出表</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1）导入</div><div class="line">./hbase org.apache.hadoop.hbase.mapreduce.Driver import 表名    数据文件位置</div><div class="line"></div><div class="line">2)导出</div><div class="line">./hbase org.apache.hadoop.hbase.mapreduce.Driver export 表名    数据文件位置</div></pre></td></tr></table></figure>
+<p>注意：直接操作会报没有jar包的错误，根据提示将hbase的jar包put进提示的hdfs路径中即可</p>
+<h2 id="五、遇到的错误和解决办法"><a href="#五、遇到的错误和解决办法" class="headerlink" title="五、遇到的错误和解决办法"></a>五、遇到的错误和解决办法</h2><h3 id="1、无法启动HRegionServer和HMaster"><a href="#1、无法启动HRegionServer和HMaster" class="headerlink" title="1、无法启动HRegionServer和HMaster"></a>1、无法启动HRegionServer和HMaster</h3><p>报错日志<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">2017-06-13 19:10:12,458 ERROR [main] master.HMasterCommandLine: Master exiting</div><div class="line">java.lang.RuntimeException: Failed construction of Master: class org.apache.hadoop.hbase.master.HMaster</div><div class="line">  at org.apache.hadoop.hbase.master.HMaster.constructMaster(HMaster.java:3033)</div><div class="line">  at org.apache.hadoop.hbase.master.HMasterCommandLine.startMaster(HMasterCommandLine.java:193)</div><div class="line">  at org.apache.hadoop.hbase.master.HMasterCommandLine.run(HMasterCommandLine.java:135)</div><div class="line">  at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)</div><div class="line">  at org.apache.hadoop.hbase.util.ServerCommandLine.doMain(ServerCommandLine.java:126)</div><div class="line">  at org.apache.hadoop.hbase.master.HMaster.main(HMaster.java:3047)</div><div class="line">Caused by: java.net.BindException: 无法指定被请求的地址</div><div class="line">  at sun.nio.ch.Net.bind0(Native Method)</div><div class="line">  at sun.nio.ch.Net.bind(Net.java:463)</div><div class="line">  at sun.nio.ch.Net.bind(Net.java:455)</div><div class="line">  at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)</div><div class="line">  at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)</div><div class="line">  at org.apache.hadoop.hbase.ipc.RpcServer.bind(RpcServer.java:2488)</div><div class="line">  at org.apache.hadoop.hbase.ipc.RpcServer$Listener.<span class="xml"><span class="tag">&lt;<span class="name">init</span>&gt;</span></span>(RpcServer.java:590)</div><div class="line">  at org.apache.hadoop.hbase.ipc.RpcServer.<span class="xml"><span class="tag">&lt;<span class="name">init</span>&gt;</span></span>(RpcServer.java:1956)</div><div class="line">  at org.apache.hadoop.hbase.master.HMaster.<span class="xml"><span class="tag">&lt;<span class="name">init</span>&gt;</span></span>(HMaster.java:507)</div><div class="line">  at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</div><div class="line">  at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)</div><div class="line">  at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)</div><div class="line">  at java.lang.reflect.Constructor.newInstance(Constructor.java:526)</div><div class="line">  at org.apache.hadoop.hbase.master.HMaster.constructMaster(HMaster.java:3028)</div><div class="line">  ... 5 more</div></pre></td></tr></table></figure></p>
+<p>解决办法<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">我们可以看到Caused by: java.net.BindException: 无法指定被请求的地址，所以有可能是外网的的影响，所以先关闭网络连接，再启动服务，发现成功了，然后再开启网络。</div></pre></td></tr></table></figure></p>
+<h3 id="2、启动hbase服务时找不到pid文件"><a href="#2、启动hbase服务时找不到pid文件" class="headerlink" title="2、启动hbase服务时找不到pid文件"></a>2、启动hbase服务时找不到pid文件</h3><p>问题原因<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">1. </span>hbase进行大量的插入时region server 所分配的内存堆过小</div><div class="line"><span class="bullet">2. </span>pid文件保存在tmp目录下容易丢失。</div></pre></td></tr></table></figure></p>
+<p>解决办法<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">1. </span>在hb的hbase-env.sh中</div><div class="line"><span class="section"># The maximum amount of heap to use, in MB. Default is 1000.</span></div><div class="line"><span class="section"># export HBASE_HEAPSIZE=1000</span></div><div class="line">将1000改成30720</div><div class="line"></div><div class="line"><span class="bullet">2. </span>在hbase-env.sh中修改pid文件的存放路径：</div><div class="line">在hbase-env.sh中下面的文字默认是注释掉的，放开即可，也可以自己指定存放位置：</div><div class="line"><span class="section"># The directory where pid files are stored. /tmp by default.  </span></div><div class="line"> export HBASE<span class="emphasis">_PID_</span>DIR=/var/hadoop/pids</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 &lt;a href=&quot;http://www.powerxing.com/install-hadoop-in-centos/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hadoop伪分布式教程&lt;/a&gt;,hbase官方&lt;a href=&quot;http://abloz.com/hbase/book.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;中文文档&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="-bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
+    
+    
+      <category term="-hbase -big data" scheme="https://github.com/jChanJi/tags/hbase-big-data/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</title>
+    <link href="https://github.com/jChanJi/year/08/30/codeparse_gbk2utf/"/>
+    <id>https://github.com/jChanJi/year/08/30/codeparse_gbk2utf/</id>
+    <published>2017-08-30T14:32:48.163Z</published>
+    <updated>2017-08-31T01:38:52.587Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>使用java,对文件遍历，修改文件编码</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="一、建立java项目，导入commons-io-jar"><a href="#一、建立java项目，导入commons-io-jar" class="headerlink" title="一、建立java项目，导入commons-io-*.jar"></a>一、建立java项目，导入<a href="http://mirror.bit.edu.cn/apache//commons/io/binaries/commons-io-2.5-bin.zip" title="commons-io-*.jar" target="_blank" rel="external">commons-io-*.jar</a></h3><h3 id="二、新建class，文件名随便起，我的是Codeparse-包名为exchangecode"><a href="#二、新建class，文件名随便起，我的是Codeparse-包名为exchangecode" class="headerlink" title="二、新建class，文件名随便起，我的是Codeparse,包名为exchangecode"></a>二、新建class，文件名随便起，我的是Codeparse,包名为exchangecode</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">package exchangecode;</div><div class="line"></div><div class="line">import java.io.File;</div><div class="line">import java.io.IOException;</div><div class="line">import java.util.Collection;</div><div class="line"></div><div class="line">import org.apache.commons.io.FileUtils;</div><div class="line"></div><div class="line">public class Codeparse &#123;</div><div class="line"></div><div class="line"><span class="code">    public static void main(String[] args) throws IOException &#123;</span></div><div class="line"><span class="code">        //GBK编码格式源码路径,根据自己的文件路径写 </span></div><div class="line"><span class="code">        String srcDirPath = "F:\\test"; </span></div><div class="line"><span class="code">        //转为UTF-8编码格式源码路径，根据自己的文件路径写 </span></div><div class="line"><span class="code">        String utf8DirPath ="F:\\out"; </span></div><div class="line"><span class="code">                </span></div><div class="line"><span class="code">        //获取所有txt文件,如果是其他类型的文件，将&#123;“txt”&#125;中的txt换为其他文件的后缀名</span></div><div class="line"><span class="code">        @SuppressWarnings("unchecked")</span></div><div class="line"><span class="code">        Collection&lt;File&gt; javaGbkFileCol =  FileUtils.listFiles(new File(srcDirPath), new String[]&#123;"txt"&#125;, true); </span></div><div class="line"><span class="code">                </span></div><div class="line"><span class="code">        for (File javaGbkFile : javaGbkFileCol) &#123; </span></div><div class="line"><span class="code">              //UTF8格式文件路径 </span></div><div class="line"><span class="code">              String utf8FilePath = utf8DirPath+javaGbkFile.getAbsolutePath().substring(srcDirPath.length()); </span></div><div class="line"><span class="code">              </span></div><div class="line"><span class="code">              //使用GBK读取数据，然后用UTF-8写入数据 </span></div><div class="line"><span class="code">              FileUtils.writeLines(new File(utf8FilePath), "UTF-8", FileUtils.readLines(javaGbkFile, "GBK"));        </span></div><div class="line"><span class="code">        &#125;</span></div><div class="line"><span class="code">        System.out.println("success!");</span></div><div class="line"><span class="code">    &#125;</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="三、运行"><a href="#三、运行" class="headerlink" title="三、运行"></a>三、运行</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;使用java,对文件遍历，修改文件编码&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="others" scheme="https://github.com/jChanJi/categories/others/"/>
+    
+    
+      <category term="-java" scheme="https://github.com/jChanJi/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu16.04 anaconda环境下安装tensoflow(GPU)</title>
+    <link href="https://github.com/jChanJi/year/08/29/tensorflow_step/"/>
+    <id>https://github.com/jChanJi/year/08/29/tensorflow_step/</id>
+    <published>2017-08-29T13:38:28.881Z</published>
+    <updated>2017-08-29T13:48:12.932Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>目前深度学习炙手可热的框架毫无疑问是tensorflow,在本教程主要介绍tensorflow在anaconda中的安装，在火车上实在是无聊，电脑又没有网络，只能打发一下时间。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="一、版本"><a href="#一、版本" class="headerlink" title="一、版本"></a>一、版本</h2><ol>
+<li>anaconda 4.3.21</li>
+<li>python 3.5</li>
+<li>tensorflow 1.2.0(github上目前最新版本)</li>
+<li>ubuntu 16.04<h2 id="二、下载"><a href="#二、下载" class="headerlink" title="二、下载"></a>二、下载</h2></li>
+<li><a href="">Anaconda3-4.4.0-Linux-x86_64.sh</a></li>
+<li><a href="">tensorflow_gpu-1.2.1-cp35-cp35m-linux_x86_64.whl</a><br>##三、注意事项<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、电脑上已经安装了cadu8.0和cudnn5.1环境</div><div class="line">2、tensorflow1.2.0版本支持cadu8.0,其他低版本的tensorflow会发生找不到依赖的错误。</div><div class="line">３、安装后运行会出现CPU computations,cpu指令集优化的警告，目前没有很好的解决办法，不过影响不大，因为我们主要使用的是GPU.</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="四、安装配置"><a href="#四、安装配置" class="headerlink" title="四、安装配置"></a>四、安装配置</h2><h3 id="1、安装anaconda"><a href="#1、安装anaconda" class="headerlink" title="1、安装anaconda"></a>1、安装anaconda</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo bash Anaconda3-4.4.0-Linux-x86_64.sh</div></pre></td></tr></table></figure>
+<h3 id="2、-安装python3-5环境"><a href="#2、-安装python3-5环境" class="headerlink" title="2、　安装python3.5环境"></a>2、　安装python3.5环境</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">conda create -n tensorflow python = 3.5</div></pre></td></tr></table></figure>
+<h3 id="3、安装tensorflow"><a href="#3、安装tensorflow" class="headerlink" title="3、安装tensorflow"></a>3、安装tensorflow</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">source activate tensorflow #进入刚才安装好的环境</div><div class="line">cd ~/下载　＃进入tensorflow　的pip安装文件的目录</div><div class="line">pip install tensorflow<span class="emphasis">_gpu-1.2.1-cp35-cp35m-linux_</span>x86_64.whl #安装tensorflow</div></pre></td></tr></table></figure>
+<h2 id="五、测试"><a href="#五、测试" class="headerlink" title="五、测试"></a>五、测试</h2><p>进入python环境<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python</div></pre></td></tr></table></figure></p>
+<p>运行代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</div><div class="line">sess = tf.Session()</div><div class="line"></div><div class="line">a = tf.constant(<span class="number">10</span>)</div><div class="line">b = tf.constant(<span class="number">20</span>)</div><div class="line"></div><div class="line">print(sess.run(a+b))</div></pre></td></tr></table></figure></p>
+<p>输出结果<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;目前深度学习炙手可热的框架毫无疑问是tensorflow,在本教程主要介绍tensorflow在anaconda中的安装，在火车上实在是无聊，电脑又没有网络，只能打发一下时间。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="deeplearning" scheme="https://github.com/jChanJi/categories/deeplearning/"/>
+    
+    
+      <category term="-deeplearning" scheme="https://github.com/jChanJi/tags/deeplearning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习-无监督学习-聚类K-means算法-对31省消费水平分类</title>
+    <link href="https://github.com/jChanJi/year/08/29/citycosumption/"/>
+    <id>https://github.com/jChanJi/year/08/29/citycosumption/</id>
+    <published>2017-08-29T13:17:37.902Z</published>
+    <updated>2017-08-29T13:53:36.209Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
+<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="external">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>现有1999年全国31个省份城镇居民家庭平均每人全年消费性支出的八个主<br>要变量数据，这八个变量分别是：食品、衣着、家庭设备用品及服务、医疗<br>保健、交通和通讯、娱乐教育文化服务、居住以及杂项商品和服务。利用已<br>有数据，对31个省份进行聚类。。数据下载<a href="https://github.com/jChanJi/static_resource/blob/master/clustering/TestData.txt">点击我</a></p>
+<h2 id="主要参数"><a href="#主要参数" class="headerlink" title="主要参数"></a>主要参数</h2><ol>
+<li>n_clusters：用于指定聚类中心的个数</li>
+<li>init：初始聚类中心的初始化方法</li>
+<li>max_iter：最大的迭代次数</li>
+<li>一般调用时只用给出n_clusters即可，init<br>默认是k-means++，max_iter默认是300</li>
+<li>data：加载的数据</li>
+<li>label：聚类后各数据所属的标签</li>
+<li>axis: 按行求和</li>
+<li>fit_predict()：计算簇中心以及为簇分配序号</li>
+</ol>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans</div><div class="line"> </div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadData</span><span class="params">(filePath)</span>:</span></div><div class="line">    fr = open(filePath,<span class="string">'r+'</span>)</div><div class="line">    lines = fr.readlines()</div><div class="line">    retData = []</div><div class="line">    retCityName = []</div><div class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</div><div class="line">        items = line.strip().split(<span class="string">","</span>)</div><div class="line">        retCityName.append(items[<span class="number">0</span>])</div><div class="line">        retData.append([float(items[i]) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(items))])</div><div class="line">    <span class="keyword">return</span> retData,retCityName</div><div class="line"> </div><div class="line">     </div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    data,cityName = loadData(<span class="string">'F:/data/clustering/city.txt'</span>)</div><div class="line">    km = KMeans(n_clusters=<span class="number">4</span>)</div><div class="line">    label = km.fit_predict(data)</div><div class="line">    expenses = np.sum(km.cluster_centers_,axis=<span class="number">1</span>)</div><div class="line">    <span class="comment">#print(expenses)</span></div><div class="line">    CityCluster = [[],[],[],[]]</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(cityName)):</div><div class="line">        CityCluster[label[i]].append(cityName[i])</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(CityCluster)):</div><div class="line">        print(<span class="string">"Expenses:%.2f"</span> % expenses[i])</div><div class="line">        print(CityCluster[i])</div></pre></td></tr></table></figure>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Expenses:4441.04</div><div class="line">['安徽', '湖南', '湖北', '广西', '海南', '四川', '云南']</div><div class="line">Expenses:7754.66</div><div class="line">['北京', '上海', '广东']</div><div class="line">Expenses:5567.33</div><div class="line">['天津', '江苏', '浙江', '福建', '重庆', '西藏']</div><div class="line">Expenses:3788.76</div><div class="line">['河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江西', '山东', '河南', '贵州', '陕西', '甘肃', '青海', '宁夏', '新疆']</div></pre></td></tr></table></figure>
+<h2 id="注：当改变簇n-clusters为8-CityCluster长度也设置为8-时结果"><a href="#注：当改变簇n-clusters为8-CityCluster长度也设置为8-时结果" class="headerlink" title="注：当改变簇n_clusters为8(CityCluster长度也设置为8)时结果"></a>注：当改变簇n_clusters为8(CityCluster长度也设置为8)时结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Expenses:<span class="number">3497.85</span></div><div class="line">[<span class="string">'山西'</span>, <span class="string">'内蒙古'</span>, <span class="string">'黑龙江'</span>, <span class="string">'河南'</span>, <span class="string">'宁夏'</span>]</div><div class="line">Expenses:<span class="number">5311.98</span></div><div class="line">[<span class="string">'天津'</span>, <span class="string">'江苏'</span>, <span class="string">'重庆'</span>, <span class="string">'云南'</span>]</div><div class="line">Expenses:<span class="number">7010.02</span></div><div class="line">[<span class="string">'北京'</span>, <span class="string">'浙江'</span>]</div><div class="line">Expenses:<span class="number">7517.80</span></div><div class="line">[<span class="string">'广东'</span>]</div><div class="line">Expenses:<span class="number">4357.67</span></div><div class="line">[<span class="string">'安徽'</span>, <span class="string">'湖南'</span>, <span class="string">'湖北'</span>, <span class="string">'广西'</span>, <span class="string">'海南'</span>, <span class="string">'四川'</span>]</div><div class="line">Expenses:<span class="number">5287.90</span></div><div class="line">[<span class="string">'福建'</span>, <span class="string">'西藏'</span>]</div><div class="line">Expenses:<span class="number">8247.69</span></div><div class="line">[<span class="string">'上海'</span>]</div><div class="line">Expenses:<span class="number">3934.21</span></div><div class="line">[<span class="string">'河北'</span>, <span class="string">'辽宁'</span>, <span class="string">'吉林'</span>, <span class="string">'江西'</span>, <span class="string">'山东'</span>, <span class="string">'贵州'</span>, <span class="string">'陕西'</span>, <span class="string">'甘肃'</span>, <span class="string">'青海'</span>, <span class="string">'新疆'</span>]</div></pre></td></tr></table></figure>
+<p>我们发现簇多所分的层次就越多</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言：&quot;&gt;&lt;a href=&quot;#前言：&quot; class=&quot;headerlink&quot; title=&quot;前言：&quot;&gt;&lt;/a&gt;前言：&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;此篇笔记主要根据南京大学礼欣老师的&lt;a href=&quot;http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;《Python机器学习应用》&lt;/a&gt;整理而成，详细内容请看礼欣老师的mooc课程。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="machinelearning" scheme="https://github.com/jChanJi/categories/machinelearning/"/>
+    
+    
+      <category term="-python -machinelearning -K-means" scheme="https://github.com/jChanJi/tags/python-machinelearning-K-means/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS7安装配置hadoop集群</title>
+    <link href="https://github.com/jChanJi/year/08/29/hadoop/"/>
+    <id>https://github.com/jChanJi/year/08/29/hadoop/</id>
+    <published>2017-08-29T11:10:45.044Z</published>
+    <updated>2017-08-29T13:55:51.877Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="简单的的vim命令"><a href="#简单的的vim命令" class="headerlink" title="简单的的vim命令"></a><a href="http://www.cnblogs.com/jeakon/archive/2012/08/13/2816802.html" target="_blank" rel="external">简单的的vim命令</a></h3><h3 id="linux常用命令"><a href="#linux常用命令" class="headerlink" title="linux常用命令"></a><a href="http://www.weixuehao.com/archives/25" target="_blank" rel="external">linux常用命令</a></h3><h3 id="linux命令查找网站"><a href="#linux命令查找网站" class="headerlink" title="linux命令查找网站"></a><a href="http://man.linuxde.net/" target="_blank" rel="external">linux命令查找网站</a></h3><h1 id="CentOS-下安装hadoop"><a href="#CentOS-下安装hadoop" class="headerlink" title="CentOS 下安装hadoop"></a>CentOS 下安装hadoop<br></h1><a id="more"></a>
+<h2 id="一、安装Vmware-12"><a href="#一、安装Vmware-12" class="headerlink" title="一、安装Vmware 12"></a>一、安装Vmware 12</h2><blockquote>
+<ol>
+<li>官网下载<a href="http://www.vmware.com/cn/products/workstation/workstation-evaluation.html" title="Vmware 下载地址" target="_blank" rel="external">VMware-Workstation-Full-*.bundle</a></li>
+<li>sudo ssh./VMware-Workstation-Full-*.bundle</li>
+<li>破解：破解工具<a href="http://chanji-1252400803.costj.myqcloud.com/VMware12.Keymaker.exe" title="VMware12.Keymaker" target="_blank" rel="external">VMware12.Keymaker</a> </li>
+<li>根据提示安装</li>
+</ol>
+</blockquote>
+<h2 id="二、安装CentOS-7"><a href="#二、安装CentOS-7" class="headerlink" title="二、安装CentOS 7"></a>二、安装CentOS 7</h2><blockquote>
+<ol>
+<li>下载<a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1611.iso" title="CentOS 7" target="_blank" rel="external">镜像</a></li>
+<li>新建虚拟机，根据提示操作（注意选择安装GNOME桌面），设置主机名为CentOSMaster点击安装</li>
+<li>设置root密码和添加hadoop用户（设置为管理员）</li>
+<li>等待安装，完成后重启，连接网络，完成配置 </li>
+<li>语言选择汉语（pinyin）</li>
+</ol>
+</blockquote>
+<h2 id="三、-安装hadoop集群"><a href="#三、-安装hadoop集群" class="headerlink" title="三、 安装hadoop集群"></a>三、 安装hadoop集群</h2><h4 id="参考教程："><a href="#参考教程：" class="headerlink" title="参考教程："></a>参考教程：</h4><h4 id="单机-伪分布式：http-www-powerxing-com-install-hadoop-in-centos"><a href="#单机-伪分布式：http-www-powerxing-com-install-hadoop-in-centos" class="headerlink" title="单机/伪分布式：http://www.powerxing.com/install-hadoop-in-centos/"></a>单机/伪分布式：<a href="http://www.powerxing.com/install-hadoop-in-centos/" target="_blank" rel="external">http://www.powerxing.com/install-hadoop-in-centos/</a></h4><h4 id="分布式集群：http-www-powerxing-com-install-hadoop-cluster"><a href="#分布式集群：http-www-powerxing-com-install-hadoop-cluster" class="headerlink" title="分布式集群：http://www.powerxing.com/install-hadoop-cluster/"></a>分布式集群：<a href="http://www.powerxing.com/install-hadoop-cluster/" target="_blank" rel="external">http://www.powerxing.com/install-hadoop-cluster/</a></h4><blockquote>
+<h3 id="1-创建hadoop用户-如果没有"><a href="#1-创建hadoop用户-如果没有" class="headerlink" title="1. 创建hadoop用户(如果没有)"></a>1. 创建hadoop用户(如果没有)</h3></blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">1. </span>su                               # 上述提到的以 root 用户登录</div><div class="line"><span class="bullet">2. </span>useradd -m hadoop -s /bin/bash   # 创建新用户hadoop</div><div class="line"><span class="bullet">3. </span>passwd hadoop                    #设置密码</div><div class="line"><span class="bullet">4. </span>visudo                           #增加管理员权限</div></pre></td></tr></table></figure>
+<p>找到 root  ALL=(ALL)  ALL 这行,下一行增加:hadoop ensp; ensp; ALL=(ALL)  ensp;ensp; ALL<br></p>
+<blockquote>
+<h3 id="2-安装Java环境-在hadoop用户下"><a href="#2-安装Java环境-在hadoop用户下" class="headerlink" title="2. 安装Java环境(在hadoop用户下)"></a>2. 安装Java环境(在hadoop用户下)</h3></blockquote>
+<ol>
+<li>安装openjdk<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果遇到yum进程被占用，删除yum.pid<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo rm -rf /var/run/yum.pid</div></pre></td></tr></table></figure></p>
+<ol>
+<li><p>配置JAVA_HOME<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim ~/.bashrc</div></pre></td></tr></table></figure>
+<p> 在文件最后面添加如下单独一行（指向 JDK 的安装位置)<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk</div></pre></td></tr></table></figure>
+</li>
+<li><p>使配置生效<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source ~/.bashrc</div></pre></td></tr></table></figure>
+</li>
+<li><p>检验是否配置成功<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">echo $JAVA_HOME  #检验变量值</div><div class="line">java -version </div><div class="line">   %JAVA_HOME/bin/java -version</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果java -version 和 %JAVA_HOME/bin/java -version一样表示成功,否则看5<br><br></p>
+<ol>
+<li><p>如果和以前的jdk版本冲突的:<br><br> 查找当前的安装的jdk版本<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="code">    rpm -q |grep java</span></div><div class="line"><span class="code">```  </span></div><div class="line"><span class="code">    删除openjdk版本意外的版本&lt;br&gt;</span></div><div class="line"><span class="code">```markdown</span></div><div class="line"><span class="code">    rpm -e --nodeps java版本的名称</span></div><div class="line"><span class="code">```  </span></div><div class="line"><span class="code"></span></div><div class="line"><span class="code">&gt;### 3.安装配置hadoop2集群</span></div><div class="line"><span class="code"></span></div><div class="line"><span class="code">1. 下载hadoop压缩包，选择[hadoop-2.x.y.tar.gz][5]文件,这里我选择的是2.6.1版本&lt;br&gt;&lt;br&gt;</span></div><div class="line"><span class="code">2. 解压&lt;br&gt;</span></div><div class="line"><span class="code">```markdown</span></div><div class="line"><span class="code">    sudo tar -zxf ~/下载/hadoop-2.6.1.tar.gz -C /usr/local    # 解压到/usr/local中</span></div><div class="line"><span class="code">    cd /usr/local/  #打开/usr/local目录</span></div><div class="line"><span class="code">    sudo mv ./hadoop-2.6.1/ ./hadoop  # 将文件夹名改为hadoop</span></div><div class="line"><span class="code">    sudo chown -R hadoop:hadoop ./hadoop  # 修改文件权限，冒号后没有空格</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>显示版本<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/hadoop</div><div class="line">./bin/hadoop version</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置环境变量<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gedit ~/.bashrc (vim ~/.bashrc)</div></pre></td></tr></table></figure>
+<p> 在文件中添加：<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="section">#Hadoop Environment Variables</span></div><div class="line">export HADOOP_HOME=/usr/local/hadoop</div><div class="line">export HADOOP<span class="emphasis">_INSTALL=$HADOOP_</span>HOME</div><div class="line">export HADOOP<span class="emphasis">_MAPRED_</span>HOME=$HADOOP_HOME</div><div class="line">export HADOOP<span class="emphasis">_COMMON_</span>HOME=$HADOOP_HOME</div><div class="line">export HADOOP<span class="emphasis">_HDFS_</span>HOME=$HADOOP_HOME</div><div class="line">export YARN<span class="emphasis">_HOME=$HADOOP_</span>HOME</div><div class="line">export HADOOP<span class="emphasis">_COMMON_</span>LIB<span class="emphasis">_NATIVE_</span>DIR=$HADOOP_HOME/lib/native</div><div class="line">export PATH=$PATH:$HADOOP<span class="emphasis">_HOME/sbin:$HADOOP_</span>HOME/bin</div></pre></td></tr></table></figure>
+</li>
+<li><p>使配置生效<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">source ~/.bashrc</div><div class="line">hadoop version #验证</div></pre></td></tr></table></figure>
+</li>
+<li><p>关闭虚拟机，克隆两个虚拟机，命名为CentOSSlave1,CentOSSlave2,注意要选择完整克隆<br><br></p>
+</li>
+<li>依次打开CentOSMaster,CentOSSlave1,CentOSSlave2,查看各自的ip,(ens**下的inet内容)<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="code">    ifconfig</span></div><div class="line"><span class="code">```   </span></div><div class="line"><span class="code">9. 修改各自的主机名(Matser，Slave1，Slave2)：&lt;br&gt;</span></div><div class="line"><span class="code">在master节点上：&lt;br&gt;</span></div><div class="line"><span class="code">```markdown</span></div><div class="line"><span class="code">    sudo hostnamectl  set-hostname Master</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在Slave1节点上：<br><br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo hostnamectl  set-hostname Slave1</div></pre></td></tr></table></figure></p>
+<p>在Slave2节点上：<br><br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo hostnamectl  set-hostname Slave2</div></pre></td></tr></table></figure></p>
+<ol>
+<li><p>修改ip映射（三个节点都要修改）：<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/hosts</div></pre></td></tr></table></figure>
+<p>在末尾加上:<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ip1   Master</div><div class="line">ip2   Slave1</div><div class="line">   ip3   Slave2</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置开机启动网络<br><br>修改 /etc/sysconfig/network-scripts/ifcfg-ens*（具体文件名每个人有可能不同）,将最后一行的ONBOOT 改为yes    </p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="code">    vim  /etc/sysconfig/network-scripts/ifcfg-ens33  #我的文件名称为ifcfg-ens33</span></div><div class="line"><span class="code">``` </span></div><div class="line"><span class="code">12. 通过在终端分别执行ping Master，ping Slave1，ping Slave2,看是否能通，ctrl+C停止&lt;br&gt;&lt;br&gt;</span></div><div class="line"><span class="code">13. 主节点Master使用ssh无密钥登陆节点（注意ssh登陆的用户名）&lt;br&gt;&lt;br&gt;</span></div><div class="line"><span class="code">    a. 首先生成 Master 节点的公匙，在 Master 节点的终端中执行：&lt;br&gt;</span></div><div class="line"><span class="code">```markdown</span></div><div class="line"><span class="code">       su hadoop               #登陆到hadoop用户,所有操作都使hadoop用户的行为</span></div><div class="line"><span class="code">       cd ~/.ssh               # 如果没有该目录，先执行一次ssh Master</span></div><div class="line"><span class="code">       rm ./id_rsa*            # 删除之前生成的公匙（如果有）</span></div><div class="line"><span class="code">       ssh-keygen -t rsa       # 一直按回车就可以</span></div></pre></td></tr></table></figure>
+<p>b. 让Master节点需能无密码ssh本机，在 Master 节点上执行：<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cat ./id<span class="emphasis">_rsa.pub &gt;&gt; ./authorized_</span>keys</div><div class="line">chmod 600 ./authorized_keys    # 修改文件权限</div></pre></td></tr></table></figure>
+<p>  完成后可执行 ssh Master 验证一下（可能需要输入 yes，成功后执行 exit 返回原来的终端）。<br><br><br>c. 将上公匙传输到 Slave1 节点(Slave2也是一样操作将Slave1改成Slave2):<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="code">       scp ~/.ssh/id_rsa.pub hadoop@Slave1:/home/hadoop/&lt;br&gt;&lt;br&gt;</span></div><div class="line"><span class="code">``` </span></div><div class="line"><span class="code">    d. 在Slave1和Slave2节点上 操作：&lt;br&gt;</span></div><div class="line"><span class="code">```markdown</span></div><div class="line"><span class="code">       mkdir ~/.ssh       # 如果不存在该文件夹需先创建，若已存在则忽略</span></div><div class="line"><span class="code">       cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span></div><div class="line"><span class="code">       rm ~/id_rsa.pub    # 用完就可以删掉了</span></div><div class="line"><span class="code">`</span></div></pre></td></tr></table></figure>
+<p>e. 在Master节点上ssh Slave1和Slave2，验证是否能连接上<br><br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ssh Slave1</div><div class="line"></div><div class="line">ssh Slave2</div></pre></td></tr></table></figure>
+</li>
+<li><p>在Master节点上操作，cd /usr/local/hadoop/etc/hadoop,进入root模式<br><br>a. 修改slaves文件,将localhost注释，添加Slave1,换行，Slave2<br><br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim slaves</div></pre></td></tr></table></figure>
+<p>b. 修改core-site.xml<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line"><span class="code">       &lt;property&gt;</span></div><div class="line"><span class="code">            &lt;name&gt;fs.defaultFS&lt;/name&gt;</span></div><div class="line"><span class="code">            &lt;value&gt;hdfs://Master:9000&lt;/value&gt;</span></div><div class="line"><span class="code">        &lt;/property&gt;</span></div><div class="line"><span class="code">        &lt;property&gt;</span></div><div class="line"><span class="code">            &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span></div><div class="line"><span class="code">            &lt;value&gt;file:/usr/local/hadoop/tmp&lt;/value&gt;</span></div><div class="line">                &lt;description&gt;tmp directories&lt;/description&gt;</div><div class="line">            &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<p>c. 修改hdfs-site.xml,其中的dfs.replication的value根据Slave的个数填写<br></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master:50090<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp/dfs/name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp/dfs/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line">`</div></pre></td></tr></table></figure>
+<p>d. 重命名 mapred-site.xml.template为mapred-site.xml,并修改mapred-site.xml为：<br></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master:10020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master:19888<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line">`</div></pre></td></tr></table></figure>
+<p>e. 修改yarn.site.xml为：<br></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>配置好后,将Master上的/usr/local/hadoop文件夹复制到各个节点上。如果有临时文件和日志文件先删除,在Master节点上执行:<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd /usr/local</div><div class="line">sudo rm -r ./hadoop/tmp                    # 删除 Hadoop 临时文件</div><div class="line">sudo rm -r ./hadoop/logs/*                 # 删除日志文件</div><div class="line">tar -zcf ~/hadoop.master.tar.gz ./hadoop   # 先压缩再复制</div><div class="line">cd ~</div><div class="line">scp ./hadoop.master.tar.gz Slave1:/home/hadoop</div></pre></td></tr></table></figure>
+<p>如果有其他节点再执行：scp ./hadoop.master.tar.gz Slave(n):/home/hadoop<br><br></p>
+</li>
+<li><p>分别在slave节点上执行<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo rm -r /usr/local/hadoop    # 删掉旧的（如果存在）</div><div class="line">sudo tar -zxf ~/hadoop.master.tar.gz -C /usr/local</div><div class="line">sudo chown -R hadoop /usr/local/hadoop   #给hadoop用户读写/usr/local/hadoop的权限</div></pre></td></tr></table></figure>
+</li>
+<li><p>首次启动需要先在 Master 节点执行 NameNode 的格式化：<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hdfs namenode -format       # 首次运行需要执行初始化，之后不需要，status=0，表示成功</div></pre></td></tr></table></figure>
+</li>
+<li><p>关闭防火墙(所有机器)：<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">systemctl stop firewalld.service    # 关闭firewall<span class="xml"><span class="tag">&lt;</span></span></div><div class="line"><span class="xml">systemctl disable firewalld.service # 禁止firewall开机启动</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>启动服务<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">start-yarn.sh</div><div class="line">start-dfs.sh</div><div class="line">mr-jobhistory-daemon.sh start historyserver</div></pre></td></tr></table></figure>
+</li>
+<li><p>在master节点上查看java进程<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jps</div></pre></td></tr></table></figure>
+<p>如果有JobHistoryServer,SecondaryNameNode,Jsp,ResourceManager,NameNode四个进程代表Master上没问题<br><br></p>
+</li>
+<li><p>在slave节点上执行<br></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jps</div></pre></td></tr></table></figure>
+<p>如果有Jps，DataNode,NodeManager,三个节点表示配置成功<br><br></p>
+</li>
+<li>关闭服务<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">stop-yarn.sh</div><div class="line">stop-dfs.sh</div><div class="line">mr-jobhistory-daemon.sh stop historyserver</div></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;基本操作&quot;&gt;&lt;a href=&quot;#基本操作&quot; class=&quot;headerlink&quot; title=&quot;基本操作&quot;&gt;&lt;/a&gt;基本操作&lt;/h2&gt;&lt;h3 id=&quot;简单的的vim命令&quot;&gt;&lt;a href=&quot;#简单的的vim命令&quot; class=&quot;headerlink&quot; title=&quot;简单的的vim命令&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.cnblogs.com/jeakon/archive/2012/08/13/2816802.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简单的的vim命令&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;linux常用命令&quot;&gt;&lt;a href=&quot;#linux常用命令&quot; class=&quot;headerlink&quot; title=&quot;linux常用命令&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.weixuehao.com/archives/25&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;linux常用命令&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;linux命令查找网站&quot;&gt;&lt;a href=&quot;#linux命令查找网站&quot; class=&quot;headerlink&quot; title=&quot;linux命令查找网站&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://man.linuxde.net/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;linux命令查找网站&lt;/a&gt;&lt;/h3&gt;&lt;h1 id=&quot;CentOS-下安装hadoop&quot;&gt;&lt;a href=&quot;#CentOS-下安装hadoop&quot; class=&quot;headerlink&quot; title=&quot;CentOS 下安装hadoop&quot;&gt;&lt;/a&gt;CentOS 下安装hadoop&lt;br&gt;&lt;/h1&gt;
+    
+    </summary>
+    
+      <category term="bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
+    
+    
+      <category term="-hadoop -big data" scheme="https://github.com/jChanJi/tags/hadoop-big-data/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://github.com/jChanJi/year/08/29/hello-world/"/>
+    <id>https://github.com/jChanJi/year/08/29/hello-world/</id>
+    <published>2017-08-29T07:35:40.594Z</published>
+    <updated>2017-08-29T13:31:43.559Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>

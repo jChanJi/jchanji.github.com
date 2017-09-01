@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="6fea7fc7276fc383ec5b2080c662f076"/>
+  
+  <title>机器学习-无监督学习-聚类K-means算法-对31省消费水平分类 | Chanji</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言： 此篇笔记主要根据南京大学礼欣老师的《Python机器学习应用》整理而成，详细内容请看礼欣老师的mooc课程。">
+<meta name="keywords" content="-python -machinelearning -K-means">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习-无监督学习-聚类K-means算法-对31省消费水平分类">
+<meta property="og:url" content="https://github.com/jChanJi/year/08/29/citycosumption/index.html">
+<meta property="og:site_name" content="Chanji">
+<meta property="og:description" content="前言： 此篇笔记主要根据南京大学礼欣老师的《Python机器学习应用》整理而成，详细内容请看礼欣老师的mooc课程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-29T13:53:36.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习-无监督学习-聚类K-means算法-对31省消费水平分类">
+<meta name="twitter:description" content="前言： 此篇笔记主要根据南京大学礼欣老师的《Python机器学习应用》整理而成，详细内容请看礼欣老师的mooc课程。">
+  
+    <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="http://kiritor.github.io/js/jquery1.8.2.min.js"></script>
+  <script src="http://kiritor.github.io/js/jquery.nicescroll.js"></script>
+  <script src="http://kiritor.github.io/js/jquery.qrcode.min.js"></script>
+  <script src="/js/ug-theme-default.js"></script>
+  <script src="/js/unitegallery.js"></script>
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">Chanji</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Stay Hungry,Stay Foolish</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/machinelearning">机器学习</a></li>
+				        
+							<li><a href="/categories/deeplearning">深度学习</a></li>
+				        
+							<li><a href="/categories/bigdata">大数据</a></li>
+				        
+							<li><a href="/categories/others">其他</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="/1138552873@qq.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/deeplearning/" style="font-size: 10px;">-deeplearning</a> <a href="/tags/hadoop-big-data/" style="font-size: 10px;">-hadoop -big data</a> <a href="/tags/hbase-big-data/" style="font-size: 10px;">-hbase -big data</a> <a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/python-machinelearning-K-means/" style="font-size: 10px;">-python -machinelearning -K-means</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Love Live,Love Refliction,Love Coding，Have dreams !</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Chanji</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">Chanji</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Stay Hungry,Stay Foolish</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/machinelearning">机器学习</a></li>
+		        
+					<li><a href="/categories/deeplearning">深度学习</a></li>
+		        
+					<li><a href="/categories/bigdata">大数据</a></li>
+		        
+					<li><a href="/categories/others">其他</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="/1138552873@qq.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <!--是否开启最近通知-->
+	  
+      <div class="body-wrap"><article id="post-citycosumption" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/year/08/29/citycosumption/" class="article-date">
+  	<time datetime="2017-08-29T13:17:37.902Z" itemprop="datePublished">2017-08-29</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      机器学习-无监督学习-聚类K-means算法-对31省消费水平分类
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python-machinelearning-K-means/">-python -machinelearning -K-means</a></li></ul>
+	</div>
+
+
+                                        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/machinelearning/">machinelearning</a>
+	</div>
+
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+
+                                        <div class="article-entry" itemprop="articleBody">
+                                           <!--
+                                            
+
+                                                    <p class="toc-button">目录</p>
+<div id="toc" class="toc-article" style="display:none;">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言："><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据介绍："><span class="toc-number">2.</span> <span class="toc-text">数据介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主要参数"><span class="toc-number">3.</span> <span class="toc-text">主要参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-number">4.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果"><span class="toc-number">5.</span> <span class="toc-text">结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注：当改变簇n-clusters为8-CityCluster长度也设置为8-时结果"><span class="toc-number">6.</span> <span class="toc-text">注：当改变簇n_clusters为8(CityCluster长度也设置为8)时结果</span></a></li></ol>
+</div>
+<script>
+    $(function(){
+
+        var width = document.body.scrollWidth;
+        if (width <=550) {
+             $(".toc-button").css("display","none");
+        }
+        $(".toc-button").hover(function(){
+            var top = $(this).get(0).offsetTop-$(".toc-article").height()/2;
+            $(".toc-article").css({
+                top:top +"px"
+            });
+            $("#toc").show(1000,function(){});
+           // $("#toc").animate({width:500;},3000);
+        },function(){
+
+        });
+        $(".toc-article").hover(function(){
+
+        },function(){
+            $("#toc").hide(1000,function(){});
+        });
+    })
+</script>
+
+                                                  
+                                            
+                                            -->
+                                            
+                                                     <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
+<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="external">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>现有1999年全国31个省份城镇居民家庭平均每人全年消费性支出的八个主<br>要变量数据，这八个变量分别是：食品、衣着、家庭设备用品及服务、医疗<br>保健、交通和通讯、娱乐教育文化服务、居住以及杂项商品和服务。利用已<br>有数据，对31个省份进行聚类。。数据下载<a href="https://github.com/jChanJi/static_resource/blob/master/clustering/TestData.txt">点击我</a></p>
+<h2 id="主要参数"><a href="#主要参数" class="headerlink" title="主要参数"></a>主要参数</h2><ol>
+<li>n_clusters：用于指定聚类中心的个数</li>
+<li>init：初始聚类中心的初始化方法</li>
+<li>max_iter：最大的迭代次数</li>
+<li>一般调用时只用给出n_clusters即可，init<br>默认是k-means++，max_iter默认是300</li>
+<li>data：加载的数据</li>
+<li>label：聚类后各数据所属的标签</li>
+<li>axis: 按行求和</li>
+<li>fit_predict()：计算簇中心以及为簇分配序号</li>
+</ol>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans</div><div class="line"> </div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadData</span><span class="params">(filePath)</span>:</span></div><div class="line">    fr = open(filePath,<span class="string">'r+'</span>)</div><div class="line">    lines = fr.readlines()</div><div class="line">    retData = []</div><div class="line">    retCityName = []</div><div class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</div><div class="line">        items = line.strip().split(<span class="string">","</span>)</div><div class="line">        retCityName.append(items[<span class="number">0</span>])</div><div class="line">        retData.append([float(items[i]) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(items))])</div><div class="line">    <span class="keyword">return</span> retData,retCityName</div><div class="line"> </div><div class="line">     </div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    data,cityName = loadData(<span class="string">'F:/data/clustering/city.txt'</span>)</div><div class="line">    km = KMeans(n_clusters=<span class="number">4</span>)</div><div class="line">    label = km.fit_predict(data)</div><div class="line">    expenses = np.sum(km.cluster_centers_,axis=<span class="number">1</span>)</div><div class="line">    <span class="comment">#print(expenses)</span></div><div class="line">    CityCluster = [[],[],[],[]]</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(cityName)):</div><div class="line">        CityCluster[label[i]].append(cityName[i])</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(CityCluster)):</div><div class="line">        print(<span class="string">"Expenses:%.2f"</span> % expenses[i])</div><div class="line">        print(CityCluster[i])</div></pre></td></tr></table></figure>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Expenses:4441.04</div><div class="line">['安徽', '湖南', '湖北', '广西', '海南', '四川', '云南']</div><div class="line">Expenses:7754.66</div><div class="line">['北京', '上海', '广东']</div><div class="line">Expenses:5567.33</div><div class="line">['天津', '江苏', '浙江', '福建', '重庆', '西藏']</div><div class="line">Expenses:3788.76</div><div class="line">['河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江西', '山东', '河南', '贵州', '陕西', '甘肃', '青海', '宁夏', '新疆']</div></pre></td></tr></table></figure>
+<h2 id="注：当改变簇n-clusters为8-CityCluster长度也设置为8-时结果"><a href="#注：当改变簇n-clusters为8-CityCluster长度也设置为8-时结果" class="headerlink" title="注：当改变簇n_clusters为8(CityCluster长度也设置为8)时结果"></a>注：当改变簇n_clusters为8(CityCluster长度也设置为8)时结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Expenses:<span class="number">3497.85</span></div><div class="line">[<span class="string">'山西'</span>, <span class="string">'内蒙古'</span>, <span class="string">'黑龙江'</span>, <span class="string">'河南'</span>, <span class="string">'宁夏'</span>]</div><div class="line">Expenses:<span class="number">5311.98</span></div><div class="line">[<span class="string">'天津'</span>, <span class="string">'江苏'</span>, <span class="string">'重庆'</span>, <span class="string">'云南'</span>]</div><div class="line">Expenses:<span class="number">7010.02</span></div><div class="line">[<span class="string">'北京'</span>, <span class="string">'浙江'</span>]</div><div class="line">Expenses:<span class="number">7517.80</span></div><div class="line">[<span class="string">'广东'</span>]</div><div class="line">Expenses:<span class="number">4357.67</span></div><div class="line">[<span class="string">'安徽'</span>, <span class="string">'湖南'</span>, <span class="string">'湖北'</span>, <span class="string">'广西'</span>, <span class="string">'海南'</span>, <span class="string">'四川'</span>]</div><div class="line">Expenses:<span class="number">5287.90</span></div><div class="line">[<span class="string">'福建'</span>, <span class="string">'西藏'</span>]</div><div class="line">Expenses:<span class="number">8247.69</span></div><div class="line">[<span class="string">'上海'</span>]</div><div class="line">Expenses:<span class="number">3934.21</span></div><div class="line">[<span class="string">'河北'</span>, <span class="string">'辽宁'</span>, <span class="string">'吉林'</span>, <span class="string">'江西'</span>, <span class="string">'山东'</span>, <span class="string">'贵州'</span>, <span class="string">'陕西'</span>, <span class="string">'甘肃'</span>, <span class="string">'青海'</span>, <span class="string">'新疆'</span>]</div></pre></td></tr></table></figure>
+<p>我们发现簇多所分的层次就越多</p>
+
+                                            
+                                        </div>
+
+                                        
+            </div>
+            
+                <div id="socialShare" style="margin-left:40px;display:none;">
+                </div>
+                <script>
+                    $(function() {
+                        var width = document.body.scrollWidth;
+                        if (width > 550) {
+                            $("#socialShare").css("display", "block");
+                            $("#socialShare").socialShare({
+                                content: 'Nice!不错的资源...',
+                                url: window.location.href,
+                                titile: ''
+                            });
+                        }
+                    });
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+    <a href="/year/08/29/tensorflow_step/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          ubuntu16.04 anaconda环境下安装tensoflow(GPU)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/year/08/29/hadoop/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CentOS7安装配置hadoop集群</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-citycosumption" data-title="机器学习-无监督学习-聚类K-means算法-对31省消费水平分类" data-url="https://github.com/jChanJi/year/08/29/citycosumption/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "kiritor"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Chanji
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','m5RW4BUQrJ_r-CYKAksH','2.0.0');
+</script>
+  </div>
+</footer>
+-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/mobile.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/prefixfree.js"></script>
+
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+<script src="/js/share.js"></script>
+
+  </div>
+</body>
+</html>
