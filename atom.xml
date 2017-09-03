@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/jChanJi/"/>
-  <updated>2017-09-03T03:09:29.416Z</updated>
+  <updated>2017-09-03T06:37:53.568Z</updated>
   <id>https://github.com/jChanJi/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/jChanJi/year/08/30/hbase_step/"/>
     <id>https://github.com/jChanJi/year/08/30/hbase_step/</id>
     <published>2017-08-30T14:36:02.631Z</published>
-    <updated>2017-09-03T03:09:29.416Z</updated>
+    <updated>2017-09-03T06:37:53.568Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 <a href="http://www.powerxing.com/install-hadoop-in-centos/" target="_blank" rel="external">hadoop伪分布式教程</a>,hbase官方<a href="http://abloz.com/hbase/book.html" target="_blank" rel="external">中文文档</a></p>
@@ -67,7 +67,9 @@
       <category term="-bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
     
     
-      <category term="-hbase -big data" scheme="https://github.com/jChanJi/tags/hbase-big-data/"/>
+      <category term="big data" scheme="https://github.com/jChanJi/tags/big-data/"/>
+    
+      <category term="hbase" scheme="https://github.com/jChanJi/tags/hbase/"/>
     
   </entry>
   
@@ -105,7 +107,7 @@
     <link href="https://github.com/jChanJi/year/08/29/tensorflow_step/"/>
     <id>https://github.com/jChanJi/year/08/29/tensorflow_step/</id>
     <published>2017-08-29T13:38:28.881Z</published>
-    <updated>2017-09-03T03:14:28.516Z</updated>
+    <updated>2017-09-03T06:36:41.389Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>目前深度学习炙手可热的框架毫无疑问是tensorflow,在本教程主要介绍tensorflow在anaconda中的安装，在火车上实在是无聊，电脑又没有网络，只能打发一下时间。</p>
@@ -139,7 +141,9 @@
       <category term="-machinelearning" scheme="https://github.com/jChanJi/categories/machinelearning/"/>
     
     
-      <category term="-deeplearning -tensorflow" scheme="https://github.com/jChanJi/tags/deeplearning-tensorflow/"/>
+      <category term="deeplearning" scheme="https://github.com/jChanJi/tags/deeplearning/"/>
+    
+      <category term="tensorflow" scheme="https://github.com/jChanJi/tags/tensorflow/"/>
     
   </entry>
   
@@ -148,7 +152,7 @@
     <link href="https://github.com/jChanJi/year/08/29/citycosumption/"/>
     <id>https://github.com/jChanJi/year/08/29/citycosumption/</id>
     <published>2017-08-29T13:17:37.902Z</published>
-    <updated>2017-09-03T03:06:53.707Z</updated>
+    <updated>2017-09-03T06:35:05.356Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
 <p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="external">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
@@ -182,7 +186,11 @@
       <category term="-machinelearning" scheme="https://github.com/jChanJi/categories/machinelearning/"/>
     
     
-      <category term="-python -machinelearning -K-means" scheme="https://github.com/jChanJi/tags/python-machinelearning-K-means/"/>
+      <category term="python" scheme="https://github.com/jChanJi/tags/python/"/>
+    
+      <category term="machinelearning" scheme="https://github.com/jChanJi/tags/machinelearning/"/>
+    
+      <category term="K-means" scheme="https://github.com/jChanJi/tags/K-means/"/>
     
   </entry>
   
@@ -191,7 +199,7 @@
     <link href="https://github.com/jChanJi/year/08/29/hadoop/"/>
     <id>https://github.com/jChanJi/year/08/29/hadoop/</id>
     <published>2017-08-29T11:10:45.044Z</published>
-    <updated>2017-09-03T05:32:38.417Z</updated>
+    <updated>2017-09-03T06:36:04.141Z</updated>
     
     <content type="html"><![CDATA[<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="简单的的vim命令"><a href="#简单的的vim命令" class="headerlink" title="简单的的vim命令"></a><a href="http://www.cnblogs.com/jeakon/archive/2012/08/13/2816802.html" target="_blank" rel="external">简单的的vim命令</a></h3><h3 id="linux常用命令"><a href="#linux常用命令" class="headerlink" title="linux常用命令"></a><a href="http://www.weixuehao.com/archives/25" target="_blank" rel="external">linux常用命令</a></h3><h3 id="linux命令查找网站"><a href="#linux命令查找网站" class="headerlink" title="linux命令查找网站"></a><a href="http://man.linuxde.net/" target="_blank" rel="external">linux命令查找网站</a></h3><h1 id="CentOS-下安装hadoop"><a href="#CentOS-下安装hadoop" class="headerlink" title="CentOS 下安装hadoop"></a>CentOS 下安装hadoop<br></h1><a id="more"></a>
 <h2 id="一、安装Vmware-12"><a href="#一、安装Vmware-12" class="headerlink" title="一、安装Vmware 12"></a>一、安装Vmware 12</h2><blockquote>
@@ -322,7 +330,9 @@
       <category term="-bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
     
     
-      <category term="-hadoop -big data" scheme="https://github.com/jChanJi/tags/hadoop-big-data/"/>
+      <category term="hadoop" scheme="https://github.com/jChanJi/tags/hadoop/"/>
+    
+      <category term="big data" scheme="https://github.com/jChanJi/tags/big-data/"/>
     
   </entry>
   
