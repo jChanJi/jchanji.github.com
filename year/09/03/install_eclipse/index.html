@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="6fea7fc7276fc383ec5b2080c662f076"/>
+  
+  <title>CentOS 7 安装eclipse mars 2 | Chanji</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="操作系统：CentOS 7eclispe版本：Eclipse Mars 2">
+<meta name="keywords" content="eclispe,CentOS 7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 7 安装eclipse mars 2">
+<meta property="og:url" content="https://github.com/jChanJi/year/09/03/install_eclipse/index.html">
+<meta property="og:site_name" content="Chanji">
+<meta property="og:description" content="操作系统：CentOS 7eclispe版本：Eclipse Mars 2">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-03T07:02:49.922Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 7 安装eclipse mars 2">
+<meta name="twitter:description" content="操作系统：CentOS 7eclispe版本：Eclipse Mars 2">
+  
+    <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/leaves.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://jchanji.github.io/js/jquery1.8.2.min.js"></script>
+  <script src="https://jchanji.github.io/js/jquery.nicescroll.js"></script>
+  <script src="https://jchanji.github.io/js/jquery.qrcode.min.js"></script>
+  <script src="/js/ug-theme-default.js"></script>
+  <script src="/js/unitegallery.js"></script>
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/" class="alluraregular">Chanji</a></h1>
+		</hgroup>
+        <!--
+		
+		<p class="header-subtitle">Stay Hungry,Stay Foolish</p>
+		
+        -->
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/bigdata">大数据</a></li>
+				        
+							<li><a href="/categories/machinelearning">机器学习</a></li>
+				        
+							<li><a href="/categories/articals">文章</a></li>
+				        
+							<li><a href="/categories/others">其他</a></li>
+				        
+							<li><a href="/">简介</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="/1138552873@qq.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/big-data/" style="font-size: 20px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/machinelearning/" style="font-size: 10px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a>
+					</div>
+				</section>
+				
+
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Love Live,Love Refliction,Love Coding，Have dreams !</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Chanji</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
+				<hgroup>
+				  <h1 class="header-author">Chanji</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">Stay Hungry,Stay Foolish</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/bigdata">大数据</a></li>
+		        
+					<li><a href="/categories/machinelearning">机器学习</a></li>
+		        
+					<li><a href="/categories/articals">文章</a></li>
+		        
+					<li><a href="/categories/others">其他</a></li>
+		        
+					<li><a href="/">简介</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="/1138552873@qq.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+
+	  <!--是否开启最近通知-->
+	  
+      <div class="body-wrap"><article id="post-install_eclipse" class="article article-type-post" itemscope itemprop="blogPost">
+    <script>
+        $("html").niceScroll({
+            cursorcolor: "#2a2929",
+            cursoropacitymax: 1,
+            touchbehavior: false,
+            cursorwidth: "6px",
+            cursorborder: "5",
+            cursorborderradius: "0px",
+            autohidemode: true
+        });
+    </script>
+    
+        <div class="article-meta">
+            <a href="/year/09/03/install_eclipse/" class="article-date">
+  	<time datetime="2017-09-03T06:40:47.978Z" itemprop="datePublished">2017-09-03</time>
+</a>
+
+        </div>
+        
+            <div class="article-inner">
+                
+                    <input type="hidden" class="isFancy" />
+                    
+                        
+                            <header class="article-header">
+                                
+  
+    <h1 class="article-title" itemprop="name">
+      CentOS 7 安装eclipse mars 2
+    </h1>
+  
+
+
+                            </header>
+                            
+                                <div class="article-info article-info-post">
+                                    
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/eclispe/">eclispe</a></li></ul>
+	</div>
+
+
+                                        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/others/">-others</a>
+	</div>
+
+
+                                            <div class="clearfix"></div>
+                                </div>
+                                
+                                    
+
+                                        <div class="article-entry" itemprop="articleBody">
+                                           <!--
+                                            
+
+                                                    <p class="toc-button">目录</p>
+<div id="toc" class="toc-article" style="display:none;">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#操作系统：CentOS-7"><span class="toc-number">1.</span> <span class="toc-text">操作系统：CentOS 7</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eclispe版本：Eclipse-Mars-2"><span class="toc-number">2.</span> <span class="toc-text">eclispe版本：Eclipse Mars 2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下载安装"><span class="toc-number"></span> <span class="toc-text">下载安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-下载安装eclipse"><span class="toc-number"></span> <span class="toc-text">1.下载安装eclipse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-解压"><span class="toc-number"></span> <span class="toc-text">2.解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-创建软链接"><span class="toc-number"></span> <span class="toc-text">3.创建软链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-添加图标"><span class="toc-number"></span> <span class="toc-text">4.添加图标</span></a>
+</div>
+<script>
+    $(function(){
+
+        var width = document.body.scrollWidth;
+        if (width <=550) {
+             $(".toc-button").css("display","none");
+        }
+        $(".toc-button").hover(function(){
+            var top = $(this).get(0).offsetTop-$(".toc-article").height()/2;
+            $(".toc-article").css({
+                top:top +"px"
+            });
+            $("#toc").show(1000,function(){});
+           // $("#toc").animate({width:500;},3000);
+        },function(){
+
+        });
+        $(".toc-article").hover(function(){
+
+        },function(){
+            $("#toc").hide(1000,function(){});
+        });
+    })
+</script>
+
+                                                  
+                                            
+                                            -->
+                                            
+                                                     <h4 id="操作系统：CentOS-7"><a href="#操作系统：CentOS-7" class="headerlink" title="操作系统：CentOS 7"></a>操作系统：CentOS 7</h4><h4 id="eclispe版本：Eclipse-Mars-2"><a href="#eclispe版本：Eclipse-Mars-2" class="headerlink" title="eclispe版本：Eclipse Mars 2"></a>eclispe版本：Eclipse Mars 2</h4><a id="more"></a>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><blockquote>
+<h3 id="1-下载安装eclipse"><a href="#1-下载安装eclipse" class="headerlink" title="1.下载安装eclipse"></a>1.下载安装<a href="http://mirrors.ustc.edu.cn/eclipse/technology/epp/downloads/release/mars/2/eclipse-jee-mars-2-linux-gtk-x86_64.tar.gz" title="eclise下载" target="_blank" rel="external">eclipse</a></h3><h3 id="2-解压"><a href="#2-解压" class="headerlink" title="2.解压"></a>2.解压</h3></blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo tar -zxvf [下载的安装包名称] -C [安装的目录]</div></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="3-创建软链接"><a href="#3-创建软链接" class="headerlink" title="3.创建软链接"></a>3.创建软链接</h3></blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ln -s /安装的目录/eclipse/eclipse  /usr/bin/eclipse</div></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="4-添加图标"><a href="#4-添加图标" class="headerlink" title="4.添加图标"></a>4.添加图标</h3></blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gedit /usr/share/applications/eclipse.desktop</div></pre></td></tr></table></figure>
+<p>将下面内容添加到文件中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[Desktop Entry]</div><div class="line">Encoding=UTF-8</div><div class="line">Name=Eclipse</div><div class="line">Comment=Eclipse Mar2</div><div class="line">Exec=/usr/bin/eclipse</div><div class="line">Icon=/[解压的目录]/eclipse/icon.xpm</div><div class="line">Categories=Application;Development;Java;IDE</div><div class="line">Version=1.0</div><div class="line">Type=Application</div><div class="line">Terminal=0</div></pre></td></tr></table></figure></p>
+
+                                            
+                                        </div>
+
+                                        
+            </div>
+            
+                <div id="socialShare" style="margin-left:40px;display:none;">
+                </div>
+                <script>
+                    $(function() {
+                        var width = document.body.scrollWidth;
+                        if (width > 550) {
+                            $("#socialShare").css("display", "block");
+                            $("#socialShare").socialShare({
+                                content: 'Nice!不错的资源...',
+                                url: window.location.href,
+                                titile: ''
+                            });
+                        }
+                    });
+                </script>
+                
+                    
+                        
+<nav id="article-nav">
+  
+    <a href="/year/09/03/vnc/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          CentOS7 安装vnc
+        
+      </div>
+    </a>
+  
+  
+    <a href="/year/08/30/hbase_step/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">伪分布式hbase安装配置</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+                            
+                                <!-- 多说评论框 start -->
+                                
+                                    <div class="ds-thread" data-thread-key="post-install_eclipse" data-title="CentOS 7 安装eclipse mars 2" data-url="https://github.com/jChanJi/year/09/03/install_eclipse/"></div>
+                                    <!-- 多说评论框 end -->
+                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                                    <script type="text/javascript">
+                                        var duoshuoQuery = {
+                                            short_name: "kiritor"
+                                        };
+                                        (function() {
+                                            var ds = document.createElement('script');
+                                            ds.type = 'text/javascript';
+                                            ds.async = true;
+                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                            ds.charset = 'UTF-8';
+                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                        })();
+                                    </script>
+                                    <!-- 多说公共JS代码 end -->
+                                    
+</article>
+
+<!--
+
+    <div style="width:100%;background-color:#fff;">
+        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
+    </div>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+    
+-->
+<!--
+
+-->
+
+</div>
+      <!--
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Chanji
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','m5RW4BUQrJ_r-CYKAksH','2.0.0');
+</script>
+  </div>
+</footer>
+-->
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/mobile.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/prefixfree.js"></script>
+
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
+    <a title="返回顶部" style="opacity: 100%;">
+        <img src="/img/scrollup.png" />
+    </a>
+</div>
+
+<script src="/js/totop.js"></script>
+<script src="/js/share.js"></script>
+
+  </div>
+</body>
+</html>

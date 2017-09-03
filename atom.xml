@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/jChanJi/"/>
-  <updated>2017-09-03T06:37:53.568Z</updated>
+  <updated>2017-09-03T07:23:04.953Z</updated>
   <id>https://github.com/jChanJi/</id>
   
   <author>
@@ -14,6 +14,608 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Arabesque:A System for Distributed Graph Mining</title>
+    <link href="https://github.com/jChanJi/year/09/03/artical_1/"/>
+    <id>https://github.com/jChanJi/year/09/03/artical_1/</id>
+    <published>2017-09-03T07:15:57.580Z</published>
+    <updated>2017-09-03T07:23:04.953Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Arabesque-A-System-for-Distributed-Graph-Mining"><a href="#Arabesque-A-System-for-Distributed-Graph-Mining" class="headerlink" title="Arabesque: A System for Distributed Graph Mining"></a>Arabesque: A System for Distributed Graph Mining</h2><blockquote>
+<h3 id="Arabesque-分布式的图挖掘系统"><a href="#Arabesque-分布式的图挖掘系统" class="headerlink" title="Arabesque:分布式的图挖掘系统"></a>Arabesque:分布式的图挖掘系统</h3></blockquote>
+<h4 id="原文链接：点我跳转"><a href="#原文链接：点我跳转" class="headerlink" title="原文链接：点我跳转"></a>原文链接：<a href="https://github.com/jChanJi/jchanji.github.com/blob/master/meterial/093-teixeira.pdf">点我跳转</a></h4><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><p><a href="#Abstract">Abstract</a></p>
+</li>
+<li><p>1.<a href="#introduction">Introduction</a></p>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>2.Graph Mining Problems</p>
+</li>
+<li><p>3.The Filter-Process Model</p>
+<ul>
+<li><p>3.1.Computational Model</p>
+</li>
+<li><p>3.2.Alternative Paradigms: Think Like a Vertex and Think Like a Pattern</p>
+</li>
+</ul>
+</li>
+<li><p>4.Arabesque: API, Programming, and Implementation</p>
+<ul>
+<li><p>4.1 Arabesque API</p>
+</li>
+<li><p>4.2 Programming with Arabesque</p>
+</li>
+<li><p>4.3 Arabesque implementation</p>
+</li>
+</ul>
+</li>
+<li><p>5.Graph Exploration Techniques</p>
+<ul>
+<li><p>5.1 Coordination-Free Exploration Strategy</p>
+</li>
+<li><p>5.2 Storing Embeddings Compactly</p>
+</li>
+<li><p>5.3 Partitioning Embeddings for Load Balancing</p>
+</li>
+<li><p>5.4 Two-Level Pattern Aggregation for Fast Pattern Canonicality Checking</p>
+</li>
+</ul>
+</li>
+<li><p>6.Evaluation</p>
+<ul>
+<li><p>6.1 Experimental Setup</p>
+</li>
+<li><p>6.2 Alternative Paradigms: TLV and TLP</p>
+</li>
+<li><p>6.3 Arabesque: The TLE Paradigm</p>
+</li>
+<li><p>6.4 Large Graphs with Arabesque</p>
+</li>
+</ul>
+</li>
+<li><p>7.Related Work</p>
+</li>
+<li><p>8.Conclusions</p>
+</li>
+<li><p>9.Acknowledgments</p>
+</li>
+<li><p>10.References</p>
+</li>
+</ul>
+<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a><span id="Abstract">Abstract</span></h3><h4 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h4><h4 id="Abstract-1"><a href="#Abstract-1" class="headerlink" title="Abstract"></a>Abstract</h4><p>  Distributed data processing platforms such as MapReduce<br>and Pregel have substantially simplified the design and deployment<br>of certain classes of distributed graph analytics algorithms.<br>However, these platforms do not represent a good<br>match for distributed graph mining problems, as for example<br>finding frequent subgraphs in a graph. Given an input<br>graph, these problems require exploring a very large number<br>of subgraphs and finding patterns that match some “interestingness”<br>criteria desired by the user. These algorithms are<br>very important for areas such as social networks, semantic<br>web, and bioinformatics.</p>
+<p>  In this paper, we present Arabesque, the first distributed<br>data processing platform for implementing graph mining<br>algorithms. Arabesque automates the process of exploring<br>a very large number of subgraphs. It defines a high-level<br>filter-process computational model that simplifies the development<br>of scalable graph mining algorithms: Arabesque explores<br>subgraphs and passes them to the application, which<br>must simply compute outputs and decide whether the subgraph<br>should be further extended. We use Arabesque’s API<br>to produce distributed solutions to three fundamental graph<br>mining problems: frequent subgraph mining, counting motifs,<br>and finding cliques. Our implementations require a<br>handful of lines of code, scale to trillions of subgraphs, and<br>represent in some cases the first available distributed solutions.</p>
+<h4 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h4><p>  Distributed data processing platforms such as MapReduce<br>and Pregel have substantially simpliﬁed the design and deployment of certain classes of distributed graph analyticsal gorithms.</p>
+<blockquote>
+<p>分布式数据处理平台例如mapreduce和pregel实质上是简化了某些类的分布式图形化分析算法的设计和调度</p>
+</blockquote>
+<p> However, these platforms do not represent a good<br>match for distributed graph mining problems, as for example<br>finding frequent subgraphs in a graph.</p>
+<blockquote>
+<p>但是，这些平台没有表现出对分布式图形挖掘问题的匹配。就以在图表中频繁的寻找子图作为例子</p>
+</blockquote>
+<p>Given an input graph, these problems require exploring a very large number of subgraphs and finding patterns that match some “interestingness” criteria desired by the user. </p>
+<blockquote>
+<p>给出一个输入图表，这些问题需要扫描（探索）一个数量很多的子图并且寻找和用户期望的一些”兴趣性”准则相匹配的模式（图案,样品）。</p>
+</blockquote>
+<p>These algorithms are very important for areas such as social networks, semantic web, and bioinformatics.</p>
+<blockquote>
+<p>这些算法对例如社交网络，语义网，和分析复杂生物的学科的领域非常重要。</p>
+</blockquote>
+<p>In this paper, we present Arabesque, the first distributed<br>data processing platform for implementing graph mining<br>algorithms.<br>Arabesque automates the process of exploring a very large number of subgraphs. </p>
+<blockquote>
+<p>在这篇文献当中，我们介绍Arabesque,第一个实现图挖掘算法的分布式数据处理平台。Arabesque自动化了探索一个很大数量的子图的流程。</p>
+</blockquote>
+<p>It defines a high-level filter-process computational model that simplifies the development of scalable graph mining algorithms: Arabesque explores subgraphs and passes them to the application, which must simply compute outputs and decide whether the subgraph should be further extended. </p>
+<blockquote>
+<p>他定义了一个高级的过滤过程的计算模型，它简化了可升级的图挖掘算法的开发:Arabesque 探索子图并且将他们传递给应用程序，这个应用程序必须简单的计算输出和决定是否子图应该被进一步的被扩展。</p>
+</blockquote>
+<p>We use Arabesque’s API to produce distributed solutions to three fundamental graph mining problems: frequent subgraph mining, counting motifs,and finding cliques. </p>
+<blockquote>
+<p>我们用Arabesque的API去产生三个基础的图挖掘问题的分布式解决方案:频繁的子图挖掘，计数的图案，寻找派系。</p>
+</blockquote>
+<p>Our implementations require a handful of lines of code, scale to trillions of subgraphs, and represent in some cases the first available distributed solutions.</p>
+<blockquote>
+<p>我们的实现需要很少行的代码，规模数万亿的子图，和在某些情况下第一个可获得的分布式解决方案的示范</p>
+</blockquote>
+<h4 id="段落翻译"><a href="#段落翻译" class="headerlink" title="段落翻译"></a>段落翻译</h4><h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><p>分布式数据处理平台例如mapreduce和pregel实质上是简化了某些类的分布式图形化分析算法的设计和调度.但是，这些平台没有表现出对分布式图形挖掘问题的匹配。就以在图表中频繁的寻找子图作为例子.给出一个输入图表，这些问题需要扫描（探索）一个数量很多的子图并且寻找和用户期望的一些”兴趣性”准则相匹配的模式（图案,样品）。这些算法对例如社交网络，语义网，和分析复杂生物的学科的领域非常重要。</p>
+<p>在这篇文献当中，我们介绍Arabesque,第一个实现图挖掘算法的分布式数据处理平台。Arabesque自动化了探索一个很大数量的子图的流程。他定义了一个高级的过滤过程的计算模型，它简化了可升级的图挖掘算法的开发:Arabesque 探索子图并且将他们传递给应用程序，这个应用程序必须简单的计算输出和决定是否子图应该被进一步的被扩展.我们用Arabesque的API去产生三个基础的图挖掘问题的分布式解决方案:频繁的子图挖掘，计数的图案，寻找派系。我们的实现需要很少行的代码，规模数万亿的子图，和在某些情况下第一个可获得的分布式解决方案的示范</p>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a><span id="Introduction">Introduction</span></h3><h3 id="原文-1"><a href="#原文-1" class="headerlink" title="原文"></a>原文</h3><p>Graph data is ubiquitous in many fields, from the Web to advertising<br>and biology, and the analysis of graphs is becoming<br>increasingly important. The development of algorithms<br>for graph analytics has spawned a large amount of research,<br>especially in recent years. However, graph analytics has traditionally<br>been a challenging problem tackled by expert researchers,<br>who can either design new specialized algorithms<br>for the problem at hand, or pick an appropriate and sound<br>solution from a very vast literature. When the input graph or<br>the intermediate state or computation complexity becomes<br>very large, scalability is an additional challenge.</p>
+<p>The development of graph processing systems such as<br>Pregel [25] has changed this scenario and made it simpler to<br>design scalable graph analytics algorithms. Pregel offers a<br>simple “think like a vertex” (TLV) programming paradigm,<br>where each vertex of the input graph is a processing element<br>holding local state and communicating with its neighbors<br>in the graph. TLV is a perfect match for problems that<br>can be represented through linear algebra, where the graph<br>is modeled as an adjacency matrix (or some other variant<br>like the Laplacian matrix) and the current state of each vertex<br>is represented as a vector. We call this class of methods<br>graph computation problems. A good example is computing<br>PageRank [6], which is based on iterative sparse matrix<br>and vector multiplication operations. TLV covers several<br>other algorithms that require a similar computational architecture,<br>for example, shortest path algorithms, and over the<br>years many optimizations of this paradigm have been proposed<br>[17, 26, 36, 42].</p>
+<p>Despite this progress, there remains an important class<br>of algorithms that cannot be readily formulated using the<br>TLV paradigm. These are graph mining algorithms used<br>to discover relevant patterns that comprise both structurebased<br>and label-based properties of the graph. Graph mining<br>is widely used for several applications, for example, discovering<br>3D motifs in protein structures or chemical compounds,<br>extracting network motifs or significant subgraphs<br>from protein-protein or gene interaction networks, mining<br>attributed patterns over semantic data (e.g., in Resource<br>Description Framework or RDF format), finding structurecontent<br>relationships in social media data, dense subgraph mining for community and link spam detection in web data,among others. Graph mining algorithms typically take a labeled and immutable graph as input, and mine patterns<br>that have some algorithm-specific property (e.g., frequency<br>above some threshold) by finding all instances of these patterns<br>in the input graph. Some algorithms also compute aggregated<br>metrics based on these subgraphs</p>
+<p><img src="./img/1.PNG" alt="图1"></p>
+<p>Figure 1: Exponential growth of the intermediate state in<br>graph mining problems (motifs counting, clique finding,<br>FSM: Frequent subgraph mining) on different datasets.</p>
+<p>Designing graph mining algorithms is a challenging and<br>active area of research. In particular, scaling graph mining<br>algorithms to even moderately large graphs is hard. The set<br>of possible patterns and their subgraphs in a graph can be<br>exponential in the size of the original graph, resulting in an<br>explosion of the computation and intermediate state. Figure<br>1 shows the exponential growth of the number of “interesting”<br>subgraphs of different sizes in some of the graph<br>mining problems and datasets we will evaluate in this paper.<br>Even graphs with few thousands of edges can quickly generate<br>hundreds of millions of interesting subgraphs. The need<br>for enumerating a large number of subgraphs characterizes<br>graph mining problems and distinguishes them from graph<br>computation problems. Despite this state explosion problem,<br>most graph mining algorithms are centralized because of the<br>complexity of distributed solutions.</p>
+<p>In this paper, we propose automatic subgraph exploration<br>as a generic building block for solving graph mining<br>problems, and introduce Arabesque, the first embedding exploration<br>system specifically designed for distributed graph<br>mining. Conceptually, we move from TLV to “think like an<br>embedding” (TLE), where by embedding we denote a subgraph<br>representing a particular instance of a more general<br>template subgraph called a pattern (see Figure 2).</p>
+<p>Arabesque defines a high-level filter-process computational<br>model. Given an input graph, the system takes care<br>of automatically and systematically visiting all the embeddings<br>that need to be explored by the user-defined algorithm,<br>performing this exploration in a distributed manner. The system<br>passes all the embeddings it explores to the application,<br>which consists primarily of two functions: filter, which indicates whether an embedding should be processed, and process,<br>which examines an embedding and may produce some<br>output. For example, in the case of finding cliques the filter<br>function prunes embeddings that are not cliques, since none<br>of their extensions can be cliques, and the process function<br>outputs all explored embeddings, which are cliques by construction.<br>Arabesque also supports the pruning of the exploration<br>space based on user-defined metrics aggregated across<br>multiple embeddings.</p>
+<p><img src="./img/2.PNG" alt="图2"></p>
+<p>Figure 2: Graph mining concepts: an input graph, an example<br>pattern, and the embeddings of the pattern. Colors represent<br>labels. Numbers denote vertex ids. Patterns and embeddings<br>are two types of subgraphs. However, a pattern is<br>a template, whereas an embedding is an instance. In this example,<br>the two embeddings are automorphic.</p>
+<p>The Arabesque API simplifies and thus democratizes the<br>design of graph mining algorithms, and automates their execution<br>in a distributed setting. We used Arabesque to implement<br>and evaluate scalable solutions to three fundamental<br>and diverse graph mining problems: frequent subgraph mining,<br>counting motifs, and finding cliques. These problems<br>are defined precisely in Section 2. Some of these algorithms<br>are the first distributed solutions available in the literature,<br>which shows the simplicity and generality of Arabesque.</p>
+<p>Arabesque’s embedding-centered API facilitates a highly<br>scalable implementation. The system scales by spreading<br>embeddings uniformly across workers, thus avoiding<br>hotspots. By making it explicit that embeddings are the fundamental<br>unit of exploration, Arabesque is able to use fast<br>coordination-free techniques, based on the notion of embedding<br>canonicality, to avoid redundant work and minimize<br>communication costs. It also enables us to store embeddings<br>efficiently using a new data structure called Overapproximating<br>Directed Acyclic Graph (ODAG), and to devise a<br>new two-level optimization for pattern-based aggregation,<br>which is a common operation in graph mining algorithms.</p>
+<p>Arabesque is implemented as a layer on top of Apache<br>Giraph [3], a Pregel-inspired graph computation system,<br>thus allowing both graph computation and graph mining<br>algorithms to run on top of the same infrastructure. The<br>implementation does not use a TLV approach: it considers<br>Giraph just as a regular data parallel system implementing<br>the Bulk Synchronous Processing model.<br>To summarize, we make the following contributions:</p>
+<p>• We propose embedding exploration, or “think like an embedding”,<br>as an effective basic building block for graph<br>mining. We introduce the filter-process computational<br>model (Section 3), design an API that enables embedding<br>exploration to be expressed effectively and succinctly,<br>and present three example graph mining applications<br>that can be elegantly expressed using the Arabesque<br>API (Section 4).</p>
+<p>• We introduce techniques to make distributed embedding<br>exploration scalable: coordination-free work sharing, ef-<br>ficient storage of embeddings, and an important optimization<br>for pattern-based aggregation (Section 5).</p>
+<p>• We demonstrate the scalability of Arabesque on various<br>graphs. We show that Arabesque scales to hundreds of<br>cores over a cluster, obtaining orders of magnitude reduction<br>of running time over the centralized baselines (Section<br>6), and can analyze trillions of embeddings on large<br>graphs.</p>
+<p>The Arabesque system, together with all applications<br>used for this paper, is publicly available at the project’s website:<br>www.arabesque.io.</p>
+<h4 id="翻译-1"><a href="#翻译-1" class="headerlink" title="翻译"></a>翻译</h4><p>Graph data is ubiquitous in many fields, from the Web to advertising and biology, and the analysis of graphs is becoming increasingly important. </p>
+<blockquote>
+<p>图形数据在许多领域普遍存在，从网站到广告业和生物学，并且分析图形正在变得越来越重要。</p>
+</blockquote>
+<p>The development of algorithms for graph analytics has spawned a large amount of research, especially in recent years.</p>
+<blockquote>
+<p>图形分析算法的发展催生了大量的研究，尤其是在近些年来。</p>
+</blockquote>
+<p>However, graph analytics has traditionally been a challenging problem tackled by expert researchers, who can either design new specialized algorithms for the problem at hand, or pick an appropriate and sound solution from a very vast literature. </p>
+<blockquote>
+<p>但是，图形分析历年来是具有挑战性的，由那些能够为了手上的问题设计新的专门的算法或者从非常庞大的文献中选择一个适当并且健全的解决方案的专家去解决。</p>
+</blockquote>
+<p>When the input graph or the intermediate state or computation complexity becomes very large, scalability is an additional challenge.</p>
+<blockquote>
+<p>当输入图形或者中间状态或者计算复杂度非常大的时候，可测量性是一额外的挑战。</p>
+</blockquote>
+<p>The development of graph processing systems such as Pregel [25] has changed this scenario and made it simpler to design scalable graph analytics algorithms. </p>
+<blockquote>
+<p>图形处理系统的发展例如pregel改变了这种方案，并且使设计可升级的图形分析算法更加的简单。</p>
+</blockquote>
+<p>Pregel offers a simple “think like a vertex” (TLV) programming paradigm, where each vertex of the input graph is a processing element holding local state and communicating with its neighbors in the graph.</p>
+<blockquote>
+<p>Pregel 提供了一个简单的”像顶点一样思考”的编程范例，每一个输入图的顶点是一个保持局部状态的处理单元并且在图形中和它的邻点进行通讯。</p>
+</blockquote>
+<p>TLV is a perfect match for problems that can be represented through linear algebra, where the graph is modeled as an adjacency matrix (or some other variant like the Laplacian matrix) and the current state of each vertex is represented as a vector.</p>
+<blockquote>
+<p>T L V 对那些通过线性代数表示的问题能够完美的匹配，在那些图形建模为邻接矩阵（或者一些其他变形像路普拉斯矩阵）和每一个顶点的当前状态被表示为一个向量的问题中。</p>
+</blockquote>
+<p>We call this class of methods graph computation problems.</p>
+<blockquote>
+<p>我们称这一类的方法叫做图计算问题</p>
+</blockquote>
+<p>A good example is computing PageRank [6], which is based on iterative sparse matrix and vector multiplication operations.</p>
+<blockquote>
+<p>一个好的例子就是计算PageRank, 它是基于迭代稀疏矩阵和向量乘法运算。</p>
+</blockquote>
+<p>TLV covers several other algorithms that require a similar computational architecture, for example, shortest path algorithms, and over the years many optimizations of this paradigm have been proposed [17, 26, 36, 42].</p>
+<blockquote>
+<p>TLV 涉及了一些其他的算法，它需要相似的计算结构，例如，最短路径算法，多年来，这种模式的许多优化已被提出来。</p>
+</blockquote>
+<p>Despite this progress, there remains an important class of algorithms that cannot be readily formulated using the TLV paradigm. </p>
+<blockquote>
+<p>尽管这些进展，这里依然有一类重要的算法不可以使用TLV范例制定。</p>
+</blockquote>
+<p>These are graph mining algorithms used to discover relevant patterns that comprise both structurebased and label-based properties of the graph.</p>
+<blockquote>
+<p>这些就是用于发现相关模式的基于结构和基于表的图的性质的图挖掘算法。</p>
+</blockquote>
+<p> Graph mining is widely used for several applications, for example, discovering 3D motifs in protein structures or chemical compounds, extracting network motifs or significant subgraphs from protein-protein or gene interaction networks, mining attributed patterns over semantic data (e.g., in Resource Description Framework or RDF format), finding structure content relationships in social media data, dense subgraph mining for community and link spam detection in web data,among others.</p>
+<blockquote>
+<p>图挖掘广泛的用于一些应用，例如发现蛋白质结构中或者化学物质中的3D图案，从蛋白质或者基因交互网络中提取网络图案或者重要的子图，(例如在资源描述框架或者R D F 格式中)，正在使用发音在社会媒体数据，密集的子图挖掘社区和链接的垃圾邮件检测在Web数据中发现结构内容的关系，等等。</p>
+</blockquote>
+<p> Graph mining algorithms typically take a labeled and immutable graph as input, and mine patterns that have some algorithm-specific property (e.g., frequency above some threshold) by finding all instances of these patterns<br>in the input graph. </p>
+<blockquote>
+<p>图形挖掘算法通常采用一个标记和不可变的图形作为输入,和具有一些算法特性的挖掘模式（例如频率高于某个阈值），通过在输入图中的样式的所有实例。</p>
+</blockquote>
+<p>Some algorithms also compute aggregated metrics based on these subgraphs。<br>一些算法也计算基于这些子图的综合指标。</p>
+<p>Figure 1: Exponential growth of the intermediate state in<br>graph mining problems (motifs counting, clique finding,<br>FSM: Frequent subgraph mining) on different datasets.</p>
+<blockquote>
+<p>图一：在不同的数据集中图挖掘问题中的中间状态的指数增长（图案计数，派系的发现，频繁子图挖掘）</p>
+</blockquote>
+<p>Designing graph mining algorithms is a challenging and<br>active area of research. </p>
+<blockquote>
+<p>设计图挖掘算法在研究中是一个具有挑战性和活跃的领域</p>
+</blockquote>
+<p>In particular, scaling graph mining<br>algorithms to even moderately large graphs is hard. </p>
+<blockquote>
+<p>尤其是，将图挖掘算法应用于中等大小的图是困难的</p>
+</blockquote>
+<p>The set of possible patterns and their subgraphs in a graph can be<br>exponential in the size of the original graph, resulting in an<br>explosion of the computation and intermediate state.</p>
+<blockquote>
+<p>图表中的可能的模式集和他们的子图有可能是原始图大小的指数倍，导致了爆炸性的计算和中间状态。</p>
+</blockquote>
+<p>Figure 1 shows the exponential growth of the number of “interesting”<br>subgraphs of different sizes in some of the graph<br>mining problems and datasets we will evaluate in this paper.</p>
+<blockquote>
+<p>图一展示在一些图挖掘问题中不同大小的“intersting”子图的数量的爆炸性增长并且我们将评估文本的数据集。</p>
+</blockquote>
+<p>Even graphs with few thousands of edges can quickly generate<br>hundreds of millions of interesting subgraphs. </p>
+<blockquote>
+<p>即使是数千个边的图也能生成数亿的”intersting”子图。</p>
+</blockquote>
+<p>The need for enumerating a large number of subgraphs characterizes<br>graph mining problems and distinguishes them from graph<br>computation problems.</p>
+<blockquote>
+<p>图挖掘问题以需要枚举很大数量的子图为特征并且将其于图计算问题区别开来。</p>
+</blockquote>
+<p> Despite this state explosion problem,<br>most graph mining algorithms are centralized because of the<br>complexity of distributed solutions.</p>
+<blockquote>
+<p>尽管这个状态是爆炸性的问题，但是大多数图形挖掘算法是集中式的，因为<br>分布式解决方案的复杂性。</p>
+</blockquote>
+<p>In this paper, we propose automatic subgraph exploration<br>as a generic building block for solving graph mining<br>problems, and introduce Arabesque, the first embedding exploration<br>system specifically designed for distributed graph<br>mining. </p>
+<blockquote>
+<p>在这篇文章中，我们把自动子图搜索看作是一个解决图挖掘问题的通用构建，并且介绍阿拉伯图案<br>，它是第一个为分布式图挖掘设计的嵌入式的探索系统</p>
+</blockquote>
+<p>Conceptually, we move from TLV to “think like an<br>embedding” (TLE), where by embedding we denote a subgraph<br>representing a particular instance of a more general<br>template subgraph called a pattern (see Figure 2).</p>
+<blockquote>
+<p>从概念上讲，我们从TLV移动到了“像嵌入一样思考”（TLE）,通过嵌入，我们表示一个子图<br>通过表示一个称之为模式的更一般的模板的特别的实例（看图二）</p>
+</blockquote>
+<p>Arabesque defines a high-level filter-process computational<br>model.</p>
+<blockquote>
+<p>阿拉伯图案定义了一个高层次的过滤过程计算模型。</p>
+</blockquote>
+<p>Given an input graph, the system takes care<br>of automatically and systematically visiting all the embeddings<br>that need to be explored by the user-defined algorithm,<br>performing this exploration in a distributed manner.</p>
+<blockquote>
+<p>给出一个输入图，系统会自动的，系统性的关注访问所有的那些需要通过通过分布式的方式进行的自定义算法探索的嵌入部分。</p>
+</blockquote>
+<p>The system passes all the embeddings it explores to the application,<br>which consists primarily of two functions: filter, which indicates whether an embedding should be processed, and process,which examines an embedding and may produce some output. </p>
+<blockquote>
+<p>系统通过所有的嵌入部分并暴露给应用，应用主要由两个函数组成：过滤器，指示是否嵌入部分应该被处理。处理，审查一个嵌入部分和有可能处理一些输出。</p>
+</blockquote>
+<p>For example, in the case of finding cliques the filter function prunes embeddings that are not cliques, since none of their extensions can be cliques, and the process function outputs all explored embeddings, which are cliques by construction.</p>
+<blockquote>
+<p>例如，在发现子图派系的案例中过滤器的功能用于修剪不是派系的嵌入部分，因为他们的拓展没有可能是派系，并且处理函数输出所有探索的嵌入部分，那些嵌入的部分通过建设而形成派系。</p>
+</blockquote>
+<p>Arabesque also supports the pruning of the exploration<br>space based on user-defined metrics aggregated across multiple embeddings.</p>
+<blockquote>
+<p>Arabesque还支持修剪基于用户定义的度量标准聚合的空间多次嵌入的探测。</p>
+</blockquote>
+<p>Figure 2: Graph mining concepts: an input graph, an example<br>pattern, and the embeddings of the pattern. Colors represent<br>labels. Numbers denote vertex ids. Patterns and embeddings<br>are two types of subgraphs. However, a pattern is<br>a template, whereas an embedding is an instance. In this example,<br>the two embeddings are automorphic.</p>
+<blockquote>
+<p>图二：</p>
+</blockquote>
+<p>The Arabesque API simplifies and thus democratizes the<br>design of graph mining algorithms, and automates their execution<br>in a distributed setting. We used Arabesque to implement<br>and evaluate scalable solutions to three fundamental<br>and diverse graph mining problems: frequent subgraph mining,<br>counting motifs, and finding cliques. These problems<br>are defined precisely in Section 2. Some of these algorithms<br>are the first distributed solutions available in the literature,<br>which shows the simplicity and generality of Arabesque.</p>
+<p>Arabesque’s embedding-centered API facilitates a highly<br>scalable implementation. The system scales by spreading<br>embeddings uniformly across workers, thus avoiding<br>hotspots. By making it explicit that embeddings are the fundamental<br>unit of exploration, Arabesque is able to use fast<br>coordination-free techniques, based on the notion of embedding<br>canonicality, to avoid redundant work and minimize<br>communication costs. It also enables us to store embeddings<br>efficiently using a new data structure called Overapproximating<br>Directed Acyclic Graph (ODAG), and to devise a<br>new two-level optimization for pattern-based aggregation,<br>which is a common operation in graph mining algorithms.</p>
+<p>Arabesque is implemented as a layer on top of Apache<br>Giraph [3], a Pregel-inspired graph computation system,<br>thus allowing both graph computation and graph mining<br>algorithms to run on top of the same infrastructure. The<br>implementation does not use a TLV approach: it considers<br>Giraph just as a regular data parallel system implementing<br>the Bulk Synchronous Processing model.<br>To summarize, we make the following contributions:</p>
+<p>• We propose embedding exploration, or “think like an embedding”,<br>as an effective basic building block for graph<br>mining. We introduce the filter-process computational<br>model (Section 3), design an API that enables embedding<br>exploration to be expressed effectively and succinctly,<br>and present three example graph mining applications<br>that can be elegantly expressed using the Arabesque<br>API (Section 4).</p>
+<p>• We introduce techniques to make distributed embedding<br>exploration scalable: coordination-free work sharing, ef-<br>ficient storage of embeddings, and an important optimization<br>for pattern-based aggregation (Section 5).</p>
+<p>• We demonstrate the scalability of Arabesque on various<br>graphs. We show that Arabesque scales to hundreds of<br>cores over a cluster, obtaining orders of magnitude reduction<br>of running time over the centralized baselines (Section<br>6), and can analyze trillions of embeddings on large<br>graphs.</p>
+<p>The Arabesque system, together with all applications<br>used for this paper, is publicly available at the project’s website:<br>www.arabesque.io.</p>
+<h4 id="段落翻译-1"><a href="#段落翻译-1" class="headerlink" title="段落翻译"></a>段落翻译</h4><p>图形数据在许多领域普遍存在，从网站到广告业和生物学，并且分析图形正在变得越来越重要。<br>图形分析算法的发展催生了大量的研究，尤其是在近些年来。但是，图形分析历年来是具有挑战性的，由那些能够为了手上的问题设计新的专门的算法或者从非常庞大的文献中选择一个适当并且健全的解决方案的专家去解决。当输入图形或者中间状态或者计算复杂度非常大的时候，可测量性是一额外的挑战。</p>
+<p>图形处理系统的发展例如pregel 改变了这种方案，并且使设计可升级的图形分析算法更加的简单。<br>Pregel 提供了一个简单的”像顶点一样思考”的编程范例，每一个输入图的顶点是一个保持局部状态的处理单元并且在图形中和它的邻点进行通讯。T L V 对那些通过线性代数表示的问题能够完美的匹配，在那些图形建模为邻接矩阵（或者一些其他变形像路普拉斯矩阵）和每一个顶点的当前状态被表示为一个向量的问题中。我们称这一类的方法叫做图计算问题一个好的例子就是计算PageRank, 它是基于迭代稀疏矩阵和向量乘法运算。TLV 涉及了一些其他的算法，它需要相似的计算结构，例如，最短路径算法，多年来，这种模式的许多优化已被提出来。</p>
+<p>尽管这些进展，这里依然有一类重要的算法不可以使用TLV范例制定。这些就是用于发现相关模式的基于结构和基于表的图的性质的图挖掘算法.图挖掘广泛的用于一些应用，例如发现蛋白质结构中或者化学物质中的3D图案，从蛋白质或者基因交互网络中提取网络图案或者重要的子图，(例如在资源描述框架或者R D F 格式中)，正在使用发音在社会媒体数据，密集的子图挖掘社区和链接的垃圾邮件检测在Web数据中发现结构内容的关系，等等。图形挖掘算法通常采用一个标记和不可变的图形作为输入,和具有一些算法特性的挖掘模式（例如频率高于某个阈值），通过在输入图中的样式的所有实例。一些算法也计算基于这些子图的综合指标。</p>
+<p><img src="./img/1.PNG" alt="图1"></p>
+<p>图一：在不同的数据集中图挖掘问题中的中间状态的指数增长（图案计数，派系的发现，频繁子图挖掘）</p>
+<p>设计图挖掘算法在研究中是一个具有挑战性和活跃的领域。尤其是，将图挖掘算法应用于中等大小的图是很困难的。图表中的可能的模式集和他们的子图有可能是原始图大小的指数倍，导致了爆炸性的计算和中间状态。图一展示在一些图挖掘问题中不同大小的“intersting”子图的数量的爆炸性增长并且我们将评估文本的数据集。即使是数千个边的图也能生成数亿的”intersting”子图。图挖掘问题以需要枚举很大数量的子图为特征并且将其于图计算问题区别开来。尽管这个状态是爆炸性的问题，但是大多数图形挖掘算法是集中式的，因为分布式解决方案的复杂性。</p>
+<p>在这篇文章中，我们把自动子图搜索看作是一个解决图挖掘问题的通用构建，并且介绍阿拉伯图案<br>，它是第一个为分布式图挖掘设计的嵌入式的探索系统。从概念上讲，我们从TLV移动到了“像嵌入一样思考”（TLE）,通过嵌入，我们表示一个子图通过表示一个称之为模式的更一般的模板的特别的实例（看图二）。阿拉伯图案定义了一个高层次的过滤过程计算模型。给出一个输入图，系统会自动的，系统性的关注访问所有的那些需要通过通过分布式的方式进行的自定义算法探索的嵌入部分。系统通过所有的嵌入部分并暴露给应用，应用主要由两个函数组成：过滤器，指示是否嵌入部分应该被处理。处理，审查一个嵌入部分和有可能处理一些输出。例如，在发现子图派系的案例中过滤器的功能用于修剪不是派系的嵌入部分，因为他们的拓展没有可能是派系，并且处理函数输出所有探索的嵌入部分，那些嵌入的部分通过建设而形成派系。</p>
+<p><img src="./img/2.PNG" alt="图2"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Arabesque-A-System-for-Distributed-Graph-Mining&quot;&gt;&lt;a href=&quot;#Arabesque-A-System-for-Distributed-Graph-Mining&quot; class=&quot;headerlink&quot; title=&quot;Arabesque: A System for Distributed Graph Mining&quot;&gt;&lt;/a&gt;Arabesque: A System for Distributed Graph Mining&lt;/h2&gt;&lt;blockquote&gt;
+&lt;h3 id=&quot;Arabesque-分布式的图挖掘系统&quot;&gt;&lt;a href=&quot;#Arabesque-分布式的图挖掘系统&quot; class=&quot;headerlink&quot; title=&quot;Arabesque:分布式的图挖掘系统&quot;&gt;&lt;/a&gt;Arabesque:分布式的图挖掘系统&lt;/h3&gt;&lt;/blockquote&gt;
+&lt;h4 id=&quot;原文链接：点我跳转&quot;&gt;&lt;a href=&quot;#原文链接：点我跳转&quot; class=&quot;headerlink&quot; title=&quot;原文链接：点我跳转&quot;&gt;&lt;/a&gt;原文链接：&lt;a href=&quot;https://github.com/jChanJi/jchanji.github.com/blob/master/meterial/093-teixeira.pdf&quot;&gt;点我跳转&lt;/a&gt;&lt;/h4&gt;&lt;h2 id=&quot;目录&quot;&gt;&lt;a href=&quot;#目录&quot; class=&quot;headerlink&quot; title=&quot;目录&quot;&gt;&lt;/a&gt;目录&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#Abstract&quot;&gt;Abstract&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;1.&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="-arcticals" scheme="https://github.com/jChanJi/categories/arcticals/"/>
+    
+    
+      <category term="Graph Mining" scheme="https://github.com/jChanJi/tags/Graph-Mining/"/>
+    
+      <category term="distribute system" scheme="https://github.com/jChanJi/tags/distribute-system/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu只显示桌面，没有菜单栏</title>
+    <link href="https://github.com/jChanJi/year/09/03/ubuntu_only_background/"/>
+    <id>https://github.com/jChanJi/year/09/03/ubuntu_only_background/</id>
+    <published>2017-09-03T06:44:05.410Z</published>
+    <updated>2017-09-03T07:13:09.263Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>在裝輸入法的時候好像刪了什麼東西導致電腦重啓的時候只能顯示桌面背景和文件，導航等都沒了，頓時嚇壞我了，找了好多教程終於成功了。</p>
+</blockquote>
+<a id="more"></a>
+<p>##安裝unity<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install unity</div></pre></td></tr></table></figure></p>
+<p>##刪除配置文件<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo rm -rf .conf</div><div class="line">sudo rm -rf .gconfg</div><div class="line">sudo rm -rf ~/.Xauthority</div><div class="line">reboot</div></pre></td></tr></table></figure></p>
+<p>本教程不一定對其他情況也適合</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;在裝輸入法的時候好像刪了什麼東西導致電腦重啓的時候只能顯示桌面背景和文件，導航等都沒了，頓時嚇壞我了，找了好多教程終於成功了。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+    
+    
+      <category term="-ubuntu" scheme="https://github.com/jChanJi/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>伪分布式spark安装配置</title>
+    <link href="https://github.com/jChanJi/year/09/03/spark_step/"/>
+    <id>https://github.com/jChanJi/year/09/03/spark_step/</id>
+    <published>2017-09-03T06:44:05.395Z</published>
+    <updated>2017-09-03T06:57:00.318Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本教程为spark的伪分布式教程，学生党条件有限所以伪分布式应该是比较好的选择。其中要注意的是版本匹配的问题。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="一、版本"><a href="#一、版本" class="headerlink" title="一、版本"></a>一、版本</h2><ol>
+<li>CentOS7</li>
+<li>jdk:jdk1.8.0_131</li>
+<li>hadoop：2.6.0</li>
+<li>scala:2.11.11</li>
+<li>spark:2.1.1</li>
+</ol>
+<h2 id="二、下载"><a href="#二、下载" class="headerlink" title="二、下载"></a>二、下载</h2><ol>
+<li><a href="http://spark.apache.org/downloads.html" target="_blank" rel="external">spark2.1.1</a></li>
+<li><a href="http://www.scala-lang.org/download/all.html" target="_blank" rel="external">scala2.11.11</a></li>
+</ol>
+<h2 id="三、安装配置"><a href="#三、安装配置" class="headerlink" title="三、安装配置"></a>三、安装配置</h2><h3 id="1、解压-修改权限"><a href="#1、解压-修改权限" class="headerlink" title="1、解压,修改权限"></a>1、解压,修改权限</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo tar -zxvf spark-2.1.1-bin-hadoop2.6.tgz -C /usr/local</div><div class="line">cd /usr/local</div><div class="line">sudo chown -R hadoop:hadoop ./spark</div></pre></td></tr></table></figure>
+<h3 id="2、在解压的spark目录下新建文件-test-hellospark-写上内容"><a href="#2、在解压的spark目录下新建文件-test-hellospark-写上内容" class="headerlink" title="2、在解压的spark目录下新建文件/test/hellospark,写上内容"></a>2、在解压的spark目录下新建文件/test/hellospark,写上内容</h3><h3 id="3、进入scala模式"><a href="#3、进入scala模式" class="headerlink" title="3、进入scala模式"></a>3、进入scala模式</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /spark/bin</div><div class="line">./spark-shell</div></pre></td></tr></table></figure>
+<h3 id="4、运行代码"><a href="#4、运行代码" class="headerlink" title="4、运行代码"></a>4、运行代码</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">5、val lines = sc.textFile(“../test/hellospark”)</div><div class="line">   lines.count()</div><div class="line">   lines.first()</div></pre></td></tr></table></figure>
+<h3 id="5、修日志级别"><a href="#5、修日志级别" class="headerlink" title="5、修日志级别"></a>5、修日志级别</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/spark/conf</div><div class="line">cp  log4j.properties.template  log4j.properties   </div><div class="line">sudo vim log4j.properties</div></pre></td></tr></table></figure>
+<p>   将其中的rootCategory=INFO 改为 WARN</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;本教程为spark的伪分布式教程，学生党条件有限所以伪分布式应该是比较好的选择。其中要注意的是版本匹配的问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="-bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
+    
+    
+      <category term="big data" scheme="https://github.com/jChanJi/tags/big-data/"/>
+    
+      <category term="spark" scheme="https://github.com/jChanJi/tags/spark/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sumlime text3 配置Markdown</title>
+    <link href="https://github.com/jChanJi/year/09/03/markdown/"/>
+    <id>https://github.com/jChanJi/year/09/03/markdown/</id>
+    <published>2017-09-03T06:44:05.362Z</published>
+    <updated>2017-09-03T06:57:25.190Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、sumlime-text3-配置Markdown和常用快捷键"><a href="#一、sumlime-text3-配置Markdown和常用快捷键" class="headerlink" title="一、sumlime text3 配置Markdown和常用快捷键"></a>一、sumlime text3 配置Markdown和常用快捷键</h2><h3 id="1、sumlime-text3-配置Markdown"><a href="#1、sumlime-text3-配置Markdown" class="headerlink" title="1、sumlime text3 配置Markdown"></a>1、sumlime text3 配置Markdown</h3><blockquote>
+<h4 id="1、安装package-Control"><a href="#1、安装package-Control" class="headerlink" title="1、安装package Control"></a>1、安装package Control<br></h4><h4 id="2、安装Markdown-Preview"><a href="#2、安装Markdown-Preview" class="headerlink" title="2、安装Markdown Preview"></a>2、安装Markdown Preview<br></h4><p>&ensp; 2.1、 按Shif + Alt + P打开<br><br>&ensp; 2.2、输入pcip,回车（进入install package）<br></p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<h4 id="3、安装Markdown-Editing"><a href="#3、安装Markdown-Editing" class="headerlink" title="3、安装Markdown  Editing"></a>3、安装Markdown  Editing<br></h4><p>&ensp;3.1、进入 install package<br><br>&ensp;3.2、输入 Markdown Editing // Markdown编辑和语法高亮支持<br></p>
+<h4 id="4、安装Markdown-Previewer"><a href="#4、安装Markdown-Previewer" class="headerlink" title="4、安装Markdown  Previewer"></a>4、安装Markdown  Previewer<br></h4><p>&ensp; 4.1、进入 install package<br><br>&ensp; 4.2、Markdown  Previewer  //Markdown导出html预览支持<br></p>
+<h4 id="5、安装OmniMarkup-Previewer"><a href="#5、安装OmniMarkup-Previewer" class="headerlink" title="5、安装OmniMarkup Previewer"></a>5、安装OmniMarkup Previewer<br></h4><p>&ensp; 5.1、进入 install package<br><br>&ensp; 5.2、OmniMarkup Previewer //在浏览器中实时预览</p>
+</blockquote>
+<h3 id="2、常用快捷键"><a href="#2、常用快捷键" class="headerlink" title="2、常用快捷键"></a>2、常用快捷键</h3><blockquote>
+<ol>
+<li>Ctrl + Alt + O //在浏览器中打开</li>
+<li>Alt + M  //生成html文件</li>
+<li>Ctrl+Alt+O: Preview Markup in Browser.</li>
+<li>Ctrl+Alt+X: Export Markup as HTML.</li>
+<li>Ctrl+Alt+C: Copy Markup as HTML.</li>
+</ol>
+</blockquote>
+<h2 id="二、使用Cmd-markdown在线编辑"><a href="#二、使用Cmd-markdown在线编辑" class="headerlink" title="二、使用Cmd markdown在线编辑"></a>二、使用Cmd markdown在线编辑</h2><blockquote>
+<ol>
+<li>在线<a href="https://www.zybuluo.com/mdeditor" title="Cmd Markdown" target="_blank" rel="external">编辑</a> 网址</li>
+<li>也可以下载客户端离线编辑<a href="https://www.zybuluo.com/cmd/" title="下载" target="_blank" rel="external">客户端</a></li>
+<li>如果想转成html等其他功能需要付费，不过基础功能已经差不多够用了</li>
+</ol>
+</blockquote>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="1、Ctrl-Alt-O后打开了浏览器但是不能够预览markdown页面"><a href="#1、Ctrl-Alt-O后打开了浏览器但是不能够预览markdown页面" class="headerlink" title="1、Ctrl+Alt+O后打开了浏览器但是不能够预览ｍａｒｋｄｏｗｎ页面"></a>1、Ctrl+Alt+O后打开了浏览器但是不能够预览ｍａｒｋｄｏｗｎ页面</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">在 Preferences &gt; Package Settings &gt; OmniMarkupPreviewer &gt; Settings - User 中粘贴以下代码即可</div><div class="line"></div><div class="line">&#123;</div><div class="line">"renderer_options-MarkdownRenderer": &#123;</div><div class="line"><span class="code">    "extensions": ["tables", "fenced_code", "codehilite"]</span></div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2、在sublime-text3-中切换不了中文"><a href="#2、在sublime-text3-中切换不了中文" class="headerlink" title="2、在sublime text3 中切换不了中文"></a>2、在sublime text3 中切换不了中文</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update &amp;&amp; sudo apt-get upgrade</div><div class="line">git clone https://github.com/lyfeyaj/sublime-text-imfix.git</div><div class="line">cd ~/sublime-text-imfix</div><div class="line">sudo ./ sublime-imfix</div><div class="line">然后重启sublime text3</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一、sumlime-text3-配置Markdown和常用快捷键&quot;&gt;&lt;a href=&quot;#一、sumlime-text3-配置Markdown和常用快捷键&quot; class=&quot;headerlink&quot; title=&quot;一、sumlime text3 配置Markdown和常用快捷键&quot;&gt;&lt;/a&gt;一、sumlime text3 配置Markdown和常用快捷键&lt;/h2&gt;&lt;h3 id=&quot;1、sumlime-text3-配置Markdown&quot;&gt;&lt;a href=&quot;#1、sumlime-text3-配置Markdown&quot; class=&quot;headerlink&quot; title=&quot;1、sumlime text3 配置Markdown&quot;&gt;&lt;/a&gt;1、sumlime text3 配置Markdown&lt;/h3&gt;&lt;blockquote&gt;
+&lt;h4 id=&quot;1、安装package-Control&quot;&gt;&lt;a href=&quot;#1、安装package-Control&quot; class=&quot;headerlink&quot; title=&quot;1、安装package Control&quot;&gt;&lt;/a&gt;1、安装package Control&lt;br&gt;&lt;/h4&gt;&lt;h4 id=&quot;2、安装Markdown-Preview&quot;&gt;&lt;a href=&quot;#2、安装Markdown-Preview&quot; class=&quot;headerlink&quot; title=&quot;2、安装Markdown Preview&quot;&gt;&lt;/a&gt;2、安装Markdown Preview&lt;br&gt;&lt;/h4&gt;&lt;p&gt;&amp;ensp; 2.1、 按Shif + Alt + P打开&lt;br&gt;&lt;br&gt;&amp;ensp; 2.2、输入pcip,回车（进入install package）&lt;br&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+    
+    
+      <category term="sublime text3" scheme="https://github.com/jChanJi/tags/sublime-text3/"/>
+    
+      <category term="markdown" scheme="https://github.com/jChanJi/tags/markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从互联到新工业革命-读后感</title>
+    <link href="https://github.com/jChanJi/year/09/03/internet_of_everthing_for_new_industrial_revolution/"/>
+    <id>https://github.com/jChanJi/year/09/03/internet_of_everthing_for_new_industrial_revolution/</id>
+    <published>2017-09-03T06:44:05.336Z</published>
+    <updated>2017-09-03T06:53:50.510Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="一、工业4-0”网红”的养成之路"><a href="#一、工业4-0”网红”的养成之路" class="headerlink" title="一、工业4.0”网红”的养成之路"></a><a href="#one">一、工业4.0”网红”的养成之路</a></h3><h3 id="二、”工业互联网”-VS-“工业4-0”"><a href="#二、”工业互联网”-VS-“工业4-0”" class="headerlink" title="二、”工业互联网” VS “工业4.0”"></a><a href="#two">二、”工业互联网” VS “工业4.0”</a></h3><h3 id="三、中国制造2025"><a href="#三、中国制造2025" class="headerlink" title="三、中国制造2025"></a><a href="#three">三、中国制造2025</a></h3><h3 id="四、工业革命升级技能点"><a href="#四、工业革命升级技能点" class="headerlink" title="四、工业革命升级技能点"></a><a href="#forth">四、工业革命升级技能点</a></h3><h3 id="五、人工智能"><a href="#五、人工智能" class="headerlink" title="五、人工智能"></a><a href="#firth">五、人工智能</a></h3><h3 id="六、工业互联网的智能网络"><a href="#六、工业互联网的智能网络" class="headerlink" title="六、工业互联网的智能网络"></a><a href="#six">六、工业互联网的智能网络</a></h3><h3 id="七、结束语"><a href="#七、结束语" class="headerlink" title="七、结束语"></a><a href="#end">七、结束语</a></h3><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;有幸能够参加东华大学计算机科学与技术学院举办的“大数据与智能制造”暑期夏令营。虽然只有短短的两天时间，但是收获颇多，尤其是听了燕山大学机械学院院长张立杰教授“智能制造和传统制造”的演讲和美国佛罗里达大学教授李晓林教授“Creating Intellignece via big learning”的演讲，对智能制造和人工智能领域了更加深刻的印象。由于我比较愚钝，具体的演讲内容不能详细的复述出来。再次由衷的感谢东华大学的常珊老师免费提供给我们《从互联到新工业革命》这本书，今天在火车上读完了这本通俗易懂而又见解深刻的书,无意发现,张立杰教授，李晓林教授，刘云浩教授，在智能制造方面的见解英雄所见略同，而为了更加体系的介绍和便于自己思路的清理，下面更多介绍清华大学软件学院院长刘云浩教授对互联网时代和新工业革命大潮的理解和体会并且再加上一点我个人的浅陋的见解。 由于本人文采有限，不能够很全面的写出刘老师书中的方方面面也无法用诙谐的语句吸引读者兴趣，所以我极力推荐大家读一读刘云浩老师的作品《从互联到新工业革命》（清华大学出版社）。由于我也只是泛读了一遍,所以写博客的时候也是第二次更加粗略的阅读，当中有什么见解不到的地方欢迎联系我（邮箱见文章底部）。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h2><blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;由于我也是刚接触大数据，人工智能不久，虽然对其中的技术细节还不是非常的了解，但引用刘国华教授”纸上谈兵”的观点，如果不去”纸上谈兵”而直接去埋头编程那么有可能永远都完成不了项目，或者当中算法效率是很低的。同样我觉得，学习一个完全陌生的专业，如果连它的发展趋势和技术线路都没有搞清楚的话，那么也只是一头雾水的填鸭式的学习,不利于以后潜力的挖掘和能力的提升。下面我们就”空谈”一些对技术能力提高”无用”的，空泛的，所谓”夸夸而谈”的观点。</p>
+</blockquote>
+<h2 id="一、工业4-0”网红”的养成之路-1"><a href="#一、工业4-0”网红”的养成之路-1" class="headerlink" title=" 一、工业4.0”网红”的养成之路"></a><span id="one"> 一、工业4.0”网红”的养成之路</span></h2><blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;目前为止确切的有三次工业革命：1769年瓦特发明蒸汽机，标志着机械化的时代到来,机器代替了人类一部分的体力活动，人类向机械化迈进;1869年，德国西门子公司发明了第一台交流发动机，电器取代了机器，电器动力取代了蒸汽动力，从此促进了大规模，批量化的生产。也是从此时开始，东方开始落后西方；1969年，第一块可编程逻辑控制器Modicon 084问世，这标志这电子信息技术的发明并且直接导致了产品生产的高度自动化。此外还有一件划时代的事发生了，便是阿帕网的形成，也就是互联网的雏形。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;近两百年之前的工业革命，在之后的150年里使西方人均收入增长了13倍，而1800年以前，西方人均经济翻一倍则需要800年。这足以见得这几次工业革命对人类社会生产力的解放是多么的恐怖，这也预示着，人类社会的发展速度将会越来越快。那么第四次工业革命会是在2069年吗？显然，就目前的形式来看完全等不到2069年。新工业革命已经隐约到来，虽然我们不能够从未来的角度来看现在来，判定是否是第四次工业革命，就像前三次工业革命一样，发生之后才意识具有多么伟大的意义，但是，我们已经确切的感受到新工业革命了。”人类第一次成功的在事前预测了一次革命，而不是像以前一样事后才认识到是一场革命”,正如刘老师所言。”工业4.0”<br>由孔翰宁(Henning Kagermann),沃夫冈.瓦尔斯特(“Wolfgang Wahlster”),沃尔夫迪特尔.卢卡斯(Wolf-Dieter Lukas)三位博士提出,由于”产官学”（ 产业界，政府，学术界）属性的与生俱来，很快便由德国工程院，弗劳恩获夫协会，西门子公司等接手，组成了工业4.0小组,于是工业4.0迅速的冲出了德国，走向了世界。所以”工业4.0”正是天时地利人和的结果。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这里插入一些我的人生观，不想听大道理的可以跳过了。其实很多事情都是水到而渠成的,尤其是知识积累更是如此。面对飞速发展的软件行业，作为初级程序员,很多人都想一口吃个胖子,想要快速的掌握开发技能,喜欢看速成的视频,教程，包括我也是如此,但很多时候却走了很多的弯路。因为基础知识不扎实而找东找西,就是一根筋的想要找和自己的问题一摸一样的解答，却不知道或者懒得去变通一下代码，或者花点时间去专研一下代码中的逻辑思维，从中受到启发。与其花半天时间去研读代码。却更愿意去花一天时间尝遍百度上的所有教程。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;官方对于”工业4.0”的解释是,”工业4.0包括将信息物理系统(Cyber physical System，CPS)技术一体化应用与制造业和物流行业,以及在工业生产过程中采用物联网和服务技术”。从这段定义中个我们可以看到很熟悉的一个词”物联网”,所以从此也可以看出以后的IT热门方向。物联网从前几年开始变得炙手可热，但发展一直没有想象中的那么迅猛，这和很多方面因素有关，包括硬件支持，传输技术，等等。但这丝毫不影响其发展趋势，因为物联网还是在不断发展的，而且越来越快,其模型成熟的时间决定着万物互联时代到来的时间。”工业4.0”产生的”智能工厂”和”智能生产”将改变传统的批量统一化的生产模式,实现高度灵活的个性化和数字化生产及服务，最终使生产更智能，更高效，跟快速，更经济。</p>
+</blockquote>
+<h2 id="ps1"><a href="#ps1" class="headerlink" title="ps1"></a>ps1</h2><blockquote>
+<p>由于我的手速有限，时间紧迫，今天只能谈到这。作为有点学术性质而又不深入具体细节的博客，希望大家能够当成故事看，了解当今的IT界的发展方向。我每天晚上会抽出11点之后断网的时间续写，第二点早上9点跟新,时间有限，我会尽快的完结。</p>
+</blockquote>
+<h2 id="二、”工业互联网”-VS-“工业4-0”-1"><a href="#二、”工业互联网”-VS-“工业4-0”-1" class="headerlink" title=" 二、”工业互联网” VS “工业4.0”"></a><span id="two"> 二、”工业互联网” VS “工业4.0”</span></h2><blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;面对的德国的高歌猛进，世界第一大国美国怎能无动于衷了？毕竟在这个星球上主导权决定着发言权，就算是没有足够的主导权也不能牵制于人。由沙利文（Frost &amp; Sullivan）这家咨询公司在一份报告中创造性的提出了“工业互联网”这个概念。也因此给沙利文公司在工业制造领域带来了话语权。公司还顺带的设立了“制造领袖奖”,2016年通用公司就很高兴的领了这个奖。2014年3月由通用电气（提供综合技术与服务）联合AT&amp;T(M2M的解决方案)、Cisco(提供网络解决方案)、Intel(半导体、芯片和处理器)、IBM(智慧地球)成立了“工业互联网联盟(Industrial Internet Consortium,IIC)”。很显然工业互联网这块大蛋糕美国怎么会任由他人分割了,到2015年初，该联盟成员已经达到130家，西门子，华为等号称要自己做工业互联网平台的企业也没能抵制住诱惑。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;很失望的是中国还是一如既往的落后与西方国家，作为发展中国家，不得不承认在先进技术和理念方面中国目前只能去模仿，距离成为“中国制造2025”目标中的世界一流的工业水准还是有很大的差距的。毕竟，不要说“工业4.0”，中国大部分企业还停留在“工业2.0”的水准，“工业3.0”水平也是很弱，这和很多因素有关，但我们还是对未来充满希望的，毕竟科技的快速发展网络的普及化，信息的透明化，以及人才的全球流通，给发展中国家带来的好处是可以快速的跟上队伍。我国并不缺少运行产业联盟的企业，但是成功的却非常少，其中企业自身创新能力弱，国际视野的局限性大是一方面，缺乏一个良好的利益共享机制，无法发挥每个企业的特长也是国内产业联盟难以落地的重要原因。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;”工业互联网”和”工业4.0”中国到底应该站在哪一边了？这就要进一步的了解这两个热门词汇了。“工业互联网”可以说是自顶向下，侧重于利用互联网的技术来改善生产设备和产品服务。从物联网、云计算、大数据分析等信息技术的角度出发，将之应用于工业领域，改造工业生产的产品服务和管理过程等。“工业4.0”则是自下而上，侧重于在生产与制造过程的智能化、数字化。以生产设备为核心的CPS为出发点，推进数据融合和服务共享，从而推及工业生产过程以及产品服务等。虽然由于两国的的产业优势不同导致的工业互联网的结构正好颠倒，但其中的核心思想还是十分相似的。2016年3月，”工业4.0平台”和”工业互联网联盟”在瑞士苏黎世初步达成合作意向，开始了强强联合。这也是应了”马太效应”，”凡有的，还要加给他，叫他有余；凡没有的，连他所有的也要夺去”。</p>
+</blockquote>
+<h2 id="ps2"><a href="#ps2" class="headerlink" title="ps2"></a>ps2</h2><blockquote>
+<p>不知不觉已经12点了，为了不打扰舍友休息，今天就到这里。</p>
+</blockquote>
+<h2 id="三、中国制造2025-1"><a href="#三、中国制造2025-1" class="headerlink" title=" 三、中国制造2025"></a><span id="three"> 三、中国制造2025</span></h2><blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;世界上很多国家都指定了符合本国国情的工业互联网规划，但基本上都是依据“工业4.0”或者“工业互联网”进行改编。同样，中国也不例外。“中国制造2025”以促进制造业创新发展为主题，以提质增效为中心，以加快新一代信息技术与制造业深度融合为主线，以推进智能制造为主攻方向，以满足经济社会发展和国防建设对重大技术装备的需求为目标，强化工业基础能力，提高综合集成水平，完善多层次多类型的培养体系，促进产业转型升级，培育有中国特色的制造文化，实现制造业由大变强的历史跨越。坚持“创新驱动、质量为先、绿色发展、结构优化、人才为本”的基本方针，坚持“市场主导、政府引导，立足当前、着眼长远，整体推进、重点突破，自主发展、开放合作”的基本原则，通过“三步走”实现制造强国的战略目标：第一步，到2025年迈入制造强国行列；第二步，到2035年中国制造业整体达到世界制造强国阵营中等水平；第三步，到新中国成立一百年时，综合实力进入世界制造强国前列。看到这一大推的雄伟措辞，不得不说中国最强的专家真的不是盖的，由50多位院士100多位领域专家共同指定的规划，将中国制造转变为中国智造的伟大目标高调的向全世界展示。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;中国制造业的现状其实和国足相差无几，所以注定不能自上顶而下的对中国的工业基础进行改革，薄弱的工业基础实在是堪忧。从中国的物流业占GDP比重是美国德国的发达国家的两倍左右就可以看出其中的差距。所以“中国制造2025”更倾向于“工业4.0”的自下而上的进行改革。</p>
+</blockquote>
+<h2 id="四、工业革命升级技能点-1"><a href="#四、工业革命升级技能点-1" class="headerlink" title="四、工业革命升级技能点"></a><span id="forth">四、工业革命升级技能点</span></h2><blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;从技术角度上来说，第四次工业革命是一场从嵌入式系统到信息物理融合系统的技术变革，通过物联网，云计算，大数据在工业中的运用，促成基于网络化的变革。其关键的技术难点和重点在于实现智能化设备自知而治，泛在化网络（无处不在的网络）互联互通，中心化数据实时实效，开放化服务相辅相成，建立能够在联网对象彼此之间，网络对象和网络环境之间，联网对象和人之间共享的工业互联网，形成物联网，数据联网，服务联网以及人员联网的网络化开放平台。</p>
+</blockquote>
+<h2 id="PS3"><a href="#PS3" class="headerlink" title="PS3"></a>PS3</h2><blockquote>
+<p>第二遍浏览时发现想要阐述出书中的核心思想还是很难的，越来越发现写不下去了。所以还是得放下键盘，再仔细思考一番，理清思路。</p>
+</blockquote>
+<h2 id="五、人工智能-1"><a href="#五、人工智能-1" class="headerlink" title="五、人工智能"></a><span id="firth">五、人工智能</span></h2><blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;谈到智能工业，智能电网，使用的往往是Smart这个词，而人工智能则使用Aritifical Intelligence（AI）。其原因是人工智能突出的是机器的反映方式能够类似人的智能。而半个世纪以来，人工智能的发展历程很坎坷，机器是否智能一直是一个很有争议的话题。之前之所以认为机器不具有智能是因为机器所完成的任务都是人类所定义好的，并没有超出人类的认知范围或者能力限制。而现在有些深度学习训练出来模型很多已经超出了人的认知范围，因为人能通过参数，阈值的对结果值进行調优，但是算法内部到底是怎样实现的却很难被人所知。随之而来的问题就是，不能够确保其训练出来的模型能够永远的正常使用，所以在金融行业，医疗行业等安全系数要求很高的行业中使用起来是需要对其进行风险评估的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;人工智能发展的阻碍主要有三个方面。第一、计算机的计算能力。随着硬件的不断升级计算计的运算能力显著提升，但是这不一定代表就可以解决全部的问题。仍然有很多无法优化的算法是需要大量的计算资源的，深度学习出来之后CPU就已经不适合用作为机器学习开发的硬件了，GPU（图形处理单元）将逐步的取代CPU在机器学习中的地位。第二、计算机对真实世界的感知能力。道现在为止人类研究的人工智能在“智力“上已经很高了，但是还是无法像人一样感知世界。对计算机而言实现逻辑推理等人类高级智慧只需要相对较少的计算能力，而现实感知、运动等人类低级智慧却需要巨大的计算资源。第三、推理和逻辑框架。人工智能也无法像人类一样在没有老师的情况下还能够自行的推理并且联想学习，也就是不具备迁移学习的能力。所以人工智能要模拟人的智能其难点不在于人脑进行的各种必然性推理，而是最能体现人的能动性和创造性的不确定推理。</p>
+</blockquote>
+<h2 id="六、工业互联网的智能网络-1"><a href="#六、工业互联网的智能网络-1" class="headerlink" title="六、工业互联网的智能网络"></a><span id="six">六、工业互联网的智能网络</span></h2><blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;一个个孤立的点所包含的信息是很少的，但是将这些点之间相互连接起来，其中包含的信息量就极其巨大了。工业互联网的核心就是将原本割裂的工业数据实现流通，从而变成一个智能网络。我们可以概括为四个环节，即”感，联，知，控“。感，即感知层，机器，机组，物料，人员等物体之间能够相互感知，交互协作，从而实现不同生产实体之间的深度协同。联，即网络互联层，旨在将多元对象组成的异构复杂网络之间形成彼此互联互通的泛在化网络（可以简单理解为无处不在的网络）。知，即数据分析层，网络化的数据有些在传输过程中被即时处理，更多的是汇聚到中心节点后被集中处理。数据分析层负责工业大数据的存储、处理、建模、挖掘、和优化等方面。控，即开放服务层，基于工业大数据形成的决策依据，通过多种面向工业生产应用的开放式，共享型的标准化服务，被工业生产部门调用和实施，反馈到工业生产的各个环节，从而实现对工业生产的控制和调节。从网络角度出发，形成了实体联网，数据联网，服务联网的三重联网。</p>
+</blockquote>
+<h3 id="七、结束语-1"><a href="#七、结束语-1" class="headerlink" title="七、结束语"></a><span id="end">七、结束语</span></h3><blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;按照书本上的章节的话应该还有几章的内容没有讲到，主要内容是作者结合了中国工业的现状，对前几年发生的事情进行分析，对未来的展望。所以，到此为止就算是完结散花了。但总是感觉自己写的还很不到位，估计是因为心境的问题吧，有时候心境达不到，确实不能够写出什么深层次的东西，总是感觉很是词穷。下面又是我个人的主观瞎想了，没有兴趣的可以拜拜了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;有一句话叫做“软件定义世界”，而以后可能是“人工智能定义软件“。现在人工智能已经逐渐的深入到人们的生活当中来，语音识别，图像识别，等传统的机器学习任务现在使用深度学习对其进行训练，其在人脸识别，语音识别，游戏等很多方面已经超过了人类。所以深度学习的出现，可以说是又一次的焕发了机器学习的活力。毕竟人类从上个世界五六十年代一直到到现在在人工智能方面，能够显著的看出成果并取得重大突破的就是现在，几乎每天的新闻都是某某某使用深度学习神经网络实现了啥啥啥历史性的突破。<br>而人工智能，大数据，云计算近几年来的火爆都不是”横空出世“的。个人觉得其最根本的原因在于互联。正是因为互联，所以数据呈现爆炸式的增长，所以单机的性能远远的不能满足大数据的需求。所以便出现了分布式集群，hadoop框架的诞生更是刺激了大数据的飞速发展。然而个人公司想要购置维护一个机器集群其话费可想而知，估计初创公司在第一步的购置硬件支持上就已经阻力重重了。这时候云计算平台的出现无异于雪中送炭，你只需要根据你所需要的服务，按照资源分配的多少，租用的时常，支付相应的费用便可，这样就大大的降低了业务快速上线的难度。云计算不仅仅给大数据提供了可扩展的平台，也是给人工智能提供了便捷，使得个人的算法实践能够方便，快捷，低成本的运行起来，而不必担心购买昂贵的GPU,显卡等硬件配置并且考虑使用完后的处置。我发像我已经犯困了，舍友以后也能好好睡觉了，完结。</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;目录&quot;&gt;&lt;a href=&quot;#目录&quot; class=&quot;headerlink&quot; title=&quot;目录&quot;&gt;&lt;/a&gt;目录&lt;/h2&gt;&lt;h3 id=&quot;一、工业4-0”网红”的养成之路&quot;&gt;&lt;a href=&quot;#一、工业4-0”网红”的养成之路&quot; class=&quot;headerlink&quot; title=&quot;一、工业4.0”网红”的养成之路&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#one&quot;&gt;一、工业4.0”网红”的养成之路&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;二、”工业互联网”-VS-“工业4-0”&quot;&gt;&lt;a href=&quot;#二、”工业互联网”-VS-“工业4-0”&quot; class=&quot;headerlink&quot; title=&quot;二、”工业互联网” VS “工业4.0”&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#two&quot;&gt;二、”工业互联网” VS “工业4.0”&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;三、中国制造2025&quot;&gt;&lt;a href=&quot;#三、中国制造2025&quot; class=&quot;headerlink&quot; title=&quot;三、中国制造2025&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#three&quot;&gt;三、中国制造2025&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;四、工业革命升级技能点&quot;&gt;&lt;a href=&quot;#四、工业革命升级技能点&quot; class=&quot;headerlink&quot; title=&quot;四、工业革命升级技能点&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#forth&quot;&gt;四、工业革命升级技能点&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;五、人工智能&quot;&gt;&lt;a href=&quot;#五、人工智能&quot; class=&quot;headerlink&quot; title=&quot;五、人工智能&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#firth&quot;&gt;五、人工智能&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;六、工业互联网的智能网络&quot;&gt;&lt;a href=&quot;#六、工业互联网的智能网络&quot; class=&quot;headerlink&quot; title=&quot;六、工业互联网的智能网络&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#six&quot;&gt;六、工业互联网的智能网络&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;七、结束语&quot;&gt;&lt;a href=&quot;#七、结束语&quot; class=&quot;headerlink&quot; title=&quot;七、结束语&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#end&quot;&gt;七、结束语&lt;/a&gt;&lt;/h3&gt;&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;有幸能够参加东华大学计算机科学与技术学院举办的“大数据与智能制造”暑期夏令营。虽然只有短短的两天时间，但是收获颇多，尤其是听了燕山大学机械学院院长张立杰教授“智能制造和传统制造”的演讲和美国佛罗里达大学教授李晓林教授“Creating Intellignece via big learning”的演讲，对智能制造和人工智能领域了更加深刻的印象。由于我比较愚钝，具体的演讲内容不能详细的复述出来。再次由衷的感谢东华大学的常珊老师免费提供给我们《从互联到新工业革命》这本书，今天在火车上读完了这本通俗易懂而又见解深刻的书,无意发现,张立杰教授，李晓林教授，刘云浩教授，在智能制造方面的见解英雄所见略同，而为了更加体系的介绍和便于自己思路的清理，下面更多介绍清华大学软件学院院长刘云浩教授对互联网时代和新工业革命大潮的理解和体会并且再加上一点我个人的浅陋的见解。 由于本人文采有限，不能够很全面的写出刘老师书中的方方面面也无法用诙谐的语句吸引读者兴趣，所以我极力推荐大家读一读刘云浩老师的作品《从互联到新工业革命》（清华大学出版社）。由于我也只是泛读了一遍,所以写博客的时候也是第二次更加粗略的阅读，当中有什么见解不到的地方欢迎联系我（邮箱见文章底部）。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="-articals" scheme="https://github.com/jChanJi/categories/articals/"/>
+    
+    
+      <category term="AI" scheme="https://github.com/jChanJi/tags/AI/"/>
+    
+      <category term="Made in China 2025" scheme="https://github.com/jChanJi/tags/Made-in-China-2025/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>win10 安装ubuntu 16.04</title>
+    <link href="https://github.com/jChanJi/year/09/03/install_ubuntu/"/>
+    <id>https://github.com/jChanJi/year/09/03/install_ubuntu/</id>
+    <published>2017-09-03T06:44:05.312Z</published>
+    <updated>2017-09-03T06:47:07.748Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>在win10下安装ubuntu双系统。在笔记本安装ubuntu的时候遇到了很多的挫折，曾经也放弃过，但很不幸的是，在未来的今天又碰上了。有时候问题的答案很简单，但是需要大量的时间去得到它，并不是你的能力不行，而是网上的干扰答案实在是太多，无法分辨谁对谁假的时候，往往会一个个的试过去。我不认为这是个很笨的方法，因为多花点时间总能体会更多的东西。貌似废话有点多，下面直接上干货。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="一、版本"><a href="#一、版本" class="headerlink" title="一、版本"></a>一、版本</h2><ol>
+<li>win10 企业版</li>
+<li>ubuntu 16.04</li>
+<li>UltraSO 9.6.6.3300</li>
+<li>显卡：GTX 965M</li>
+<li>cup:i7-6700HQ</li>
+</ol>
+<h2 id="二、下载"><a href="#二、下载" class="headerlink" title="二、下载"></a>二、下载</h2><ol>
+<li><a href="http://releases.ubuntu.com/16.04.2/ubuntu-16.04.2-desktop-amd64.iso?_ga=2.92867550.254780022.1497589112-1524410519.1497589112" target="_blank" rel="external">ubuntu 16.04</a></li>
+<li><a href="http://172.19.251.251/files/510300000015EB65/dl.softmgr.qq.com/original/Compression/uiso9_cn_9.6.6.3300.exe" target="_blank" rel="external">UltraSO</a></li>
+</ol>
+<h2 id="三、安装配置"><a href="#三、安装配置" class="headerlink" title="三、安装配置"></a>三、安装配置</h2><h3 id="1-将镜像刻录到u盘（至少4g）"><a href="#1-将镜像刻录到u盘（至少4g）" class="headerlink" title="1.将镜像刻录到u盘（至少4g）"></a>1.将镜像刻录到u盘（至少4g）</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">打开UltraSO，点击试用。</div><div class="line">1、文件-&gt;打开-&gt;镜像位置</div><div class="line">2、启动-&gt;写如硬盘映像-&gt;写入</div></pre></td></tr></table></figure>
+<h3 id="2、分配空闲分区"><a href="#2、分配空闲分区" class="headerlink" title="2、分配空闲分区"></a>2、分配空闲分区</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、右击我的电脑-&gt;管理-&gt;磁盘管理</div><div class="line">2、选择非系统盘的主分区，右击-&gt;压缩卷，选择压缩大小，一般为50G,我的是100G,</div><div class="line">根据自己磁盘情况分配。</div></pre></td></tr></table></figure>
+<h3 id="3、将电脑设置为U盘启动"><a href="#3、将电脑设置为U盘启动" class="headerlink" title="3、将电脑设置为U盘启动"></a>3、将电脑设置为U盘启动</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">插入U盘，进入BIOS将U盘设置为启动项</div><div class="line">注：不同主板的BIOS大多都不会相同，所以根据自己电脑型号到网上查找。</div></pre></td></tr></table></figure>
+<h3 id="4、安装系统"><a href="#4、安装系统" class="headerlink" title="4、安装系统"></a>4、安装系统</h3><h4 id="1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。"><a href="#1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。" class="headerlink" title="1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。"></a>1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。</h4><h4 id="2、卡在logo"><a href="#2、卡在logo" class="headerlink" title="2、卡在logo"></a>2、卡在logo</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">重新启动电脑，在选择系统安装的界面按e,进入grup界面，让后在splash后面加上：空格nomodeset空格，按F10执行。后面重启出了最后一次也是一样操作</div></pre></td></tr></table></figure>
+<h4 id="3、创建分区"><a href="#3、创建分区" class="headerlink" title="3、创建分区"></a>3、创建分区</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1、选择自己分配的空闲的磁盘，进行分盘</div><div class="line">2、分盘的注意点是：</div><div class="line">    2.1、 /：存储系统文件，建议10GB ~ 15GB,我分配16G；</div><div class="line">    2.2、 swap：交换分区，即Linux系统的虚拟内存，建议是物理内存的2倍,我分配16G；</div><div class="line">    2.3、 /home：建议最后分配所有剩下的空间；</div><div class="line">    2.4、 boot：包含系统内核和系统启动所需的文件，实现双系统的关键所在，建议200M,我分配400M。</div><div class="line">3、其他的默认或者根据自己需求设置，点击安装</div></pre></td></tr></table></figure>
+<h3 id="5、分辨率问题"><a href="#5、分辨率问题" class="headerlink" title="5、分辨率问题"></a>5、分辨率问题</h3><p>一般比较新的N（英伟达）卡会出现没有安装驱动的问题，所以屏幕的分率很低，这时候就需要安装N卡驱动。直接安装会导致开机的时候卡在登陆界面进不去，所以必须借助于bumblebee(大黄蜂)，至于原因有兴趣的可以查一查，这里不多阐述。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install bumblebee bumblebee-nvidia primus linux-headers-generic</div><div class="line">Reboot</div></pre></td></tr></table></figure></p>
+<p>重新启动后：<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sudo apt-get purge nvidia-* #删除所有的N卡驱动</div><div class="line">sudo add-apt-repository ppa:graphics-drivers/ppa  #添加第三方驱动源</div><div class="line">sudo apt-get update #更新源</div><div class="line">sudo  apt-cache search nvidia-*  #查询nvidia驱动可用版本，这里推荐到英伟达官网查看自己显卡驱动的版本，我的是375</div><div class="line">sudo apt-get install nvidia-375 # 安装驱动</div></pre></td></tr></table></figure></p>
+<p>打开软件更新器，然后将附加驱动－&gt;未知换成显卡的驱动<br><br>最后重新启动，什么都不用做，等开机！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;在win10下安装ubuntu双系统。在笔记本安装ubuntu的时候遇到了很多的挫折，曾经也放弃过，但很不幸的是，在未来的今天又碰上了。有时候问题的答案很简单，但是需要大量的时间去得到它，并不是你的能力不行，而是网上的干扰答案实在是太多，无法分辨谁对谁假的时候，往往会一个个的试过去。我不认为这是个很笨的方法，因为多花点时间总能体会更多的东西。貌似废话有点多，下面直接上干货。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+    
+    
+      <category term="ubuntu" scheme="https://github.com/jChanJi/tags/ubuntu/"/>
+    
+      <category term="win 10" scheme="https://github.com/jChanJi/tags/win-10/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS7 安装vnc</title>
+    <link href="https://github.com/jChanJi/year/09/03/vnc/"/>
+    <id>https://github.com/jChanJi/year/09/03/vnc/</id>
+    <published>2017-09-03T06:44:05.306Z</published>
+    <updated>2017-09-03T07:08:42.638Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-首先执行这一句防止系统文件被修改"><a href="#1-首先执行这一句防止系统文件被修改" class="headerlink" title="1.首先执行这一句防止系统文件被修改"></a>1.首先执行这一句防止系统文件被修改</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chattr +i /etc/resolv.conf</div></pre></td></tr></table></figure>
+<h2 id="2、然后安装tigervnc"><a href="#2、然后安装tigervnc" class="headerlink" title="2、然后安装tigervnc"></a>2、然后安装tigervnc</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install -y tigervnc tigervnc-server</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="3-查看自己的服务器支持安装哪些包"><a href="#3-查看自己的服务器支持安装哪些包" class="headerlink" title="3.查看自己的服务器支持安装哪些包"></a>3.查看自己的服务器支持安装哪些包</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum grouplist</div></pre></td></tr></table></figure>
+<h4 id="查看自己的服务器里中Available-Environment-Groups下面有哪些可以安装的Desktop-我这里的是GNOME-Desktop"><a href="#查看自己的服务器里中Available-Environment-Groups下面有哪些可以安装的Desktop-我这里的是GNOME-Desktop" class="headerlink" title="查看自己的服务器里中Available Environment Groups下面有哪些可以安装的Desktop,我这里的是GNOME Desktop"></a>查看自己的服务器里中Available Environment Groups下面有哪些可以安装的Desktop,我这里的是GNOME Desktop</h4><h2 id="4-安装GNOME-Desktop"><a href="#4-安装GNOME-Desktop" class="headerlink" title="4. 安装GNOME Desktop"></a>4. 安装GNOME Desktop</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum groupinstall GNOME Desktop</div></pre></td></tr></table></figure>
+<h2 id="5-启动服务"><a href="#5-启动服务" class="headerlink" title="5. 启动服务"></a>5. 启动服务</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vncserver</div></pre></td></tr></table></figure>
+<h2 id="6-连接vnc"><a href="#6-连接vnc" class="headerlink" title="6.连接vnc"></a>6.连接vnc</h2><blockquote>
+<p>第一次执行会提示输入密码，然后再验证输入一次回车，vnc服务端就算搭建好了！<br>接下来在手机或者电脑上下载vnc客户端，输入你的IP:5901连接<br>然后输入密码就可以看到你的服务器界面了！</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-首先执行这一句防止系统文件被修改&quot;&gt;&lt;a href=&quot;#1-首先执行这一句防止系统文件被修改&quot; class=&quot;headerlink&quot; title=&quot;1.首先执行这一句防止系统文件被修改&quot;&gt;&lt;/a&gt;1.首先执行这一句防止系统文件被修改&lt;/h2&gt;&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;chattr +i /etc/resolv.conf&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;2、然后安装tigervnc&quot;&gt;&lt;a href=&quot;#2、然后安装tigervnc&quot; class=&quot;headerlink&quot; title=&quot;2、然后安装tigervnc&quot;&gt;&lt;/a&gt;2、然后安装tigervnc&lt;/h2&gt;&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;sudo yum install -y tigervnc tigervnc-server&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+    
+    
+      <category term="CentOS" scheme="https://github.com/jChanJi/tags/CentOS/"/>
+    
+      <category term="vnc" scheme="https://github.com/jChanJi/tags/vnc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS 7 安装eclipse mars 2</title>
+    <link href="https://github.com/jChanJi/year/09/03/install_eclipse/"/>
+    <id>https://github.com/jChanJi/year/09/03/install_eclipse/</id>
+    <published>2017-09-03T06:40:47.978Z</published>
+    <updated>2017-09-03T07:02:49.922Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="操作系统：CentOS-7"><a href="#操作系统：CentOS-7" class="headerlink" title="操作系统：CentOS 7"></a>操作系统：CentOS 7</h4><h4 id="eclispe版本：Eclipse-Mars-2"><a href="#eclispe版本：Eclipse-Mars-2" class="headerlink" title="eclispe版本：Eclipse Mars 2"></a>eclispe版本：Eclipse Mars 2</h4><a id="more"></a>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><blockquote>
+<h3 id="1-下载安装eclipse"><a href="#1-下载安装eclipse" class="headerlink" title="1.下载安装eclipse"></a>1.下载安装<a href="http://mirrors.ustc.edu.cn/eclipse/technology/epp/downloads/release/mars/2/eclipse-jee-mars-2-linux-gtk-x86_64.tar.gz" title="eclise下载" target="_blank" rel="external">eclipse</a></h3><h3 id="2-解压"><a href="#2-解压" class="headerlink" title="2.解压"></a>2.解压</h3></blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo tar -zxvf [下载的安装包名称] -C [安装的目录]</div></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="3-创建软链接"><a href="#3-创建软链接" class="headerlink" title="3.创建软链接"></a>3.创建软链接</h3></blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ln -s /安装的目录/eclipse/eclipse  /usr/bin/eclipse</div></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="4-添加图标"><a href="#4-添加图标" class="headerlink" title="4.添加图标"></a>4.添加图标</h3></blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gedit /usr/share/applications/eclipse.desktop</div></pre></td></tr></table></figure>
+<p>将下面内容添加到文件中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[Desktop Entry]</div><div class="line">Encoding=UTF-8</div><div class="line">Name=Eclipse</div><div class="line">Comment=Eclipse Mar2</div><div class="line">Exec=/usr/bin/eclipse</div><div class="line">Icon=/[解压的目录]/eclipse/icon.xpm</div><div class="line">Categories=Application;Development;Java;IDE</div><div class="line">Version=1.0</div><div class="line">Type=Application</div><div class="line">Terminal=0</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;操作系统：CentOS-7&quot;&gt;&lt;a href=&quot;#操作系统：CentOS-7&quot; class=&quot;headerlink&quot; title=&quot;操作系统：CentOS 7&quot;&gt;&lt;/a&gt;操作系统：CentOS 7&lt;/h4&gt;&lt;h4 id=&quot;eclispe版本：Eclipse-Mars-2&quot;&gt;&lt;a href=&quot;#eclispe版本：Eclipse-Mars-2&quot; class=&quot;headerlink&quot; title=&quot;eclispe版本：Eclipse Mars 2&quot;&gt;&lt;/a&gt;eclispe版本：Eclipse Mars 2&lt;/h4&gt;
+    
+    </summary>
+    
+      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+    
+    
+      <category term="eclispe" scheme="https://github.com/jChanJi/tags/eclispe/"/>
+    
+      <category term="CentOS 7" scheme="https://github.com/jChanJi/tags/CentOS-7/"/>
+    
+  </entry>
   
   <entry>
     <title>伪分布式hbase安装配置</title>
@@ -67,9 +669,9 @@
       <category term="-bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
     
     
-      <category term="big data" scheme="https://github.com/jChanJi/tags/big-data/"/>
-    
       <category term="hbase" scheme="https://github.com/jChanJi/tags/hbase/"/>
+    
+      <category term="big data" scheme="https://github.com/jChanJi/tags/big-data/"/>
     
   </entry>
   
@@ -199,7 +801,7 @@
     <link href="https://github.com/jChanJi/year/08/29/hadoop/"/>
     <id>https://github.com/jChanJi/year/08/29/hadoop/</id>
     <published>2017-08-29T11:10:45.044Z</published>
-    <updated>2017-09-03T06:36:04.141Z</updated>
+    <updated>2017-09-03T06:37:47.230Z</updated>
     
     <content type="html"><![CDATA[<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="简单的的vim命令"><a href="#简单的的vim命令" class="headerlink" title="简单的的vim命令"></a><a href="http://www.cnblogs.com/jeakon/archive/2012/08/13/2816802.html" target="_blank" rel="external">简单的的vim命令</a></h3><h3 id="linux常用命令"><a href="#linux常用命令" class="headerlink" title="linux常用命令"></a><a href="http://www.weixuehao.com/archives/25" target="_blank" rel="external">linux常用命令</a></h3><h3 id="linux命令查找网站"><a href="#linux命令查找网站" class="headerlink" title="linux命令查找网站"></a><a href="http://man.linuxde.net/" target="_blank" rel="external">linux命令查找网站</a></h3><h1 id="CentOS-下安装hadoop"><a href="#CentOS-下安装hadoop" class="headerlink" title="CentOS 下安装hadoop"></a>CentOS 下安装hadoop<br></h1><a id="more"></a>
 <h2 id="一、安装Vmware-12"><a href="#一、安装Vmware-12" class="headerlink" title="一、安装Vmware 12"></a>一、安装Vmware 12</h2><blockquote>
@@ -330,9 +932,9 @@
       <category term="-bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
     
     
-      <category term="hadoop" scheme="https://github.com/jChanJi/tags/hadoop/"/>
-    
       <category term="big data" scheme="https://github.com/jChanJi/tags/big-data/"/>
+    
+      <category term="hadoop" scheme="https://github.com/jChanJi/tags/hadoop/"/>
     
   </entry>
   
