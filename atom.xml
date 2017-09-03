@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/jChanJi/"/>
-  <updated>2017-09-02T00:06:10.617Z</updated>
+  <updated>2017-09-03T03:09:29.416Z</updated>
   <id>https://github.com/jChanJi/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/jChanJi/year/08/30/hbase_step/"/>
     <id>https://github.com/jChanJi/year/08/30/hbase_step/</id>
     <published>2017-08-30T14:36:02.631Z</published>
-    <updated>2017-09-02T00:06:10.617Z</updated>
+    <updated>2017-09-03T03:09:29.416Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 <a href="http://www.powerxing.com/install-hadoop-in-centos/" target="_blank" rel="external">hadoop伪分布式教程</a>,hbase官方<a href="http://abloz.com/hbase/book.html" target="_blank" rel="external">中文文档</a></p>
@@ -64,6 +64,8 @@
     
     </summary>
     
+      <category term="-bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
+    
     
       <category term="-hbase -big data" scheme="https://github.com/jChanJi/tags/hbase-big-data/"/>
     
@@ -74,7 +76,7 @@
     <link href="https://github.com/jChanJi/year/08/30/codeparse_gbk2utf/"/>
     <id>https://github.com/jChanJi/year/08/30/codeparse_gbk2utf/</id>
     <published>2017-08-30T14:32:48.163Z</published>
-    <updated>2017-09-02T00:06:13.621Z</updated>
+    <updated>2017-09-03T05:51:28.647Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>使用java,对文件遍历，修改文件编码</p>
@@ -91,6 +93,8 @@
     
     </summary>
     
+      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+    
     
       <category term="-java" scheme="https://github.com/jChanJi/tags/java/"/>
     
@@ -101,7 +105,7 @@
     <link href="https://github.com/jChanJi/year/08/29/tensorflow_step/"/>
     <id>https://github.com/jChanJi/year/08/29/tensorflow_step/</id>
     <published>2017-08-29T13:38:28.881Z</published>
-    <updated>2017-09-01T23:57:21.316Z</updated>
+    <updated>2017-09-03T03:14:28.516Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>目前深度学习炙手可热的框架毫无疑问是tensorflow,在本教程主要介绍tensorflow在anaconda中的安装，在火车上实在是无聊，电脑又没有网络，只能打发一下时间。</p>
@@ -132,8 +136,10 @@
     
     </summary>
     
+      <category term="-machinelearning" scheme="https://github.com/jChanJi/categories/machinelearning/"/>
     
-      <category term="-deeplearning" scheme="https://github.com/jChanJi/tags/deeplearning/"/>
+    
+      <category term="-deeplearning -tensorflow" scheme="https://github.com/jChanJi/tags/deeplearning-tensorflow/"/>
     
   </entry>
   
@@ -142,7 +148,7 @@
     <link href="https://github.com/jChanJi/year/08/29/citycosumption/"/>
     <id>https://github.com/jChanJi/year/08/29/citycosumption/</id>
     <published>2017-08-29T13:17:37.902Z</published>
-    <updated>2017-09-02T00:06:14.194Z</updated>
+    <updated>2017-09-03T03:06:53.707Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
 <p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="external">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
@@ -173,6 +179,8 @@
     
     </summary>
     
+      <category term="-machinelearning" scheme="https://github.com/jChanJi/categories/machinelearning/"/>
+    
     
       <category term="-python -machinelearning -K-means" scheme="https://github.com/jChanJi/tags/python-machinelearning-K-means/"/>
     
@@ -183,7 +191,7 @@
     <link href="https://github.com/jChanJi/year/08/29/hadoop/"/>
     <id>https://github.com/jChanJi/year/08/29/hadoop/</id>
     <published>2017-08-29T11:10:45.044Z</published>
-    <updated>2017-09-02T00:06:12.966Z</updated>
+    <updated>2017-09-03T05:32:38.417Z</updated>
     
     <content type="html"><![CDATA[<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="简单的的vim命令"><a href="#简单的的vim命令" class="headerlink" title="简单的的vim命令"></a><a href="http://www.cnblogs.com/jeakon/archive/2012/08/13/2816802.html" target="_blank" rel="external">简单的的vim命令</a></h3><h3 id="linux常用命令"><a href="#linux常用命令" class="headerlink" title="linux常用命令"></a><a href="http://www.weixuehao.com/archives/25" target="_blank" rel="external">linux常用命令</a></h3><h3 id="linux命令查找网站"><a href="#linux命令查找网站" class="headerlink" title="linux命令查找网站"></a><a href="http://man.linuxde.net/" target="_blank" rel="external">linux命令查找网站</a></h3><h1 id="CentOS-下安装hadoop"><a href="#CentOS-下安装hadoop" class="headerlink" title="CentOS 下安装hadoop"></a>CentOS 下安装hadoop<br></h1><a id="more"></a>
 <h2 id="一、安装Vmware-12"><a href="#一、安装Vmware-12" class="headerlink" title="一、安装Vmware 12"></a>一、安装Vmware 12</h2><blockquote>
@@ -310,6 +318,8 @@
       &lt;h2 id=&quot;基本操作&quot;&gt;&lt;a href=&quot;#基本操作&quot; class=&quot;headerlink&quot; title=&quot;基本操作&quot;&gt;&lt;/a&gt;基本操作&lt;/h2&gt;&lt;h3 id=&quot;简单的的vim命令&quot;&gt;&lt;a href=&quot;#简单的的vim命令&quot; class=&quot;headerlink&quot; title=&quot;简单的的vim命令&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.cnblogs.com/jeakon/archive/2012/08/13/2816802.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简单的的vim命令&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;linux常用命令&quot;&gt;&lt;a href=&quot;#linux常用命令&quot; class=&quot;headerlink&quot; title=&quot;linux常用命令&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.weixuehao.com/archives/25&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;linux常用命令&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;linux命令查找网站&quot;&gt;&lt;a href=&quot;#linux命令查找网站&quot; class=&quot;headerlink&quot; title=&quot;linux命令查找网站&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://man.linuxde.net/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;linux命令查找网站&lt;/a&gt;&lt;/h3&gt;&lt;h1 id=&quot;CentOS-下安装hadoop&quot;&gt;&lt;a href=&quot;#CentOS-下安装hadoop&quot; class=&quot;headerlink&quot; title=&quot;CentOS 下安装hadoop&quot;&gt;&lt;/a&gt;CentOS 下安装hadoop&lt;br&gt;&lt;/h1&gt;
     
     </summary>
+    
+      <category term="-bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
     
     
       <category term="-hadoop -big data" scheme="https://github.com/jChanJi/tags/hadoop-big-data/"/>
