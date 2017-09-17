@@ -4,9 +4,9 @@
   <subtitle>Stay Hungry,Stay Foolish</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://github.com/jChanJi/"/>
+  <link href="http://jchanji.github.io/"/>
   <updated>2017-09-03T07:23:04.953Z</updated>
-  <id>https://github.com/jChanJi/</id>
+  <id>http://jchanji.github.io/</id>
   
   <author>
     <name>Chanji</name>
@@ -17,14 +17,14 @@
   
   <entry>
     <title>Arabesque:A System for Distributed Graph Mining</title>
-    <link href="https://github.com/jChanJi/year/09/03/artical_1/"/>
-    <id>https://github.com/jChanJi/year/09/03/artical_1/</id>
+    <link href="http://jchanji.github.io/year/09/03/artical_1/"/>
+    <id>http://jchanji.github.io/year/09/03/artical_1/</id>
     <published>2017-09-03T07:15:57.580Z</published>
     <updated>2017-09-03T07:23:04.953Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Arabesque-A-System-for-Distributed-Graph-Mining"><a href="#Arabesque-A-System-for-Distributed-Graph-Mining" class="headerlink" title="Arabesque: A System for Distributed Graph Mining"></a>Arabesque: A System for Distributed Graph Mining</h2><blockquote>
 <h3 id="Arabesque-分布式的图挖掘系统"><a href="#Arabesque-分布式的图挖掘系统" class="headerlink" title="Arabesque:分布式的图挖掘系统"></a>Arabesque:分布式的图挖掘系统</h3></blockquote>
-<h4 id="原文链接：点我跳转"><a href="#原文链接：点我跳转" class="headerlink" title="原文链接：点我跳转"></a>原文链接：<a href="https://github.com/jChanJi/jchanji.github.com/blob/master/meterial/093-teixeira.pdf">点我跳转</a></h4><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<h4 id="原文链接：点我跳转"><a href="#原文链接：点我跳转" class="headerlink" title="原文链接：点我跳转"></a>原文链接：<a href="https://github.com/jChanJi/jchanji.github.com/blob/master/meterial/093-teixeira.pdf" target="_blank" rel="external">点我跳转</a></h4><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
 <li><p><a href="#Abstract">Abstract</a></p>
 </li>
 <li><p>1.<a href="#introduction">Introduction</a></p>
@@ -280,7 +280,7 @@
     
       &lt;h2 id=&quot;Arabesque-A-System-for-Distributed-Graph-Mining&quot;&gt;&lt;a href=&quot;#Arabesque-A-System-for-Distributed-Graph-Mining&quot; class=&quot;headerlink&quot; title=&quot;Arabesque: A System for Distributed Graph Mining&quot;&gt;&lt;/a&gt;Arabesque: A System for Distributed Graph Mining&lt;/h2&gt;&lt;blockquote&gt;
 &lt;h3 id=&quot;Arabesque-分布式的图挖掘系统&quot;&gt;&lt;a href=&quot;#Arabesque-分布式的图挖掘系统&quot; class=&quot;headerlink&quot; title=&quot;Arabesque:分布式的图挖掘系统&quot;&gt;&lt;/a&gt;Arabesque:分布式的图挖掘系统&lt;/h3&gt;&lt;/blockquote&gt;
-&lt;h4 id=&quot;原文链接：点我跳转&quot;&gt;&lt;a href=&quot;#原文链接：点我跳转&quot; class=&quot;headerlink&quot; title=&quot;原文链接：点我跳转&quot;&gt;&lt;/a&gt;原文链接：&lt;a href=&quot;https://github.com/jChanJi/jchanji.github.com/blob/master/meterial/093-teixeira.pdf&quot;&gt;点我跳转&lt;/a&gt;&lt;/h4&gt;&lt;h2 id=&quot;目录&quot;&gt;&lt;a href=&quot;#目录&quot; class=&quot;headerlink&quot; title=&quot;目录&quot;&gt;&lt;/a&gt;目录&lt;/h2&gt;&lt;ul&gt;
+&lt;h4 id=&quot;原文链接：点我跳转&quot;&gt;&lt;a href=&quot;#原文链接：点我跳转&quot; class=&quot;headerlink&quot; title=&quot;原文链接：点我跳转&quot;&gt;&lt;/a&gt;原文链接：&lt;a href=&quot;https://github.com/jChanJi/jchanji.github.com/blob/master/meterial/093-teixeira.pdf&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;点我跳转&lt;/a&gt;&lt;/h4&gt;&lt;h2 id=&quot;目录&quot;&gt;&lt;a href=&quot;#目录&quot; class=&quot;headerlink&quot; title=&quot;目录&quot;&gt;&lt;/a&gt;目录&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;#Abstract&quot;&gt;Abstract&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;1.&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/p&gt;
@@ -289,19 +289,19 @@
     
     </summary>
     
-      <category term="-arcticals" scheme="https://github.com/jChanJi/categories/arcticals/"/>
+      <category term="-arcticals" scheme="http://jchanji.github.io/categories/arcticals/"/>
     
     
-      <category term="Graph Mining" scheme="https://github.com/jChanJi/tags/Graph-Mining/"/>
+      <category term="Graph Mining" scheme="http://jchanji.github.io/tags/Graph-Mining/"/>
     
-      <category term="distribute system" scheme="https://github.com/jChanJi/tags/distribute-system/"/>
+      <category term="distribute system" scheme="http://jchanji.github.io/tags/distribute-system/"/>
     
   </entry>
   
   <entry>
     <title>ubuntu只显示桌面，没有菜单栏</title>
-    <link href="https://github.com/jChanJi/year/09/03/ubuntu_only_background/"/>
-    <id>https://github.com/jChanJi/year/09/03/ubuntu_only_background/</id>
+    <link href="http://jchanji.github.io/year/09/03/ubuntu_only_background/"/>
+    <id>http://jchanji.github.io/year/09/03/ubuntu_only_background/</id>
     <published>2017-09-03T06:44:05.410Z</published>
     <updated>2017-09-03T07:13:09.263Z</updated>
     
@@ -322,17 +322,17 @@
     
     </summary>
     
-      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+      <category term="-others" scheme="http://jchanji.github.io/categories/others/"/>
     
     
-      <category term="-ubuntu" scheme="https://github.com/jChanJi/tags/ubuntu/"/>
+      <category term="-ubuntu" scheme="http://jchanji.github.io/tags/ubuntu/"/>
     
   </entry>
   
   <entry>
     <title>伪分布式spark安装配置</title>
-    <link href="https://github.com/jChanJi/year/09/03/spark_step/"/>
-    <id>https://github.com/jChanJi/year/09/03/spark_step/</id>
+    <link href="http://jchanji.github.io/year/09/03/spark_step/"/>
+    <id>http://jchanji.github.io/year/09/03/spark_step/</id>
     <published>2017-09-03T06:44:05.395Z</published>
     <updated>2017-09-03T06:57:00.318Z</updated>
     
@@ -366,19 +366,19 @@
     
     </summary>
     
-      <category term="-bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
+      <category term="-bigdata" scheme="http://jchanji.github.io/categories/bigdata/"/>
     
     
-      <category term="big data" scheme="https://github.com/jChanJi/tags/big-data/"/>
+      <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
     
-      <category term="spark" scheme="https://github.com/jChanJi/tags/spark/"/>
+      <category term="spark" scheme="http://jchanji.github.io/tags/spark/"/>
     
   </entry>
   
   <entry>
     <title>sumlime text3 配置Markdown</title>
-    <link href="https://github.com/jChanJi/year/09/03/markdown/"/>
-    <id>https://github.com/jChanJi/year/09/03/markdown/</id>
+    <link href="http://jchanji.github.io/year/09/03/markdown/"/>
+    <id>http://jchanji.github.io/year/09/03/markdown/</id>
     <published>2017-09-03T06:44:05.362Z</published>
     <updated>2017-09-03T06:57:25.190Z</updated>
     
@@ -419,19 +419,19 @@
     
     </summary>
     
-      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+      <category term="-others" scheme="http://jchanji.github.io/categories/others/"/>
     
     
-      <category term="sublime text3" scheme="https://github.com/jChanJi/tags/sublime-text3/"/>
+      <category term="sublime text3" scheme="http://jchanji.github.io/tags/sublime-text3/"/>
     
-      <category term="markdown" scheme="https://github.com/jChanJi/tags/markdown/"/>
+      <category term="markdown" scheme="http://jchanji.github.io/tags/markdown/"/>
     
   </entry>
   
   <entry>
     <title>从互联到新工业革命-读后感</title>
-    <link href="https://github.com/jChanJi/year/09/03/internet_of_everthing_for_new_industrial_revolution/"/>
-    <id>https://github.com/jChanJi/year/09/03/internet_of_everthing_for_new_industrial_revolution/</id>
+    <link href="http://jchanji.github.io/year/09/03/internet_of_everthing_for_new_industrial_revolution/"/>
+    <id>http://jchanji.github.io/year/09/03/internet_of_everthing_for_new_industrial_revolution/</id>
     <published>2017-09-03T06:44:05.336Z</published>
     <updated>2017-09-03T06:53:50.510Z</updated>
     
@@ -490,19 +490,19 @@
     
     </summary>
     
-      <category term="-articals" scheme="https://github.com/jChanJi/categories/articals/"/>
+      <category term="-articals" scheme="http://jchanji.github.io/categories/articals/"/>
     
     
-      <category term="AI" scheme="https://github.com/jChanJi/tags/AI/"/>
+      <category term="AI" scheme="http://jchanji.github.io/tags/AI/"/>
     
-      <category term="Made in China 2025" scheme="https://github.com/jChanJi/tags/Made-in-China-2025/"/>
+      <category term="Made in China 2025" scheme="http://jchanji.github.io/tags/Made-in-China-2025/"/>
     
   </entry>
   
   <entry>
     <title>win10 安装ubuntu 16.04</title>
-    <link href="https://github.com/jChanJi/year/09/03/install_ubuntu/"/>
-    <id>https://github.com/jChanJi/year/09/03/install_ubuntu/</id>
+    <link href="http://jchanji.github.io/year/09/03/install_ubuntu/"/>
+    <id>http://jchanji.github.io/year/09/03/install_ubuntu/</id>
     <published>2017-09-03T06:44:05.312Z</published>
     <updated>2017-09-03T06:47:07.748Z</updated>
     
@@ -539,19 +539,19 @@
     
     </summary>
     
-      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+      <category term="-others" scheme="http://jchanji.github.io/categories/others/"/>
     
     
-      <category term="ubuntu" scheme="https://github.com/jChanJi/tags/ubuntu/"/>
+      <category term="ubuntu" scheme="http://jchanji.github.io/tags/ubuntu/"/>
     
-      <category term="win 10" scheme="https://github.com/jChanJi/tags/win-10/"/>
+      <category term="win 10" scheme="http://jchanji.github.io/tags/win-10/"/>
     
   </entry>
   
   <entry>
     <title>CentOS7 安装vnc</title>
-    <link href="https://github.com/jChanJi/year/09/03/vnc/"/>
-    <id>https://github.com/jChanJi/year/09/03/vnc/</id>
+    <link href="http://jchanji.github.io/year/09/03/vnc/"/>
+    <id>http://jchanji.github.io/year/09/03/vnc/</id>
     <published>2017-09-03T06:44:05.306Z</published>
     <updated>2017-09-03T07:08:42.638Z</updated>
     
@@ -573,19 +573,19 @@
     
     </summary>
     
-      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+      <category term="-others" scheme="http://jchanji.github.io/categories/others/"/>
     
     
-      <category term="CentOS" scheme="https://github.com/jChanJi/tags/CentOS/"/>
+      <category term="CentOS" scheme="http://jchanji.github.io/tags/CentOS/"/>
     
-      <category term="vnc" scheme="https://github.com/jChanJi/tags/vnc/"/>
+      <category term="vnc" scheme="http://jchanji.github.io/tags/vnc/"/>
     
   </entry>
   
   <entry>
     <title>CentOS 7 安装eclipse mars 2</title>
-    <link href="https://github.com/jChanJi/year/09/03/install_eclipse/"/>
-    <id>https://github.com/jChanJi/year/09/03/install_eclipse/</id>
+    <link href="http://jchanji.github.io/year/09/03/install_eclipse/"/>
+    <id>http://jchanji.github.io/year/09/03/install_eclipse/</id>
     <published>2017-09-03T06:40:47.978Z</published>
     <updated>2017-09-03T07:02:49.922Z</updated>
     
@@ -608,19 +608,19 @@
     
     </summary>
     
-      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+      <category term="-others" scheme="http://jchanji.github.io/categories/others/"/>
     
     
-      <category term="eclispe" scheme="https://github.com/jChanJi/tags/eclispe/"/>
+      <category term="eclispe" scheme="http://jchanji.github.io/tags/eclispe/"/>
     
-      <category term="CentOS 7" scheme="https://github.com/jChanJi/tags/CentOS-7/"/>
+      <category term="CentOS 7" scheme="http://jchanji.github.io/tags/CentOS-7/"/>
     
   </entry>
   
   <entry>
     <title>伪分布式hbase安装配置</title>
-    <link href="https://github.com/jChanJi/year/08/30/hbase_step/"/>
-    <id>https://github.com/jChanJi/year/08/30/hbase_step/</id>
+    <link href="http://jchanji.github.io/year/08/30/hbase_step/"/>
+    <id>http://jchanji.github.io/year/08/30/hbase_step/</id>
     <published>2017-08-30T14:36:02.631Z</published>
     <updated>2017-09-03T06:37:53.568Z</updated>
     
@@ -666,19 +666,19 @@
     
     </summary>
     
-      <category term="-bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
+      <category term="-bigdata" scheme="http://jchanji.github.io/categories/bigdata/"/>
     
     
-      <category term="big data" scheme="https://github.com/jChanJi/tags/big-data/"/>
+      <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
     
-      <category term="hbase" scheme="https://github.com/jChanJi/tags/hbase/"/>
+      <category term="hbase" scheme="http://jchanji.github.io/tags/hbase/"/>
     
   </entry>
   
   <entry>
     <title>使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</title>
-    <link href="https://github.com/jChanJi/year/08/30/codeparse_gbk2utf/"/>
-    <id>https://github.com/jChanJi/year/08/30/codeparse_gbk2utf/</id>
+    <link href="http://jchanji.github.io/year/08/30/codeparse_gbk2utf/"/>
+    <id>http://jchanji.github.io/year/08/30/codeparse_gbk2utf/</id>
     <published>2017-08-30T14:32:48.163Z</published>
     <updated>2017-09-03T05:51:28.647Z</updated>
     
@@ -697,17 +697,17 @@
     
     </summary>
     
-      <category term="-others" scheme="https://github.com/jChanJi/categories/others/"/>
+      <category term="-others" scheme="http://jchanji.github.io/categories/others/"/>
     
     
-      <category term="-java" scheme="https://github.com/jChanJi/tags/java/"/>
+      <category term="-java" scheme="http://jchanji.github.io/tags/java/"/>
     
   </entry>
   
   <entry>
     <title>ubuntu16.04 anaconda环境下安装tensoflow(GPU)</title>
-    <link href="https://github.com/jChanJi/year/08/29/tensorflow_step/"/>
-    <id>https://github.com/jChanJi/year/08/29/tensorflow_step/</id>
+    <link href="http://jchanji.github.io/year/08/29/tensorflow_step/"/>
+    <id>http://jchanji.github.io/year/08/29/tensorflow_step/</id>
     <published>2017-08-29T13:38:28.881Z</published>
     <updated>2017-09-03T06:36:41.389Z</updated>
     
@@ -740,19 +740,19 @@
     
     </summary>
     
-      <category term="-machinelearning" scheme="https://github.com/jChanJi/categories/machinelearning/"/>
+      <category term="-machinelearning" scheme="http://jchanji.github.io/categories/machinelearning/"/>
     
     
-      <category term="deeplearning" scheme="https://github.com/jChanJi/tags/deeplearning/"/>
+      <category term="deeplearning" scheme="http://jchanji.github.io/tags/deeplearning/"/>
     
-      <category term="tensorflow" scheme="https://github.com/jChanJi/tags/tensorflow/"/>
+      <category term="tensorflow" scheme="http://jchanji.github.io/tags/tensorflow/"/>
     
   </entry>
   
   <entry>
     <title>机器学习-无监督学习-聚类K-means算法-对31省消费水平分类</title>
-    <link href="https://github.com/jChanJi/year/08/29/citycosumption/"/>
-    <id>https://github.com/jChanJi/year/08/29/citycosumption/</id>
+    <link href="http://jchanji.github.io/year/08/29/citycosumption/"/>
+    <id>http://jchanji.github.io/year/08/29/citycosumption/</id>
     <published>2017-08-29T13:17:37.902Z</published>
     <updated>2017-09-03T06:35:05.356Z</updated>
     
@@ -760,7 +760,7 @@
 <p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="external">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>现有1999年全国31个省份城镇居民家庭平均每人全年消费性支出的八个主<br>要变量数据，这八个变量分别是：食品、衣着、家庭设备用品及服务、医疗<br>保健、交通和通讯、娱乐教育文化服务、居住以及杂项商品和服务。利用已<br>有数据，对31个省份进行聚类。。数据下载<a href="https://github.com/jChanJi/static_resource/blob/master/clustering/TestData.txt">点击我</a></p>
+<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>现有1999年全国31个省份城镇居民家庭平均每人全年消费性支出的八个主<br>要变量数据，这八个变量分别是：食品、衣着、家庭设备用品及服务、医疗<br>保健、交通和通讯、娱乐教育文化服务、居住以及杂项商品和服务。利用已<br>有数据，对31个省份进行聚类。。数据下载<a href="https://github.com/jChanJi/static_resource/blob/master/clustering/TestData.txt" target="_blank" rel="external">点击我</a></p>
 <h2 id="主要参数"><a href="#主要参数" class="headerlink" title="主要参数"></a>主要参数</h2><ol>
 <li>n_clusters：用于指定聚类中心的个数</li>
 <li>init：初始聚类中心的初始化方法</li>
@@ -785,21 +785,21 @@
     
     </summary>
     
-      <category term="-machinelearning" scheme="https://github.com/jChanJi/categories/machinelearning/"/>
+      <category term="-machinelearning" scheme="http://jchanji.github.io/categories/machinelearning/"/>
     
     
-      <category term="python" scheme="https://github.com/jChanJi/tags/python/"/>
+      <category term="python" scheme="http://jchanji.github.io/tags/python/"/>
     
-      <category term="machinelearning" scheme="https://github.com/jChanJi/tags/machinelearning/"/>
+      <category term="machinelearning" scheme="http://jchanji.github.io/tags/machinelearning/"/>
     
-      <category term="K-means" scheme="https://github.com/jChanJi/tags/K-means/"/>
+      <category term="K-means" scheme="http://jchanji.github.io/tags/K-means/"/>
     
   </entry>
   
   <entry>
     <title>CentOS7安装配置hadoop集群</title>
-    <link href="https://github.com/jChanJi/year/08/29/hadoop/"/>
-    <id>https://github.com/jChanJi/year/08/29/hadoop/</id>
+    <link href="http://jchanji.github.io/year/08/29/hadoop/"/>
+    <id>http://jchanji.github.io/year/08/29/hadoop/</id>
     <published>2017-08-29T11:10:45.044Z</published>
     <updated>2017-09-03T06:37:47.230Z</updated>
     
@@ -929,23 +929,23 @@
     
     </summary>
     
-      <category term="-bigdata" scheme="https://github.com/jChanJi/categories/bigdata/"/>
+      <category term="-bigdata" scheme="http://jchanji.github.io/categories/bigdata/"/>
     
     
-      <category term="hadoop" scheme="https://github.com/jChanJi/tags/hadoop/"/>
+      <category term="hadoop" scheme="http://jchanji.github.io/tags/hadoop/"/>
     
-      <category term="big data" scheme="https://github.com/jChanJi/tags/big-data/"/>
+      <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="https://github.com/jChanJi/year/08/29/hello-world/"/>
-    <id>https://github.com/jChanJi/year/08/29/hello-world/</id>
+    <link href="http://jchanji.github.io/year/08/29/hello-world/"/>
+    <id>http://jchanji.github.io/year/08/29/hello-world/</id>
     <published>2017-08-29T07:35:40.594Z</published>
     <updated>2017-08-29T13:31:43.559Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <a id="more"></a>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
@@ -959,7 +959,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
     
     </summary>
     
