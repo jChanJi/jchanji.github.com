@@ -2,12 +2,15 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="baidu-site-verification" content="6fea7fc7276fc383ec5b2080c662f076"/>
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
+  
+  
+  
   
   <title>CentOS7安装配置hadoop集群 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="基本操作简单的的vim命令linux常用命令linux命令查找网站CentOS 下安装hadoop">
-<meta name="keywords" content="big data,hadoop">
+<meta name="keywords" content="hadoop,big data">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS7安装配置hadoop集群">
 <meta property="og:url" content="http://jchanji.github.io/year/08/29/hadoop/index.html">
@@ -19,202 +22,252 @@
 <meta name="twitter:title" content="CentOS7安装配置hadoop集群">
 <meta name="twitter:description" content="基本操作简单的的vim命令linux常用命令linux命令查找网站CentOS 下安装hadoop">
   
+    <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
-    <link rel="icon" href="/img/leaves.ico">
+  
+    <link rel="icon" href="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
   
   <link rel="stylesheet" href="/css/style.css">
-  <script src="https://jchanji.github.io/js/jquery1.8.2.min.js"></script>
-  <script src="https://jchanji.github.io/js/jquery.nicescroll.js"></script>
-  <script src="https://jchanji.github.io/js/jquery.qrcode.min.js"></script>
-  <script src="/js/ug-theme-default.js"></script>
-  <script src="/js/unitegallery.js"></script>
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
 </head>
-
 <body>
-
   <div id="container">
     <div class="left-col">
     <div class="overlay"></div>
 <div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			<img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
-		</a>
-
-		<hgroup>
-		  <h1 class="header-author"><a href="/" class="alluraregular">Chanji</a></h1>
-		</hgroup>
-        <!--
-		
-		<p class="header-subtitle">Stay Hungry,Stay Foolish</p>
-		
-        -->
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						
-						<div class="icon-wrap icon-me hide" data-idx="3">
-							<div class="user"></div>
-							<div class="shoulder"></div>
-						</div>
-						
-					</div>
-
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
-						
-						
-						<li>关于我</li>
-						
-					</ul>
-				</div>
-			</div>
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">主页</a></li>
-				        
-							<li><a href="/categories/bigdata">大数据</a></li>
-				        
-							<li><a href="/categories/machinelearning">机器学习</a></li>
-				        
-							<li><a href="/categories/articals">文章</a></li>
-				        
-							<li><a href="/categories/others">其他</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
-					        
-								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-					        
-								<a class="mail" target="_blank" href="/1138552873@qq.com" title="mail">mail</a>
-					        
-						</div>
-					</nav>
-				</section>
-
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/big-data/" style="font-size: 20px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/machinelearning/" style="font-size: 10px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a>
-					</div>
-				</section>
-				
-
-				
-
-				
-				
-				<section class="switch-part switch-part3">
-				
-					<div id="js-aboutme">Love Live,Love Refliction,Love Coding，Have dreams !</div>
-				</section>
-				
-			</div>
-		</div>
-	</header>
+    <header id="header" class="inner">
+        <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Chanji</a></h1>
+        </hgroup>
+        
+        <p class="header-subtitle">Stay Hungry,Stay Foolish</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a  href="/archives/">所有文章</a></li>
+                        
+                            <li><a  href="/categories/bigdata">大数据</a></li>
+                        
+                            <li><a  href="/categories/machinelearning">机器学习</a></li>
+                        
+                            <li><a  href="/categories/articals">文章</a></li>
+                        
+                            <li><a  href="/categories/others">其他</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github"  target="_blank" href="https://github.com/jChanJi" title="github">github</a>
+                            
+                                <a class="fl rss"  target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/big-data/" style="font-size: 20px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/machinelearning/" style="font-size: 10px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/object-detection/" style="font-size: 10px;">object detection</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a>
+                    </div>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">Love Live,Love Refliction,Love Coding，Have dreams !</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
 </div>
 
     </div>
     <div class="mid-col">
       <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">Chanji</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-				<img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
-				<hgroup>
-				  <h1 class="header-author">Chanji</h1>
-				</hgroup>
-			</div>
-			
-			<p class="header-subtitle">Stay Hungry,Stay Foolish</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/categories/bigdata">大数据</a></li>
-		        
-					<li><a href="/categories/machinelearning">机器学习</a></li>
-		        
-					<li><a href="/categories/articals">文章</a></li>
-		        
-					<li><a href="/categories/others">其他</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
-			        
-						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-			        
-						<a class="mail" target="_blank" href="/1138552873@qq.com" title="mail">mail</a>
-			        
-				</div>
-			</nav>
-		</header>
-	</div>
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Chanji</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Chanji</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Stay Hungry,Stay Foolish</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/categories/bigdata">大数据</a></li>
+                
+                    <li><a href="/categories/machinelearning">机器学习</a></li>
+                
+                    <li><a href="/categories/articals">文章</a></li>
+                
+                    <li><a href="/categories/others">其他</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
 </nav>
-
-	  <!--是否开启最近通知-->
-	  
       <div class="body-wrap"><article id="post-hadoop" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/year/08/29/hadoop/" class="article-date">
-  	<time datetime="2017-08-29T11:10:45.044Z" itemprop="datePublished">2017-08-29</time>
+  
+    <div class="article-meta">
+      <a  href="/year/08/29/hadoop/" class="article-date">
+      <time datetime="2017-08-29T11:10:45.044Z" itemprop="datePublished">2017-08-29</time>
 </a>
 
-        </div>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
         
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
   
     <h1 class="article-title" itemprop="name">
       CentOS7安装配置hadoop集群
@@ -222,209 +275,171 @@
   
 
 
-                            </header>
-                            
-                                <div class="article-info article-info-post">
-                                    
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
-	</div>
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
+    </div>
 
 
-                                        
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
-	</div>
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
+    </div>
 
-
-                                            <div class="clearfix"></div>
-                                </div>
-                                
-                                    
-
-                                        <div class="article-entry" itemprop="articleBody">
-                                           <!--
-                                            
-
-                                                    <p class="toc-button">目录</p>
-<div id="toc" class="toc-article" style="display:none;">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本操作"><span class="toc-number">1.</span> <span class="toc-text">基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单的的vim命令"><span class="toc-number">1.1.</span> <span class="toc-text">简单的的vim命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux常用命令"><span class="toc-number">1.2.</span> <span class="toc-text">linux常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux命令查找网站"><span class="toc-number">1.3.</span> <span class="toc-text">linux命令查找网站</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CentOS-下安装hadoop"><span class="toc-number"></span> <span class="toc-text">CentOS 下安装hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、安装Vmware-12"><span class="toc-number">1.</span> <span class="toc-text">一、安装Vmware 12</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、安装CentOS-7"><span class="toc-number">2.</span> <span class="toc-text">二、安装CentOS 7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、-安装hadoop集群"><span class="toc-number">3.</span> <span class="toc-text">三、 安装hadoop集群</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#参考教程："><span class="toc-number">3.0.1.</span> <span class="toc-text">参考教程：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单机-伪分布式：http-www-powerxing-com-install-hadoop-in-centos"><span class="toc-number">3.0.2.</span> <span class="toc-text">单机/伪分布式：http://www.powerxing.com/install-hadoop-in-centos/</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分布式集群：http-www-powerxing-com-install-hadoop-cluster"><span class="toc-number">3.0.3.</span> <span class="toc-text">分布式集群：http://www.powerxing.com/install-hadoop-cluster/</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-创建hadoop用户-如果没有"><span class="toc-number">3.1.</span> <span class="toc-text">1. 创建hadoop用户(如果没有)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-安装Java环境-在hadoop用户下"><span class="toc-number">3.2.</span> <span class="toc-text">2. 安装Java环境(在hadoop用户下)</span></a></li></ol></li></ol>
-</div>
-<script>
-    $(function(){
-
-        var width = document.body.scrollWidth;
-        if (width <=550) {
-             $(".toc-button").css("display","none");
-        }
-        $(".toc-button").hover(function(){
-            var top = $(this).get(0).offsetTop-$(".toc-article").height()/2;
-            $(".toc-article").css({
-                top:top +"px"
-            });
-            $("#toc").show(1000,function(){});
-           // $("#toc").animate({width:500;},3000);
-        },function(){
-
-        });
-        $(".toc-article").hover(function(){
-
-        },function(){
-            $("#toc").hide(1000,function(){});
-        });
-    })
-</script>
-
-                                                  
-                                            
-                                            -->
-                                            
-                                                     <h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="简单的的vim命令"><a href="#简单的的vim命令" class="headerlink" title="简单的的vim命令"></a><a href="http://www.cnblogs.com/jeakon/archive/2012/08/13/2816802.html" target="_blank" rel="external">简单的的vim命令</a></h3><h3 id="linux常用命令"><a href="#linux常用命令" class="headerlink" title="linux常用命令"></a><a href="http://www.weixuehao.com/archives/25" target="_blank" rel="external">linux常用命令</a></h3><h3 id="linux命令查找网站"><a href="#linux命令查找网站" class="headerlink" title="linux命令查找网站"></a><a href="http://man.linuxde.net/" target="_blank" rel="external">linux命令查找网站</a></h3><h1 id="CentOS-下安装hadoop"><a href="#CentOS-下安装hadoop" class="headerlink" title="CentOS 下安装hadoop"></a>CentOS 下安装hadoop<br></h1><a id="more"></a>
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="简单的的vim命令"><a href="#简单的的vim命令" class="headerlink" title="简单的的vim命令"></a><a href="http://www.cnblogs.com/jeakon/archive/2012/08/13/2816802.html" target="_blank" rel="noopener">简单的的vim命令</a></h3><h3 id="linux常用命令"><a href="#linux常用命令" class="headerlink" title="linux常用命令"></a><a href="http://www.weixuehao.com/archives/25" target="_blank" rel="noopener">linux常用命令</a></h3><h3 id="linux命令查找网站"><a href="#linux命令查找网站" class="headerlink" title="linux命令查找网站"></a><a href="http://man.linuxde.net/" target="_blank" rel="noopener">linux命令查找网站</a></h3><h1 id="CentOS-下安装hadoop"><a href="#CentOS-下安装hadoop" class="headerlink" title="CentOS 下安装hadoop"></a>CentOS 下安装hadoop<br></h1><a id="more"></a>
 <h2 id="一、安装Vmware-12"><a href="#一、安装Vmware-12" class="headerlink" title="一、安装Vmware 12"></a>一、安装Vmware 12</h2><blockquote>
 <ol>
-<li>官网下载<a href="http://www.vmware.com/cn/products/workstation/workstation-evaluation.html" title="Vmware 下载地址" target="_blank" rel="external">VMware-Workstation-Full-*.bundle</a></li>
+<li>官网下载<a href="http://www.vmware.com/cn/products/workstation/workstation-evaluation.html" title="Vmware 下载地址" target="_blank" rel="noopener">VMware-Workstation-Full-*.bundle</a></li>
 <li>sudo ssh./VMware-Workstation-Full-*.bundle</li>
-<li>破解：破解工具<a href="http://chanji-1252400803.costj.myqcloud.com/VMware12.Keymaker.exe" title="VMware12.Keymaker" target="_blank" rel="external">VMware12.Keymaker</a> </li>
+<li>破解：破解工具<a href="http://chanji-1252400803.costj.myqcloud.com/VMware12.Keymaker.exe" title="VMware12.Keymaker" target="_blank" rel="noopener">VMware12.Keymaker</a> </li>
 <li>根据提示安装</li>
 </ol>
 </blockquote>
 <h2 id="二、安装CentOS-7"><a href="#二、安装CentOS-7" class="headerlink" title="二、安装CentOS 7"></a>二、安装CentOS 7</h2><blockquote>
 <ol>
-<li>下载<a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1611.iso" title="CentOS 7" target="_blank" rel="external">镜像</a></li>
+<li>下载<a href="http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1611.iso" title="CentOS 7" target="_blank" rel="noopener">镜像</a></li>
 <li>新建虚拟机，根据提示操作（注意选择安装GNOME桌面），设置主机名为CentOSMaster点击安装</li>
 <li>设置root密码和添加hadoop用户（设置为管理员）</li>
 <li>等待安装，完成后重启，连接网络，完成配置 </li>
 <li>语言选择汉语（pinyin）</li>
 </ol>
 </blockquote>
-<h2 id="三、-安装hadoop集群"><a href="#三、-安装hadoop集群" class="headerlink" title="三、 安装hadoop集群"></a>三、 安装hadoop集群</h2><h4 id="参考教程："><a href="#参考教程：" class="headerlink" title="参考教程："></a>参考教程：</h4><h4 id="单机-伪分布式：http-www-powerxing-com-install-hadoop-in-centos"><a href="#单机-伪分布式：http-www-powerxing-com-install-hadoop-in-centos" class="headerlink" title="单机/伪分布式：http://www.powerxing.com/install-hadoop-in-centos/"></a>单机/伪分布式：<a href="http://www.powerxing.com/install-hadoop-in-centos/" target="_blank" rel="external">http://www.powerxing.com/install-hadoop-in-centos/</a></h4><h4 id="分布式集群：http-www-powerxing-com-install-hadoop-cluster"><a href="#分布式集群：http-www-powerxing-com-install-hadoop-cluster" class="headerlink" title="分布式集群：http://www.powerxing.com/install-hadoop-cluster/"></a>分布式集群：<a href="http://www.powerxing.com/install-hadoop-cluster/" target="_blank" rel="external">http://www.powerxing.com/install-hadoop-cluster/</a></h4><blockquote>
+<h2 id="三、-安装hadoop集群"><a href="#三、-安装hadoop集群" class="headerlink" title="三、 安装hadoop集群"></a>三、 安装hadoop集群</h2><h4 id="参考教程："><a href="#参考教程：" class="headerlink" title="参考教程："></a>参考教程：</h4><h4 id="单机-伪分布式：http-www-powerxing-com-install-hadoop-in-centos"><a href="#单机-伪分布式：http-www-powerxing-com-install-hadoop-in-centos" class="headerlink" title="单机/伪分布式：http://www.powerxing.com/install-hadoop-in-centos/"></a>单机/伪分布式：<a href="http://www.powerxing.com/install-hadoop-in-centos/" target="_blank" rel="noopener">http://www.powerxing.com/install-hadoop-in-centos/</a></h4><h4 id="分布式集群：http-www-powerxing-com-install-hadoop-cluster"><a href="#分布式集群：http-www-powerxing-com-install-hadoop-cluster" class="headerlink" title="分布式集群：http://www.powerxing.com/install-hadoop-cluster/"></a>分布式集群：<a href="http://www.powerxing.com/install-hadoop-cluster/" target="_blank" rel="noopener">http://www.powerxing.com/install-hadoop-cluster/</a></h4><blockquote>
 <h3 id="1-创建hadoop用户-如果没有"><a href="#1-创建hadoop用户-如果没有" class="headerlink" title="1. 创建hadoop用户(如果没有)"></a>1. 创建hadoop用户(如果没有)</h3></blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">1. </span>su                               # 上述提到的以 root 用户登录</div><div class="line"><span class="bullet">2. </span>useradd -m hadoop -s /bin/bash   # 创建新用户hadoop</div><div class="line"><span class="bullet">3. </span>passwd hadoop                    #设置密码</div><div class="line"><span class="bullet">4. </span>visudo                           #增加管理员权限</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>su                               # 上述提到的以 root 用户登录</span><br><span class="line"><span class="bullet">2. </span>useradd -m hadoop -s /bin/bash   # 创建新用户hadoop</span><br><span class="line"><span class="bullet">3. </span>passwd hadoop                    #设置密码</span><br><span class="line"><span class="bullet">4. </span>visudo                           #增加管理员权限</span><br></pre></td></tr></table></figure>
 <p>找到 root  ALL=(ALL)  ALL 这行,下一行增加:hadoop ensp; ensp; ALL=(ALL)  ensp;ensp; ALL<br></p>
 <blockquote>
 <h3 id="2-安装Java环境-在hadoop用户下"><a href="#2-安装Java环境-在hadoop用户下" class="headerlink" title="2. 安装Java环境(在hadoop用户下)"></a>2. 安装Java环境(在hadoop用户下)</h3></blockquote>
 <ol>
-<li>安装openjdk<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel</div></pre></td></tr></table></figure>
+<li>安装openjdk<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>如果遇到yum进程被占用，删除yum.pid<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo rm -rf /var/run/yum.pid</div></pre></td></tr></table></figure></p>
+<p>如果遇到yum进程被占用，删除yum.pid<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /var/run/yum.pid</span><br></pre></td></tr></table></figure></p>
 <ol>
 <li><p>配置JAVA_HOME<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim ~/.bashrc</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure>
 <p> 在文件最后面添加如下单独一行（指向 JDK 的安装位置)<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使配置生效<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source ~/.bashrc</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>检验是否配置成功<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">echo $JAVA_HOME  #检验变量值</div><div class="line">java -version </div><div class="line">   %JAVA_HOME/bin/java -version</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo $JAVA_HOME  #检验变量值</span><br><span class="line">java -version </span><br><span class="line">   %JAVA_HOME/bin/java -version</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>如果java -version 和 %JAVA_HOME/bin/java -version一样表示成功,否则看5<br><br></p>
 <ol>
 <li><p>如果和以前的jdk版本冲突的:<br><br> 查找当前的安装的jdk版本<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="code">    rpm -q |grep java</span></div><div class="line"><span class="code">```  </span></div><div class="line"><span class="code">    删除openjdk版本意外的版本&lt;br&gt;</span></div><div class="line"><span class="code">```markdown</span></div><div class="line"><span class="code">    rpm -e --nodeps java版本的名称</span></div><div class="line"><span class="code">```  </span></div><div class="line"><span class="code"></span></div><div class="line"><span class="code">&gt;### 3.安装配置hadoop2集群</span></div><div class="line"><span class="code"></span></div><div class="line"><span class="code">1. 下载hadoop压缩包，选择[hadoop-2.x.y.tar.gz][5]文件,这里我选择的是2.6.1版本&lt;br&gt;&lt;br&gt;</span></div><div class="line"><span class="code">2. 解压&lt;br&gt;</span></div><div class="line"><span class="code">```markdown</span></div><div class="line"><span class="code">    sudo tar -zxf ~/下载/hadoop-2.6.1.tar.gz -C /usr/local    # 解压到/usr/local中</span></div><div class="line"><span class="code">    cd /usr/local/  #打开/usr/local目录</span></div><div class="line"><span class="code">    sudo mv ./hadoop-2.6.1/ ./hadoop  # 将文件夹名改为hadoop</span></div><div class="line"><span class="code">    sudo chown -R hadoop:hadoop ./hadoop  # 修改文件权限，冒号后没有空格</span></div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">    rpm -q |grep java</span></span><br><span class="line"><span class="code">```  </span></span><br><span class="line"><span class="code">    删除openjdk版本意外的版本&lt;br&gt;</span></span><br><span class="line"><span class="code">```markdown</span></span><br><span class="line"><span class="code">    rpm -e --nodeps java版本的名称</span></span><br><span class="line"><span class="code">```  </span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">&gt;### 3.安装配置hadoop2集群</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">1. 下载hadoop压缩包，选择[hadoop-2.x.y.tar.gz][5]文件,这里我选择的是2.6.1版本&lt;br&gt;&lt;br&gt;</span></span><br><span class="line"><span class="code">2. 解压&lt;br&gt;</span></span><br><span class="line"><span class="code">```markdown</span></span><br><span class="line"><span class="code">    sudo tar -zxf ~/下载/hadoop-2.6.1.tar.gz -C /usr/local    # 解压到/usr/local中</span></span><br><span class="line"><span class="code">    cd /usr/local/  #打开/usr/local目录</span></span><br><span class="line"><span class="code">    sudo mv ./hadoop-2.6.1/ ./hadoop  # 将文件夹名改为hadoop</span></span><br><span class="line"><span class="code">    sudo chown -R hadoop:hadoop ./hadoop  # 修改文件权限，冒号后没有空格</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>显示版本<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/hadoop</div><div class="line">./bin/hadoop version</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd  /usr/local/hadoop</span><br><span class="line">./bin/hadoop version</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>配置环境变量<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gedit ~/.bashrc (vim ~/.bashrc)</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit ~/.bashrc (vim ~/.bashrc)</span><br></pre></td></tr></table></figure>
 <p> 在文件中添加：<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="section">#Hadoop Environment Variables</span></div><div class="line">export HADOOP_HOME=/usr/local/hadoop</div><div class="line">export HADOOP<span class="emphasis">_INSTALL=$HADOOP_</span>HOME</div><div class="line">export HADOOP<span class="emphasis">_MAPRED_</span>HOME=$HADOOP_HOME</div><div class="line">export HADOOP<span class="emphasis">_COMMON_</span>HOME=$HADOOP_HOME</div><div class="line">export HADOOP<span class="emphasis">_HDFS_</span>HOME=$HADOOP_HOME</div><div class="line">export YARN<span class="emphasis">_HOME=$HADOOP_</span>HOME</div><div class="line">export HADOOP<span class="emphasis">_COMMON_</span>LIB<span class="emphasis">_NATIVE_</span>DIR=$HADOOP_HOME/lib/native</div><div class="line">export PATH=$PATH:$HADOOP<span class="emphasis">_HOME/sbin:$HADOOP_</span>HOME/bin</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">#Hadoop Environment Variables</span></span><br><span class="line">export HADOOP_HOME=/usr/local/hadoop</span><br><span class="line">export HADOOP<span class="emphasis">_INSTALL=$HADOOP_</span>HOME</span><br><span class="line">export HADOOP<span class="emphasis">_MAPRED_</span>HOME=$HADOOP_HOME</span><br><span class="line">export HADOOP<span class="emphasis">_COMMON_</span>HOME=$HADOOP_HOME</span><br><span class="line">export HADOOP<span class="emphasis">_HDFS_</span>HOME=$HADOOP_HOME</span><br><span class="line">export YARN<span class="emphasis">_HOME=$HADOOP_</span>HOME</span><br><span class="line">export HADOOP<span class="emphasis">_COMMON_</span>LIB<span class="emphasis">_NATIVE_</span>DIR=$HADOOP_HOME/lib/native</span><br><span class="line">export PATH=$PATH:$HADOOP<span class="emphasis">_HOME/sbin:$HADOOP_</span>HOME/bin</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使配置生效<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">source ~/.bashrc</div><div class="line">hadoop version #验证</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br><span class="line">hadoop version #验证</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>关闭虚拟机，克隆两个虚拟机，命名为CentOSSlave1,CentOSSlave2,注意要选择完整克隆<br><br></p>
 </li>
-<li>依次打开CentOSMaster,CentOSSlave1,CentOSSlave2,查看各自的ip,(ens**下的inet内容)<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="code">    ifconfig</span></div><div class="line"><span class="code">```   </span></div><div class="line"><span class="code">9. 修改各自的主机名(Matser，Slave1，Slave2)：&lt;br&gt;</span></div><div class="line"><span class="code">在master节点上：&lt;br&gt;</span></div><div class="line"><span class="code">```markdown</span></div><div class="line"><span class="code">    sudo hostnamectl  set-hostname Master</span></div></pre></td></tr></table></figure>
+<li>依次打开CentOSMaster,CentOSSlave1,CentOSSlave2,查看各自的ip,(ens**下的inet内容)<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">    ifconfig</span></span><br><span class="line"><span class="code">```   </span></span><br><span class="line"><span class="code">9. 修改各自的主机名(Matser，Slave1，Slave2)：&lt;br&gt;</span></span><br><span class="line"><span class="code">在master节点上：&lt;br&gt;</span></span><br><span class="line"><span class="code">```markdown</span></span><br><span class="line"><span class="code">    sudo hostnamectl  set-hostname Master</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>在Slave1节点上：<br><br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo hostnamectl  set-hostname Slave1</div></pre></td></tr></table></figure></p>
-<p>在Slave2节点上：<br><br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo hostnamectl  set-hostname Slave2</div></pre></td></tr></table></figure></p>
+<p>在Slave1节点上：<br><br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo hostnamectl  set-hostname Slave1</span><br></pre></td></tr></table></figure></p>
+<p>在Slave2节点上：<br><br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo hostnamectl  set-hostname Slave2</span><br></pre></td></tr></table></figure></p>
 <ol>
 <li><p>修改ip映射（三个节点都要修改）：<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/hosts</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
 <p>在末尾加上:<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ip1   Master</div><div class="line">ip2   Slave1</div><div class="line">   ip3   Slave2</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ip1   Master</span><br><span class="line">ip2   Slave1</span><br><span class="line">   ip3   Slave2</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>设置开机启动网络<br><br>修改 /etc/sysconfig/network-scripts/ifcfg-ens*（具体文件名每个人有可能不同）,将最后一行的ONBOOT 改为yes    </p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="code">    vim  /etc/sysconfig/network-scripts/ifcfg-ens33  #我的文件名称为ifcfg-ens33</span></div><div class="line"><span class="code">``` </span></div><div class="line"><span class="code">12. 通过在终端分别执行ping Master，ping Slave1，ping Slave2,看是否能通，ctrl+C停止&lt;br&gt;&lt;br&gt;</span></div><div class="line"><span class="code">13. 主节点Master使用ssh无密钥登陆节点（注意ssh登陆的用户名）&lt;br&gt;&lt;br&gt;</span></div><div class="line"><span class="code">    a. 首先生成 Master 节点的公匙，在 Master 节点的终端中执行：&lt;br&gt;</span></div><div class="line"><span class="code">```markdown</span></div><div class="line"><span class="code">       su hadoop               #登陆到hadoop用户,所有操作都使hadoop用户的行为</span></div><div class="line"><span class="code">       cd ~/.ssh               # 如果没有该目录，先执行一次ssh Master</span></div><div class="line"><span class="code">       rm ./id_rsa*            # 删除之前生成的公匙（如果有）</span></div><div class="line"><span class="code">       ssh-keygen -t rsa       # 一直按回车就可以</span></div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">    vim  /etc/sysconfig/network-scripts/ifcfg-ens33  #我的文件名称为ifcfg-ens33</span></span><br><span class="line"><span class="code">``` </span></span><br><span class="line"><span class="code">12. 通过在终端分别执行ping Master，ping Slave1，ping Slave2,看是否能通，ctrl+C停止&lt;br&gt;&lt;br&gt;</span></span><br><span class="line"><span class="code">13. 主节点Master使用ssh无密钥登陆节点（注意ssh登陆的用户名）&lt;br&gt;&lt;br&gt;</span></span><br><span class="line"><span class="code">    a. 首先生成 Master 节点的公匙，在 Master 节点的终端中执行：&lt;br&gt;</span></span><br><span class="line"><span class="code">```markdown</span></span><br><span class="line"><span class="code">       su hadoop               #登陆到hadoop用户,所有操作都使hadoop用户的行为</span></span><br><span class="line"><span class="code">       cd ~/.ssh               # 如果没有该目录，先执行一次ssh Master</span></span><br><span class="line"><span class="code">       rm ./id_rsa*            # 删除之前生成的公匙（如果有）</span></span><br><span class="line"><span class="code">       ssh-keygen -t rsa       # 一直按回车就可以</span></span><br></pre></td></tr></table></figure>
 <p>b. 让Master节点需能无密码ssh本机，在 Master 节点上执行：<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cat ./id<span class="emphasis">_rsa.pub &gt;&gt; ./authorized_</span>keys</div><div class="line">chmod 600 ./authorized_keys    # 修改文件权限</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat ./id<span class="emphasis">_rsa.pub &gt;&gt; ./authorized_</span>keys</span><br><span class="line">chmod 600 ./authorized_keys    # 修改文件权限</span><br></pre></td></tr></table></figure>
 <p>  完成后可执行 ssh Master 验证一下（可能需要输入 yes，成功后执行 exit 返回原来的终端）。<br><br><br>c. 将上公匙传输到 Slave1 节点(Slave2也是一样操作将Slave1改成Slave2):<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="code">       scp ~/.ssh/id_rsa.pub hadoop@Slave1:/home/hadoop/&lt;br&gt;&lt;br&gt;</span></div><div class="line"><span class="code">``` </span></div><div class="line"><span class="code">    d. 在Slave1和Slave2节点上 操作：&lt;br&gt;</span></div><div class="line"><span class="code">```markdown</span></div><div class="line"><span class="code">       mkdir ~/.ssh       # 如果不存在该文件夹需先创建，若已存在则忽略</span></div><div class="line"><span class="code">       cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span></div><div class="line"><span class="code">       rm ~/id_rsa.pub    # 用完就可以删掉了</span></div><div class="line"><span class="code">`</span></div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">       scp ~/.ssh/id_rsa.pub hadoop@Slave1:/home/hadoop/&lt;br&gt;&lt;br&gt;</span></span><br><span class="line"><span class="code">``` </span></span><br><span class="line"><span class="code">    d. 在Slave1和Slave2节点上 操作：&lt;br&gt;</span></span><br><span class="line"><span class="code">```markdown</span></span><br><span class="line"><span class="code">       mkdir ~/.ssh       # 如果不存在该文件夹需先创建，若已存在则忽略</span></span><br><span class="line"><span class="code">       cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span></span><br><span class="line"><span class="code">       rm ~/id_rsa.pub    # 用完就可以删掉了</span></span><br><span class="line"><span class="code">`</span></span><br></pre></td></tr></table></figure>
 <p>e. 在Master节点上ssh Slave1和Slave2，验证是否能连接上<br><br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ssh Slave1</div><div class="line"></div><div class="line">ssh Slave2</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh Slave1</span><br><span class="line"></span><br><span class="line">ssh Slave2</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在Master节点上操作，cd /usr/local/hadoop/etc/hadoop,进入root模式<br><br>a. 修改slaves文件,将localhost注释，添加Slave1,换行，Slave2<br><br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim slaves</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim slaves</span><br></pre></td></tr></table></figure>
 <p>b. 修改core-site.xml<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line"><span class="code">       &lt;property&gt;</span></div><div class="line"><span class="code">            &lt;name&gt;fs.defaultFS&lt;/name&gt;</span></div><div class="line"><span class="code">            &lt;value&gt;hdfs://Master:9000&lt;/value&gt;</span></div><div class="line"><span class="code">        &lt;/property&gt;</span></div><div class="line"><span class="code">        &lt;property&gt;</span></div><div class="line"><span class="code">            &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span></div><div class="line"><span class="code">            &lt;value&gt;file:/usr/local/hadoop/tmp&lt;/value&gt;</span></div><div class="line">                &lt;description&gt;tmp directories&lt;/description&gt;</div><div class="line">            &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line"><span class="code">       &lt;property&gt;</span></span><br><span class="line"><span class="code">            &lt;name&gt;fs.defaultFS&lt;/name&gt;</span></span><br><span class="line"><span class="code">            &lt;value&gt;hdfs://Master:9000&lt;/value&gt;</span></span><br><span class="line"><span class="code">        &lt;/property&gt;</span></span><br><span class="line"><span class="code">        &lt;property&gt;</span></span><br><span class="line"><span class="code">            &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span></span><br><span class="line"><span class="code">            &lt;value&gt;file:/usr/local/hadoop/tmp&lt;/value&gt;</span></span><br><span class="line">                &lt;description&gt;tmp directories&lt;/description&gt;</span><br><span class="line">            &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
 <p>c. 修改hdfs-site.xml,其中的dfs.replication的value根据Slave的个数填写<br></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master:50090<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp/dfs/name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp/dfs/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line">`</div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master:50090<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp/dfs/name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp/dfs/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">`</span><br></pre></td></tr></table></figure>
 <p>d. 重命名 mapred-site.xml.template为mapred-site.xml,并修改mapred-site.xml为：<br></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master:10020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master:19888<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div><div class="line">`</div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master:10020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master:19888<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">`</span><br></pre></td></tr></table></figure>
 <p>e. 修改yarn.site.xml为：<br></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>Master<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>配置好后,将Master上的/usr/local/hadoop文件夹复制到各个节点上。如果有临时文件和日志文件先删除,在Master节点上执行:<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd /usr/local</div><div class="line">sudo rm -r ./hadoop/tmp                    # 删除 Hadoop 临时文件</div><div class="line">sudo rm -r ./hadoop/logs/*                 # 删除日志文件</div><div class="line">tar -zcf ~/hadoop.master.tar.gz ./hadoop   # 先压缩再复制</div><div class="line">cd ~</div><div class="line">scp ./hadoop.master.tar.gz Slave1:/home/hadoop</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br><span class="line">sudo rm -r ./hadoop/tmp                    # 删除 Hadoop 临时文件</span><br><span class="line">sudo rm -r ./hadoop/logs/*                 # 删除日志文件</span><br><span class="line">tar -zcf ~/hadoop.master.tar.gz ./hadoop   # 先压缩再复制</span><br><span class="line">cd ~</span><br><span class="line">scp ./hadoop.master.tar.gz Slave1:/home/hadoop</span><br></pre></td></tr></table></figure>
 <p>如果有其他节点再执行：scp ./hadoop.master.tar.gz Slave(n):/home/hadoop<br><br></p>
 </li>
 <li><p>分别在slave节点上执行<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo rm -r /usr/local/hadoop    # 删掉旧的（如果存在）</div><div class="line">sudo tar -zxf ~/hadoop.master.tar.gz -C /usr/local</div><div class="line">sudo chown -R hadoop /usr/local/hadoop   #给hadoop用户读写/usr/local/hadoop的权限</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -r /usr/local/hadoop    # 删掉旧的（如果存在）</span><br><span class="line">sudo tar -zxf ~/hadoop.master.tar.gz -C /usr/local</span><br><span class="line">sudo chown -R hadoop /usr/local/hadoop   #给hadoop用户读写/usr/local/hadoop的权限</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>首次启动需要先在 Master 节点执行 NameNode 的格式化：<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hdfs namenode -format       # 首次运行需要执行初始化，之后不需要，status=0，表示成功</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs namenode -format       # 首次运行需要执行初始化，之后不需要，status=0，表示成功</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>关闭防火墙(所有机器)：<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">systemctl stop firewalld.service    # 关闭firewall<span class="xml"><span class="tag">&lt;</span></span></div><div class="line"><span class="xml">systemctl disable firewalld.service # 禁止firewall开机启动</span></div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service    # 关闭firewall<span class="xml"><span class="tag">&lt;</span></span></span><br><span class="line"><span class="xml">systemctl disable firewalld.service # 禁止firewall开机启动</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动服务<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">start-yarn.sh</div><div class="line">start-dfs.sh</div><div class="line">mr-jobhistory-daemon.sh start historyserver</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">start-yarn.sh</span><br><span class="line">start-dfs.sh</span><br><span class="line">mr-jobhistory-daemon.sh start historyserver</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在master节点上查看java进程<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jps</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps</span><br></pre></td></tr></table></figure>
 <p>如果有JobHistoryServer,SecondaryNameNode,Jsp,ResourceManager,NameNode四个进程代表Master上没问题<br><br></p>
 </li>
 <li><p>在slave节点上执行<br></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jps</div></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps</span><br></pre></td></tr></table></figure>
 <p>如果有Jps，DataNode,NodeManager,三个节点表示配置成功<br><br></p>
 </li>
-<li>关闭服务<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">stop-yarn.sh</div><div class="line">stop-dfs.sh</div><div class="line">mr-jobhistory-daemon.sh stop historyserver</div></pre></td></tr></table></figure>
+<li>关闭服务<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stop-yarn.sh</span><br><span class="line">stop-dfs.sh</span><br><span class="line">mr-jobhistory-daemon.sh stop historyserver</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 
-                                            
-                                        </div>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
+        <p><span>发布时间:</span>2017年08月29日 - 19时10分</p>
+        <p><span>最后更新:</span>2017年09月03日 - 14时37分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/year/08/29/hadoop/" title="CentOS7安装配置hadoop集群">http://jchanji.github.io/year/08/29/hadoop/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/08/29/hadoop/　　作者: Chanji" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
 
-                                        
-            </div>
-            
-                <div id="socialShare" style="margin-left:40px;display:none;">
-                </div>
-                <script>
-                    $(function() {
-                        var width = document.body.scrollWidth;
-                        if (width > 550) {
-                            $("#socialShare").css("display", "block");
-                            $("#socialShare").socialShare({
-                                content: 'Nice!不错的资源...',
-                                url: window.location.href,
-                                titile: ''
-                            });
-                        }
-                    });
-                </script>
-                
-                    
-                        
+
+
 <nav id="article-nav">
   
-    <a href="/year/08/29/citycosumption/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a  href="/year/08/29/citycosumption/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
@@ -434,7 +449,7 @@
     </a>
   
   
-    <a href="/year/08/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a  href="/year/08/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Hello World</div>
       <strong class="article-nav-caption">></strong>
     </a>
@@ -442,109 +457,204 @@
 </nav>
 
 
-                            
-                                <!-- 多说评论框 start -->
-                                
-                                    <div class="ds-thread" data-thread-key="post-hadoop" data-title="CentOS7安装配置hadoop集群" data-url="http://jchanji.github.io/year/08/29/hadoop/"></div>
-                                    <!-- 多说评论框 end -->
-                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-                                    <script type="text/javascript">
-                                        var duoshuoQuery = {
-                                            short_name: ""
-                                        };
-                                        (function() {
-                                            var ds = document.createElement('script');
-                                            ds.type = 'text/javascript';
-                                            ds.async = true;
-                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-                                            ds.charset = 'UTF-8';
-                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-                                        })();
-                                    </script>
-                                    <!-- 多说公共JS代码 end -->
-                                    
+  
 </article>
 
-<!--
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本操作"><span class="toc-number">1.</span> <span class="toc-text">基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单的的vim命令"><span class="toc-number">1.1.</span> <span class="toc-text">简单的的vim命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux常用命令"><span class="toc-number">1.2.</span> <span class="toc-text">linux常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux命令查找网站"><span class="toc-number">1.3.</span> <span class="toc-text">linux命令查找网站</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CentOS-下安装hadoop"><span class="toc-number"></span> <span class="toc-text">CentOS 下安装hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、安装Vmware-12"><span class="toc-number">1.</span> <span class="toc-text">一、安装Vmware 12</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、安装CentOS-7"><span class="toc-number">2.</span> <span class="toc-text">二、安装CentOS 7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、-安装hadoop集群"><span class="toc-number">3.</span> <span class="toc-text">三、 安装hadoop集群</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#参考教程："><span class="toc-number">3.0.1.</span> <span class="toc-text">参考教程：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单机-伪分布式：http-www-powerxing-com-install-hadoop-in-centos"><span class="toc-number">3.0.2.</span> <span class="toc-text">单机/伪分布式：http://www.powerxing.com/install-hadoop-in-centos/</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分布式集群：http-www-powerxing-com-install-hadoop-cluster"><span class="toc-number">3.0.3.</span> <span class="toc-text">分布式集群：http://www.powerxing.com/install-hadoop-cluster/</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-创建hadoop用户-如果没有"><span class="toc-number">3.1.</span> <span class="toc-text">1. 创建hadoop用户(如果没有)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-安装Java环境-在hadoop用户下"><span class="toc-number">3.2.</span> <span class="toc-text">2. 安装Java环境(在hadoop用户下)</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
 
-    <div style="width:100%;background-color:#fff;">
-        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
-    </div>
-    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
     
--->
-<!--
 
--->
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/year/08/29/citycosumption/" title="上一篇: 机器学习-无监督学习-聚类K-means算法-对31省消费水平分类">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/year/08/29/hello-world/" title="下一篇: Hello World">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/year/12/29/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/year/11/19/knowledgegraph/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/year/10/30/artical_1/">Arabesque:A System for Distributed Graph Mining</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/spark_step/">伪分布式spark安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/">从互联到新工业革命-读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/vnc/">CentOS7 安装vnc</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/citycosumption/">机器学习-无监督学习-聚类K-means算法-对31省消费水平分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hello-world/">Hello World</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
 
 </div>
-      <!--
-<footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2017 Chanji
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 Chanji
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >极客到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
     </div>
-  <script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-  _st('install','m5RW4BUQrJ_r-CYKAksH','2.0.0');
-</script>
-  </div>
 </footer>
--->
+
     </div>
-    
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/mobile.js"></script>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/prefixfree.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
 
 
 
 
 
-<! -- mathjax config similar to math.stackexchange -->
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
-<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
-    <a title="返回顶部" style="opacity: 100%;">
-        <img src="/img/scrollup.png" />
-    </a>
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
 </div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
 
-<script src="/js/totop.js"></script>
-<script src="/js/share.js"></script>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
 
   </div>
 </body>

@@ -2,12 +2,15 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="baidu-site-verification" content="6fea7fc7276fc383ec5b2080c662f076"/>
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
+  
+  
+  
   
   <title>伪分布式hbase安装配置 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言 网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 hadoop伪分布式教程,hbase官方中文文档">
-<meta name="keywords" content="hbase,big data">
+<meta name="keywords" content="big data,hbase">
 <meta property="og:type" content="article">
 <meta property="og:title" content="伪分布式hbase安装配置">
 <meta property="og:url" content="http://jchanji.github.io/year/08/30/hbase_step/index.html">
@@ -19,202 +22,252 @@
 <meta name="twitter:title" content="伪分布式hbase安装配置">
 <meta name="twitter:description" content="前言 网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 hadoop伪分布式教程,hbase官方中文文档">
   
+    <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
-    <link rel="icon" href="/img/leaves.ico">
+  
+    <link rel="icon" href="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
   
   <link rel="stylesheet" href="/css/style.css">
-  <script src="https://jchanji.github.io/js/jquery1.8.2.min.js"></script>
-  <script src="https://jchanji.github.io/js/jquery.nicescroll.js"></script>
-  <script src="https://jchanji.github.io/js/jquery.qrcode.min.js"></script>
-  <script src="/js/ug-theme-default.js"></script>
-  <script src="/js/unitegallery.js"></script>
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
 </head>
-
 <body>
-
   <div id="container">
     <div class="left-col">
     <div class="overlay"></div>
 <div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			<img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
-		</a>
-
-		<hgroup>
-		  <h1 class="header-author"><a href="/" class="alluraregular">Chanji</a></h1>
-		</hgroup>
-        <!--
-		
-		<p class="header-subtitle">Stay Hungry,Stay Foolish</p>
-		
-        -->
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						
-						<div class="icon-wrap icon-me hide" data-idx="3">
-							<div class="user"></div>
-							<div class="shoulder"></div>
-						</div>
-						
-					</div>
-
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
-						
-						
-						<li>关于我</li>
-						
-					</ul>
-				</div>
-			</div>
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">主页</a></li>
-				        
-							<li><a href="/categories/bigdata">大数据</a></li>
-				        
-							<li><a href="/categories/machinelearning">机器学习</a></li>
-				        
-							<li><a href="/categories/articals">文章</a></li>
-				        
-							<li><a href="/categories/others">其他</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
-					        
-								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-					        
-								<a class="mail" target="_blank" href="/1138552873@qq.com" title="mail">mail</a>
-					        
-						</div>
-					</nav>
-				</section>
-
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/big-data/" style="font-size: 20px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/machinelearning/" style="font-size: 10px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a>
-					</div>
-				</section>
-				
-
-				
-
-				
-				
-				<section class="switch-part switch-part3">
-				
-					<div id="js-aboutme">Love Live,Love Refliction,Love Coding，Have dreams !</div>
-				</section>
-				
-			</div>
-		</div>
-	</header>
+    <header id="header" class="inner">
+        <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Chanji</a></h1>
+        </hgroup>
+        
+        <p class="header-subtitle">Stay Hungry,Stay Foolish</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a  href="/archives/">所有文章</a></li>
+                        
+                            <li><a  href="/categories/bigdata">大数据</a></li>
+                        
+                            <li><a  href="/categories/machinelearning">机器学习</a></li>
+                        
+                            <li><a  href="/categories/articals">文章</a></li>
+                        
+                            <li><a  href="/categories/others">其他</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github"  target="_blank" href="https://github.com/jChanJi" title="github">github</a>
+                            
+                                <a class="fl rss"  target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/big-data/" style="font-size: 20px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/machinelearning/" style="font-size: 10px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/object-detection/" style="font-size: 10px;">object detection</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a>
+                    </div>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">Love Live,Love Refliction,Love Coding，Have dreams !</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
 </div>
 
     </div>
     <div class="mid-col">
       <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">Chanji</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-				<img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
-				<hgroup>
-				  <h1 class="header-author">Chanji</h1>
-				</hgroup>
-			</div>
-			
-			<p class="header-subtitle">Stay Hungry,Stay Foolish</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/categories/bigdata">大数据</a></li>
-		        
-					<li><a href="/categories/machinelearning">机器学习</a></li>
-		        
-					<li><a href="/categories/articals">文章</a></li>
-		        
-					<li><a href="/categories/others">其他</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
-			        
-						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-			        
-						<a class="mail" target="_blank" href="/1138552873@qq.com" title="mail">mail</a>
-			        
-				</div>
-			</nav>
-		</header>
-	</div>
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Chanji</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Chanji</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Stay Hungry,Stay Foolish</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/categories/bigdata">大数据</a></li>
+                
+                    <li><a href="/categories/machinelearning">机器学习</a></li>
+                
+                    <li><a href="/categories/articals">文章</a></li>
+                
+                    <li><a href="/categories/others">其他</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
 </nav>
-
-	  <!--是否开启最近通知-->
-	  
       <div class="body-wrap"><article id="post-hbase_step" class="article article-type-post" itemscope itemprop="blogPost">
-    <script>
-        $("html").niceScroll({
-            cursorcolor: "#2a2929",
-            cursoropacitymax: 1,
-            touchbehavior: false,
-            cursorwidth: "6px",
-            cursorborder: "5",
-            cursorborderradius: "0px",
-            autohidemode: true
-        });
-    </script>
-    
-        <div class="article-meta">
-            <a href="/year/08/30/hbase_step/" class="article-date">
-  	<time datetime="2017-08-30T14:36:02.631Z" itemprop="datePublished">2017-08-30</time>
+  
+    <div class="article-meta">
+      <a  href="/year/08/30/hbase_step/" class="article-date">
+      <time datetime="2017-08-30T14:36:02.631Z" itemprop="datePublished">2017-08-30</time>
 </a>
 
-        </div>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
         
-            <div class="article-inner">
-                
-                    <input type="hidden" class="isFancy" />
-                    
-                        
-                            <header class="article-header">
-                                
   
     <h1 class="article-title" itemprop="name">
       伪分布式hbase安装配置
@@ -222,65 +275,29 @@
   
 
 
-                            </header>
-                            
-                                <div class="article-info article-info-post">
-                                    
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hbase/">hbase</a></li></ul>
-	</div>
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
+    </div>
 
 
-                                        
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
-	</div>
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hbase/">hbase</a></li></ul>
+    </div>
 
-
-                                            <div class="clearfix"></div>
-                                </div>
-                                
-                                    
-
-                                        <div class="article-entry" itemprop="articleBody">
-                                           <!--
-                                            
-
-                                                    <p class="toc-button">目录</p>
-<div id="toc" class="toc-article" style="display:none;">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、版本"><span class="toc-number">2.</span> <span class="toc-text">一、版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、下载"><span class="toc-number">3.</span> <span class="toc-text">二、下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、安装配置"><span class="toc-number">4.</span> <span class="toc-text">三、安装配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、解压文件到指定目录"><span class="toc-number">4.1.</span> <span class="toc-text">1、解压文件到指定目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、重命名"><span class="toc-number">4.2.</span> <span class="toc-text">2、重命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、修改hbase-site-xml"><span class="toc-number">4.3.</span> <span class="toc-text">3、修改hbase-site.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、修改hbase-env-sh"><span class="toc-number">4.4.</span> <span class="toc-text">3、修改hbase-env.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、修改regionservers"><span class="toc-number">4.5.</span> <span class="toc-text">4、修改regionservers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、启动服务"><span class="toc-number">4.6.</span> <span class="toc-text">5、启动服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、查看web-UI"><span class="toc-number">4.7.</span> <span class="toc-text">6、查看web UI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、常用的一些命令"><span class="toc-number">5.</span> <span class="toc-text">四、常用的一些命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、从hdfs导入导出表"><span class="toc-number">5.1.</span> <span class="toc-text">1、从hdfs导入导出表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、遇到的错误和解决办法"><span class="toc-number">6.</span> <span class="toc-text">五、遇到的错误和解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、无法启动HRegionServer和HMaster"><span class="toc-number">6.1.</span> <span class="toc-text">1、无法启动HRegionServer和HMaster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、启动hbase服务时找不到pid文件"><span class="toc-number">6.2.</span> <span class="toc-text">2、启动hbase服务时找不到pid文件</span></a></li></ol></li></ol>
-</div>
-<script>
-    $(function(){
-
-        var width = document.body.scrollWidth;
-        if (width <=550) {
-             $(".toc-button").css("display","none");
-        }
-        $(".toc-button").hover(function(){
-            var top = $(this).get(0).offsetTop-$(".toc-article").height()/2;
-            $(".toc-article").css({
-                top:top +"px"
-            });
-            $("#toc").show(1000,function(){});
-           // $("#toc").animate({width:500;},3000);
-        },function(){
-
-        });
-        $(".toc-article").hover(function(){
-
-        },function(){
-            $("#toc").hide(1000,function(){});
-        });
-    })
-</script>
-
-                                                  
-                                            
-                                            -->
-                                            
-                                                     <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 <a href="http://www.powerxing.com/install-hadoop-in-centos/" target="_blank" rel="external">hadoop伪分布式教程</a>,hbase官方<a href="http://abloz.com/hbase/book.html" target="_blank" rel="external">中文文档</a></p>
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 <a href="http://www.powerxing.com/install-hadoop-in-centos/" target="_blank" rel="noopener">hadoop伪分布式教程</a>,hbase官方<a href="http://abloz.com/hbase/book.html" target="_blank" rel="noopener">中文文档</a></p>
 </blockquote>
 <a id="more"></a>
 <h2 id="一、版本"><a href="#一、版本" class="headerlink" title="一、版本"></a>一、版本</h2><ol>
@@ -290,55 +307,53 @@
 <li>hbase:0.98.13</li>
 <li>一定要注意jdk,hadoop和hbase的版本匹配问题,可到官网查看！</li>
 </ol>
-<h2 id="二、下载"><a href="#二、下载" class="headerlink" title="二、下载"></a>二、下载</h2><p>1.<a href="http://archive.apache.org/dist/hbase/0.98.13/hbase-0.98.13-hadoop2-bin.tar.gz" target="_blank" rel="external">hbase-0.98.13-hadoop2-bin.tar.gz</a></p>
-<h2 id="三、安装配置"><a href="#三、安装配置" class="headerlink" title="三、安装配置"></a>三、安装配置</h2><h3 id="1、解压文件到指定目录"><a href="#1、解压文件到指定目录" class="headerlink" title="1、解压文件到指定目录"></a>1、解压文件到指定目录</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zxvf hbase-0.98.13-hadoop2-bin.tar.gz -C /usr/local</div></pre></td></tr></table></figure>
-<h3 id="2、重命名"><a href="#2、重命名" class="headerlink" title="2、重命名"></a>2、重命名</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local</div><div class="line">sudo mv [解压后的文件名] [hbase]</div></pre></td></tr></table></figure>
-<h3 id="3、修改hbase-site-xml"><a href="#3、修改hbase-site-xml" class="headerlink" title="3、修改hbase-site.xml"></a>3、修改hbase-site.xml</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /hbase/conf</div><div class="line">sudo vim hbase-site.xml</div></pre></td></tr></table></figure>
-<p>将内容改为<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;configuration&gt;</div><div class="line">&lt;property&gt;</div><div class="line"><span class="code">    &lt;name&gt;hbase.rootdir&lt;/name&gt;</span></div><div class="line"><span class="code">    &lt;value&gt;hdfs://localhost:9000/hbase&lt;/value&gt;</span></div><div class="line">  &lt;/property&gt;</div><div class="line">  &lt;property&gt;</div><div class="line"><span class="code">    &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;</span></div><div class="line"><span class="code">    &lt;value&gt;/usr/local/hbase/data/zkData&lt;/value&gt;</span></div><div class="line">  &lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line"><span class="code">    &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</span></div><div class="line"><span class="code">    &lt;value&gt;true&lt;/value&gt;</span></div><div class="line">  &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="二、下载"><a href="#二、下载" class="headerlink" title="二、下载"></a>二、下载</h2><p>1.<a href="http://archive.apache.org/dist/hbase/0.98.13/hbase-0.98.13-hadoop2-bin.tar.gz" target="_blank" rel="noopener">hbase-0.98.13-hadoop2-bin.tar.gz</a></p>
+<h2 id="三、安装配置"><a href="#三、安装配置" class="headerlink" title="三、安装配置"></a>三、安装配置</h2><h3 id="1、解压文件到指定目录"><a href="#1、解压文件到指定目录" class="headerlink" title="1、解压文件到指定目录"></a>1、解压文件到指定目录</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hbase-0.98.13-hadoop2-bin.tar.gz -C /usr/local</span><br></pre></td></tr></table></figure>
+<h3 id="2、重命名"><a href="#2、重命名" class="headerlink" title="2、重命名"></a>2、重命名</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br><span class="line">sudo mv [解压后的文件名] [hbase]</span><br></pre></td></tr></table></figure>
+<h3 id="3、修改hbase-site-xml"><a href="#3、修改hbase-site-xml" class="headerlink" title="3、修改hbase-site.xml"></a>3、修改hbase-site.xml</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /hbase/conf</span><br><span class="line">sudo vim hbase-site.xml</span><br></pre></td></tr></table></figure>
+<p>将内容改为<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;name&gt;hbase.rootdir&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;value&gt;hdfs://localhost:9000/hbase&lt;/value&gt;</span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;value&gt;/usr/local/hbase/data/zkData&lt;/value&gt;</span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;value&gt;true&lt;/value&gt;</span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
 <p>说明：<br><br>1、很多教程的hbase.rootdir的hdfs的端口都和官网配置一样是8020，这里根据你自己的实际端口号配置，我的默认的为9000（一般都是），如果端口配置错误的话，之后的进程都能启动，但是在hdfs中没有创建hbase文件，也不能通过60010端口访问web UI.<br><br>2、dataDir的目录可以自己定义，不需要预先创建，hbase会根据配置自动生成。</p>
-<h3 id="3、修改hbase-env-sh"><a href="#3、修改hbase-env-sh" class="headerlink" title="3、修改hbase-env.sh"></a>3、修改hbase-env.sh</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim hbase-env.sh</div></pre></td></tr></table></figure>
-<p>添加自己的JAVA_HOME路径<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk/</div></pre></td></tr></table></figure></p>
-<h3 id="4、修改regionservers"><a href="#4、修改regionservers" class="headerlink" title="4、修改regionservers"></a>4、修改regionservers</h3><p>在/etc/hosts文件中添加主机名映射，再regionservers中默认的localhost改为主机名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim etc/hosts</div></pre></td></tr></table></figure></p>
-<p>在最后一行添加 127.0.0.1 master<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim regionservers</div></pre></td></tr></table></figure></p>
+<h3 id="3、修改hbase-env-sh"><a href="#3、修改hbase-env-sh" class="headerlink" title="3、修改hbase-env.sh"></a>3、修改hbase-env.sh</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim hbase-env.sh</span><br></pre></td></tr></table></figure>
+<p>添加自己的JAVA_HOME路径<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk/</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、修改regionservers"><a href="#4、修改regionservers" class="headerlink" title="4、修改regionservers"></a>4、修改regionservers</h3><p>在/etc/hosts文件中添加主机名映射，再regionservers中默认的localhost改为主机名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim etc/hosts</span><br></pre></td></tr></table></figure></p>
+<p>在最后一行添加 127.0.0.1 master<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim regionservers</span><br></pre></td></tr></table></figure></p>
 <p>将localhost改为mater<br><br>说明：如果ip映射出现问题后面的regionserver会启动不了</p>
-<h3 id="5、启动服务"><a href="#5、启动服务" class="headerlink" title="5、启动服务"></a>5、启动服务</h3><p>首先先启动hadoop<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">start-all.sh</div></pre></td></tr></table></figure></p>
-<p>再启动hbase<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/hbase/bin</div><div class="line">./hbase-daemon.sh start zookeeper</div><div class="line">./hbase-daemon.sh start regionserver</div><div class="line">./hbase-daemon.sh start master</div></pre></td></tr></table></figure></p>
-<h3 id="6、查看web-UI"><a href="#6、查看web-UI" class="headerlink" title="6、查看web UI"></a>6、查看web UI</h3><p>在浏览器中输入localhost:60010<br><br>如果能正常显示页面说明配置成功<br><br>说明：刚开启服务后由于hadoop处于安全模式导致不能访问，可以等几十秒再次访问或者通过命令<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hadoop dfsadmin -safemode leave</div></pre></td></tr></table></figure></p>
+<h3 id="5、启动服务"><a href="#5、启动服务" class="headerlink" title="5、启动服务"></a>5、启动服务</h3><p>首先先启动hadoop<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-all.sh</span><br></pre></td></tr></table></figure></p>
+<p>再启动hbase<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/hbase/bin</span><br><span class="line">./hbase-daemon.sh start zookeeper</span><br><span class="line">./hbase-daemon.sh start regionserver</span><br><span class="line">./hbase-daemon.sh start master</span><br></pre></td></tr></table></figure></p>
+<h3 id="6、查看web-UI"><a href="#6、查看web-UI" class="headerlink" title="6、查看web UI"></a>6、查看web UI</h3><p>在浏览器中输入localhost:60010<br><br>如果能正常显示页面说明配置成功<br><br>说明：刚开启服务后由于hadoop处于安全模式导致不能访问，可以等几十秒再次访问或者通过命令<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop dfsadmin -safemode leave</span><br></pre></td></tr></table></figure></p>
 <p>解除保护</p>
-<h2 id="四、常用的一些命令"><a href="#四、常用的一些命令" class="headerlink" title="四、常用的一些命令"></a>四、常用的一些命令</h2><h3 id="1、从hdfs导入导出表"><a href="#1、从hdfs导入导出表" class="headerlink" title="1、从hdfs导入导出表"></a>1、从hdfs导入导出表</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1）导入</div><div class="line">./hbase org.apache.hadoop.hbase.mapreduce.Driver import 表名    数据文件位置</div><div class="line"></div><div class="line">2)导出</div><div class="line">./hbase org.apache.hadoop.hbase.mapreduce.Driver export 表名    数据文件位置</div></pre></td></tr></table></figure>
+<h2 id="四、常用的一些命令"><a href="#四、常用的一些命令" class="headerlink" title="四、常用的一些命令"></a>四、常用的一些命令</h2><h3 id="1、从hdfs导入导出表"><a href="#1、从hdfs导入导出表" class="headerlink" title="1、从hdfs导入导出表"></a>1、从hdfs导入导出表</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1）导入</span><br><span class="line">./hbase org.apache.hadoop.hbase.mapreduce.Driver import 表名    数据文件位置</span><br><span class="line"></span><br><span class="line">2)导出</span><br><span class="line">./hbase org.apache.hadoop.hbase.mapreduce.Driver export 表名    数据文件位置</span><br></pre></td></tr></table></figure>
 <p>注意：直接操作会报没有jar包的错误，根据提示将hbase的jar包put进提示的hdfs路径中即可</p>
-<h2 id="五、遇到的错误和解决办法"><a href="#五、遇到的错误和解决办法" class="headerlink" title="五、遇到的错误和解决办法"></a>五、遇到的错误和解决办法</h2><h3 id="1、无法启动HRegionServer和HMaster"><a href="#1、无法启动HRegionServer和HMaster" class="headerlink" title="1、无法启动HRegionServer和HMaster"></a>1、无法启动HRegionServer和HMaster</h3><p>报错日志<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">2017-06-13 19:10:12,458 ERROR [main] master.HMasterCommandLine: Master exiting</div><div class="line">java.lang.RuntimeException: Failed construction of Master: class org.apache.hadoop.hbase.master.HMaster</div><div class="line">  at org.apache.hadoop.hbase.master.HMaster.constructMaster(HMaster.java:3033)</div><div class="line">  at org.apache.hadoop.hbase.master.HMasterCommandLine.startMaster(HMasterCommandLine.java:193)</div><div class="line">  at org.apache.hadoop.hbase.master.HMasterCommandLine.run(HMasterCommandLine.java:135)</div><div class="line">  at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)</div><div class="line">  at org.apache.hadoop.hbase.util.ServerCommandLine.doMain(ServerCommandLine.java:126)</div><div class="line">  at org.apache.hadoop.hbase.master.HMaster.main(HMaster.java:3047)</div><div class="line">Caused by: java.net.BindException: 无法指定被请求的地址</div><div class="line">  at sun.nio.ch.Net.bind0(Native Method)</div><div class="line">  at sun.nio.ch.Net.bind(Net.java:463)</div><div class="line">  at sun.nio.ch.Net.bind(Net.java:455)</div><div class="line">  at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)</div><div class="line">  at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)</div><div class="line">  at org.apache.hadoop.hbase.ipc.RpcServer.bind(RpcServer.java:2488)</div><div class="line">  at org.apache.hadoop.hbase.ipc.RpcServer$Listener.&lt;init&gt;(RpcServer.java:590)</div><div class="line">  at org.apache.hadoop.hbase.ipc.RpcServer.&lt;init&gt;(RpcServer.java:1956)</div><div class="line">  at org.apache.hadoop.hbase.master.HMaster.&lt;init&gt;(HMaster.java:507)</div><div class="line">  at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</div><div class="line">  at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)</div><div class="line">  at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)</div><div class="line">  at java.lang.reflect.Constructor.newInstance(Constructor.java:526)</div><div class="line">  at org.apache.hadoop.hbase.master.HMaster.constructMaster(HMaster.java:3028)</div><div class="line">  ... 5 more</div></pre></td></tr></table></figure></p>
-<p>解决办法<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">我们可以看到Caused by: java.net.BindException: 无法指定被请求的地址，所以有可能是外网的的影响，所以先关闭网络连接，再启动服务，发现成功了，然后再开启网络。</div></pre></td></tr></table></figure></p>
-<h3 id="2、启动hbase服务时找不到pid文件"><a href="#2、启动hbase服务时找不到pid文件" class="headerlink" title="2、启动hbase服务时找不到pid文件"></a>2、启动hbase服务时找不到pid文件</h3><p>问题原因<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">1. </span>hbase进行大量的插入时region server 所分配的内存堆过小</div><div class="line"><span class="bullet">2. </span>pid文件保存在tmp目录下容易丢失。</div></pre></td></tr></table></figure></p>
-<p>解决办法<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">1. </span>在hb的hbase-env.sh中</div><div class="line"><span class="section"># The maximum amount of heap to use, in MB. Default is 1000.</span></div><div class="line"><span class="section"># export HBASE_HEAPSIZE=1000</span></div><div class="line">将1000改成30720</div><div class="line"></div><div class="line"><span class="bullet">2. </span>在hbase-env.sh中修改pid文件的存放路径：</div><div class="line">在hbase-env.sh中下面的文字默认是注释掉的，放开即可，也可以自己指定存放位置：</div><div class="line"><span class="section"># The directory where pid files are stored. /tmp by default.  </span></div><div class="line"> export HBASE<span class="emphasis">_PID_</span>DIR=/var/hadoop/pids</div></pre></td></tr></table></figure></p>
+<h2 id="五、遇到的错误和解决办法"><a href="#五、遇到的错误和解决办法" class="headerlink" title="五、遇到的错误和解决办法"></a>五、遇到的错误和解决办法</h2><h3 id="1、无法启动HRegionServer和HMaster"><a href="#1、无法启动HRegionServer和HMaster" class="headerlink" title="1、无法启动HRegionServer和HMaster"></a>1、无法启动HRegionServer和HMaster</h3><p>报错日志<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">2017-06-13 19:10:12,458 ERROR [main] master.HMasterCommandLine: Master exiting</span><br><span class="line">java.lang.RuntimeException: Failed construction of Master: class org.apache.hadoop.hbase.master.HMaster</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMaster.constructMaster(HMaster.java:3033)</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMasterCommandLine.startMaster(HMasterCommandLine.java:193)</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMasterCommandLine.run(HMasterCommandLine.java:135)</span><br><span class="line">  at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)</span><br><span class="line">  at org.apache.hadoop.hbase.util.ServerCommandLine.doMain(ServerCommandLine.java:126)</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMaster.main(HMaster.java:3047)</span><br><span class="line">Caused by: java.net.BindException: 无法指定被请求的地址</span><br><span class="line">  at sun.nio.ch.Net.bind0(Native Method)</span><br><span class="line">  at sun.nio.ch.Net.bind(Net.java:463)</span><br><span class="line">  at sun.nio.ch.Net.bind(Net.java:455)</span><br><span class="line">  at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)</span><br><span class="line">  at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)</span><br><span class="line">  at org.apache.hadoop.hbase.ipc.RpcServer.bind(RpcServer.java:2488)</span><br><span class="line">  at org.apache.hadoop.hbase.ipc.RpcServer$Listener.<span class="xml"><span class="tag">&lt;<span class="name">init</span>&gt;</span></span>(RpcServer.java:590)</span><br><span class="line">  at org.apache.hadoop.hbase.ipc.RpcServer.<span class="xml"><span class="tag">&lt;<span class="name">init</span>&gt;</span></span>(RpcServer.java:1956)</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMaster.<span class="xml"><span class="tag">&lt;<span class="name">init</span>&gt;</span></span>(HMaster.java:507)</span><br><span class="line">  at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">  at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)</span><br><span class="line">  at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)</span><br><span class="line">  at java.lang.reflect.Constructor.newInstance(Constructor.java:526)</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMaster.constructMaster(HMaster.java:3028)</span><br><span class="line">  ... 5 more</span><br></pre></td></tr></table></figure></p>
+<p>解决办法<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们可以看到Caused by: java.net.BindException: 无法指定被请求的地址，所以有可能是外网的的影响，所以先关闭网络连接，再启动服务，发现成功了，然后再开启网络。</span><br></pre></td></tr></table></figure></p>
+<h3 id="2、启动hbase服务时找不到pid文件"><a href="#2、启动hbase服务时找不到pid文件" class="headerlink" title="2、启动hbase服务时找不到pid文件"></a>2、启动hbase服务时找不到pid文件</h3><p>问题原因<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>hbase进行大量的插入时region server 所分配的内存堆过小</span><br><span class="line"><span class="bullet">2. </span>pid文件保存在tmp目录下容易丢失。</span><br></pre></td></tr></table></figure></p>
+<p>解决办法<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>在hb的hbase-env.sh中</span><br><span class="line"><span class="section"># The maximum amount of heap to use, in MB. Default is 1000.</span></span><br><span class="line"><span class="section"># export HBASE_HEAPSIZE=1000</span></span><br><span class="line">将1000改成30720</span><br><span class="line"></span><br><span class="line"><span class="bullet">2. </span>在hbase-env.sh中修改pid文件的存放路径：</span><br><span class="line">在hbase-env.sh中下面的文字默认是注释掉的，放开即可，也可以自己指定存放位置：</span><br><span class="line"><span class="section"># The directory where pid files are stored. /tmp by default.  </span></span><br><span class="line"> export HBASE<span class="emphasis">_PID_</span>DIR=/var/hadoop/pids</span><br></pre></td></tr></table></figure></p>
 
-                                            
-                                        </div>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
+        <p><span>发布时间:</span>2017年08月30日 - 22时36分</p>
+        <p><span>最后更新:</span>2017年09月03日 - 14时37分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/year/08/30/hbase_step/" title="伪分布式hbase安装配置">http://jchanji.github.io/year/08/30/hbase_step/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/08/30/hbase_step/　　作者: Chanji" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
 
-                                        
-            </div>
-            
-                <div id="socialShare" style="margin-left:40px;display:none;">
-                </div>
-                <script>
-                    $(function() {
-                        var width = document.body.scrollWidth;
-                        if (width > 550) {
-                            $("#socialShare").css("display", "block");
-                            $("#socialShare").socialShare({
-                                content: 'Nice!不错的资源...',
-                                url: window.location.href,
-                                titile: ''
-                            });
-                        }
-                    });
-                </script>
-                
-                    
-                        
+
+
 <nav id="article-nav">
   
-    <a href="/year/09/03/install_eclipse/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a  href="/year/09/03/install_eclipse/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
@@ -348,7 +363,7 @@
     </a>
   
   
-    <a href="/year/08/30/codeparse_gbk2utf/" id="article-nav-older" class="article-nav-link-wrap">
+    <a  href="/year/08/30/codeparse_gbk2utf/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</div>
       <strong class="article-nav-caption">></strong>
     </a>
@@ -356,109 +371,204 @@
 </nav>
 
 
-                            
-                                <!-- 多说评论框 start -->
-                                
-                                    <div class="ds-thread" data-thread-key="post-hbase_step" data-title="伪分布式hbase安装配置" data-url="http://jchanji.github.io/year/08/30/hbase_step/"></div>
-                                    <!-- 多说评论框 end -->
-                                    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-                                    <script type="text/javascript">
-                                        var duoshuoQuery = {
-                                            short_name: ""
-                                        };
-                                        (function() {
-                                            var ds = document.createElement('script');
-                                            ds.type = 'text/javascript';
-                                            ds.async = true;
-                                            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-                                            ds.charset = 'UTF-8';
-                                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-                                        })();
-                                    </script>
-                                    <!-- 多说公共JS代码 end -->
-                                    
+  
 </article>
 
-<!--
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、版本"><span class="toc-number">2.</span> <span class="toc-text">一、版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、下载"><span class="toc-number">3.</span> <span class="toc-text">二、下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、安装配置"><span class="toc-number">4.</span> <span class="toc-text">三、安装配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、解压文件到指定目录"><span class="toc-number">4.1.</span> <span class="toc-text">1、解压文件到指定目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、重命名"><span class="toc-number">4.2.</span> <span class="toc-text">2、重命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、修改hbase-site-xml"><span class="toc-number">4.3.</span> <span class="toc-text">3、修改hbase-site.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、修改hbase-env-sh"><span class="toc-number">4.4.</span> <span class="toc-text">3、修改hbase-env.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、修改regionservers"><span class="toc-number">4.5.</span> <span class="toc-text">4、修改regionservers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、启动服务"><span class="toc-number">4.6.</span> <span class="toc-text">5、启动服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、查看web-UI"><span class="toc-number">4.7.</span> <span class="toc-text">6、查看web UI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、常用的一些命令"><span class="toc-number">5.</span> <span class="toc-text">四、常用的一些命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、从hdfs导入导出表"><span class="toc-number">5.1.</span> <span class="toc-text">1、从hdfs导入导出表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、遇到的错误和解决办法"><span class="toc-number">6.</span> <span class="toc-text">五、遇到的错误和解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、无法启动HRegionServer和HMaster"><span class="toc-number">6.1.</span> <span class="toc-text">1、无法启动HRegionServer和HMaster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、启动hbase服务时找不到pid文件"><span class="toc-number">6.2.</span> <span class="toc-text">2、启动hbase服务时找不到pid文件</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
 
-    <div style="width:100%;background-color:#fff;">
-        <div id="uyan_frame" style="margin:auto 10px 10px 10px;"></div>
-    </div>
-    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2017540"></script>
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
     
--->
-<!--
 
--->
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/year/09/03/install_eclipse/" title="上一篇: CentOS 7 安装eclipse mars 2">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/year/08/30/codeparse_gbk2utf/" title="下一篇: 使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/year/12/29/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/year/11/19/knowledgegraph/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/year/10/30/artical_1/">Arabesque:A System for Distributed Graph Mining</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/spark_step/">伪分布式spark安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/">从互联到新工业革命-读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/vnc/">CentOS7 安装vnc</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/citycosumption/">机器学习-无监督学习-聚类K-means算法-对31省消费水平分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hello-world/">Hello World</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
 
 </div>
-      <!--
-<footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2017 Chanji
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 Chanji
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >极客到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
     </div>
-  <script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-  _st('install','m5RW4BUQrJ_r-CYKAksH','2.0.0');
-</script>
-  </div>
 </footer>
--->
+
     </div>
-    
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/mobile.js"></script>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/prefixfree.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
 
 
 
 
 
-<! -- mathjax config similar to math.stackexchange -->
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
-<div id="totop" style="position:fixed;bottom:150px;right:50px;cursor: pointer;z-index:9999;opacity: 100%;">
-    <a title="返回顶部" style="opacity: 100%;">
-        <img src="/img/scrollup.png" />
-    </a>
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
 </div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
 
-<script src="/js/totop.js"></script>
-<script src="/js/share.js"></script>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
 
   </div>
 </body>
