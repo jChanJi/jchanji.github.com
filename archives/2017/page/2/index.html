@@ -57,7 +57,7 @@
     <div class="overlay"></div>
 <div class="intrude-less">
     <header id="header" class="inner">
-        <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+        <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
         <a href="/" class="profilepic">
             
             <img lazy-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
@@ -82,7 +82,7 @@
                     function getMatchData(keyword, data) {
                         var matchData = [];
                         for(var i =0;i<data.length;i++){
-                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0)
                                 matchData.push(data[i])
                         }
                         return matchData;
@@ -94,7 +94,7 @@
                             url: '/search.json',
                             dataType: "json",
                             success: function( json ) {
-                                var str='<ul class=\"search-result-list\">';                
+                                var str='<ul class=\"search-result-list\">';
                                 var keyword = $input.val().trim().toLowerCase();
                                 $resultContent.innerHTML = "";
                                 if ($input.val().trim().length <= 0) {
@@ -107,7 +107,7 @@
                                     $resultContent.empty();
                                     $('#switch-area').show();
                                     return;
-                                } 
+                                }
                                 for(var i =0; i<results.length; i++){
                                     str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
                                 }
@@ -494,14 +494,14 @@
                 &copy; 2018 Chanji
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+                <a href="https://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >极客到访数: 
+                        <span id="site-visit" >极客到访数:
                             <span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
@@ -511,7 +511,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">本页阅读量: 
+                        <span id="page-visit">本页阅读量:
                             <span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
@@ -522,7 +522,7 @@
 </footer>
 
     </div>
-    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
 
     <script>
@@ -553,7 +553,7 @@
 </script>
 
     <button class="hide-labels">TAG 开关</button>
-    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js">
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js">
     </script>
     <script>
         $(document).ready(function() {
@@ -562,6 +562,7 @@
             });
         });
     </script>
+
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
