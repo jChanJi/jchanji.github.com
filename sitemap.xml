@@ -2,16 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://jchanji.github.io/year/12/29/SSD-tensorflow/</loc>
+    <loc>http://jchanji.github.io/year/01/09/pca/</loc>
     
-    <lastmod>2018-01-07T17:49:04.870Z</lastmod>
+    <lastmod>2018-01-08T16:44:05.771Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/01/09/NMF_PCA/</loc>
+    
+    <lastmod>2018-01-08T16:43:08.514Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/01/09/studentOnline_timeslot/</loc>
+    
+    <lastmod>2018-01-08T16:41:48.835Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/09/03/spark_step/</loc>
+    
+    <lastmod>2018-01-08T16:28:47.197Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://jchanji.github.io/year/10/30/artical_1/</loc>
     
-    <lastmod>2018-01-07T17:16:29.185Z</lastmod>
+    <lastmod>2018-01-08T16:21:28.422Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/08/29/citycosumption/</loc>
+    
+    <lastmod>2018-01-08T16:14:14.475Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/12/29/SSD-tensorflow/</loc>
+    
+    <lastmod>2018-01-07T17:49:04.870Z</lastmod>
     
   </url>
   
@@ -51,13 +86,6 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/09/03/spark_step/</loc>
-    
-    <lastmod>2017-09-03T06:57:00.318Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://jchanji.github.io/year/09/03/internet_of_everthing_for_new_industrial_revolution/</loc>
     
     <lastmod>2017-09-03T06:53:50.510Z</lastmod>
@@ -89,13 +117,6 @@
     <loc>http://jchanji.github.io/year/08/29/tensorflow_step/</loc>
     
     <lastmod>2017-09-03T06:36:41.389Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/08/29/citycosumption/</loc>
-    
-    <lastmod>2017-09-03T06:35:05.356Z</lastmod>
     
   </url>
   

@@ -188,7 +188,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/big-data/" style="font-size: 20px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/machinelearning/" style="font-size: 10px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/object-detection/" style="font-size: 10px;">object detection</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a>
+                        <a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/DBSCAN/" style="font-size: 10px;">DBSCAN</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/NMF/" style="font-size: 10px;">NMF</a> <a href="/tags/PCA/" style="font-size: 10px;">PCA</a> <a href="/tags/big-data/" style="font-size: 15px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/machinelearning/" style="font-size: 20px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/object-detection/" style="font-size: 10px;">object detection</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a>
                     </div>
                 </section>
                 
@@ -254,6 +254,223 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-studentOnline_timeslot" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/year/01/09/studentOnline_timeslot/" class="article-date">
+      <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
+<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/machinelearning/">machinelearning</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DBSCAN/">DBSCAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a   href="/year/01/09/studentOnline_timeslot/#more">查看更多 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-NMF_PCA" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/year/01/09/NMF_PCA/" class="article-date">
+      <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
+<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
+</blockquote>
+<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>分别使用NMF和PCA算法对人脸进行特征提取并且进行对比</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> decomposition</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">n_row, n_col = <span class="number">2</span>, <span class="number">3</span></span><br><span class="line">n_components = n_row * n_col</span><br><span class="line">image_shape = (<span class="number">64</span>, <span class="number">64</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">###############################################################################</span></span><br><span class="line"><span class="comment"># Load faces data</span></span><br><span class="line">dataset = fetch_olivetti_faces(shuffle=<span class="keyword">True</span>, random_state=RandomState(<span class="number">0</span>))</span><br><span class="line">faces = dataset.data</span><br><span class="line"></span><br><span class="line"><span class="comment">###############################################################################</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_gallery</span><span class="params">(title, images, n_col=n_col, n_row=n_row)</span>:</span></span><br><span class="line">    plt.figure(figsize=(<span class="number">2.</span> * n_col, <span class="number">2.26</span> * n_row))</span><br><span class="line">    plt.suptitle(title, size=<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, comp <span class="keyword">in</span> enumerate(images):</span><br><span class="line">        plt.subplot(n_row, n_col, i + <span class="number">1</span>)</span><br><span class="line">        vmax = max(comp.max(), -comp.min())</span><br><span class="line"></span><br><span class="line">        plt.imshow(comp.reshape(image_shape), cmap=plt.cm.gray,</span><br><span class="line">                   interpolation=<span class="string">'nearest'</span>, vmin=-vmax, vmax=vmax)</span><br><span class="line">        plt.xticks(())</span><br><span class="line">        plt.yticks(())</span><br><span class="line">    plt.subplots_adjust(<span class="number">0.01</span>, <span class="number">0.05</span>, <span class="number">0.99</span>, <span class="number">0.94</span>, <span class="number">0.04</span>, <span class="number">0.</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">plot_gallery(<span class="string">"First centered Olivetti faces"</span>, faces[:n_components])</span><br><span class="line"><span class="comment">###############################################################################</span></span><br><span class="line"></span><br><span class="line">estimators = [</span><br><span class="line">    (<span class="string">'Eigenfaces - PCA using randomized SVD'</span>,</span><br><span class="line">         decomposition.PCA(n_components=<span class="number">6</span>,whiten=<span class="keyword">True</span>)),</span><br><span class="line"></span><br><span class="line">    (<span class="string">'Non-negative components - NMF'</span>,</span><br><span class="line">         decomposition.NMF(n_components=<span class="number">6</span>, init=<span class="string">'nndsvda'</span>, tol=<span class="number">5e-3</span>))</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">###############################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> name, estimator <span class="keyword">in</span> estimators:</span><br><span class="line">    print(<span class="string">"Extracting the top %d %s..."</span> % (n_components, name))</span><br><span class="line">    print(faces.shape)</span><br><span class="line">    estimator.fit(faces)</span><br><span class="line">    components_ = estimator.components_</span><br><span class="line">    plot_gallery(name, components_[:n_components])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">downloading Olivetti faces from http://cs.nyu.edu/~roweis/data/olivettifaces.mat to C:\Users\ChanJi\scikit<span class="emphasis">_learn_</span>data</span><br><span class="line">Extracting the top 6 Eigenfaces - PCA using randomized SVD...</span><br><span class="line">(400, 4096)</span><br><span class="line">Extracting the top 6 Non-negative components - NMF...</span><br><span class="line">(400, 4096)</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/face_ori.PNG" alt="图1"><br><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/face_PCA.PNG" alt="图2"><br><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/face_NMF.PNG" alt="图3"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/machinelearning/">machinelearning</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NMF/">NMF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-pca" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/year/01/09/pca/" class="article-date">
+      <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
+<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
+</blockquote>
+<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>对四维的鸢尾花数据使用PCA进行降维并且可视化，数据格式如下：<br><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/iris.PNG" alt="图1"><br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/machinelearning/">machinelearning</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCA/">PCA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a   href="/year/01/09/pca/#more">查看更多 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-SSD-tensorflow" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -742,219 +959,6 @@
       
         <p class="article-more-link">
           <a   href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-install_ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/09/03/install_ubuntu/" class="article-date">
-      <time datetime="2017-09-03T06:44:05.312Z" itemprop="datePublished">2017-09-03</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>在win10下安装ubuntu双系统。在笔记本安装ubuntu的时候遇到了很多的挫折，曾经也放弃过，但很不幸的是，在未来的今天又碰上了。有时候问题的答案很简单，但是需要大量的时间去得到它，并不是你的能力不行，而是网上的干扰答案实在是太多，无法分辨谁对谁假的时候，往往会一个个的试过去。我不认为这是个很笨的方法，因为多花点时间总能体会更多的东西。貌似废话有点多，下面直接上干货。</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/win-10/">win 10</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a   href="/year/09/03/install_ubuntu/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-vnc" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/09/03/vnc/" class="article-date">
-      <time datetime="2017-09-03T06:44:05.306Z" itemprop="datePublished">2017-09-03</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/09/03/vnc/">CentOS7 安装vnc</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="1-首先执行这一句防止系统文件被修改"><a href="#1-首先执行这一句防止系统文件被修改" class="headerlink" title="1.首先执行这一句防止系统文件被修改"></a>1.首先执行这一句防止系统文件被修改</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chattr +i /etc/resolv.conf</span><br></pre></td></tr></table></figure>
-<h2 id="2、然后安装tigervnc"><a href="#2、然后安装tigervnc" class="headerlink" title="2、然后安装tigervnc"></a>2、然后安装tigervnc</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y tigervnc tigervnc-server</span><br></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vnc/">vnc</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a   href="/year/09/03/vnc/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-install_eclipse" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/09/03/install_eclipse/" class="article-date">
-      <time datetime="2017-09-03T06:40:47.978Z" itemprop="datePublished">2017-09-03</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h4 id="操作系统：CentOS-7"><a href="#操作系统：CentOS-7" class="headerlink" title="操作系统：CentOS 7"></a>操作系统：CentOS 7</h4><h4 id="eclispe版本：Eclipse-Mars-2"><a href="#eclispe版本：Eclipse-Mars-2" class="headerlink" title="eclispe版本：Eclipse Mars 2"></a>eclispe版本：Eclipse Mars 2</h4>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS-7/">CentOS 7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/eclispe/">eclispe</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a   href="/year/09/03/install_eclipse/#more">查看更多 >></a>
         </p>
       
       <div class="clearfix"></div>
