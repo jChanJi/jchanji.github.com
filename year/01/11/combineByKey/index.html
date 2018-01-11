@@ -9,18 +9,18 @@
   
   <title>spark之combineByKey | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner) 实例讲解生成数据123456val scores = sc.parallelize(Array((&quot;jake&quot;,80.0),                                  (&quot;jake&quot;,90.0),">
-<meta name="keywords" content="big data,spark">
+  <meta name="description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)">
+<meta name="keywords" content="spark,big data">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spark之combineByKey">
 <meta property="og:url" content="http://jchanji.github.io/year/01/11/combineByKey/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner) 实例讲解生成数据123456val scores = sc.parallelize(Array((&quot;jake&quot;,80.0),                                  (&quot;jake&quot;,90.0),">
+<meta property="og:description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-11T00:48:02.046Z">
+<meta property="og:updated_time" content="2018-01-11T00:49:27.972Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spark之combineByKey">
-<meta name="twitter:description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner) 实例讲解生成数据123456val scores = sc.parallelize(Array((&quot;jake&quot;,80.0),                                  (&quot;jake&quot;,90.0),">
+<meta name="twitter:description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -297,6 +297,7 @@
       
           
         <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h1 id="实例讲解"><a href="#实例讲解" class="headerlink" title="实例讲解"></a>实例讲解</h1><h2 id="生成数据"><a href="#生成数据" class="headerlink" title="生成数据"></a>生成数据</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val scores = sc.parallelize(Array(("jake",80.0),</span><br><span class="line"><span class="code">                                  ("jake",90.0),</span></span><br><span class="line"><span class="code">                                  ("jake",85.0),</span></span><br><span class="line"><span class="code">                                  ("mike",85.0),</span></span><br><span class="line"><span class="code">                                  ("mike",92.0),</span></span><br><span class="line"><span class="code">                                  ("mike",90.0)))</span></span><br></pre></td></tr></table></figure>
 <p>查看数据<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scores.foreach(println)</span><br><span class="line">(jake,90.0)</span><br><span class="line">(jake,80.0)</span><br><span class="line">(jake,85.0)</span><br><span class="line">(mike,92.0)</span><br><span class="line">(mike,85.0)</span><br><span class="line">(mike,90.0)</span><br></pre></td></tr></table></figure></p>
 <h2 id="求三门总分"><a href="#求三门总分" class="headerlink" title="求三门总分"></a>求三门总分</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val score2 = scores.combineByKey(score=&gt;(1,score),</span><br><span class="line"><span class="code">                                (c1:(Int,Double),newScore)=&gt;(c1._1+1,c1._2+newScore),</span></span><br><span class="line"><span class="code">                                (c1:(Int,Double),c2:(Int,Double))=&gt;(c1._1+c2._1,c1._2+c2._2))</span></span><br></pre></td></tr></table></figure>
@@ -315,7 +316,7 @@
         <p><span>本文标题:</span><a  href="/year/01/11/combineByKey/">spark之combineByKey</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
         <p><span>发布时间:</span>2018年01月11日 - 08时33分</p>
-        <p><span>最后更新:</span>2018年01月11日 - 08时48分</p>
+        <p><span>最后更新:</span>2018年01月11日 - 08时49分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/year/01/11/combineByKey/" title="spark之combineByKey">http://jchanji.github.io/year/01/11/combineByKey/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/01/11/combineByKey/　　作者: Chanji" title=""></span>
@@ -330,7 +331,7 @@
 <nav id="article-nav">
   
   
-    <a  href="/year/01/11/idea使用scala运行spark计数/" id="article-nav-older" class="article-nav-link-wrap">
+    <a  href="/year/01/11/idea_scala_spark/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">scala 运行spark程序</div>
       <strong class="article-nav-caption">></strong>
     </a>
@@ -406,12 +407,12 @@
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/01/11/idea使用scala运行spark计数/" title="下一篇: scala 运行spark程序">
+            <a  href="/year/01/11/idea_scala_spark/" title="下一篇: scala 运行spark程序">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/year/01/11/combineByKey/">spark之combineByKey</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/idea使用scala运行spark计数/">scala 运行spark程序</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/10/docker/">ubuntu下Docker的安装和使用</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a></li><li class="post-list-item"><a class="post-list-link" href="/year/12/29/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/year/11/19/knowledgegraph/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/year/10/30/artical_1/">Arabesque:A System for Distributed Graph Mining</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/spark_step/">伪分布式spark安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/">从互联到新工业革命-读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/vnc/">CentOS7 安装vnc</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/citycosumption/">K-means算法-对31省消费水平分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/year/01/11/combineByKey/">spark之combineByKey</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/10/docker/">ubuntu下Docker的安装和使用</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a></li><li class="post-list-item"><a class="post-list-link" href="/year/12/29/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/year/11/19/knowledgegraph/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/year/10/30/artical_1/">Arabesque:A System for Distributed Graph Mining</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/spark_step/">伪分布式spark安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/">从互联到新工业革命-读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/vnc/">CentOS7 安装vnc</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/citycosumption/">K-means算法-对31省消费水平分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hello-world/">Hello World</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");

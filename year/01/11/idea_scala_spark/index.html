@@ -7,24 +7,22 @@
   
   
   
-  <title>NMF和PCA算法对人脸进行特征提取并且进行对比 | Chanji</title>
+  <title>scala 运行spark程序 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言： 此篇笔记主要根据南京大学礼欣老师的《Python机器学习应用》整理而成，详细内容请看礼欣老师的mooc课程。  数据介绍：分别使用NMF和PCA算法对人脸进行特征提取并且进行对比">
-<meta name="keywords" content="python,machinelearning,NMF">
+  <meta name="description" content="环境配置配置maven镜像地址123456&amp;lt;mirror&amp;gt;    &amp;lt;id&amp;gt;alimaven&amp;lt;/id&amp;gt;    &amp;lt;name&amp;gt;aliyun maven&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;http://maven.aliyun.com/nexus/content/groups/public/&amp;lt;/url&amp;gt;    &amp;lt;mirr">
+<meta name="keywords" content="spark,big data">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NMF和PCA算法对人脸进行特征提取并且进行对比">
-<meta property="og:url" content="http://jchanji.github.io/year/01/09/NMF_PCA/index.html">
+<meta property="og:title" content="scala 运行spark程序">
+<meta property="og:url" content="http://jchanji.github.io/year/01/11/idea_scala_spark/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="前言： 此篇笔记主要根据南京大学礼欣老师的《Python机器学习应用》整理而成，详细内容请看礼欣老师的mooc课程。  数据介绍：分别使用NMF和PCA算法对人脸进行特征提取并且进行对比">
+<meta property="og:description" content="环境配置配置maven镜像地址123456&amp;lt;mirror&amp;gt;    &amp;lt;id&amp;gt;alimaven&amp;lt;/id&amp;gt;    &amp;lt;name&amp;gt;aliyun maven&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;http://maven.aliyun.com/nexus/content/groups/public/&amp;lt;/url&amp;gt;    &amp;lt;mirr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/face_ori.PNG">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/face_PCA.PNG">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/face_NMF.PNG">
-<meta property="og:updated_time" content="2018-01-09T17:18:38.836Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/1.png">
+<meta property="og:updated_time" content="2018-01-11T00:25:43.626Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NMF和PCA算法对人脸进行特征提取并且进行对比">
-<meta name="twitter:description" content="前言： 此篇笔记主要根据南京大学礼欣老师的《Python机器学习应用》整理而成，详细内容请看礼欣老师的mooc课程。  数据介绍：分别使用NMF和PCA算法对人脸进行特征提取并且进行对比">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/face_ori.PNG">
+<meta name="twitter:title" content="scala 运行spark程序">
+<meta name="twitter:description" content="环境配置配置maven镜像地址123456&amp;lt;mirror&amp;gt;    &amp;lt;id&amp;gt;alimaven&amp;lt;/id&amp;gt;    &amp;lt;name&amp;gt;aliyun maven&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;http://maven.aliyun.com/nexus/content/groups/public/&amp;lt;/url&amp;gt;    &amp;lt;mirr">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -256,11 +254,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-NMF_PCA" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-idea_scala_spark" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/01/09/NMF_PCA/" class="article-date">
-      <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
+      <a  href="/year/01/11/idea_scala_spark/" class="article-date">
+      <time datetime="2018-01-11T00:14:52.449Z" itemprop="datePublished">2018-01-11</time>
 </a>
 
     </div>
@@ -274,7 +272,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      NMF和PCA算法对人脸进行特征提取并且进行对比
+      scala 运行spark程序
     </h1>
   
 
@@ -284,13 +282,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/machinelearning/">-machinelearning</a>
+    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NMF/">NMF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -300,13 +298,27 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
-<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
+        <h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="配置maven镜像地址"><a href="#配置maven镜像地址" class="headerlink" title="配置maven镜像地址"></a>配置maven镜像地址</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;id&gt;alimaven&lt;/id&gt;</span></span><br><span class="line"><span class="code">    &lt;name&gt;aliyun maven&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span></span><br><span class="line"><span class="code">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;      </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="sbt仓库地址"><a href="#sbt仓库地址" class="headerlink" title="sbt仓库地址"></a>sbt仓库地址</h2><p>编辑~/.sbt/repositories（没有就新建）<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[repositories]</span><br><span class="line">local</span><br><span class="line">dl bintray: https://dl.bintray.com/typesafe/ivy-releases/, [<span class="string">organization</span>]/[<span class="string">module</span>]/[<span class="string">revision</span>]/[<span class="string">type</span>]s/[<span class="string">artifact</span>](<span class="link">-[classifier]</span>).[ext], bootOnly</span><br><span class="line">jcenter: https://jcenter.bintray.com/</span><br><span class="line">typesafe-ivy-releases: https://repo.typesafe.com/typesafe/ivy-releases/, [<span class="string">organization</span>]/[<span class="string">module</span>]/[<span class="string">revision</span>]/[<span class="string">type</span>]s/[<span class="string">artifact</span>](<span class="link">-[classifier]</span>).[ext], bootOnly</span><br><span class="line">maven-central</span><br><span class="line">sonatype-snapshots: https://oss.sonatype.org/content/repositories/snapshot</span><br></pre></td></tr></table></figure></p>
+<h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><blockquote>
+<p>jdk1.8</p>
+<p>spark 2.2  </p>
+<p>scala 2.11.11</p>
+<p>sbt0.13.16</p>
 </blockquote>
-<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>分别使用NMF和PCA算法对人脸进行特征提取并且进行对比<br><a id="more"></a></p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> decomposition</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">n_row, n_col = <span class="number">2</span>, <span class="number">3</span></span><br><span class="line">n_components = n_row * n_col</span><br><span class="line">image_shape = (<span class="number">64</span>, <span class="number">64</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">###############################################################################</span></span><br><span class="line"><span class="comment"># Load faces data</span></span><br><span class="line">dataset = fetch_olivetti_faces(shuffle=<span class="keyword">True</span>, random_state=RandomState(<span class="number">0</span>))</span><br><span class="line">faces = dataset.data</span><br><span class="line"></span><br><span class="line"><span class="comment">###############################################################################</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_gallery</span><span class="params">(title, images, n_col=n_col, n_row=n_row)</span>:</span></span><br><span class="line">    plt.figure(figsize=(<span class="number">2.</span> * n_col, <span class="number">2.26</span> * n_row))</span><br><span class="line">    plt.suptitle(title, size=<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, comp <span class="keyword">in</span> enumerate(images):</span><br><span class="line">        plt.subplot(n_row, n_col, i + <span class="number">1</span>)</span><br><span class="line">        vmax = max(comp.max(), -comp.min())</span><br><span class="line"></span><br><span class="line">        plt.imshow(comp.reshape(image_shape), cmap=plt.cm.gray,</span><br><span class="line">                   interpolation=<span class="string">'nearest'</span>, vmin=-vmax, vmax=vmax)</span><br><span class="line">        plt.xticks(())</span><br><span class="line">        plt.yticks(())</span><br><span class="line">    plt.subplots_adjust(<span class="number">0.01</span>, <span class="number">0.05</span>, <span class="number">0.99</span>, <span class="number">0.94</span>, <span class="number">0.04</span>, <span class="number">0.</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">plot_gallery(<span class="string">"First centered Olivetti faces"</span>, faces[:n_components])</span><br><span class="line"><span class="comment">###############################################################################</span></span><br><span class="line"></span><br><span class="line">estimators = [</span><br><span class="line">    (<span class="string">'Eigenfaces - PCA using randomized SVD'</span>,</span><br><span class="line">         decomposition.PCA(n_components=<span class="number">6</span>,whiten=<span class="keyword">True</span>)),</span><br><span class="line"></span><br><span class="line">    (<span class="string">'Non-negative components - NMF'</span>,</span><br><span class="line">         decomposition.NMF(n_components=<span class="number">6</span>, init=<span class="string">'nndsvda'</span>, tol=<span class="number">5e-3</span>))</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">###############################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> name, estimator <span class="keyword">in</span> estimators:</span><br><span class="line">    print(<span class="string">"Extracting the top %d %s..."</span> % (n_components, name))</span><br><span class="line">    print(faces.shape)</span><br><span class="line">    estimator.fit(faces)</span><br><span class="line">    components_ = estimator.components_</span><br><span class="line">    plot_gallery(name, components_[:n_components])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">downloading Olivetti faces from http://cs.nyu.edu/~roweis/data/olivettifaces.mat to C:\Users\ChanJi\scikit<span class="emphasis">_learn_</span>data</span><br><span class="line">Extracting the top 6 Eigenfaces - PCA using randomized SVD...</span><br><span class="line">(400, 4096)</span><br><span class="line">Extracting the top 6 Non-negative components - NMF...</span><br><span class="line">(400, 4096)</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/face_ori.PNG" alt="图1"><br><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/face_PCA.PNG" alt="图2"><br><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/face_NMF.PNG" alt="图3"></p>
+<h1 id="sbt依赖"><a href="#sbt依赖" class="headerlink" title="sbt依赖"></a>sbt依赖</h1><p>build.sbt文件内容为<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">name := "scala_test"</span><br><span class="line">version := "1.0"</span><br><span class="line">scalaVersion := "2.11.11" #后面不需要配置</span><br><span class="line">libraryDependencies ++= Seq("org.apache.spark" %% "spark-core" % "2.2.0")</span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-mllib_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-sql_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming-kafka-0-8_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming-flume_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-hive_2.11" % "2.2.0" % "provided"  </span><br><span class="line">libraryDependencies += "org.scalanlp" % "breeze_2.11" % "0.11"  </span><br><span class="line">libraryDependencies += "org.scalanlp" % "breeze-natives_2.11" % "0.11"  </span><br><span class="line">libraryDependencies += "org.apache.hadoop" % "hadoop-common" % "2.6.0"</span><br></pre></td></tr></table></figure></p>
+<p>然后使用sbt打包,如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/1.png" alt="图一"></p>
+<p><strong>注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件</strong></p>
+<h1 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./sbin/start-master.sh # 启动spark</span><br><span class="line">./bin/spark-class org.apache.spark.deploy.worker.Worker spark://localhost.localdomain:7077 # 启动worker, spark://localhost.localdomain:7077到8080端口查看   </span><br><span class="line">./bin/spark-submit --master spark://localhost.localdomain:7077  --class WordCount /home/chanji/scala_test.jar # 提交作业</span><br></pre></td></tr></table></figure>
+<p>再到<a href="http://localhost:8080/jobs" target="_blank" rel="noopener">http://localhost:8080/jobs</a> 查看作业</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="无法解析主机名"><a href="#无法解析主机名" class="headerlink" title="无法解析主机名"></a>无法解析主机名</h2><blockquote>
+<p>无法解析主机：promote.cache-dns.local＜br&gt;</p>
+<p>hostname分为三种类型：<br><br>静态的（static），瞬态的（transient），和灵活的（pret不然ty）<br><br>执行系统命令hostname得到的是瞬态的主机名，扫描文件中得到的是静态主机名。<br><br>将这两者统一起来就可以解决问题了。<br><br>1.自定义hostname，假设myname<br><br>2.执行hostnamectl set-hostname myname<br><br>这个命令能同时修改三种类型的主机名定义。<br><br>重启</p>
+</blockquote>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><blockquote>
+<p>Drive program 是程序的入口,包含这main函数<br>context起着和集群连接的作用<br>RDDs　弹性分布式数据集,实质就是一个数据集，指向一个变量，数据集可以被分为若干部分存在与不同的主机上，但操作这些数据只能通过定义的数据集变量。</p>
+</blockquote>
 
       
     </div>
@@ -315,13 +327,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a></p>
+        <p><span>本文标题:</span><a  href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2018年01月09日 - 00时00分</p>
-        <p><span>最后更新:</span>2018年01月10日 - 01时18分</p>
+        <p><span>发布时间:</span>2018年01月11日 - 08时14分</p>
+        <p><span>最后更新:</span>2018年01月11日 - 08时25分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/01/09/NMF_PCA/" title="NMF和PCA算法对人脸进行特征提取并且进行对比">http://jchanji.github.io/year/01/09/NMF_PCA/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/01/09/NMF_PCA/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/01/11/idea_scala_spark/" title="scala 运行spark程序">http://jchanji.github.io/year/01/11/idea_scala_spark/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/01/11/idea_scala_spark/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -332,18 +344,18 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/01/09/pca/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a  href="/year/01/11/combineByKey/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          对四维的鸢尾花数据使用PCA进行降维
+          spark之combineByKey
         
       </div>
     </a>
   
   
-    <a  href="/year/12/29/SSD-tensorflow/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Single Shot MultiBox Detector翻译</div>
+    <a  href="/year/01/10/docker/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ubuntu下Docker的安装和使用</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -355,7 +367,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言："><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据介绍："><span class="toc-number">2.</span> <span class="toc-text">数据介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-number">3.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果"><span class="toc-number">4.</span> <span class="toc-text">结果</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境配置"><span class="toc-number">1.</span> <span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置maven镜像地址"><span class="toc-number">1.1.</span> <span class="toc-text">配置maven镜像地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sbt仓库地址"><span class="toc-number">1.2.</span> <span class="toc-text">sbt仓库地址</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#版本"><span class="toc-number">2.</span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sbt依赖"><span class="toc-number">3.</span> <span class="toc-text">sbt依赖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行服务"><span class="toc-number">4.</span> <span class="toc-text">运行服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#问题"><span class="toc-number">5.</span> <span class="toc-text">问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#无法解析主机名"><span class="toc-number">5.1.</span> <span class="toc-text">无法解析主机名</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基础知识"><span class="toc-number">6.</span> <span class="toc-text">基础知识</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -414,13 +426,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/01/09/pca/" title="上一篇: 对四维的鸢尾花数据使用PCA进行降维">
+            <a  href="/year/01/11/combineByKey/" title="上一篇: spark之combineByKey">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/12/29/SSD-tensorflow/" title="下一篇: Single Shot MultiBox Detector翻译">
+            <a  href="/year/01/10/docker/" title="下一篇: ubuntu下Docker的安装和使用">
                 <i class="fa fa-angle-right"></i>
             </a>
         
