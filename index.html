@@ -188,7 +188,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/DBSCAN/" style="font-size: 10px;">DBSCAN</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/NMF/" style="font-size: 10px;">NMF</a> <a href="/tags/PCA/" style="font-size: 10px;">PCA</a> <a href="/tags/big-data/" style="font-size: 16.67px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/machinelearning/" style="font-size: 20px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/object-detection/" style="font-size: 10px;">object detection</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/spark/" style="font-size: 10px;">spark</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a>
+                        <a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/DBSCAN/" style="font-size: 10px;">DBSCAN</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/NMF/" style="font-size: 10px;">NMF</a> <a href="/tags/PCA/" style="font-size: 10px;">PCA</a> <a href="/tags/big-data/" style="font-size: 20px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/machinelearning/" style="font-size: 20px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/object-detection/" style="font-size: 10px;">object detection</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/spark/" style="font-size: 15px;">spark</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a>
                     </div>
                 </section>
                 
@@ -254,6 +254,91 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-idea使用scala运行spark计数" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/year/01/11/idea使用scala运行spark计数/" class="article-date">
+      <time datetime="2018-01-11T00:14:52.449Z" itemprop="datePublished">2018-01-11</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/year/01/11/idea使用scala运行spark计数/">scala 运行spark程序</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="配置maven镜像地址"><a href="#配置maven镜像地址" class="headerlink" title="配置maven镜像地址"></a>配置maven镜像地址</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;id&gt;alimaven&lt;/id&gt;</span></span><br><span class="line"><span class="code">    &lt;name&gt;aliyun maven&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span></span><br><span class="line"><span class="code">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;      </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="sbt仓库地址"><a href="#sbt仓库地址" class="headerlink" title="sbt仓库地址"></a>sbt仓库地址</h2><p>编辑~/.sbt/repositories（没有就新建）<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[repositories]</span><br><span class="line">local</span><br><span class="line">dl bintray: https://dl.bintray.com/typesafe/ivy-releases/, [<span class="string">organization</span>]/[<span class="string">module</span>]/[<span class="string">revision</span>]/[<span class="string">type</span>]s/[<span class="string">artifact</span>](<span class="link">-[classifier]</span>).[ext], bootOnly</span><br><span class="line">jcenter: https://jcenter.bintray.com/</span><br><span class="line">typesafe-ivy-releases: https://repo.typesafe.com/typesafe/ivy-releases/, [<span class="string">organization</span>]/[<span class="string">module</span>]/[<span class="string">revision</span>]/[<span class="string">type</span>]s/[<span class="string">artifact</span>](<span class="link">-[classifier]</span>).[ext], bootOnly</span><br><span class="line">maven-central</span><br><span class="line">sonatype-snapshots: https://oss.sonatype.org/content/repositories/snapshot</span><br></pre></td></tr></table></figure></p>
+<h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><blockquote>
+<p>jdk1.8</p>
+<p>spark 2.2  </p>
+<p>scala 2.11.11</p>
+<p>sbt0.13.16</p>
+</blockquote>
+<h1 id="sbt依赖"><a href="#sbt依赖" class="headerlink" title="sbt依赖"></a>sbt依赖</h1><p>build.sbt文件内容为<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">name := "scala_test"</span><br><span class="line">version := "1.0"</span><br><span class="line">scalaVersion := "2.11.11" #后面不需要配置</span><br><span class="line">libraryDependencies ++= Seq("org.apache.spark" %% "spark-core" % "2.2.0")</span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-mllib_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-sql_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming-kafka-0-8_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming-flume_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-hive_2.11" % "2.2.0" % "provided"  </span><br><span class="line">libraryDependencies += "org.scalanlp" % "breeze_2.11" % "0.11"  </span><br><span class="line">libraryDependencies += "org.scalanlp" % "breeze-natives_2.11" % "0.11"  </span><br><span class="line">libraryDependencies += "org.apache.hadoop" % "hadoop-common" % "2.6.0"</span><br></pre></td></tr></table></figure></p>
+<p>然后使用sbt打包,如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/1.png" alt="图一"></p>
+<h5 id="注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件"><a href="#注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件" class="headerlink" title="注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件"></a>注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件</h5><h1 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./sbin/start-master.sh # 启动spark</span><br><span class="line">./bin/spark-class org.apache.spark.deploy.worker.Worker spark://localhost.localdomain:7077 # 启动worker, spark://localhost.localdomain:7077到8080端口查看   </span><br><span class="line">./bin/spark-submit --master spark://localhost.localdomain:7077  --class WordCount /home/chanji/scala_test.jar # 提交作业</span><br></pre></td></tr></table></figure>
+<p>再到<a href="http://localhost:8080/jobs" target="_blank" rel="noopener">http://localhost:8080/jobs</a> 查看作业</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="无法解析主机名"><a href="#无法解析主机名" class="headerlink" title="无法解析主机名"></a>无法解析主机名</h2><blockquote>
+<p>无法解析主机：promote.cache-dns.local＜br&gt;</p>
+<p>hostname分为三种类型：<br><br>静态的（static），瞬态的（transient），和灵活的（pret不然ty）<br><br>执行系统命令hostname得到的是瞬态的主机名，扫描文件中得到的是静态主机名。<br><br>将这两者统一起来就可以解决问题了。<br><br>1.自定义hostname，假设myname<br><br>2.执行hostnamectl set-hostname myname<br><br>这个命令能同时修改三种类型的主机名定义。<br><br>重启</p>
+</blockquote>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><blockquote>
+<p>Drive program 是程序的入口,包含这main函数<br>context起着和集群连接的作用<br>RDDs　弹性分布式数据集,实质就是一个数据集，指向一个变量，数据集可以被分为若干部分存在与不同的主机上，但操作这些数据只能通过定义的数据集变量。</p>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-docker" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -325,10 +410,10 @@
 
 
   
-    <article id="post-studentOnline_timeslot" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-pca" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/01/09/studentOnline_timeslot/" class="article-date">
+      <a  href="/year/01/09/pca/" class="article-date">
       <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
 </a>
 
@@ -343,7 +428,7 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a>
+      <a  class="article-title" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a>
     </h1>
   
 
@@ -357,6 +442,7 @@
               <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
 <p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
 </blockquote>
+<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>对四维的鸢尾花数据使用PCA进行降维并且可视化，数据格式如下：<br><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/iris.PNG" alt="图1"><br>
           
       
     </div>
@@ -371,12 +457,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DBSCAN/">DBSCAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCA/">PCA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a   href="/year/01/09/studentOnline_timeslot/#more">查看更多 >></a>
+          <a   href="/year/01/09/pca/#more">查看更多 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -470,10 +556,10 @@
 
 
   
-    <article id="post-pca" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-studentOnline_timeslot" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/01/09/pca/" class="article-date">
+      <a  href="/year/01/09/studentOnline_timeslot/" class="article-date">
       <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
 </a>
 
@@ -488,7 +574,7 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a>
+      <a  class="article-title" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a>
     </h1>
   
 
@@ -502,7 +588,6 @@
               <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
 <p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
 </blockquote>
-<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>对四维的鸢尾花数据使用PCA进行降维并且可视化，数据格式如下：<br><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/iris.PNG" alt="图1"><br>
           
       
     </div>
@@ -517,12 +602,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCA/">PCA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DBSCAN/">DBSCAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a   href="/year/01/09/pca/#more">查看更多 >></a>
+          <a   href="/year/01/09/studentOnline_timeslot/#more">查看更多 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -906,81 +991,9 @@
 
 
   
-    <article id="post-markdown" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/09/03/markdown/" class="article-date">
-      <time datetime="2017-09-03T06:44:05.362Z" itemprop="datePublished">2017-09-03</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="一、sumlime-text3-配置Markdown和常用快捷键"><a href="#一、sumlime-text3-配置Markdown和常用快捷键" class="headerlink" title="一、sumlime text3 配置Markdown和常用快捷键"></a>一、sumlime text3 配置Markdown和常用快捷键</h2><h3 id="1、sumlime-text3-配置Markdown"><a href="#1、sumlime-text3-配置Markdown" class="headerlink" title="1、sumlime text3 配置Markdown"></a>1、sumlime text3 配置Markdown</h3><blockquote>
-<h4 id="1、安装package-Control"><a href="#1、安装package-Control" class="headerlink" title="1、安装package Control"></a>1、安装package Control<br></h4><h4 id="2、安装Markdown-Preview"><a href="#2、安装Markdown-Preview" class="headerlink" title="2、安装Markdown Preview"></a>2、安装Markdown Preview<br></h4><p>&ensp; 2.1、 按Shif + Alt + P打开<br><br>&ensp; 2.2、输入pcip,回车（进入install package）<br></p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime-text3/">sublime text3</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a   href="/year/09/03/markdown/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 

@@ -7,20 +7,22 @@
   
   
   
-  <title>CentOS7 安装vnc | Chanji</title>
+  <title>scala 运行spark程序 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.首先执行这一句防止系统文件被修改1chattr +i /etc/resolv.conf 2、然后安装tigervnc1sudo yum install -y tigervnc tigervnc-server">
-<meta name="keywords" content="CentOS,vnc">
+  <meta name="description" content="环境配置配置maven镜像地址123456&amp;lt;mirror&amp;gt;    &amp;lt;id&amp;gt;alimaven&amp;lt;/id&amp;gt;    &amp;lt;name&amp;gt;aliyun maven&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;http://maven.aliyun.com/nexus/content/groups/public/&amp;lt;/url&amp;gt;    &amp;lt;mirr">
+<meta name="keywords" content="big data,spark">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS7 安装vnc">
-<meta property="og:url" content="http://jchanji.github.io/year/09/03/vnc/index.html">
+<meta property="og:title" content="scala 运行spark程序">
+<meta property="og:url" content="http://jchanji.github.io/year/01/11/idea使用scala运行spark计数/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="1.首先执行这一句防止系统文件被修改1chattr +i /etc/resolv.conf 2、然后安装tigervnc1sudo yum install -y tigervnc tigervnc-server">
+<meta property="og:description" content="环境配置配置maven镜像地址123456&amp;lt;mirror&amp;gt;    &amp;lt;id&amp;gt;alimaven&amp;lt;/id&amp;gt;    &amp;lt;name&amp;gt;aliyun maven&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;http://maven.aliyun.com/nexus/content/groups/public/&amp;lt;/url&amp;gt;    &amp;lt;mirr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-03T07:08:42.638Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/1.png">
+<meta property="og:updated_time" content="2018-01-11T00:20:55.999Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS7 安装vnc">
-<meta name="twitter:description" content="1.首先执行这一句防止系统文件被修改1chattr +i /etc/resolv.conf 2、然后安装tigervnc1sudo yum install -y tigervnc tigervnc-server">
+<meta name="twitter:title" content="scala 运行spark程序">
+<meta name="twitter:description" content="环境配置配置maven镜像地址123456&amp;lt;mirror&amp;gt;    &amp;lt;id&amp;gt;alimaven&amp;lt;/id&amp;gt;    &amp;lt;name&amp;gt;aliyun maven&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;http://maven.aliyun.com/nexus/content/groups/public/&amp;lt;/url&amp;gt;    &amp;lt;mirr">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -252,11 +254,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-vnc" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-idea使用scala运行spark计数" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/09/03/vnc/" class="article-date">
-      <time datetime="2017-09-03T06:44:05.306Z" itemprop="datePublished">2017-09-03</time>
+      <a  href="/year/01/11/idea使用scala运行spark计数/" class="article-date">
+      <time datetime="2018-01-11T00:14:52.449Z" itemprop="datePublished">2018-01-11</time>
 </a>
 
     </div>
@@ -270,7 +272,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      CentOS7 安装vnc
+      scala 运行spark程序
     </h1>
   
 
@@ -280,13 +282,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
+    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vnc/">vnc</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -296,14 +298,25 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="1-首先执行这一句防止系统文件被修改"><a href="#1-首先执行这一句防止系统文件被修改" class="headerlink" title="1.首先执行这一句防止系统文件被修改"></a>1.首先执行这一句防止系统文件被修改</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chattr +i /etc/resolv.conf</span><br></pre></td></tr></table></figure>
-<h2 id="2、然后安装tigervnc"><a href="#2、然后安装tigervnc" class="headerlink" title="2、然后安装tigervnc"></a>2、然后安装tigervnc</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y tigervnc tigervnc-server</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="3-查看自己的服务器支持安装哪些包"><a href="#3-查看自己的服务器支持安装哪些包" class="headerlink" title="3.查看自己的服务器支持安装哪些包"></a>3.查看自己的服务器支持安装哪些包</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum grouplist</span><br></pre></td></tr></table></figure>
-<h4 id="查看自己的服务器里中Available-Environment-Groups下面有哪些可以安装的Desktop-我这里的是GNOME-Desktop"><a href="#查看自己的服务器里中Available-Environment-Groups下面有哪些可以安装的Desktop-我这里的是GNOME-Desktop" class="headerlink" title="查看自己的服务器里中Available Environment Groups下面有哪些可以安装的Desktop,我这里的是GNOME Desktop"></a>查看自己的服务器里中Available Environment Groups下面有哪些可以安装的Desktop,我这里的是GNOME Desktop</h4><h2 id="4-安装GNOME-Desktop"><a href="#4-安装GNOME-Desktop" class="headerlink" title="4. 安装GNOME Desktop"></a>4. 安装GNOME Desktop</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum groupinstall GNOME Desktop</span><br></pre></td></tr></table></figure>
-<h2 id="5-启动服务"><a href="#5-启动服务" class="headerlink" title="5. 启动服务"></a>5. 启动服务</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver</span><br></pre></td></tr></table></figure>
-<h2 id="6-连接vnc"><a href="#6-连接vnc" class="headerlink" title="6.连接vnc"></a>6.连接vnc</h2><blockquote>
-<p>第一次执行会提示输入密码，然后再验证输入一次回车，vnc服务端就算搭建好了！<br>接下来在手机或者电脑上下载vnc客户端，输入你的IP:5901连接<br>然后输入密码就可以看到你的服务器界面了！</p>
+        <h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="配置maven镜像地址"><a href="#配置maven镜像地址" class="headerlink" title="配置maven镜像地址"></a>配置maven镜像地址</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;id&gt;alimaven&lt;/id&gt;</span></span><br><span class="line"><span class="code">    &lt;name&gt;aliyun maven&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span></span><br><span class="line"><span class="code">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;      </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="sbt仓库地址"><a href="#sbt仓库地址" class="headerlink" title="sbt仓库地址"></a>sbt仓库地址</h2><p>编辑~/.sbt/repositories（没有就新建）<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[repositories]</span><br><span class="line">local</span><br><span class="line">dl bintray: https://dl.bintray.com/typesafe/ivy-releases/, [<span class="string">organization</span>]/[<span class="string">module</span>]/[<span class="string">revision</span>]/[<span class="string">type</span>]s/[<span class="string">artifact</span>](<span class="link">-[classifier]</span>).[ext], bootOnly</span><br><span class="line">jcenter: https://jcenter.bintray.com/</span><br><span class="line">typesafe-ivy-releases: https://repo.typesafe.com/typesafe/ivy-releases/, [<span class="string">organization</span>]/[<span class="string">module</span>]/[<span class="string">revision</span>]/[<span class="string">type</span>]s/[<span class="string">artifact</span>](<span class="link">-[classifier]</span>).[ext], bootOnly</span><br><span class="line">maven-central</span><br><span class="line">sonatype-snapshots: https://oss.sonatype.org/content/repositories/snapshot</span><br></pre></td></tr></table></figure></p>
+<h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><blockquote>
+<p>jdk1.8</p>
+<p>spark 2.2  </p>
+<p>scala 2.11.11</p>
+<p>sbt0.13.16</p>
+</blockquote>
+<h1 id="sbt依赖"><a href="#sbt依赖" class="headerlink" title="sbt依赖"></a>sbt依赖</h1><p>build.sbt文件内容为<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">name := "scala_test"</span><br><span class="line">version := "1.0"</span><br><span class="line">scalaVersion := "2.11.11" #后面不需要配置</span><br><span class="line">libraryDependencies ++= Seq("org.apache.spark" %% "spark-core" % "2.2.0")</span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-mllib_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-sql_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming-kafka-0-8_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming-flume_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-hive_2.11" % "2.2.0" % "provided"  </span><br><span class="line">libraryDependencies += "org.scalanlp" % "breeze_2.11" % "0.11"  </span><br><span class="line">libraryDependencies += "org.scalanlp" % "breeze-natives_2.11" % "0.11"  </span><br><span class="line">libraryDependencies += "org.apache.hadoop" % "hadoop-common" % "2.6.0"</span><br></pre></td></tr></table></figure></p>
+<p>然后使用sbt打包,如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/1.png" alt="图一"></p>
+<h5 id="注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件"><a href="#注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件" class="headerlink" title="注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件"></a>注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件</h5><h1 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./sbin/start-master.sh # 启动spark</span><br><span class="line">./bin/spark-class org.apache.spark.deploy.worker.Worker spark://localhost.localdomain:7077 # 启动worker, spark://localhost.localdomain:7077到8080端口查看   </span><br><span class="line">./bin/spark-submit --master spark://localhost.localdomain:7077  --class WordCount /home/chanji/scala_test.jar # 提交作业</span><br></pre></td></tr></table></figure>
+<p>再到<a href="http://localhost:8080/jobs" target="_blank" rel="noopener">http://localhost:8080/jobs</a> 查看作业</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="无法解析主机名"><a href="#无法解析主机名" class="headerlink" title="无法解析主机名"></a>无法解析主机名</h2><blockquote>
+<p>无法解析主机：promote.cache-dns.local＜br&gt;</p>
+<p>hostname分为三种类型：<br><br>静态的（static），瞬态的（transient），和灵活的（pret不然ty）<br><br>执行系统命令hostname得到的是瞬态的主机名，扫描文件中得到的是静态主机名。<br><br>将这两者统一起来就可以解决问题了。<br><br>1.自定义hostname，假设myname<br><br>2.执行hostnamectl set-hostname myname<br><br>这个命令能同时修改三种类型的主机名定义。<br><br>重启</p>
+</blockquote>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><blockquote>
+<p>Drive program 是程序的入口,包含这main函数<br>context起着和集群连接的作用<br>RDDs　弹性分布式数据集,实质就是一个数据集，指向一个变量，数据集可以被分为若干部分存在与不同的主机上，但操作这些数据只能通过定义的数据集变量。</p>
 </blockquote>
 
       
@@ -313,13 +326,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/09/03/vnc/">CentOS7 安装vnc</a></p>
+        <p><span>本文标题:</span><a  href="/year/01/11/idea使用scala运行spark计数/">scala 运行spark程序</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2017年09月03日 - 14时44分</p>
-        <p><span>最后更新:</span>2017年09月03日 - 15时08分</p>
+        <p><span>发布时间:</span>2018年01月11日 - 08时14分</p>
+        <p><span>最后更新:</span>2018年01月11日 - 08时20分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/09/03/vnc/" title="CentOS7 安装vnc">http://jchanji.github.io/year/09/03/vnc/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/09/03/vnc/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/01/11/idea使用scala运行spark计数/" title="scala 运行spark程序">http://jchanji.github.io/year/01/11/idea使用scala运行spark计数/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/01/11/idea使用scala运行spark计数/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -330,18 +343,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/09/03/install_ubuntu/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          win10 安装ubuntu 16.04
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/09/03/install_eclipse/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">CentOS 7 安装eclipse mars 2</div>
+    <a  href="/year/01/10/docker/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ubuntu下Docker的安装和使用</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -353,7 +357,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-首先执行这一句防止系统文件被修改"><span class="toc-number">1.</span> <span class="toc-text">1.首先执行这一句防止系统文件被修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、然后安装tigervnc"><span class="toc-number">2.</span> <span class="toc-text">2、然后安装tigervnc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-查看自己的服务器支持安装哪些包"><span class="toc-number">3.</span> <span class="toc-text">3.查看自己的服务器支持安装哪些包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看自己的服务器里中Available-Environment-Groups下面有哪些可以安装的Desktop-我这里的是GNOME-Desktop"><span class="toc-number">3.0.1.</span> <span class="toc-text">查看自己的服务器里中Available Environment Groups下面有哪些可以安装的Desktop,我这里的是GNOME Desktop</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-安装GNOME-Desktop"><span class="toc-number">4.</span> <span class="toc-text">4. 安装GNOME Desktop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-启动服务"><span class="toc-number">5.</span> <span class="toc-text">5. 启动服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-连接vnc"><span class="toc-number">6.</span> <span class="toc-text">6.连接vnc</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境配置"><span class="toc-number">1.</span> <span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置maven镜像地址"><span class="toc-number">1.1.</span> <span class="toc-text">配置maven镜像地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sbt仓库地址"><span class="toc-number">1.2.</span> <span class="toc-text">sbt仓库地址</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#版本"><span class="toc-number">2.</span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sbt依赖"><span class="toc-number">3.</span> <span class="toc-text">sbt依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件"><span class="toc-number">3.0.0.0.1.</span> <span class="toc-text">注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行服务"><span class="toc-number">4.</span> <span class="toc-text">运行服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#问题"><span class="toc-number">5.</span> <span class="toc-text">问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#无法解析主机名"><span class="toc-number">5.1.</span> <span class="toc-text">无法解析主机名</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基础知识"><span class="toc-number">6.</span> <span class="toc-text">基础知识</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -412,13 +416,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/09/03/install_ubuntu/" title="上一篇: win10 安装ubuntu 16.04">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/09/03/install_eclipse/" title="下一篇: CentOS 7 安装eclipse mars 2">
+            <a  href="/year/01/10/docker/" title="下一篇: ubuntu下Docker的安装和使用">
                 <i class="fa fa-angle-right"></i>
             </a>
         
