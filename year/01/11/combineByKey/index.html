@@ -7,20 +7,20 @@
   
   
   
-  <title>CentOS7 安装vnc | Chanji</title>
+  <title>spark之combineByKey | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.首先执行这一句防止系统文件被修改1chattr +i /etc/resolv.conf 2、然后安装tigervnc1sudo yum install -y tigervnc tigervnc-server">
-<meta name="keywords" content="CentOS,vnc">
+  <meta name="description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner) 实例讲解生成数据123456val scores = sc.parallelize(Array((&quot;jake&quot;,80.0),                                  (&quot;jake&quot;,90.0),">
+<meta name="keywords" content="big data,spark">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS7 安装vnc">
-<meta property="og:url" content="http://jchanji.github.io/year/09/03/vnc/index.html">
+<meta property="og:title" content="spark之combineByKey">
+<meta property="og:url" content="http://jchanji.github.io/year/01/11/combineByKey/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="1.首先执行这一句防止系统文件被修改1chattr +i /etc/resolv.conf 2、然后安装tigervnc1sudo yum install -y tigervnc tigervnc-server">
+<meta property="og:description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner) 实例讲解生成数据123456val scores = sc.parallelize(Array((&quot;jake&quot;,80.0),                                  (&quot;jake&quot;,90.0),">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-03T07:08:42.638Z">
+<meta property="og:updated_time" content="2018-01-11T00:48:02.046Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS7 安装vnc">
-<meta name="twitter:description" content="1.首先执行这一句防止系统文件被修改1chattr +i /etc/resolv.conf 2、然后安装tigervnc1sudo yum install -y tigervnc tigervnc-server">
+<meta name="twitter:title" content="spark之combineByKey">
+<meta name="twitter:description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner) 实例讲解生成数据123456val scores = sc.parallelize(Array((&quot;jake&quot;,80.0),                                  (&quot;jake&quot;,90.0),">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -252,11 +252,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-vnc" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-combineByKey" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/09/03/vnc/" class="article-date">
-      <time datetime="2017-09-03T06:44:05.306Z" itemprop="datePublished">2017-09-03</time>
+      <a  href="/year/01/11/combineByKey/" class="article-date">
+      <time datetime="2018-01-11T00:33:21.078Z" itemprop="datePublished">2018-01-11</time>
 </a>
 
     </div>
@@ -270,7 +270,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      CentOS7 安装vnc
+      spark之combineByKey
     </h1>
   
 
@@ -280,13 +280,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
+    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vnc/">vnc</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -296,15 +296,14 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="1-首先执行这一句防止系统文件被修改"><a href="#1-首先执行这一句防止系统文件被修改" class="headerlink" title="1.首先执行这一句防止系统文件被修改"></a>1.首先执行这一句防止系统文件被修改</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chattr +i /etc/resolv.conf</span><br></pre></td></tr></table></figure>
-<h2 id="2、然后安装tigervnc"><a href="#2、然后安装tigervnc" class="headerlink" title="2、然后安装tigervnc"></a>2、然后安装tigervnc</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y tigervnc tigervnc-server</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="3-查看自己的服务器支持安装哪些包"><a href="#3-查看自己的服务器支持安装哪些包" class="headerlink" title="3.查看自己的服务器支持安装哪些包"></a>3.查看自己的服务器支持安装哪些包</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum grouplist</span><br></pre></td></tr></table></figure>
-<h4 id="查看自己的服务器里中Available-Environment-Groups下面有哪些可以安装的Desktop-我这里的是GNOME-Desktop"><a href="#查看自己的服务器里中Available-Environment-Groups下面有哪些可以安装的Desktop-我这里的是GNOME-Desktop" class="headerlink" title="查看自己的服务器里中Available Environment Groups下面有哪些可以安装的Desktop,我这里的是GNOME Desktop"></a>查看自己的服务器里中Available Environment Groups下面有哪些可以安装的Desktop,我这里的是GNOME Desktop</h4><h2 id="4-安装GNOME-Desktop"><a href="#4-安装GNOME-Desktop" class="headerlink" title="4. 安装GNOME Desktop"></a>4. 安装GNOME Desktop</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum groupinstall GNOME Desktop</span><br></pre></td></tr></table></figure>
-<h2 id="5-启动服务"><a href="#5-启动服务" class="headerlink" title="5. 启动服务"></a>5. 启动服务</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vncserver</span><br></pre></td></tr></table></figure>
-<h2 id="6-连接vnc"><a href="#6-连接vnc" class="headerlink" title="6.连接vnc"></a>6.连接vnc</h2><blockquote>
-<p>第一次执行会提示输入密码，然后再验证输入一次回车，vnc服务端就算搭建好了！<br>接下来在手机或者电脑上下载vnc客户端，输入你的IP:5901连接<br>然后输入密码就可以看到你的服务器界面了！</p>
-</blockquote>
+        <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)</span><br></pre></td></tr></table></figure>
+<h1 id="实例讲解"><a href="#实例讲解" class="headerlink" title="实例讲解"></a>实例讲解</h1><h2 id="生成数据"><a href="#生成数据" class="headerlink" title="生成数据"></a>生成数据</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val scores = sc.parallelize(Array(("jake",80.0),</span><br><span class="line"><span class="code">                                  ("jake",90.0),</span></span><br><span class="line"><span class="code">                                  ("jake",85.0),</span></span><br><span class="line"><span class="code">                                  ("mike",85.0),</span></span><br><span class="line"><span class="code">                                  ("mike",92.0),</span></span><br><span class="line"><span class="code">                                  ("mike",90.0)))</span></span><br></pre></td></tr></table></figure>
+<p>查看数据<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scores.foreach(println)</span><br><span class="line">(jake,90.0)</span><br><span class="line">(jake,80.0)</span><br><span class="line">(jake,85.0)</span><br><span class="line">(mike,92.0)</span><br><span class="line">(mike,85.0)</span><br><span class="line">(mike,90.0)</span><br></pre></td></tr></table></figure></p>
+<h2 id="求三门总分"><a href="#求三门总分" class="headerlink" title="求三门总分"></a>求三门总分</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val score2 = scores.combineByKey(score=&gt;(1,score),</span><br><span class="line"><span class="code">                                (c1:(Int,Double),newScore)=&gt;(c1._1+1,c1._2+newScore),</span></span><br><span class="line"><span class="code">                                (c1:(Int,Double),c2:(Int,Double))=&gt;(c1._1+c2._1,c1._2+c2._2))</span></span><br></pre></td></tr></table></figure>
+<p>查看scores内容<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">score2.foreach(println)</span><br><span class="line">(mike,(3,267.0))</span><br><span class="line">(jake,(3,255.0))</span><br></pre></td></tr></table></figure></p>
+<p>注解：<br><br>1、Int表示科目出现的数目，Double表示第一门与第二门课累加之后的值，newScore表示的是遍历的时候出现的新的分数<br><br>2、当遍历到第二个时因为jake已经遍历过所以调用mergeValue这个参数，科目数变为 +1 分数也变为和newScore之和<br><br>mergeCombiner:c1和c2的科目数和分数相加（所有key相同的value相加）<br><br>3、partitioner一般用不到</p>
+<h2 id="求平均分"><a href="#求平均分" class="headerlink" title="求平均分"></a>求平均分</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val average = score2.map&#123;case(name,(num,score))=&gt;(name,score/num)&#125;</span><br><span class="line">average.foreach(println)</span><br></pre></td></tr></table></figure>
+<p>运行结果<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(mike,89.0)</span><br><span class="line">(jake,85.0)</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -313,13 +312,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/09/03/vnc/">CentOS7 安装vnc</a></p>
+        <p><span>本文标题:</span><a  href="/year/01/11/combineByKey/">spark之combineByKey</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2017年09月03日 - 14时44分</p>
-        <p><span>最后更新:</span>2017年09月03日 - 15时08分</p>
+        <p><span>发布时间:</span>2018年01月11日 - 08时33分</p>
+        <p><span>最后更新:</span>2018年01月11日 - 08时48分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/09/03/vnc/" title="CentOS7 安装vnc">http://jchanji.github.io/year/09/03/vnc/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/09/03/vnc/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/01/11/combineByKey/" title="spark之combineByKey">http://jchanji.github.io/year/01/11/combineByKey/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/01/11/combineByKey/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -330,18 +329,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/09/03/install_ubuntu/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          win10 安装ubuntu 16.04
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/09/03/install_eclipse/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">CentOS 7 安装eclipse mars 2</div>
+    <a  href="/year/01/11/idea使用scala运行spark计数/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">scala 运行spark程序</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -353,7 +343,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-首先执行这一句防止系统文件被修改"><span class="toc-number">1.</span> <span class="toc-text">1.首先执行这一句防止系统文件被修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、然后安装tigervnc"><span class="toc-number">2.</span> <span class="toc-text">2、然后安装tigervnc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-查看自己的服务器支持安装哪些包"><span class="toc-number">3.</span> <span class="toc-text">3.查看自己的服务器支持安装哪些包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看自己的服务器里中Available-Environment-Groups下面有哪些可以安装的Desktop-我这里的是GNOME-Desktop"><span class="toc-number">3.0.1.</span> <span class="toc-text">查看自己的服务器里中Available Environment Groups下面有哪些可以安装的Desktop,我这里的是GNOME Desktop</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-安装GNOME-Desktop"><span class="toc-number">4.</span> <span class="toc-text">4. 安装GNOME Desktop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-启动服务"><span class="toc-number">5.</span> <span class="toc-text">5. 启动服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-连接vnc"><span class="toc-number">6.</span> <span class="toc-text">6.连接vnc</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#函数"><span class="toc-number">1.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例讲解"><span class="toc-number">2.</span> <span class="toc-text">实例讲解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成数据"><span class="toc-number">2.1.</span> <span class="toc-text">生成数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求三门总分"><span class="toc-number">2.2.</span> <span class="toc-text">求三门总分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求平均分"><span class="toc-number">2.3.</span> <span class="toc-text">求平均分</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -412,13 +402,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/09/03/install_ubuntu/" title="上一篇: win10 安装ubuntu 16.04">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/09/03/install_eclipse/" title="下一篇: CentOS 7 安装eclipse mars 2">
+            <a  href="/year/01/11/idea使用scala运行spark计数/" title="下一篇: scala 运行spark程序">
                 <i class="fa fa-angle-right"></i>
             </a>
         

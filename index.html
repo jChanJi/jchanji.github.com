@@ -188,7 +188,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/DBSCAN/" style="font-size: 10px;">DBSCAN</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/NMF/" style="font-size: 10px;">NMF</a> <a href="/tags/PCA/" style="font-size: 10px;">PCA</a> <a href="/tags/big-data/" style="font-size: 20px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/machinelearning/" style="font-size: 20px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/object-detection/" style="font-size: 10px;">object detection</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/spark/" style="font-size: 15px;">spark</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a>
+                        <a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/DBSCAN/" style="font-size: 10px;">DBSCAN</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/NMF/" style="font-size: 10px;">NMF</a> <a href="/tags/PCA/" style="font-size: 10px;">PCA</a> <a href="/tags/big-data/" style="font-size: 20px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/machinelearning/" style="font-size: 17.5px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/object-detection/" style="font-size: 10px;">object detection</a> <a href="/tags/python/" style="font-size: 17.5px;">python</a> <a href="/tags/spark/" style="font-size: 15px;">spark</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 12.5px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a>
                     </div>
                 </section>
                 
@@ -254,6 +254,79 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-combineByKey" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/year/01/11/combineByKey/" class="article-date">
+      <time datetime="2018-01-11T00:33:21.078Z" itemprop="datePublished">2018-01-11</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/year/01/11/combineByKey/">spark之combineByKey</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)</span><br></pre></td></tr></table></figure>
+<h1 id="实例讲解"><a href="#实例讲解" class="headerlink" title="实例讲解"></a>实例讲解</h1><h2 id="生成数据"><a href="#生成数据" class="headerlink" title="生成数据"></a>生成数据</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val scores = sc.parallelize(Array(("jake",80.0),</span><br><span class="line"><span class="code">                                  ("jake",90.0),</span></span><br><span class="line"><span class="code">                                  ("jake",85.0),</span></span><br><span class="line"><span class="code">                                  ("mike",85.0),</span></span><br><span class="line"><span class="code">                                  ("mike",92.0),</span></span><br><span class="line"><span class="code">                                  ("mike",90.0)))</span></span><br></pre></td></tr></table></figure>
+<p>查看数据<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scores.foreach(println)</span><br><span class="line">(jake,90.0)</span><br><span class="line">(jake,80.0)</span><br><span class="line">(jake,85.0)</span><br><span class="line">(mike,92.0)</span><br><span class="line">(mike,85.0)</span><br><span class="line">(mike,90.0)</span><br></pre></td></tr></table></figure></p>
+<h2 id="求三门总分"><a href="#求三门总分" class="headerlink" title="求三门总分"></a>求三门总分</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val score2 = scores.combineByKey(score=&gt;(1,score),</span><br><span class="line"><span class="code">                                (c1:(Int,Double),newScore)=&gt;(c1._1+1,c1._2+newScore),</span></span><br><span class="line"><span class="code">                                (c1:(Int,Double),c2:(Int,Double))=&gt;(c1._1+c2._1,c1._2+c2._2))</span></span><br></pre></td></tr></table></figure>
+<p>查看scores内容<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">score2.foreach(println)</span><br><span class="line">(mike,(3,267.0))</span><br><span class="line">(jake,(3,255.0))</span><br></pre></td></tr></table></figure></p>
+<p>注解：<br><br>1、Int表示科目出现的数目，Double表示第一门与第二门课累加之后的值，newScore表示的是遍历的时候出现的新的分数<br><br>2、当遍历到第二个时因为jake已经遍历过所以调用mergeValue这个参数，科目数变为 +1 分数也变为和newScore之和<br><br>mergeCombiner:c1和c2的科目数和分数相加（所有key相同的value相加）<br><br>3、partitioner一般用不到</p>
+<h2 id="求平均分"><a href="#求平均分" class="headerlink" title="求平均分"></a>求平均分</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val average = score2.map&#123;case(name,(num,score))=&gt;(name,score/num)&#125;</span><br><span class="line">average.foreach(println)</span><br></pre></td></tr></table></figure>
+<p>运行结果<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(mike,89.0)</span><br><span class="line">(jake,85.0)</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-idea使用scala运行spark计数" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -411,78 +484,6 @@
 
 
   
-    <article id="post-studentOnline_timeslot" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/01/09/studentOnline_timeslot/" class="article-date">
-      <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
-<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/machinelearning/">-machinelearning</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DBSCAN/">DBSCAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a   href="/year/01/09/studentOnline_timeslot/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-pca" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -536,6 +537,78 @@
       
         <p class="article-more-link">
           <a   href="/year/01/09/pca/#more">查看更多 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-studentOnline_timeslot" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/year/01/09/studentOnline_timeslot/" class="article-date">
+      <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
+<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/machinelearning/">-machinelearning</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DBSCAN/">DBSCAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a   href="/year/01/09/studentOnline_timeslot/#more">查看更多 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -900,78 +973,6 @@
       
         <p class="article-more-link">
           <a   href="/year/09/03/ubuntu_only_background/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-spark_step" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/09/03/spark_step/" class="article-date">
-      <time datetime="2017-09-03T06:44:05.395Z" itemprop="datePublished">2017-09-03</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/09/03/spark_step/">伪分布式spark安装配置</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>本教程为spark的伪分布式教程，学生党条件有限所以伪分布式应该是比较好的选择。其中要注意的是版本匹配的问题。</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a   href="/year/09/03/spark_step/#more">查看更多 >></a>
         </p>
       
       <div class="clearfix"></div>
