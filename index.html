@@ -295,7 +295,8 @@
 <h1 id="sbt依赖"><a href="#sbt依赖" class="headerlink" title="sbt依赖"></a>sbt依赖</h1><p>build.sbt文件内容为<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">name := "scala_test"</span><br><span class="line">version := "1.0"</span><br><span class="line">scalaVersion := "2.11.11" #后面不需要配置</span><br><span class="line">libraryDependencies ++= Seq("org.apache.spark" %% "spark-core" % "2.2.0")</span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-mllib_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-sql_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming-kafka-0-8_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming-flume_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-hive_2.11" % "2.2.0" % "provided"  </span><br><span class="line">libraryDependencies += "org.scalanlp" % "breeze_2.11" % "0.11"  </span><br><span class="line">libraryDependencies += "org.scalanlp" % "breeze-natives_2.11" % "0.11"  </span><br><span class="line">libraryDependencies += "org.apache.hadoop" % "hadoop-common" % "2.6.0"</span><br></pre></td></tr></table></figure></p>
 <p>然后使用sbt打包,如下图所示</p>
 <p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/1.png" alt="图一"></p>
-<h5 id="注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件"><a href="#注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件" class="headerlink" title="注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件"></a>注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件</h5><h1 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./sbin/start-master.sh # 启动spark</span><br><span class="line">./bin/spark-class org.apache.spark.deploy.worker.Worker spark://localhost.localdomain:7077 # 启动worker, spark://localhost.localdomain:7077到8080端口查看   </span><br><span class="line">./bin/spark-submit --master spark://localhost.localdomain:7077  --class WordCount /home/chanji/scala_test.jar # 提交作业</span><br></pre></td></tr></table></figure>
+<p><strong>注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件</strong></p>
+<h1 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./sbin/start-master.sh # 启动spark</span><br><span class="line">./bin/spark-class org.apache.spark.deploy.worker.Worker spark://localhost.localdomain:7077 # 启动worker, spark://localhost.localdomain:7077到8080端口查看   </span><br><span class="line">./bin/spark-submit --master spark://localhost.localdomain:7077  --class WordCount /home/chanji/scala_test.jar # 提交作业</span><br></pre></td></tr></table></figure>
 <p>再到<a href="http://localhost:8080/jobs" target="_blank" rel="noopener">http://localhost:8080/jobs</a> 查看作业</p>
 <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="无法解析主机名"><a href="#无法解析主机名" class="headerlink" title="无法解析主机名"></a>无法解析主机名</h2><blockquote>
 <p>无法解析主机：promote.cache-dns.local＜br&gt;</p>
@@ -390,6 +391,78 @@
       
         <p class="article-more-link">
           <a   href="/year/01/10/docker/#more">查看更多 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-studentOnline_timeslot" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/year/01/09/studentOnline_timeslot/" class="article-date">
+      <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
+<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/machinelearning/">-machinelearning</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DBSCAN/">DBSCAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a   href="/year/01/09/studentOnline_timeslot/#more">查看更多 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -536,78 +609,6 @@
       
         <p class="article-more-link">
           <a   href="/year/01/09/NMF_PCA/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-studentOnline_timeslot" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/01/09/studentOnline_timeslot/" class="article-date">
-      <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
-<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/machinelearning/">-machinelearning</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DBSCAN/">DBSCAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a   href="/year/01/09/studentOnline_timeslot/#more">查看更多 >></a>
         </p>
       
       <div class="clearfix"></div>
