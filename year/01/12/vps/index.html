@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/digitalocean1.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/digitalocean2.PNG">
-<meta property="og:updated_time" content="2018-01-11T18:43:17.704Z">
+<meta property="og:updated_time" content="2018-01-11T18:49:00.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="digitalocean服务器搭建ss服务器">
 <meta name="twitter:description" content="前言 经朋友介绍digitalocean服务器对于学生而言比较划算，最基础的服务器5$一个月，通过推荐链接注册可以领取10$的优惠或通过其他网上的推荐码获得15$,25$等不等的优惠券，如果使用github学生优惠券的还可以领50$的优惠。我找到的是15$优惠券。这里比较人性的是这里的优惠券是直接充值到账户上的，和腾讯，阿里的的只能使用一次的优惠券有点不同。需要注意的是优惠码只能用一次，如果使用过">
@@ -302,19 +302,20 @@
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
 <p>经朋友介绍digitalocean服务器对于学生而言比较划算，最基础的服务器5$一个月，通过推荐链接注册可以领取10$的优惠或通过其他网上的推荐码获得15$,25$等不等的优惠券，如果使用github学生优惠券的还可以领50$的优惠。我找到的是15$优惠券。这里比较人性的是这里的优惠券是直接充值到账户上的，和腾讯，阿里的的只能使用一次的优惠券有点不同。需要注意的是优惠码只能用一次，如果使用过一次再使用github优惠码的时候会失败。网上的说法是直接联系客服，联系后的回信是。</p>
 <p>Hello, and thank you for contacting DigitalOcean!<br>I apologize for the inconvenience, however as you already have a promotional code on this account, we are unable to apply any additional codes at this time.<br></p>
-<p>很无奈</p>
+<p>很无奈<br><a id="more"></a></p>
 </blockquote>
 <h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><blockquote>
-<p>1、登陆github,settings-&gt;emails-&gt;add email address,这里需要注意的是邮箱必须是你学校的邮箱，edu结尾的，每个学生都有。<br><br>2、申请学生包：<a href="https://education.github.com/" target="_blank" rel="noopener">https://education.github.com/</a>  填写信息，如果收到通过邮件则成功。然后在get your pack页面下领取优惠码，如下图:<br></p>
+<p>1、登陆github,settings-&gt;emails-&gt;add email address,这里需要注意的是邮箱必须是你学校的邮箱，edu结尾的，每个学生都有。<br></p>
+<p>2、申请学生包：<a href="https://education.github.com/" target="_blank" rel="noopener">https://education.github.com/</a>  填写信息，如果收到通过邮件则成功。然后在get your pack页面下领取优惠码，如下图:<br></p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/digitalocean1.PNG" alt="img1"></p>
 <p>3、点击<a href="https://m.do.co/c/efc4e6d6df86" target="_blank" rel="noopener">https://m.do.co/c/efc4e6d6df86</a> 邀请注册用户，可以得到10$优惠,注册邮箱随便填。<br><br>4、到support中提交申请工单，点击Go To Tricks，如下图所示：<br></p>
 <p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/digitalocean2.PNG" alt="img2"></p>
-<p>4、创建5$套餐的vps,选择ubuntu16.04版本的服务器，我这里服务器地点选择的是新加坡，感觉网网速还可以<br><br>5、下载<a href="http://rj.baidu.com/soft/detail/15699.html?ald" target="_blank" rel="noopener">putty</a>,登陆服务器，登陆用户名为root,密码会发到你邮箱。登录后会要求修改密码。第一次输入原始密码，第二次输入修改后的密码，第三次重复密码。到此为止服务器已经搭建完成。<br></p>
+<p>5、创建5$套餐的vps,选择ubuntu16.04版本的服务器，我这里服务器地点选择的是新加坡，感觉网网速还可以<br><br>6、下载<a href="http://rj.baidu.com/soft/detail/15699.html?ald" target="_blank" rel="noopener">putty</a>,登陆服务器，登陆用户名为root,密码会发到你邮箱。登录后会要求修改密码。第一次输入原始密码，第二次输入修改后的密码，第三次重复密码。到此为止服务器已经搭建完成。<br></p>
 <h1 id="搭建shadowsocks"><a href="#搭建shadowsocks" class="headerlink" title="搭建shadowsocks"></a>搭建shadowsocks</h1><blockquote>
 <p>1、教程各种版本的教程见 <a href="https://github.com/teddysun/shadowsocks_install" target="_blank" rel="noopener">https://github.com/teddysun/shadowsocks_install</a> 我们选择的是 shadowsocks-libev.sh的安装方式。其中我的加密方式为aes-256-cfb,这是没问题的。Your Server IP填写服务器外网地址，Your Server Port改一下,不要用默认的。<br><br>2、搭建完成后下载window的shadowsocks的客户端 <a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a> 我安装的是4.0.7版本,解压运行，根据刚才配置的服务器填写选项。在用户栏右击图标，启用系统代理，代理模式选择全局。<br><br>3、到此为止就可以科学上网了。</p>
 </blockquote>
-<h1 id="使用google的BBR加速"><a href="#使用google的BBR加速" class="headerlink" title="使用google的BBR加速"></a>使用google的BBR加速</h1><p>加速后和前根本不是一个概念，所以装不装很明显，哈哈。<br。 下载安装包="" <figure="" class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.9/linux-headers-4.9.9-040909<span class="emphasis">_4.9.9-040909.201702090333_</span>all.deb</span><br><span class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.9/linux-headers-4.9.9-040909-generic<span class="emphasis">_4.9.9-040909.201702090333_</span>amd64.deb</span><br><span class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.9/linux-image-4.9.9-040909-generic<span class="emphasis">_4.9.9-040909.201702090333_</span>amd64.deb</span><br><span class="line">dpkg -i [依次是上面三个文件]</span><br><span class="line">dpkg -l | grep linux-image #查看当前内核</span><br><span class="line">apt remove linux-image-4.4.0-108-generic #删除旧版本内核</span><br><span class="line">update-grub #跟新grub文件</span><br><span class="line">ls /boot/vmlinuz*  #查看是否有4.9内核</span><br><span class="line">reboot #重启</span><br><span class="line">uname -a #查看当前内核</span><br><span class="line">vim /etc/sysctl.conf #配置文件</span><br></pre></td></tr></table></br。></p>
+<h1 id="使用google的BBR加速"><a href="#使用google的BBR加速" class="headerlink" title="使用google的BBR加速"></a>使用google的BBR加速</h1><p>加速后和前根本不是一个概念，所以装不装很明显，哈哈。<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.9/linux-headers-4.9.9-040909<span class="emphasis">_4.9.9-040909.201702090333_</span>all.deb</span><br><span class="line"></span><br><span class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.9/linux-headers-4.9.9-040909-generic<span class="emphasis">_4.9.9-040909.201702090333_</span>amd64.deb</span><br><span class="line"></span><br><span class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.9/linux-image-4.9.9-040909-generic<span class="emphasis">_4.9.9-040909.201702090333_</span>amd64.deb</span><br><span class="line"></span><br><span class="line">dpkg -i [依次是上面三个文件]</span><br><span class="line">dpkg -l | grep linux-image #查看当前内核</span><br><span class="line">apt remove linux-image-4.4.0-108-generic #删除旧版本内核</span><br><span class="line">update-grub #跟新grub文件</span><br><span class="line">ls /boot/vmlinuz*  #查看是否有4.9内核</span><br><span class="line">reboot #重启</span><br><span class="line">uname -a #查看当前内核</span><br><span class="line">vim /etc/sysctl.conf #配置文件</span><br></pre></td></tr></table></figure></p>
 <p>内容为<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net.core.default_qdisc=fq</span><br><span class="line">net.ipv4.tcp<span class="emphasis">_congestion_</span>control=bbr</span><br></pre></td></tr></table></figure></p>
 <p>保存后执行<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure></p>
 <p>出现 sysctl net.ipv4.tcp_congestion_control则已经启动，至此，就可以在youtube上纵享1080p了</p>
@@ -329,7 +330,7 @@
         <p><span>本文标题:</span><a  href="/year/01/12/vps/">digitalocean服务器搭建ss服务器</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
         <p><span>发布时间:</span>2018年01月12日 - 02时33分</p>
-        <p><span>最后更新:</span>2018年01月12日 - 02时43分</p>
+        <p><span>最后更新:</span>2018年01月12日 - 02时49分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/year/01/12/vps/" title="digitalocean服务器搭建ss服务器">http://jchanji.github.io/year/01/12/vps/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/01/12/vps/　　作者: Chanji" title=""></span>
