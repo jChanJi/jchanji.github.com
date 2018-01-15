@@ -7,20 +7,26 @@
   
   
   
-  <title>sumlime text3 配置Markdown | Chanji</title>
+  <title>spark项目基础实战 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、sumlime text3 配置Markdown和常用快捷键1、sumlime text3 配置Markdown 1、安装package Control2、安装Markdown Preview&amp;ensp; 2.1、 按Shif + Alt + P打开&amp;ensp; 2.2、输入pcip,回车（进入install package）">
-<meta name="keywords" content="sublime text3,markdown">
+  <meta name="description" content="前言 使用搜狗开源的日志分析数据等实践一些spark操作  运行环境 hadoop2.6.0 spark2.2.0 scala2.11.11 ideaIU   注意:要配置好spark和hadoop的环境变量  spark shell 操作数据准备 下载数据, 密码: 21c2．其中数据格式为：访问时间　用户ID　[查询词]　该URL在返回结果中的排名　用户点击的顺序号　用户点击的URL．使用he">
+<meta name="keywords" content="spark,big data,scala,ideaIU">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sumlime text3 配置Markdown">
-<meta property="og:url" content="http://jchanji.github.io/year/09/03/markdown/index.html">
+<meta property="og:title" content="spark项目基础实战">
+<meta property="og:url" content="http://jchanji.github.io/year/01/15/spark_sougou_logs/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="一、sumlime text3 配置Markdown和常用快捷键1、sumlime text3 配置Markdown 1、安装package Control2、安装Markdown Preview&amp;ensp; 2.1、 按Shif + Alt + P打开&amp;ensp; 2.2、输入pcip,回车（进入install package）">
+<meta property="og:description" content="前言 使用搜狗开源的日志分析数据等实践一些spark操作  运行环境 hadoop2.6.0 spark2.2.0 scala2.11.11 ideaIU   注意:要配置好spark和hadoop的环境变量  spark shell 操作数据准备 下载数据, 密码: 21c2．其中数据格式为：访问时间　用户ID　[查询词]　该URL在返回结果中的排名　用户点击的顺序号　用户点击的URL．使用he">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-03T06:57:25.190Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/sougou1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/sougou_log.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/join.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/join2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/join3.png">
+<meta property="og:updated_time" content="2018-01-15T04:42:04.960Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sumlime text3 配置Markdown">
-<meta name="twitter:description" content="一、sumlime text3 配置Markdown和常用快捷键1、sumlime text3 配置Markdown 1、安装package Control2、安装Markdown Preview&amp;ensp; 2.1、 按Shif + Alt + P打开&amp;ensp; 2.2、输入pcip,回车（进入install package）">
+<meta name="twitter:title" content="spark项目基础实战">
+<meta name="twitter:description" content="前言 使用搜狗开源的日志分析数据等实践一些spark操作  运行环境 hadoop2.6.0 spark2.2.0 scala2.11.11 ideaIU   注意:要配置好spark和hadoop的环境变量  spark shell 操作数据准备 下载数据, 密码: 21c2．其中数据格式为：访问时间　用户ID　[查询词]　该URL在返回结果中的排名　用户点击的顺序号　用户点击的URL．使用he">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/sougou1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -252,11 +258,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-markdown" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-spark_sougou_logs" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/09/03/markdown/" class="article-date">
-      <time datetime="2017-09-03T06:44:05.362Z" itemprop="datePublished">2017-09-03</time>
+      <a  href="/year/01/15/spark_sougou_logs/" class="article-date">
+      <time datetime="2018-01-15T04:38:24.926Z" itemprop="datePublished">2018-01-15</time>
 </a>
 
     </div>
@@ -270,7 +276,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      sumlime text3 配置Markdown
+      spark项目基础实战
     </h1>
   
 
@@ -280,13 +286,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
+    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime-text3/">sublime text3</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ideaIU/">ideaIU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -296,33 +302,53 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="一、sumlime-text3-配置Markdown和常用快捷键"><a href="#一、sumlime-text3-配置Markdown和常用快捷键" class="headerlink" title="一、sumlime text3 配置Markdown和常用快捷键"></a>一、sumlime text3 配置Markdown和常用快捷键</h2><h3 id="1、sumlime-text3-配置Markdown"><a href="#1、sumlime-text3-配置Markdown" class="headerlink" title="1、sumlime text3 配置Markdown"></a>1、sumlime text3 配置Markdown</h3><blockquote>
-<h4 id="1、安装package-Control"><a href="#1、安装package-Control" class="headerlink" title="1、安装package Control"></a>1、安装package Control<br></h4><h4 id="2、安装Markdown-Preview"><a href="#2、安装Markdown-Preview" class="headerlink" title="2、安装Markdown Preview"></a>2、安装Markdown Preview<br></h4><p>&ensp; 2.1、 按Shif + Alt + P打开<br><br>&ensp; 2.2、输入pcip,回车（进入install package）<br></p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>使用搜狗开源的日志分析数据等实践一些spark操作</p>
 </blockquote>
-<a id="more"></a>
+<h1 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h1><ol>
+<li>hadoop2.6.0</li>
+<li>spark2.2.0</li>
+<li>scala2.11.11</li>
+<li>ideaIU</li>
+</ol>
 <blockquote>
-<h4 id="3、安装Markdown-Editing"><a href="#3、安装Markdown-Editing" class="headerlink" title="3、安装Markdown  Editing"></a>3、安装Markdown  Editing<br></h4><p>&ensp;3.1、进入 install package<br><br>&ensp;3.2、输入 Markdown Editing // Markdown编辑和语法高亮支持<br></p>
-<h4 id="4、安装Markdown-Previewer"><a href="#4、安装Markdown-Previewer" class="headerlink" title="4、安装Markdown  Previewer"></a>4、安装Markdown  Previewer<br></h4><p>&ensp; 4.1、进入 install package<br><br>&ensp; 4.2、Markdown  Previewer  //Markdown导出html预览支持<br></p>
-<h4 id="5、安装OmniMarkup-Previewer"><a href="#5、安装OmniMarkup-Previewer" class="headerlink" title="5、安装OmniMarkup Previewer"></a>5、安装OmniMarkup Previewer<br></h4><p>&ensp; 5.1、进入 install package<br><br>&ensp; 5.2、OmniMarkup Previewer //在浏览器中实时预览</p>
+<p>注意:要配置好spark和hadoop的环境变量</p>
 </blockquote>
-<h3 id="2、常用快捷键"><a href="#2、常用快捷键" class="headerlink" title="2、常用快捷键"></a>2、常用快捷键</h3><blockquote>
+<h1 id="spark-shell-操作"><a href="#spark-shell-操作" class="headerlink" title="spark shell 操作"></a>spark shell 操作</h1><h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><blockquote>
+<p><a href="https://pan.baidu.com/s/1jJshDXk" target="_blank" rel="noopener">下载数据</a>, 密码: 21c2．其中数据格式为：访问时间　用户ID　[查询词]　该URL在返回结果中的排名　用户点击的顺序号　用户点击的URL．使用head -100查看内容:</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/sougou1.png" alt="sougou1"></p>
+<h2 id="上传数据到hdfs"><a href="#上传数据到hdfs" class="headerlink" title="上传数据到hdfs"></a>上传数据到hdfs</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd  /usr/local/hadoop/sbin</span><br><span class="line">./start-all.sh #启动hadoop</span><br><span class="line">cd /usr/local/spark2.2.0/sbin</span><br><span class="line">./start-all.sh　#启动spark</span><br><span class="line">jps #查看是否有datanode,namenode,master,worker</span><br><span class="line">hadoop fs -mkdir /chanji/sougou/data　#在hdfs上创建目录</span><br><span class="line">hadoop /home/chanji/trainData/sougou/sogou.500w.utf8　/chanji/sougou/data #将下载的数据上传到hdfs上</span><br></pre></td></tr></table></figure>
+<h2 id="搜索结果排名第1点击次序排在第2的数据"><a href="#搜索结果排名第1点击次序排在第2的数据" class="headerlink" title="搜索结果排名第1点击次序排在第2的数据"></a>搜索结果排名第1点击次序排在第2的数据</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd cd /usr/local/spark2.2.0/bin</span><br><span class="line">./spark-shell</span><br><span class="line">val rdd1 = sc.textFile("hdfs://localhost:9000/chanji/sougou/data/sogou.500w.utf8") #读取文件</span><br><span class="line">val rdd2=rdd1.map(<span class="emphasis">_.split("\t")).filter(_</span>.length==6)　#将不足６个属性的元素过滤掉</span><br><span class="line">rdd2.count()　#查看记录条数</span><br><span class="line">val rdd3=rdd2.filter(<span class="emphasis">_(3).toInt==1).filter(_</span>(4).toInt==2)　＃筛选出结果排名第一，点击次序第二的数据</span><br><span class="line">rdd3.count()</span><br><span class="line">rdd3.toDebugString　#查看RDD变换过程</span><br></pre></td></tr></table></figure>
+<h2 id="生成Session查询次数排行榜shell"><a href="#生成Session查询次数排行榜shell" class="headerlink" title="生成Session查询次数排行榜shell"></a>生成Session查询次数排行榜shell</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val rdd4 = rdd2.map(x=&gt;(x(1),1)).reduceByKey(<span class="emphasis">_+_</span>).map(x=&gt;(x.<span class="emphasis">_2,x._</span>1)). sortByKey(false).map(x=&gt;(x.<span class="emphasis">_2,x._</span>1))</span><br><span class="line">rdd4.toDebugString</span><br><span class="line">rdd4.saveAsTextFile("hdfs://localhost:9000/chanji/sougou/out")</span><br></pre></td></tr></table></figure>
+<p>上述代码比较复杂，我们可以拆开分析<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">val rdd5 = rdd2.map(x =&gt; (x(1),1)) #将记录的第一个元素(session)转化成(x(1),1)的键值对</span><br><span class="line">val rdd6 = rdd５．reduceByKey(<span class="emphasis">_+_</span>) #将session相同的元素个数相加</span><br><span class="line">val rdd７　= rdd6.map(x=＞（x.<span class="emphasis">_2,x._</span>1)）　＃session和数量对掉位置</span><br><span class="line">val rdd8 = rdd7.sortByKey(false) #按照倒序排列（由大到小）</span><br><span class="line">val rdd9 = rdd8.map(x.<span class="emphasis">_2,x._</span>1) #再将数量与session对掉位置</span><br><span class="line">rdd9.toDebugString</span><br><span class="line">rdd９．saveAsTextFile("hdfs://localhost:9000/chanji/sougou/out") #将结果存入hdfs</span><br><span class="line">hdfs dfs -getmerge hdfs://localhost:9000/chanji/sougou/out /home/chanji/trainData/sougou #将文件合并并存入到本地路径</span><br><span class="line">cd /home/chanji/trainData/sougou</span><br><span class="line">head result　＃查看结果</span><br></pre></td></tr></table></figure></p>
+<h1 id="idea运行spark程序"><a href="#idea运行spark程序" class="headerlink" title="idea运行spark程序"></a>idea运行spark程序</h1><h2 id="生成Session查询次数排行榜idea文件运行方式"><a href="#生成Session查询次数排行榜idea文件运行方式" class="headerlink" title="生成Session查询次数排行榜idea文件运行方式"></a>生成Session查询次数排行榜idea文件运行方式</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.&#123;SparkConf, SparkContext&#125;</span><br><span class="line"></span><br><span class="line">object Sougou_Log &#123;</span><br><span class="line">  def main(args: Array[String]) &#123;</span><br><span class="line"><span class="code">       if (args.length == 0) &#123;</span></span><br><span class="line"><span class="code">            System.err.println("Usage: SogouResult &lt;file1&gt; &lt;file2&gt;")</span></span><br><span class="line"><span class="code">            System.exit(1)</span></span><br><span class="line"><span class="code">       &#125;</span></span><br><span class="line"><span class="code">       val conf = new SparkConf().setAppName("SogouResult").setMaster("local")</span></span><br><span class="line"><span class="code">        val sc = new SparkContext(conf)</span></span><br><span class="line"></span><br><span class="line"><span class="code">        //session查询次数排行榜</span></span><br><span class="line"><span class="code">        val rdd1 = sc.textFile(args(0)).map(_.split("\t")).filter(_.length==6)</span></span><br><span class="line"><span class="code">        val rdd2=rdd1.map(x=&gt;(x(1),1)).reduceByKey(_+_).map(x=&gt;(x._2,x._1)).sortByKey(false).map(x=&gt;(x._2,x._1))</span></span><br><span class="line"><span class="code">         rdd2.saveAsTextFile(args(1))</span></span><br><span class="line"><span class="code">         sc.stop()</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="运行步骤"><a href="#运行步骤" class="headerlink" title="运行步骤"></a>运行步骤</h2><blockquote>
 <ol>
-<li>Ctrl + Alt + O //在浏览器中打开</li>
-<li>Alt + M  //生成html文件</li>
-<li>Ctrl+Alt+O: Preview Markup in Browser.</li>
-<li>Ctrl+Alt+X: Export Markup as HTML.</li>
-<li>Ctrl+Alt+C: Copy Markup as HTML.</li>
+<li>Ctrl + F９编译</li>
+<li>如果没有错误，run-&gt;editor configurations,在program argument 中填写：［hdfs输入路径]［hdfs输出路径］如下图:</li>
 </ol>
 </blockquote>
-<h2 id="二、使用Cmd-markdown在线编辑"><a href="#二、使用Cmd-markdown在线编辑" class="headerlink" title="二、使用Cmd markdown在线编辑"></a>二、使用Cmd markdown在线编辑</h2><blockquote>
-<ol>
-<li>在线<a href="https://www.zybuluo.com/mdeditor" title="Cmd Markdown" target="_blank" rel="noopener">编辑</a> 网址</li>
-<li>也可以下载客户端离线编辑<a href="https://www.zybuluo.com/cmd/" title="下载" target="_blank" rel="noopener">客户端</a></li>
-<li>如果想转成html等其他功能需要付费，不过基础功能已经差不多够用了</li>
-</ol>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/sougou_log.png" alt="Sougou_Log"></p>
+<blockquote>
+<p>3.Shift + F10运行，注意输出路径不能与spark shell中的输出路径重复</p>
 </blockquote>
-<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="1、Ctrl-Alt-O后打开了浏览器但是不能够预览markdown页面"><a href="#1、Ctrl-Alt-O后打开了浏览器但是不能够预览markdown页面" class="headerlink" title="1、Ctrl+Alt+O后打开了浏览器但是不能够预览ｍａｒｋｄｏｗｎ页面"></a>1、Ctrl+Alt+O后打开了浏览器但是不能够预览ｍａｒｋｄｏｗｎ页面</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在 Preferences &gt; Package Settings &gt; OmniMarkupPreviewer &gt; Settings - User 中粘贴以下代码即可</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">"renderer_options-MarkdownRenderer": &#123;</span><br><span class="line"><span class="code">    "extensions": ["tables", "fenced_code", "codehilite"]</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2、在sublime-text3-中切换不了中文"><a href="#2、在sublime-text3-中切换不了中文" class="headerlink" title="2、在sublime text3 中切换不了中文"></a>2、在sublime text3 中切换不了中文</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update &amp;&amp; sudo apt-get upgrade</span><br><span class="line">git clone https://github.com/lyfeyaj/sublime-text-imfix.git</span><br><span class="line">cd ~/sublime-text-imfix</span><br><span class="line">sudo ./ sublime-imfix</span><br><span class="line">然后重启sublime text3</span><br></pre></td></tr></table></figure>
+<h2 id="idea打包运行join操作"><a href="#idea打包运行join操作" class="headerlink" title="idea打包运行join操作"></a>idea打包运行join操作</h2><h3 id="数据准备-1"><a href="#数据准备-1" class="headerlink" title="数据准备"></a>数据准备</h3><blockquote>
+<p><a href="https://pan.baidu.com/s/1jJsND9G" target="_blank" rel="noopener">下载数据</a>,密码：cyi3，数据格式:</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/join.png" alt="join"></p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.&#123;SparkConf, SparkContext&#125;</span><br><span class="line"></span><br><span class="line">object Sougou_Join &#123;</span><br><span class="line">  def main(args: Array[String]) &#123;</span><br><span class="line"><span class="code">    if (args.length == 0) &#123;</span></span><br><span class="line"><span class="code">      System.err.println("Usage: Join &lt;file1&gt; &lt;file2&gt;")</span></span><br><span class="line"><span class="code">      System.exit(1)</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    val conf = new SparkConf().setAppName("Join").setMaster("local")</span></span><br><span class="line"><span class="code">    val sc = new SparkContext(conf)</span></span><br><span class="line"></span><br><span class="line"><span class="code">    val format = new java.text.SimpleDateFormat("yyyy-MM-dd")</span></span><br><span class="line"><span class="code">    case class Register (d: java.util.Date, uuid: String, cust_id: String, lat: Float,lng: Float)</span></span><br><span class="line"><span class="code">    case class Click (d: java.util.Date, uuid: String, landing_page: Int)</span></span><br><span class="line"><span class="code">    val reg = sc.textFile(args(0)).map(_.split("\t")).map(r =&gt; (r(1), Register(format.parse(r(0)), r(1), r(2), r(3).toFloat, r(4).toFloat)))</span></span><br><span class="line"><span class="code">    val clk = sc.textFile(args(1)).map(_.split("\t")).map(c =&gt; (c(1), Click(format.parse(c(0)), c(1), c(2).trim.toInt)))</span></span><br><span class="line"><span class="code">    reg.join(clk).take(2).foreach(println)</span></span><br><span class="line"><span class="code">    sc.stop()</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="生成打包文件"><a href="#生成打包文件" class="headerlink" title="生成打包文件"></a>生成打包文件</h3><blockquote>
+<p>1.project structure-&gt;artifacts-&gt; + -&gt;jar-&gt;form modules with dependencies,module选择项目，mian class选择文件的类，下一项寻则copy to the out …,如下图所示：</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/join2.png" alt="join2"></p>
+<blockquote>
+<p>2.菜单栏-&gt;build-&gt;build Artifacts.</p>
+<p>3.项目路径/out/artifacts/scala_join中名为scala_test.jar的包复制到任意目录．</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /spark路径/bin</span><br><span class="line">./spark-submit --master spark://localhost:7077 --class Sougou<span class="emphasis">_Join --executor-memory 1g /ja包路径／scala_</span>test.jar hdfs://localhost:9000/chanji/sougou/data/join/reg.tsv hdfs://localhost:9000//chanji/sougou/data/join/clk.tsv #hdfs上文件存储路径</span><br></pre></td></tr></table></figure>
+<p>看到打印出的信息则成功：</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/join3.png" alt="join3"></p>
 
       
     </div>
@@ -331,13 +357,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></p>
+        <p><span>本文标题:</span><a  href="/year/01/15/spark_sougou_logs/">spark项目基础实战</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2017年09月03日 - 14时44分</p>
-        <p><span>最后更新:</span>2017年09月03日 - 14时57分</p>
+        <p><span>发布时间:</span>2018年01月15日 - 12时38分</p>
+        <p><span>最后更新:</span>2018年01月15日 - 12时42分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/09/03/markdown/" title="sumlime text3 配置Markdown">http://jchanji.github.io/year/09/03/markdown/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/09/03/markdown/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/01/15/spark_sougou_logs/" title="spark项目基础实战">http://jchanji.github.io/year/01/15/spark_sougou_logs/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/01/15/spark_sougou_logs/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -348,18 +374,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/09/03/spark_step/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          伪分布式spark安装配置
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">从互联到新工业革命-读后感</div>
+    <a  href="/year/01/15/scalastudy/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">scala基础学习</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -371,7 +388,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、sumlime-text3-配置Markdown和常用快捷键"><span class="toc-number">1.</span> <span class="toc-text">一、sumlime text3 配置Markdown和常用快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、sumlime-text3-配置Markdown"><span class="toc-number">1.1.</span> <span class="toc-text">1、sumlime text3 配置Markdown</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、安装package-Control"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、安装package Control</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、安装Markdown-Preview"><span class="toc-number">1.1.2.</span> <span class="toc-text">2、安装Markdown Preview</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、安装Markdown-Editing"><span class="toc-number">1.1.3.</span> <span class="toc-text">3、安装Markdown  Editing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、安装Markdown-Previewer"><span class="toc-number">1.1.4.</span> <span class="toc-text">4、安装Markdown  Previewer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、安装OmniMarkup-Previewer"><span class="toc-number">1.1.5.</span> <span class="toc-text">5、安装OmniMarkup Previewer</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、常用快捷键"><span class="toc-number">1.2.</span> <span class="toc-text">2、常用快捷键</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、使用Cmd-markdown在线编辑"><span class="toc-number">2.</span> <span class="toc-text">二、使用Cmd markdown在线编辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#遇到的问题"><span class="toc-number">3.</span> <span class="toc-text">遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Ctrl-Alt-O后打开了浏览器但是不能够预览markdown页面"><span class="toc-number">3.1.</span> <span class="toc-text">1、Ctrl+Alt+O后打开了浏览器但是不能够预览ｍａｒｋｄｏｗｎ页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、在sublime-text3-中切换不了中文"><span class="toc-number">3.2.</span> <span class="toc-text">2、在sublime text3 中切换不了中文</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行环境"><span class="toc-number">2.</span> <span class="toc-text">运行环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#spark-shell-操作"><span class="toc-number">3.</span> <span class="toc-text">spark shell 操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据准备"><span class="toc-number">3.1.</span> <span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#上传数据到hdfs"><span class="toc-number">3.2.</span> <span class="toc-text">上传数据到hdfs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索结果排名第1点击次序排在第2的数据"><span class="toc-number">3.3.</span> <span class="toc-text">搜索结果排名第1点击次序排在第2的数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成Session查询次数排行榜shell"><span class="toc-number">3.4.</span> <span class="toc-text">生成Session查询次数排行榜shell</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#idea运行spark程序"><span class="toc-number">4.</span> <span class="toc-text">idea运行spark程序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成Session查询次数排行榜idea文件运行方式"><span class="toc-number">4.1.</span> <span class="toc-text">生成Session查询次数排行榜idea文件运行方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-number">4.1.1.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行步骤"><span class="toc-number">4.2.</span> <span class="toc-text">运行步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#idea打包运行join操作"><span class="toc-number">4.3.</span> <span class="toc-text">idea打包运行join操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据准备-1"><span class="toc-number">4.3.1.</span> <span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-1"><span class="toc-number">4.3.2.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成打包文件"><span class="toc-number">4.3.3.</span> <span class="toc-text">生成打包文件</span></a></li></ol></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -430,13 +447,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/09/03/spark_step/" title="上一篇: 伪分布式spark安装配置">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/" title="下一篇: 从互联到新工业革命-读后感">
+            <a  href="/year/01/15/scalastudy/" title="下一篇: scala基础学习">
                 <i class="fa fa-angle-right"></i>
             </a>
         
