@@ -284,7 +284,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
 <p>使用搜狗开源的日志分析数据等实践一些spark操作</p>
 </blockquote>
 <h1 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h1><ol>
@@ -296,42 +296,7 @@
 <blockquote>
 <p>注意:要配置好spark和hadoop的环境变量</p>
 </blockquote>
-<h1 id="spark-shell-操作"><a href="#spark-shell-操作" class="headerlink" title="spark shell 操作"></a>spark shell 操作</h1><h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><blockquote>
-<p><a href="https://pan.baidu.com/s/1jJshDXk" target="_blank" rel="noopener">下载数据</a>, 密码: 21c2．其中数据格式为：访问时间　用户ID　[查询词]　该URL在返回结果中的排名　用户点击的顺序号　用户点击的URL．使用head -100查看内容:</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/sougou1.png" alt="sougou1"></p>
-<h2 id="上传数据到hdfs"><a href="#上传数据到hdfs" class="headerlink" title="上传数据到hdfs"></a>上传数据到hdfs</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd  /usr/local/hadoop/sbin</span><br><span class="line">./start-all.sh #启动hadoop</span><br><span class="line">cd /usr/local/spark2.2.0/sbin</span><br><span class="line">./start-all.sh　#启动spark</span><br><span class="line">jps #查看是否有datanode,namenode,master,worker</span><br><span class="line">hadoop fs -mkdir /chanji/sougou/data　#在hdfs上创建目录</span><br><span class="line">hadoop /home/chanji/trainData/sougou/sogou.500w.utf8　/chanji/sougou/data #将下载的数据上传到hdfs上</span><br></pre></td></tr></table></figure>
-<h2 id="搜索结果排名第1点击次序排在第2的数据"><a href="#搜索结果排名第1点击次序排在第2的数据" class="headerlink" title="搜索结果排名第1点击次序排在第2的数据"></a>搜索结果排名第1点击次序排在第2的数据</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd cd /usr/local/spark2.2.0/bin</span><br><span class="line">./spark-shell</span><br><span class="line">val rdd1 = sc.textFile("hdfs://localhost:9000/chanji/sougou/data/sogou.500w.utf8") #读取文件</span><br><span class="line">val rdd2=rdd1.map(<span class="emphasis">_.split("\t")).filter(_</span>.length==6)　#将不足６个属性的元素过滤掉</span><br><span class="line">rdd2.count()　#查看记录条数</span><br><span class="line">val rdd3=rdd2.filter(<span class="emphasis">_(3).toInt==1).filter(_</span>(4).toInt==2)　＃筛选出结果排名第一，点击次序第二的数据</span><br><span class="line">rdd3.count()</span><br><span class="line">rdd3.toDebugString　#查看RDD变换过程</span><br></pre></td></tr></table></figure>
-<h2 id="生成Session查询次数排行榜shell"><a href="#生成Session查询次数排行榜shell" class="headerlink" title="生成Session查询次数排行榜shell"></a>生成Session查询次数排行榜shell</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val rdd4 = rdd2.map(x=&gt;(x(1),1)).reduceByKey(<span class="emphasis">_+_</span>).map(x=&gt;(x.<span class="emphasis">_2,x._</span>1)). sortByKey(false).map(x=&gt;(x.<span class="emphasis">_2,x._</span>1))</span><br><span class="line">rdd4.toDebugString</span><br><span class="line">rdd4.saveAsTextFile("hdfs://localhost:9000/chanji/sougou/out")</span><br></pre></td></tr></table></figure>
-<p>上述代码比较复杂，我们可以拆开分析<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">val rdd5 = rdd2.map(x =&gt; (x(1),1)) #将记录的第一个元素(session)转化成(x(1),1)的键值对</span><br><span class="line">val rdd6 = rdd５．reduceByKey(<span class="emphasis">_+_</span>) #将session相同的元素个数相加</span><br><span class="line">val rdd７　= rdd6.map(x=＞（x.<span class="emphasis">_2,x._</span>1)）　＃session和数量对掉位置</span><br><span class="line">val rdd8 = rdd7.sortByKey(false) #按照倒序排列（由大到小）</span><br><span class="line">val rdd9 = rdd8.map(x.<span class="emphasis">_2,x._</span>1) #再将数量与session对掉位置</span><br><span class="line">rdd9.toDebugString</span><br><span class="line">rdd９．saveAsTextFile("hdfs://localhost:9000/chanji/sougou/out") #将结果存入hdfs</span><br><span class="line">hdfs dfs -getmerge hdfs://localhost:9000/chanji/sougou/out /home/chanji/trainData/sougou #将文件合并并存入到本地路径</span><br><span class="line">cd /home/chanji/trainData/sougou</span><br><span class="line">head result　＃查看结果</span><br></pre></td></tr></table></figure></p>
-<h1 id="idea运行spark程序"><a href="#idea运行spark程序" class="headerlink" title="idea运行spark程序"></a>idea运行spark程序</h1><h2 id="生成Session查询次数排行榜idea文件运行方式"><a href="#生成Session查询次数排行榜idea文件运行方式" class="headerlink" title="生成Session查询次数排行榜idea文件运行方式"></a>生成Session查询次数排行榜idea文件运行方式</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.&#123;SparkConf, SparkContext&#125;</span><br><span class="line"></span><br><span class="line">object Sougou_Log &#123;</span><br><span class="line">  def main(args: Array[String]) &#123;</span><br><span class="line"><span class="code">       if (args.length == 0) &#123;</span></span><br><span class="line"><span class="code">            System.err.println("Usage: SogouResult &lt;file1&gt; &lt;file2&gt;")</span></span><br><span class="line"><span class="code">            System.exit(1)</span></span><br><span class="line"><span class="code">       &#125;</span></span><br><span class="line"><span class="code">       val conf = new SparkConf().setAppName("SogouResult").setMaster("local")</span></span><br><span class="line"><span class="code">        val sc = new SparkContext(conf)</span></span><br><span class="line"></span><br><span class="line"><span class="code">        //session查询次数排行榜</span></span><br><span class="line"><span class="code">        val rdd1 = sc.textFile(args(0)).map(_.split("\t")).filter(_.length==6)</span></span><br><span class="line"><span class="code">        val rdd2=rdd1.map(x=&gt;(x(1),1)).reduceByKey(_+_).map(x=&gt;(x._2,x._1)).sortByKey(false).map(x=&gt;(x._2,x._1))</span></span><br><span class="line"><span class="code">         rdd2.saveAsTextFile(args(1))</span></span><br><span class="line"><span class="code">         sc.stop()</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="运行步骤"><a href="#运行步骤" class="headerlink" title="运行步骤"></a>运行步骤</h2><blockquote>
-<ol>
-<li>Ctrl + F９编译</li>
-<li>如果没有错误，run-&gt;editor configurations,在program argument 中填写：［hdfs输入路径]［hdfs输出路径］如下图:</li>
-</ol>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/sougou_log.png" alt="Sougou_Log"></p>
-<blockquote>
-<p>3.Shift + F10运行，注意输出路径不能与spark shell中的输出路径重复</p>
-</blockquote>
-<h2 id="idea打包运行join操作"><a href="#idea打包运行join操作" class="headerlink" title="idea打包运行join操作"></a>idea打包运行join操作</h2><h3 id="数据准备-1"><a href="#数据准备-1" class="headerlink" title="数据准备"></a>数据准备</h3><blockquote>
-<p><a href="https://pan.baidu.com/s/1jJsND9G" target="_blank" rel="noopener">下载数据</a>,密码：cyi3，数据格式:</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/join.png" alt="join"></p>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.spark.&#123;SparkConf, SparkContext&#125;</span><br><span class="line"></span><br><span class="line">object Sougou_Join &#123;</span><br><span class="line">  def main(args: Array[String]) &#123;</span><br><span class="line"><span class="code">    if (args.length == 0) &#123;</span></span><br><span class="line"><span class="code">      System.err.println("Usage: Join &lt;file1&gt; &lt;file2&gt;")</span></span><br><span class="line"><span class="code">      System.exit(1)</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    val conf = new SparkConf().setAppName("Join").setMaster("local")</span></span><br><span class="line"><span class="code">    val sc = new SparkContext(conf)</span></span><br><span class="line"></span><br><span class="line"><span class="code">    val format = new java.text.SimpleDateFormat("yyyy-MM-dd")</span></span><br><span class="line"><span class="code">    case class Register (d: java.util.Date, uuid: String, cust_id: String, lat: Float,lng: Float)</span></span><br><span class="line"><span class="code">    case class Click (d: java.util.Date, uuid: String, landing_page: Int)</span></span><br><span class="line"><span class="code">    val reg = sc.textFile(args(0)).map(_.split("\t")).map(r =&gt; (r(1), Register(format.parse(r(0)), r(1), r(2), r(3).toFloat, r(4).toFloat)))</span></span><br><span class="line"><span class="code">    val clk = sc.textFile(args(1)).map(_.split("\t")).map(c =&gt; (c(1), Click(format.parse(c(0)), c(1), c(2).trim.toInt)))</span></span><br><span class="line"><span class="code">    reg.join(clk).take(2).foreach(println)</span></span><br><span class="line"><span class="code">    sc.stop()</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="生成打包文件"><a href="#生成打包文件" class="headerlink" title="生成打包文件"></a>生成打包文件</h3><blockquote>
-<p>1.project structure-&gt;artifacts-&gt; + -&gt;jar-&gt;form modules with dependencies,module选择项目，mian class选择文件的类，下一项寻则copy to the out …,如下图所示：</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/join2.png" alt="join2"></p>
-<blockquote>
-<p>2.菜单栏-&gt;build-&gt;build Artifacts.</p>
-<p>3.项目路径/out/artifacts/scala_join中名为scala_test.jar的包复制到任意目录．</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /spark路径/bin</span><br><span class="line">./spark-submit --master spark://localhost:7077 --class Sougou<span class="emphasis">_Join --executor-memory 1g /ja包路径／scala_</span>test.jar hdfs://localhost:9000/chanji/sougou/data/join/reg.tsv hdfs://localhost:9000//chanji/sougou/data/join/clk.tsv #hdfs上文件存储路径</span><br></pre></td></tr></table></figure>
-<p>看到打印出的信息则成功：</p>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/spark/join3.png" alt="join3"></p>
-
+          
       
     </div>
     
@@ -348,6 +313,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ideaIU/">ideaIU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a   href="/year/01/15/spark_sougou_logs/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -722,10 +691,10 @@
 
 
   
-    <article id="post-studentOnline_timeslot" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-NMF_PCA" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/01/09/studentOnline_timeslot/" class="article-date">
+      <a  href="/year/01/09/NMF_PCA/" class="article-date">
       <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
 </a>
 
@@ -740,7 +709,7 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a>
+      <a  class="article-title" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a>
     </h1>
   
 
@@ -754,6 +723,7 @@
               <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
 <p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
 </blockquote>
+<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>分别使用NMF和PCA算法对人脸进行特征提取并且进行对比<br>
           
       
     </div>
@@ -768,12 +738,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DBSCAN/">DBSCAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NMF/">NMF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a   href="/year/01/09/studentOnline_timeslot/#more">查看更多 >></a>
+          <a   href="/year/01/09/NMF_PCA/#more">查看更多 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -867,10 +837,10 @@
 
 
   
-    <article id="post-NMF_PCA" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-studentOnline_timeslot" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/01/09/NMF_PCA/" class="article-date">
+      <a  href="/year/01/09/studentOnline_timeslot/" class="article-date">
       <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
 </a>
 
@@ -885,7 +855,7 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a>
+      <a  class="article-title" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a>
     </h1>
   
 
@@ -899,7 +869,6 @@
               <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
 <p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
 </blockquote>
-<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>分别使用NMF和PCA算法对人脸进行特征提取并且进行对比<br>
           
       
     </div>
@@ -914,12 +883,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NMF/">NMF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DBSCAN/">DBSCAN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a   href="/year/01/09/NMF_PCA/#more">查看更多 >></a>
+          <a   href="/year/01/09/studentOnline_timeslot/#more">查看更多 >></a>
         </p>
       
       <div class="clearfix"></div>
