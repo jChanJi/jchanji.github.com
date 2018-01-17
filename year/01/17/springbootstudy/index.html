@@ -7,20 +7,26 @@
   
   
   
-  <title>伪分布式spark安装配置 | Chanji</title>
+  <title>spring boot从基础到进阶 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言 本教程为spark的伪分布式教程，学生党条件有限所以伪分布式应该是比较好的选择。其中要注意的是版本匹配的问题。">
-<meta name="keywords" content="spark,big data">
+  <meta name="description" content="前言 springboot作为springmvc的升级版，具有很多优势，下面简单一下springboot的搭建与配置，并运行一个小项目。  运行环境 jdk1.8 ideaIU maven3.3.9  环境搭建    项目的整体目录结构为：   其中GirlApplication.java为程序启动的入口,application.properties文件为配置文件 程序代码本程序由慕课网提供教学，">
+<meta name="keywords" content="springboot,spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="伪分布式spark安装配置">
-<meta property="og:url" content="http://jchanji.github.io/year/09/03/spark_step/index.html">
+<meta property="og:title" content="spring boot从基础到进阶">
+<meta property="og:url" content="http://jchanji.github.io/year/01/17/springbootstudy/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="前言 本教程为spark的伪分布式教程，学生党条件有限所以伪分布式应该是比较好的选择。其中要注意的是版本匹配的问题。">
+<meta property="og:description" content="前言 springboot作为springmvc的升级版，具有很多优势，下面简单一下springboot的搭建与配置，并运行一个小项目。  运行环境 jdk1.8 ideaIU maven3.3.9  环境搭建    项目的整体目录结构为：   其中GirlApplication.java为程序启动的入口,application.properties文件为配置文件 程序代码本程序由慕课网提供教学，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-08T16:28:47.197Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/springbboot1.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/springboot2.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/springboot3.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/spingboot4.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/project_structures.PNG">
+<meta property="og:updated_time" content="2018-01-17T04:35:24.445Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="伪分布式spark安装配置">
-<meta name="twitter:description" content="前言 本教程为spark的伪分布式教程，学生党条件有限所以伪分布式应该是比较好的选择。其中要注意的是版本匹配的问题。">
+<meta name="twitter:title" content="spring boot从基础到进阶">
+<meta name="twitter:description" content="前言 springboot作为springmvc的升级版，具有很多优势，下面简单一下springboot的搭建与配置，并运行一个小项目。  运行环境 jdk1.8 ideaIU maven3.3.9  环境搭建    项目的整体目录结构为：   其中GirlApplication.java为程序启动的入口,application.properties文件为配置文件 程序代码本程序由慕课网提供教学，">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/springbboot1.PNG">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -256,11 +262,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-spark_step" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-springbootstudy" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/09/03/spark_step/" class="article-date">
-      <time datetime="2017-09-03T06:44:05.395Z" itemprop="datePublished">2017-09-03</time>
+      <a  href="/year/01/17/springbootstudy/" class="article-date">
+      <time datetime="2018-01-17T04:27:40.697Z" itemprop="datePublished">2018-01-17</time>
 </a>
 
     </div>
@@ -274,7 +280,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      伪分布式spark安装配置
+      spring boot从基础到进阶
     </h1>
   
 
@@ -284,13 +290,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
+    <a class="article-category-link" href="/categories/javaweb/">-javaweb</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -301,25 +307,23 @@
       
           
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>本教程为spark的伪分布式教程，学生党条件有限所以伪分布式应该是比较好的选择。其中要注意的是版本匹配的问题。</p>
+<p>springboot作为springmvc的升级版，具有很多优势，下面简单一下springboot的搭建与配置，并运行一个小项目。</p>
 </blockquote>
-<a id="more"></a>
-<h2 id="一、版本"><a href="#一、版本" class="headerlink" title="一、版本"></a>一、版本</h2><ol>
-<li>CentOS7</li>
-<li>jdk:jdk1.8.0_131</li>
-<li>hadoop：2.6.0</li>
-<li>scala:2.11.11</li>
-<li>spark:2.1.1</li>
+<h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><ol>
+<li>jdk1.8</li>
+<li>ideaIU</li>
+<li>maven3.3.9</li>
 </ol>
-<h2 id="二、下载"><a href="#二、下载" class="headerlink" title="二、下载"></a>二、下载</h2><ol>
-<li><a href="http://spark.apache.org/downloads.html" target="_blank" rel="noopener">spark2.1.1</a></li>
-<li><a href="http://www.scala-lang.org/download/all.html" target="_blank" rel="noopener">scala2.11.11</a></li>
-</ol>
-<h2 id="三、安装配置"><a href="#三、安装配置" class="headerlink" title="三、安装配置"></a>三、安装配置</h2><h3 id="1、解压-修改权限"><a href="#1、解压-修改权限" class="headerlink" title="1、解压,修改权限"></a>1、解压,修改权限</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo tar -zxvf spark-2.1.1-bin-hadoop2.6.tgz -C /usr/local</span><br><span class="line">cd /usr/local</span><br><span class="line">sudo chown -R hadoop:hadoop ./spark</span><br></pre></td></tr></table></figure>
-<h3 id="2、在解压的spark目录下新建文件-test-hellospark-写上内容"><a href="#2、在解压的spark目录下新建文件-test-hellospark-写上内容" class="headerlink" title="2、在解压的spark目录下新建文件/test/hellospark,写上内容"></a>2、在解压的spark目录下新建文件/test/hellospark,写上内容</h3><h3 id="3、进入scala模式"><a href="#3、进入scala模式" class="headerlink" title="3、进入scala模式"></a>3、进入scala模式</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /spark/bin</span><br><span class="line">./spark-shell</span><br></pre></td></tr></table></figure>
-<h3 id="4、运行代码"><a href="#4、运行代码" class="headerlink" title="4、运行代码"></a>4、运行代码</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">5、val lines = sc.textFile(“../test/hellospark”)</span><br><span class="line">   lines.count()</span><br><span class="line">   lines.first()</span><br></pre></td></tr></table></figure>
-<h3 id="5、修日志级别"><a href="#5、修日志级别" class="headerlink" title="5、修日志级别"></a>5、修日志级别</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/spark/conf</span><br><span class="line">cp  log4j.properties.template  log4j.properties   </span><br><span class="line">sudo vim log4j.properties</span><br></pre></td></tr></table></figure>
-<p>   将其中的rootCategory=INFO 改为 WARN</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/springbboot1.PNG" alt="springboot1"></p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/springboot2.PNG" alt="springtboo2"></p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/springboot3.PNG" alt="springtboot3"></p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/spingboot4.PNG" alt="springtboot4"></p>
+<p>项目的整体目录结构为：</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/project_structures.PNG" alt="projec_structures"></p>
+<blockquote>
+<p>其中GirlApplication.java为程序启动的入口,application.properties文件为配置文件</p>
+<h2 id="程序代码"><a href="#程序代码" class="headerlink" title="程序代码"></a>程序代码</h2><p>本程序由慕课网提供教学，本人在此基础上加入了很多注释，以方便理解，项目<a href="https://github.com/jChanJi/springboot_study" target="_blank" rel="noopener">地址</a></p>
+</blockquote>
 
       
     </div>
@@ -328,13 +332,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/09/03/spark_step/">伪分布式spark安装配置</a></p>
+        <p><span>本文标题:</span><a  href="/year/01/17/springbootstudy/">spring boot从基础到进阶</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2017年09月03日 - 14时44分</p>
-        <p><span>最后更新:</span>2018年01月09日 - 00时28分</p>
+        <p><span>发布时间:</span>2018年01月17日 - 12时27分</p>
+        <p><span>最后更新:</span>2018年01月17日 - 12时35分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/09/03/spark_step/" title="伪分布式spark安装配置">http://jchanji.github.io/year/09/03/spark_step/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/09/03/spark_step/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/01/17/springbootstudy/" title="spring boot从基础到进阶">http://jchanji.github.io/year/01/17/springbootstudy/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/01/17/springbootstudy/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -345,18 +349,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/09/03/ubuntu_only_background/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          ubuntu只显示桌面，没有菜单栏
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/09/03/markdown/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">sumlime text3 配置Markdown</div>
+    <a  href="/year/01/15/spark_sougou_logs/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spark项目基础实战</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -368,7 +363,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、版本"><span class="toc-number">2.</span> <span class="toc-text">一、版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、下载"><span class="toc-number">3.</span> <span class="toc-text">二、下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、安装配置"><span class="toc-number">4.</span> <span class="toc-text">三、安装配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、解压-修改权限"><span class="toc-number">4.1.</span> <span class="toc-text">1、解压,修改权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、在解压的spark目录下新建文件-test-hellospark-写上内容"><span class="toc-number">4.2.</span> <span class="toc-text">2、在解压的spark目录下新建文件/test/hellospark,写上内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、进入scala模式"><span class="toc-number">4.3.</span> <span class="toc-text">3、进入scala模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、运行代码"><span class="toc-number">4.4.</span> <span class="toc-text">4、运行代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、修日志级别"><span class="toc-number">4.5.</span> <span class="toc-text">5、修日志级别</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行环境"><span class="toc-number">2.</span> <span class="toc-text">运行环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境搭建"><span class="toc-number">3.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序代码"><span class="toc-number">4.</span> <span class="toc-text">程序代码</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -428,13 +423,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/09/03/ubuntu_only_background/" title="上一篇: ubuntu只显示桌面，没有菜单栏">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/09/03/markdown/" title="下一篇: sumlime text3 配置Markdown">
+            <a  href="/year/01/15/spark_sougou_logs/" title="下一篇: spark项目基础实战">
                 <i class="fa fa-angle-right"></i>
             </a>
         
