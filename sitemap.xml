@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jchanji.github.io/year/01/17/springbootstudy/</loc>
+    
+    <lastmod>2018-01-18T00:25:52.257Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jchanji.github.io/year/12/29/SSD-tensorflow/</loc>
     
     <lastmod>2018-01-17T04:44:42.055Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://jchanji.github.io/year/10/30/artical_1/</loc>
     
     <lastmod>2018-01-17T04:43:44.025Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/01/17/springbootstudy/</loc>
-    
-    <lastmod>2018-01-17T04:38:17.509Z</lastmod>
     
   </url>
   
