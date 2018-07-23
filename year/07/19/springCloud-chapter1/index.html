@@ -17,14 +17,14 @@
 <meta property="og:site_name" content="Chanji">
 <meta property="og:description" content="前言 本章节主要简单介绍一下网站架构的演变，从“单点应用”-&amp;gt;”分布式系统面向于服务架构”-&amp;gt;”微服务架构”。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://jchanji.github.io/year/07/19/img/three_layedr_architecture.png">
-<meta property="og:image" content="http://jchanji.github.io/year/07/19/img/soa.png">
-<meta property="og:image" content="http://jchanji.github.io/year/07/19/img/micro_service.png">
-<meta property="og:updated_time" content="2018-07-23T08:05:19.458Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/three_layedr_architecture.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/soa.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/micro_service.png">
+<meta property="og:updated_time" content="2018-07-23T08:39:59.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第一章:SpringCloud-网站架构演变">
 <meta name="twitter:description" content="前言 本章节主要简单介绍一下网站架构的演变，从“单点应用”-&amp;gt;”分布式系统面向于服务架构”-&amp;gt;”微服务架构”。">
-<meta name="twitter:image" content="http://jchanji.github.io/year/07/19/img/three_layedr_architecture.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/three_layedr_architecture.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -311,12 +311,12 @@
 <h2 id="传统的web项目"><a href="#传统的web项目" class="headerlink" title="传统的web项目"></a>传统的web项目</h2><blockquote>
 <p>传统的web项目主要采用三层架构，分为控制层、业务逻辑成、数据库访问层。其代码主要使用包名进行区分，其缺点在于：对于像互联网公司几十上百人的协作开发的时候，不利于对代码的管理、代码后期的维护等。一个小的改动便要重新发布整个项目，在项目很大的时候显然是不合理的。</p>
 </blockquote>
-<div align="center"><img src="../img/three_layedr_architecture.png" width="300" height="400"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/three_layedr_architecture.png" width="300" height="400"></div>
 
 <h2 id="面向服务的架构"><a href="#面向服务的架构" class="headerlink" title="面向服务的架构"></a>面向服务的架构</h2><blockquote>
 <p>面向服务的架构将业务逻辑成和数据库访访问层从三层架构中抽离出来，并提供对外访问的接口。web项目的控制层通过rpc远程调用访问暴露出来的接口。从而形成SOA的项目。</p>
 </blockquote>
-<div align="center"><img src="../img/soa.png"></div> 
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/soa.png"></div> 
 
 <blockquote>
 <p>其中比较容易混淆的是“分布式开发”和“集群”的概念，分布式是指将一个大项目拆分成n个小项目，如会员系统、支付系统、消息系统等。而集群是指将具有相同功能的代码部署到多台服务器上，目的是减小服务器压力，应对高并发的情况。</p>
@@ -327,7 +327,7 @@
 <h2 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h2><blockquote>
 <p>微服务架构也是分布式的，他是对传统的SOA架构领域的的升级，将服务尽可能的细分，使用”http协议”+”json数据格式”+”restful接口风格”的轻量级的架构，并且每个每个服务可以单独运行，相互解耦。</p>
 </blockquote>
-<div align="center"><img src="../img/micro_service.png"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/micro_service.png"></div>
 
 <blockquote>
 <p>其中的项目接口只能在内网中使用，和外网接口进行对接时使用https加密</p>
@@ -352,7 +352,7 @@
         <p><span>本文标题:</span><a  href="/year/07/19/springCloud-chapter1/">第一章:SpringCloud-网站架构演变</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
         <p><span>发布时间:</span>2018年07月19日 - 19时34分</p>
-        <p><span>最后更新:</span>2018年07月23日 - 16时05分</p>
+        <p><span>最后更新:</span>2018年07月23日 - 16时39分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/year/07/19/springCloud-chapter1/" title="第一章:SpringCloud-网站架构演变">http://jchanji.github.io/year/07/19/springCloud-chapter1/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/07/19/springCloud-chapter1/　　作者: Chanji" title=""></span>
@@ -449,7 +449,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/year/07/19/springCloud-chapter1/">第一章:SpringCloud-网站架构演变</a></li><li class="post-list-item"><a class="post-list-link" href="/year/06/20/MySQL/">MySQL</a></li><li class="post-list-item"><a class="post-list-link" href="/year/02/23/xiaoma/">浏览器被www.t999.cn劫持</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/17/springbootstudy/">spring boot从基础到进阶</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/spark_sougou_logs/">spark项目基础实战</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/scalastudy/">scala基础学习</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/12/vps/">digitalocean服务器搭建ss服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/combineByKey/">spark之combineByKey</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/10/docker/">ubuntu下Docker的安装和使用</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a></li><li class="post-list-item"><a class="post-list-link" href="/year/12/29/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/year/11/19/knowledgegraph/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/year/10/30/artical_1/">Arabesque:A System for Distributed Graph Mining</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/spark_step/">伪分布式spark安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/">从互联到新工业革命-读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/vnc/">CentOS7 安装vnc</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/citycosumption/">K-means算法-对31省消费水平分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/year/07/19/springCloud-chapter1/">第一章:SpringCloud-网站架构演变</a></li><li class="post-list-item"><a class="post-list-link" href="/year/06/20/MySQL/">MySQL</a></li><li class="post-list-item"><a class="post-list-link" href="/year/02/23/xiaoma/">浏览器被www.t999.cn劫持</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/17/springbootstudy/">spring boot从基础到进阶</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/spark_sougou_logs/">spark项目基础实战</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/scalastudy/">scala基础学习</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/12/vps/">digitalocean服务器搭建ss服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/combineByKey/">spark之combineByKey</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/10/docker/">ubuntu下Docker的安装和使用</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/12/29/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/year/11/19/knowledgegraph/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/year/10/30/artical_1/">Arabesque:A System for Distributed Graph Mining</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/spark_step/">伪分布式spark安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/">从互联到新工业革命-读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/vnc/">CentOS7 安装vnc</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/citycosumption/">K-means算法-对31省消费水平分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hello-world/">Hello World</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
