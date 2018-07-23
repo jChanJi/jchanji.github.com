@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jchanji.github.io/year/07/19/springCloud-chapter1/</loc>
+    
+    <lastmod>2018-07-23T08:05:19.458Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/10/30/artical_1/</loc>
+    
+    <lastmod>2018-06-20T13:26:55.742Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/06/20/MySQL/</loc>
+    
+    <lastmod>2018-06-20T13:07:36.039Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jchanji.github.io/year/02/23/xiaoma/</loc>
     
     <lastmod>2018-02-23T06:24:25.799Z</lastmod>
@@ -26,13 +47,6 @@
     <loc>http://jchanji.github.io/year/11/19/knowledgegraph/</loc>
     
     <lastmod>2018-01-17T04:44:14.828Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/10/30/artical_1/</loc>
-    
-    <lastmod>2018-01-17T04:43:44.025Z</lastmod>
     
   </url>
   
