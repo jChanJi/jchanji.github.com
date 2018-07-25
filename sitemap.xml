@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jchanji.github.io/year/06/20/MySQL/</loc>
+    
+    <lastmod>2018-07-25T03:26:27.248Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jchanji.github.io/year/07/25/SpringCloud-chapter3/</loc>
     
-    <lastmod>2018-07-25T03:20:52.154Z</lastmod>
+    <lastmod>2018-07-25T03:22:07.720Z</lastmod>
     
   </url>
   
@@ -26,13 +33,6 @@
     <loc>http://jchanji.github.io/year/10/30/artical_1/</loc>
     
     <lastmod>2018-06-20T13:26:55.742Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/06/20/MySQL/</loc>
-    
-    <lastmod>2018-06-20T13:07:36.039Z</lastmod>
     
   </url>
   
