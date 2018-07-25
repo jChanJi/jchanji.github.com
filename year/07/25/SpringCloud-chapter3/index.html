@@ -7,20 +7,25 @@
   
   
   
-  <title>伪分布式hbase安装配置 | Chanji</title>
+  <title>第三章:SpringCloud-eureka环境搭建 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言 网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 hadoop伪分布式教程,hbase官方中文文档">
-<meta name="keywords" content="big data,hbase">
+  <meta name="description" content="前言 本章节将使用idea搭建eureka环境  创建工程 使用spring Initializr 创建一个默认的springboot工程     填写工程名称，下面全部点击next,最后点击finish     导入依赖1234567891011121314151617181920212223242526272829303132333435363738394041424344454647&amp;lt;">
+<meta name="keywords" content="SpringCloud,微服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="伪分布式hbase安装配置">
-<meta property="og:url" content="http://jchanji.github.io/year/08/30/hbase_step/index.html">
+<meta property="og:title" content="第三章:SpringCloud-eureka环境搭建">
+<meta property="og:url" content="http://jchanji.github.io/year/07/25/SpringCloud-chapter3/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="前言 网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 hadoop伪分布式教程,hbase官方中文文档">
+<meta property="og:description" content="前言 本章节将使用idea搭建eureka环境  创建工程 使用spring Initializr 创建一个默认的springboot工程     填写工程名称，下面全部点击next,最后点击finish     导入依赖1234567891011121314151617181920212223242526272829303132333435363738394041424344454647&amp;lt;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-03T06:37:53.568Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka4.png">
+<meta property="og:updated_time" content="2018-07-25T03:20:52.154Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="伪分布式hbase安装配置">
-<meta name="twitter:description" content="前言 网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 hadoop伪分布式教程,hbase官方中文文档">
+<meta name="twitter:title" content="第三章:SpringCloud-eureka环境搭建">
+<meta name="twitter:description" content="前言 本章节将使用idea搭建eureka环境  创建工程 使用spring Initializr 创建一个默认的springboot工程     填写工程名称，下面全部点击next,最后点击finish     导入依赖1234567891011121314151617181920212223242526272829303132333435363738394041424344454647&amp;lt;">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -256,11 +261,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-hbase_step" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-SpringCloud-chapter3" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/08/30/hbase_step/" class="article-date">
-      <time datetime="2017-08-30T14:36:02.631Z" itemprop="datePublished">2017-08-30</time>
+      <a  href="/year/07/25/SpringCloud-chapter3/" class="article-date">
+      <time datetime="2018-07-25T02:06:49.439Z" itemprop="datePublished">2018-07-25</time>
 </a>
 
     </div>
@@ -274,7 +279,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      伪分布式hbase安装配置
+      第三章:SpringCloud-eureka环境搭建
     </h1>
   
 
@@ -284,13 +289,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
+    <a class="article-category-link" href="/categories/SpringCloud/">-SpringCloud</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hbase/">hbase</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务/">微服务</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -301,38 +306,29 @@
       
           
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>网上有很多的教程，大体流程都差不多，但是在很多细节配置方面有点区别，本教程适用于伪分布式环境下（一般自己电脑上练习伪分布式够了）的hbase的基本安装配置。hadoop伪分布式环境已经搭建好,如果没有搭建好，推荐教程 <a href="http://www.powerxing.com/install-hadoop-in-centos/" target="_blank" rel="noopener">hadoop伪分布式教程</a>,hbase官方<a href="http://abloz.com/hbase/book.html" target="_blank" rel="noopener">中文文档</a></p>
+<p>本章节将使用idea搭建eureka环境</p>
 </blockquote>
-<a id="more"></a>
-<h2 id="一、版本"><a href="#一、版本" class="headerlink" title="一、版本"></a>一、版本</h2><ol>
-<li>CentOS7</li>
-<li>jdk:openjdk1.7.0_141</li>
-<li>hadoop：2.6.0</li>
-<li>hbase:0.98.13</li>
-<li>一定要注意jdk,hadoop和hbase的版本匹配问题,可到官网查看！</li>
-</ol>
-<h2 id="二、下载"><a href="#二、下载" class="headerlink" title="二、下载"></a>二、下载</h2><p>1.<a href="http://archive.apache.org/dist/hbase/0.98.13/hbase-0.98.13-hadoop2-bin.tar.gz" target="_blank" rel="noopener">hbase-0.98.13-hadoop2-bin.tar.gz</a></p>
-<h2 id="三、安装配置"><a href="#三、安装配置" class="headerlink" title="三、安装配置"></a>三、安装配置</h2><h3 id="1、解压文件到指定目录"><a href="#1、解压文件到指定目录" class="headerlink" title="1、解压文件到指定目录"></a>1、解压文件到指定目录</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hbase-0.98.13-hadoop2-bin.tar.gz -C /usr/local</span><br></pre></td></tr></table></figure>
-<h3 id="2、重命名"><a href="#2、重命名" class="headerlink" title="2、重命名"></a>2、重命名</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br><span class="line">sudo mv [解压后的文件名] [hbase]</span><br></pre></td></tr></table></figure>
-<h3 id="3、修改hbase-site-xml"><a href="#3、修改hbase-site-xml" class="headerlink" title="3、修改hbase-site.xml"></a>3、修改hbase-site.xml</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /hbase/conf</span><br><span class="line">sudo vim hbase-site.xml</span><br></pre></td></tr></table></figure>
-<p>将内容改为<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;name&gt;hbase.rootdir&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;value&gt;hdfs://localhost:9000/hbase&lt;/value&gt;</span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;value&gt;/usr/local/hbase/data/zkData&lt;/value&gt;</span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;value&gt;true&lt;/value&gt;</span></span><br><span class="line">  <span class="xml"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
-<p>说明：<br><br>1、很多教程的hbase.rootdir的hdfs的端口都和官网配置一样是8020，这里根据你自己的实际端口号配置，我的默认的为9000（一般都是），如果端口配置错误的话，之后的进程都能启动，但是在hdfs中没有创建hbase文件，也不能通过60010端口访问web UI.<br><br>2、dataDir的目录可以自己定义，不需要预先创建，hbase会根据配置自动生成。</p>
-<h3 id="3、修改hbase-env-sh"><a href="#3、修改hbase-env-sh" class="headerlink" title="3、修改hbase-env.sh"></a>3、修改hbase-env.sh</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim hbase-env.sh</span><br></pre></td></tr></table></figure>
-<p>添加自己的JAVA_HOME路径<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk/</span><br></pre></td></tr></table></figure></p>
-<h3 id="4、修改regionservers"><a href="#4、修改regionservers" class="headerlink" title="4、修改regionservers"></a>4、修改regionservers</h3><p>在/etc/hosts文件中添加主机名映射，再regionservers中默认的localhost改为主机名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim etc/hosts</span><br></pre></td></tr></table></figure></p>
-<p>在最后一行添加 127.0.0.1 master<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim regionservers</span><br></pre></td></tr></table></figure></p>
-<p>将localhost改为mater<br><br>说明：如果ip映射出现问题后面的regionserver会启动不了</p>
-<h3 id="5、启动服务"><a href="#5、启动服务" class="headerlink" title="5、启动服务"></a>5、启动服务</h3><p>首先先启动hadoop<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-all.sh</span><br></pre></td></tr></table></figure></p>
-<p>再启动hbase<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/hbase/bin</span><br><span class="line">./hbase-daemon.sh start zookeeper</span><br><span class="line">./hbase-daemon.sh start regionserver</span><br><span class="line">./hbase-daemon.sh start master</span><br></pre></td></tr></table></figure></p>
-<h3 id="6、查看web-UI"><a href="#6、查看web-UI" class="headerlink" title="6、查看web UI"></a>6、查看web UI</h3><p>在浏览器中输入localhost:60010<br><br>如果能正常显示页面说明配置成功<br><br>说明：刚开启服务后由于hadoop处于安全模式导致不能访问，可以等几十秒再次访问或者通过命令<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop dfsadmin -safemode leave</span><br></pre></td></tr></table></figure></p>
-<p>解除保护</p>
-<h2 id="四、常用的一些命令"><a href="#四、常用的一些命令" class="headerlink" title="四、常用的一些命令"></a>四、常用的一些命令</h2><h3 id="1、从hdfs导入导出表"><a href="#1、从hdfs导入导出表" class="headerlink" title="1、从hdfs导入导出表"></a>1、从hdfs导入导出表</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1）导入</span><br><span class="line">./hbase org.apache.hadoop.hbase.mapreduce.Driver import 表名    数据文件位置</span><br><span class="line"></span><br><span class="line">2)导出</span><br><span class="line">./hbase org.apache.hadoop.hbase.mapreduce.Driver export 表名    数据文件位置</span><br></pre></td></tr></table></figure>
-<p>注意：直接操作会报没有jar包的错误，根据提示将hbase的jar包put进提示的hdfs路径中即可</p>
-<h2 id="五、遇到的错误和解决办法"><a href="#五、遇到的错误和解决办法" class="headerlink" title="五、遇到的错误和解决办法"></a>五、遇到的错误和解决办法</h2><h3 id="1、无法启动HRegionServer和HMaster"><a href="#1、无法启动HRegionServer和HMaster" class="headerlink" title="1、无法启动HRegionServer和HMaster"></a>1、无法启动HRegionServer和HMaster</h3><p>报错日志<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">2017-06-13 19:10:12,458 ERROR [main] master.HMasterCommandLine: Master exiting</span><br><span class="line">java.lang.RuntimeException: Failed construction of Master: class org.apache.hadoop.hbase.master.HMaster</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMaster.constructMaster(HMaster.java:3033)</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMasterCommandLine.startMaster(HMasterCommandLine.java:193)</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMasterCommandLine.run(HMasterCommandLine.java:135)</span><br><span class="line">  at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)</span><br><span class="line">  at org.apache.hadoop.hbase.util.ServerCommandLine.doMain(ServerCommandLine.java:126)</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMaster.main(HMaster.java:3047)</span><br><span class="line">Caused by: java.net.BindException: 无法指定被请求的地址</span><br><span class="line">  at sun.nio.ch.Net.bind0(Native Method)</span><br><span class="line">  at sun.nio.ch.Net.bind(Net.java:463)</span><br><span class="line">  at sun.nio.ch.Net.bind(Net.java:455)</span><br><span class="line">  at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)</span><br><span class="line">  at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)</span><br><span class="line">  at org.apache.hadoop.hbase.ipc.RpcServer.bind(RpcServer.java:2488)</span><br><span class="line">  at org.apache.hadoop.hbase.ipc.RpcServer$Listener.<span class="xml"><span class="tag">&lt;<span class="name">init</span>&gt;</span></span>(RpcServer.java:590)</span><br><span class="line">  at org.apache.hadoop.hbase.ipc.RpcServer.<span class="xml"><span class="tag">&lt;<span class="name">init</span>&gt;</span></span>(RpcServer.java:1956)</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMaster.<span class="xml"><span class="tag">&lt;<span class="name">init</span>&gt;</span></span>(HMaster.java:507)</span><br><span class="line">  at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">  at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)</span><br><span class="line">  at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)</span><br><span class="line">  at java.lang.reflect.Constructor.newInstance(Constructor.java:526)</span><br><span class="line">  at org.apache.hadoop.hbase.master.HMaster.constructMaster(HMaster.java:3028)</span><br><span class="line">  ... 5 more</span><br></pre></td></tr></table></figure></p>
-<p>解决办法<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们可以看到Caused by: java.net.BindException: 无法指定被请求的地址，所以有可能是外网的的影响，所以先关闭网络连接，再启动服务，发现成功了，然后再开启网络。</span><br></pre></td></tr></table></figure></p>
-<h3 id="2、启动hbase服务时找不到pid文件"><a href="#2、启动hbase服务时找不到pid文件" class="headerlink" title="2、启动hbase服务时找不到pid文件"></a>2、启动hbase服务时找不到pid文件</h3><p>问题原因<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>hbase进行大量的插入时region server 所分配的内存堆过小</span><br><span class="line"><span class="bullet">2. </span>pid文件保存在tmp目录下容易丢失。</span><br></pre></td></tr></table></figure></p>
-<p>解决办法<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>在hb的hbase-env.sh中</span><br><span class="line"><span class="section"># The maximum amount of heap to use, in MB. Default is 1000.</span></span><br><span class="line"><span class="section"># export HBASE_HEAPSIZE=1000</span></span><br><span class="line">将1000改成30720</span><br><span class="line"></span><br><span class="line"><span class="bullet">2. </span>在hbase-env.sh中修改pid文件的存放路径：</span><br><span class="line">在hbase-env.sh中下面的文字默认是注释掉的，放开即可，也可以自己指定存放位置：</span><br><span class="line"><span class="section"># The directory where pid files are stored. /tmp by default.  </span></span><br><span class="line"> export HBASE<span class="emphasis">_PID_</span>DIR=/var/hadoop/pids</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><blockquote>
+<p>使用spring Initializr 创建一个默认的springboot工程</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka1.png" width="600" height="600"></div>
 
+<blockquote>
+<p>填写工程名称，下面全部点击next,最后点击finish</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka2.png" width="600" height="600"></div>
+
+<blockquote>
+<p>导入依赖<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line"><span class="code">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">        &lt;version&gt;2.0.3.RELEASE&lt;/version&gt;</span></span><br><span class="line"><span class="code">        &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="code">    &lt;/parent&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    &lt;properties&gt;</span></span><br><span class="line"><span class="code">        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span></span><br><span class="line"><span class="code">        &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;</span></span><br><span class="line"><span class="code">        &lt;java.version&gt;1.8&lt;/java.version&gt;</span></span><br><span class="line"><span class="code">        &lt;spring-cloud.version&gt;Finchley.RELEASE&lt;/spring-cloud.version&gt;</span></span><br><span class="line"><span class="code">    &lt;/properties&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    &lt;dependencies&gt;</span></span><br><span class="line"><span class="code">        &lt;dependency&gt;</span></span><br><span class="line"><span class="code">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">        &lt;/dependency&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="code">        &lt;dependency&gt;</span></span><br><span class="line"><span class="code">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">            &lt;scope&gt;test&lt;/scope&gt;</span></span><br><span class="line"><span class="code">        &lt;/dependency&gt;</span></span><br><span class="line"><span class="code">    &lt;/dependencies&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    &lt;dependencyManagement&gt;</span></span><br><span class="line"><span class="code">        &lt;dependencies&gt;</span></span><br><span class="line"><span class="code">            &lt;dependency&gt;</span></span><br><span class="line"><span class="code">                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">                &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;/version&gt;</span></span><br><span class="line"><span class="code">                &lt;type&gt;pom&lt;/type&gt;</span></span><br><span class="line"><span class="code">                &lt;scope&gt;import&lt;/scope&gt;</span></span><br><span class="line"><span class="code">            &lt;/dependency&gt;</span></span><br><span class="line"><span class="code">        &lt;/dependencies&gt;</span></span><br><span class="line"><span class="code">    &lt;/dependencyManagement&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    &lt;build&gt;</span></span><br><span class="line"><span class="code">        &lt;plugins&gt;</span></span><br><span class="line"><span class="code">            &lt;plugin&gt;</span></span><br><span class="line"><span class="code">                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">            &lt;/plugin&gt;</span></span><br><span class="line"><span class="code">        &lt;/plugins&gt;</span></span><br><span class="line"><span class="code">    &lt;/build&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在项目如口程序中加上@EnableEurekaServer注解</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka3.png"></div>
+
+<blockquote>
+<p>将application.properties改名为application.yml,加入一下配置<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line"><span class="code">    name: eureka-server</span></span><br><span class="line"></span><br><span class="line">server:</span><br><span class="line">  #注册中心的端口为1234；</span><br><span class="line">  port: 1234</span><br><span class="line"></span><br><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line"><span class="code">    hostname: localhost</span></span><br><span class="line">  client:</span><br><span class="line">  #应用为注册中心，由于不向注册中心注册自己，所以设置为false</span><br><span class="line"><span class="code">    register-with-eureka: false</span></span><br><span class="line"><span class="code">    #表示注册中心去检索服务，由于本身注册中心的职责是维护服务实例，因此不需要去检索，设置为false；</span></span><br><span class="line"><span class="code">    fetch-registry: false</span></span><br><span class="line"><span class="code">    serviceUrl:</span></span><br><span class="line"><span class="code">          defaultZone: http://$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span></span><br><span class="line"></span><br><span class="line">logging:</span><br><span class="line">  file: $&#123;spring.application.name&#125;.log</span><br></pre></td></tr></table></figure></p>
+<p>运行程序,输入localhost:1234，如果出现一下界面，界面则配置成功</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka4.png" width="800" height="600"></div>
       
     </div>
     
@@ -340,13 +336,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></p>
+        <p><span>本文标题:</span><a  href="/year/07/25/SpringCloud-chapter3/">第三章:SpringCloud-eureka环境搭建</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2017年08月30日 - 22时36分</p>
-        <p><span>最后更新:</span>2017年09月03日 - 14时37分</p>
+        <p><span>发布时间:</span>2018年07月25日 - 10时06分</p>
+        <p><span>最后更新:</span>2018年07月25日 - 11时20分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/08/30/hbase_step/" title="伪分布式hbase安装配置">http://jchanji.github.io/year/08/30/hbase_step/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/08/30/hbase_step/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/07/25/SpringCloud-chapter3/" title="第三章:SpringCloud-eureka环境搭建">http://jchanji.github.io/year/07/25/SpringCloud-chapter3/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/07/25/SpringCloud-chapter3/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -357,18 +353,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/09/03/install_eclipse/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          CentOS 7 安装eclipse mars 2
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/08/30/codeparse_gbk2utf/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</div>
+    <a  href="/year/07/24/springCloud-chapter2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第二章:SpringCloud-SpringCloud简述</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -380,7 +367,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、版本"><span class="toc-number">2.</span> <span class="toc-text">一、版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、下载"><span class="toc-number">3.</span> <span class="toc-text">二、下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、安装配置"><span class="toc-number">4.</span> <span class="toc-text">三、安装配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、解压文件到指定目录"><span class="toc-number">4.1.</span> <span class="toc-text">1、解压文件到指定目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、重命名"><span class="toc-number">4.2.</span> <span class="toc-text">2、重命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、修改hbase-site-xml"><span class="toc-number">4.3.</span> <span class="toc-text">3、修改hbase-site.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、修改hbase-env-sh"><span class="toc-number">4.4.</span> <span class="toc-text">3、修改hbase-env.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、修改regionservers"><span class="toc-number">4.5.</span> <span class="toc-text">4、修改regionservers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、启动服务"><span class="toc-number">4.6.</span> <span class="toc-text">5、启动服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、查看web-UI"><span class="toc-number">4.7.</span> <span class="toc-text">6、查看web UI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、常用的一些命令"><span class="toc-number">5.</span> <span class="toc-text">四、常用的一些命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、从hdfs导入导出表"><span class="toc-number">5.1.</span> <span class="toc-text">1、从hdfs导入导出表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、遇到的错误和解决办法"><span class="toc-number">6.</span> <span class="toc-text">五、遇到的错误和解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、无法启动HRegionServer和HMaster"><span class="toc-number">6.1.</span> <span class="toc-text">1、无法启动HRegionServer和HMaster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、启动hbase服务时找不到pid文件"><span class="toc-number">6.2.</span> <span class="toc-text">2、启动hbase服务时找不到pid文件</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建工程"><span class="toc-number">2.</span> <span class="toc-text">创建工程</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -440,13 +427,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/09/03/install_eclipse/" title="上一篇: CentOS 7 安装eclipse mars 2">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/08/30/codeparse_gbk2utf/" title="下一篇: 使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码">
+            <a  href="/year/07/24/springCloud-chapter2/" title="下一篇: 第二章:SpringCloud-SpringCloud简述">
                 <i class="fa fa-angle-right"></i>
             </a>
         
