@@ -7,25 +7,25 @@
   
   
   
-  <title>第三章:SpringCloud-eureka环境搭建 | Chanji</title>
+  <title>第四章:SpringCloud-服务消费 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言 本章节将使用idea搭建eureka环境">
+  <meta name="description" content="前言 本章节主要演示eureka服务消费的配置过程,可当作是订单服务">
 <meta name="keywords" content="SpringCloud,微服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第三章:SpringCloud-eureka环境搭建">
-<meta property="og:url" content="http://jchanji.github.io/year/07/25/SpringCloud-chapter3/index.html">
+<meta property="og:title" content="第四章:SpringCloud-服务消费">
+<meta property="og:url" content="http://jchanji.github.io/year/07/27/SpringCloud-chapter5/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="前言 本章节将使用idea搭建eureka环境">
+<meta property="og:description" content="前言 本章节主要演示eureka服务消费的配置过程,可当作是订单服务">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka1.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka2.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka3.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka4.png">
-<meta property="og:updated_time" content="2018-07-25T03:36:14.567Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eruka10.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka11.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka12.png">
+<meta property="og:updated_time" content="2018-07-27T05:09:28.401Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第三章:SpringCloud-eureka环境搭建">
-<meta name="twitter:description" content="前言 本章节将使用idea搭建eureka环境">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka1.png">
+<meta name="twitter:title" content="第四章:SpringCloud-服务消费">
+<meta name="twitter:description" content="前言 本章节主要演示eureka服务消费的配置过程,可当作是订单服务">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka9.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -261,11 +261,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-SpringCloud-chapter3" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-SpringCloud-chapter5" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/07/25/SpringCloud-chapter3/" class="article-date">
-      <time datetime="2018-07-25T02:06:49.439Z" itemprop="datePublished">2018-07-25</time>
+      <a  href="/year/07/27/SpringCloud-chapter5/" class="article-date">
+      <time datetime="2018-07-27T04:01:43.030Z" itemprop="datePublished">2018-07-27</time>
 </a>
 
     </div>
@@ -279,7 +279,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      第三章:SpringCloud-eureka环境搭建
+      第四章:SpringCloud-服务消费
     </h1>
   
 
@@ -306,31 +306,48 @@
       
           
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>本章节将使用idea搭建eureka环境<br><a id="more"></a></p>
+<p>本章节主要演示eureka服务消费的配置过程,可当作是订单服务</p>
 </blockquote>
-<h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><blockquote>
-<p>使用spring Initializr 创建一个默认的springboot工程</p>
+<a id="more"></a>
+<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><blockquote>
+<p>同上一章一样，新建一个项目,加入web，eureka-server,ribbon依赖</p>
 </blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka1.png" width="600" height="600"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka9.png" width="600" height="600"></div>
 
 <blockquote>
-<p>填写工程名称，下面全部点击next,最后点击finish</p>
+<p>依赖如下所示<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line"><span class="code">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">    &lt;version&gt;2.0.3.RELEASE&lt;/version&gt;</span></span><br><span class="line"><span class="code">    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">&lt;/parent&gt;</span><br><span class="line"></span><br><span class="line">&lt;properties&gt;</span><br><span class="line"><span class="code">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span></span><br><span class="line"><span class="code">    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;</span></span><br><span class="line"><span class="code">    &lt;java.version&gt;1.8&lt;/java.version&gt;</span></span><br><span class="line"><span class="code">    &lt;spring-cloud.version&gt;Finchley.RELEASE&lt;/spring-cloud.version&gt;</span></span><br><span class="line">&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line"><span class="code">    &lt;dependency&gt;</span></span><br><span class="line"><span class="code">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">    &lt;/dependency&gt;</span></span><br><span class="line"><span class="code">    &lt;dependency&gt;</span></span><br><span class="line"><span class="code">        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">    &lt;/dependency&gt;</span></span><br><span class="line"><span class="code">    &lt;dependency&gt;</span></span><br><span class="line"><span class="code">        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">        &lt;artifactId&gt;spring-cloud-starter-netflix-ribbon&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">    &lt;/dependency&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    &lt;dependency&gt;</span></span><br><span class="line"><span class="code">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">        &lt;scope&gt;test&lt;/scope&gt;</span></span><br><span class="line"><span class="code">    &lt;/dependency&gt;</span></span><br><span class="line">&lt;/dependencies&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line"><span class="code">    &lt;dependencies&gt;</span></span><br><span class="line"><span class="code">        &lt;dependency&gt;</span></span><br><span class="line"><span class="code">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">            &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;/version&gt;</span></span><br><span class="line"><span class="code">            &lt;type&gt;pom&lt;/type&gt;</span></span><br><span class="line"><span class="code">            &lt;scope&gt;import&lt;/scope&gt;</span></span><br><span class="line"><span class="code">        &lt;/dependency&gt;</span></span><br><span class="line"><span class="code">    &lt;/dependencies&gt;</span></span><br><span class="line">&lt;/dependencyManagement&gt;</span><br><span class="line"></span><br><span class="line">&lt;build&gt;</span><br><span class="line"><span class="code">    &lt;plugins&gt;</span></span><br><span class="line"><span class="code">        &lt;plugin&gt;</span></span><br><span class="line"><span class="code">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">        &lt;/plugin&gt;</span></span><br><span class="line"><span class="code">    &lt;/plugins&gt;</span></span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka2.png" width="600" height="600"></div>
-
-<h2 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line"><span class="code">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">        &lt;version&gt;2.0.3.RELEASE&lt;/version&gt;</span></span><br><span class="line"><span class="code">        &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="code">    &lt;/parent&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    &lt;properties&gt;</span></span><br><span class="line"><span class="code">        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span></span><br><span class="line"><span class="code">        &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;</span></span><br><span class="line"><span class="code">        &lt;java.version&gt;1.8&lt;/java.version&gt;</span></span><br><span class="line"><span class="code">        &lt;spring-cloud.version&gt;Finchley.RELEASE&lt;/spring-cloud.version&gt;</span></span><br><span class="line"><span class="code">    &lt;/properties&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    &lt;dependencies&gt;</span></span><br><span class="line"><span class="code">        &lt;dependency&gt;</span></span><br><span class="line"><span class="code">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">        &lt;/dependency&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="code">        &lt;dependency&gt;</span></span><br><span class="line"><span class="code">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">            &lt;scope&gt;test&lt;/scope&gt;</span></span><br><span class="line"><span class="code">        &lt;/dependency&gt;</span></span><br><span class="line"><span class="code">    &lt;/dependencies&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    &lt;dependencyManagement&gt;</span></span><br><span class="line"><span class="code">        &lt;dependencies&gt;</span></span><br><span class="line"><span class="code">            &lt;dependency&gt;</span></span><br><span class="line"><span class="code">                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">                &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;/version&gt;</span></span><br><span class="line"><span class="code">                &lt;type&gt;pom&lt;/type&gt;</span></span><br><span class="line"><span class="code">                &lt;scope&gt;import&lt;/scope&gt;</span></span><br><span class="line"><span class="code">            &lt;/dependency&gt;</span></span><br><span class="line"><span class="code">        &lt;/dependencies&gt;</span></span><br><span class="line"><span class="code">    &lt;/dependencyManagement&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    &lt;build&gt;</span></span><br><span class="line"><span class="code">        &lt;plugins&gt;</span></span><br><span class="line"><span class="code">            &lt;plugin&gt;</span></span><br><span class="line"><span class="code">                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line"><span class="code">                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span></span><br><span class="line"><span class="code">            &lt;/plugin&gt;</span></span><br><span class="line"><span class="code">        &lt;/plugins&gt;</span></span><br><span class="line"><span class="code">    &lt;/build&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><blockquote>
-<p>在项目如口程序中加上@EnableEurekaServer注解</p>
+<h2 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h2><blockquote>
+<p>在启动类上配置@EnableEurekaClient,并配置Ribbon</p>
 </blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka3.png"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eruka10.png"></div>
 
 <blockquote>
-<p>将application.properties改名为application.yml,加入一下配置<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line"><span class="code">    name: eureka-server</span></span><br><span class="line"></span><br><span class="line">server:</span><br><span class="line">  #注册中心的端口为1234</span><br><span class="line">  port: 1234</span><br><span class="line"></span><br><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line"><span class="code">    hostname: localhost</span></span><br><span class="line">  client:</span><br><span class="line">  #应用为注册中心，由于不向注册中心注册自己，所以设置为false</span><br><span class="line"><span class="code">    register-with-eureka: false</span></span><br><span class="line"><span class="code">    #表示注册中心去检索服务，由于本身注册中心的职责是维护服务实例，因此不需要去检索，设置为false；</span></span><br><span class="line"><span class="code">    fetch-registry: false</span></span><br><span class="line"><span class="code">    serviceUrl:</span></span><br><span class="line"><span class="code">          defaultZone: http://$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span></span><br><span class="line"></span><br><span class="line">logging:</span><br><span class="line">  file: $&#123;spring.application.name&#125;.log</span><br></pre></td></tr></table></figure></p>
+<p>配置application.yml<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line"><span class="code">    serviceUrl:</span></span><br><span class="line"><span class="code">    #eureka注册中心地址</span></span><br><span class="line"><span class="code">      defaultZone: http://localhost:1234/eureka/</span></span><br><span class="line">server:</span><br><span class="line">  port: 8764</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">  #服务名称</span><br><span class="line"><span class="code">    name: service-order</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><blockquote>
-<p>运行程序,输入localhost:1234，如果出现一下界面，界面则配置成功</p>
+<h2 id="编写测试代码"><a href="#编写测试代码" class="headerlink" title="编写测试代码"></a>编写测试代码</h2><blockquote>
+<p>编写service</p>
 </blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka4.png" width="800" height="600"></div>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class OrderService &#123;</span><br><span class="line"><span class="code">    @Autowired</span></span><br><span class="line"><span class="code">    RestTemplate restTemplate;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    public List&lt;String&gt; getAllUsers() &#123;</span></span><br><span class="line"><span class="code">       return restTemplate.getForObject("http://service-member/getAllUser",List.class);</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>编写controller<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">   OrderService orderService;</span><br><span class="line"></span><br><span class="line">   @GetMapping(value = "/getAllUser",produces = "application/json;charset=UTF-8")</span><br><span class="line">   public List&lt;String&gt; getAllUser() &#123;</span><br><span class="line"><span class="code">      return orderService.getAllUsers();</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>##启动项目</p>
+<blockquote>
+<p>依次启动 注册中心、服务提供者、服务消费者，查看注册中心web界面和调用order-serivce接口，如果出现一下结果则配置成功</p>
+<p>注册中心</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka11.png"></div>
+
+<blockquote>
+<p>接口数据</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/eureka12.png"></div>
+
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><blockquote>
+<p>由于EurekaServer使用到了jackson依赖,默认的将controller层返回的数据转化成了xml格式的数据，所以要在mappering中指定返回的数据格式，在服务提供者和消费者的Controller层的mappering上加上produces = “application/json;charset=UTF-8”</p>
+</blockquote>
+
       
     </div>
     
@@ -338,13 +355,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/07/25/SpringCloud-chapter3/">第三章:SpringCloud-eureka环境搭建</a></p>
+        <p><span>本文标题:</span><a  href="/year/07/27/SpringCloud-chapter5/">第四章:SpringCloud-服务消费</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2018年07月25日 - 10时06分</p>
-        <p><span>最后更新:</span>2018年07月25日 - 11时36分</p>
+        <p><span>发布时间:</span>2018年07月27日 - 12时01分</p>
+        <p><span>最后更新:</span>2018年07月27日 - 13时09分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/07/25/SpringCloud-chapter3/" title="第三章:SpringCloud-eureka环境搭建">http://jchanji.github.io/year/07/25/SpringCloud-chapter3/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/07/25/SpringCloud-chapter3/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/07/27/SpringCloud-chapter5/" title="第四章:SpringCloud-服务消费">http://jchanji.github.io/year/07/27/SpringCloud-chapter5/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/07/27/SpringCloud-chapter5/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -355,18 +372,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/07/27/SpringCloud-chapter4/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          第四章:SpringCloud-服务注册
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/07/24/springCloud-chapter2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">第二章:SpringCloud-SpringCloud简述</div>
+    <a  href="/year/07/27/SpringCloud-chapter4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第四章:SpringCloud-服务注册</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -378,7 +386,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建工程"><span class="toc-number">2.</span> <span class="toc-text">创建工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导入依赖"><span class="toc-number">3.</span> <span class="toc-text">导入依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">4.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行"><span class="toc-number">5.</span> <span class="toc-text">运行</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新建项目"><span class="toc-number">2.</span> <span class="toc-text">新建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目配置"><span class="toc-number">3.</span> <span class="toc-text">项目配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写测试代码"><span class="toc-number">4.</span> <span class="toc-text">编写测试代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-number">5.</span> <span class="toc-text">问题</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -438,13 +446,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/07/27/SpringCloud-chapter4/" title="上一篇: 第四章:SpringCloud-服务注册">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/07/24/springCloud-chapter2/" title="下一篇: 第二章:SpringCloud-SpringCloud简述">
+            <a  href="/year/07/27/SpringCloud-chapter4/" title="下一篇: 第四章:SpringCloud-服务注册">
                 <i class="fa fa-angle-right"></i>
             </a>
         
