@@ -7,20 +7,25 @@
   
   
   
-  <title>使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码 | Chanji</title>
+  <title>第七章:SpringCloud-接口网关 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言 使用java,对文件遍历，修改文件编码">
-<meta name="keywords" content="-java">
+  <meta name="description" content="前言 本章主要介绍接口网关的概念和搭建">
+<meta name="keywords" content="SpringCloud,微服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码">
-<meta property="og:url" content="http://jchanji.github.io/year/08/30/codeparse_gbk2utf/index.html">
+<meta property="og:title" content="第七章:SpringCloud-接口网关">
+<meta property="og:url" content="http://jchanji.github.io/year/07/31/SpringCloud-chapter7/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="前言 使用java,对文件遍历，修改文件编码">
+<meta property="og:description" content="前言 本章主要介绍接口网关的概念和搭建">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-03T05:51:28.647Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul4.png">
+<meta property="og:updated_time" content="2018-07-31T04:30:31.025Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码">
-<meta name="twitter:description" content="前言 使用java,对文件遍历，修改文件编码">
+<meta name="twitter:title" content="第七章:SpringCloud-接口网关">
+<meta name="twitter:description" content="前言 本章主要介绍接口网关的概念和搭建">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -256,11 +261,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-codeparse_gbk2utf" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-SpringCloud-chapter7" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/08/30/codeparse_gbk2utf/" class="article-date">
-      <time datetime="2017-08-30T14:32:48.163Z" itemprop="datePublished">2017-08-30</time>
+      <a  href="/year/07/31/SpringCloud-chapter7/" class="article-date">
+      <time datetime="2018-07-31T02:06:56.874Z" itemprop="datePublished">2018-07-31</time>
 </a>
 
     </div>
@@ -274,7 +279,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码
+      第七章:SpringCloud-接口网关
     </h1>
   
 
@@ -284,13 +289,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
+    <a class="article-category-link" href="/categories/SpringCloud/">-SpringCloud</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">-java</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务/">微服务</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -301,11 +306,42 @@
       
           
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>使用java,对文件遍历，修改文件编码</p>
+<p>本章主要介绍接口网关的概念和搭建</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="一、建立java项目，导入commons-io-jar"><a href="#一、建立java项目，导入commons-io-jar" class="headerlink" title="一、建立java项目，导入commons-io-*.jar"></a>一、建立java项目，导入<a href="http://mirror.bit.edu.cn/apache//commons/io/binaries/commons-io-2.5-bin.zip" title="commons-io-*.jar" target="_blank" rel="noopener">commons-io-*.jar</a></h3><h3 id="二、新建class，文件名随便起，我的是Codeparse-包名为exchangecode"><a href="#二、新建class，文件名随便起，我的是Codeparse-包名为exchangecode" class="headerlink" title="二、新建class，文件名随便起，我的是Codeparse,包名为exchangecode"></a>二、新建class，文件名随便起，我的是Codeparse,包名为exchangecode</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package exchangecode;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Collection;</span><br><span class="line"></span><br><span class="line">import org.apache.commons.io.FileUtils;</span><br><span class="line"></span><br><span class="line">public class Codeparse &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    public static void main(String[] args) throws IOException &#123;</span></span><br><span class="line"><span class="code">        //GBK编码格式源码路径,根据自己的文件路径写 </span></span><br><span class="line"><span class="code">        String srcDirPath = "F:\\test"; </span></span><br><span class="line"><span class="code">        //转为UTF-8编码格式源码路径，根据自己的文件路径写 </span></span><br><span class="line"><span class="code">        String utf8DirPath ="F:\\out"; </span></span><br><span class="line"><span class="code">                </span></span><br><span class="line"><span class="code">        //获取所有txt文件,如果是其他类型的文件，将&#123;“txt”&#125;中的txt换为其他文件的后缀名</span></span><br><span class="line"><span class="code">        @SuppressWarnings("unchecked")</span></span><br><span class="line"><span class="code">        Collection&lt;File&gt; javaGbkFileCol =  FileUtils.listFiles(new File(srcDirPath), new String[]&#123;"txt"&#125;, true); </span></span><br><span class="line"><span class="code">                </span></span><br><span class="line"><span class="code">        for (File javaGbkFile : javaGbkFileCol) &#123; </span></span><br><span class="line"><span class="code">              //UTF8格式文件路径 </span></span><br><span class="line"><span class="code">              String utf8FilePath = utf8DirPath+javaGbkFile.getAbsolutePath().substring(srcDirPath.length()); </span></span><br><span class="line"><span class="code">              </span></span><br><span class="line"><span class="code">              //使用GBK读取数据，然后用UTF-8写入数据 </span></span><br><span class="line"><span class="code">              FileUtils.writeLines(new File(utf8FilePath), "UTF-8", FileUtils.readLines(javaGbkFile, "GBK"));        </span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">        System.out.println("success!");</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="三、运行"><a href="#三、运行" class="headerlink" title="三、运行"></a>三、运行</h3>
+<h2 id="什么是接口网关"><a href="#什么是接口网关" class="headerlink" title="什么是接口网关?"></a>什么是接口网关?</h2><blockquote>
+<p>接口网关的作用是拦截请求，类似于nginx,下面是简略原理图</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul1.png"></div>
+
+<ol>
+<li>客户端发送两个请求分别请求会员服务和订单服务</li>
+<li>网官拦截,根据接口名称映射到实际的接口地址。其中接口名称根据项目名称定。</li>
+</ol>
+<h2 id="搭建接口网关"><a href="#搭建接口网关" class="headerlink" title="搭建接口网关"></a>搭建接口网关</h2><h3 id="编写调用接口"><a href="#编写调用接口" class="headerlink" title="编写调用接口"></a>编写调用接口</h3><blockquote>
+<p>在会员服务service-member的controller中添加需要调用的接口</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping("getMemberService")</span><br><span class="line"> public String getMemberService() &#123;</span><br><span class="line"><span class="code">     return "this is member service";</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在订单服务service-order的controller中添加需要调用的接口</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping("getOrderService")</span><br><span class="line">public String getOrderService() &#123;</span><br><span class="line"><span class="code">    return "this is order service";</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="搭建网关项目"><a href="#搭建网关项目" class="headerlink" title="搭建网关项目"></a>搭建网关项目</h3><ol>
+<li>新建service-zuul网关项目，选择web、eureka、zuul依赖,项目名称为serice-zuul<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul2.png"></div></li>
+<li>在启动内上加上@EnableEurekaClient、@EnableZuulProxy注解</li>
+<li>配置<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line"><span class="code">    serviceUrl:</span></span><br><span class="line"><span class="code">      defaultZone: http://localhost:1234/eureka/</span></span><br><span class="line">server:</span><br><span class="line">  port: 8765</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line"><span class="code">    name: service-zuul</span></span><br><span class="line">zuul:</span><br><span class="line">  routes:</span><br><span class="line"><span class="code">    api-a:</span></span><br><span class="line"><span class="code">    #对外提供的接口</span></span><br><span class="line"><span class="code">      path: /api/member/**</span></span><br><span class="line"><span class="code">      #映射到的服务项目名称</span></span><br><span class="line"><span class="code">      service-id: service-member</span></span><br><span class="line"><span class="code">    api-b:</span></span><br><span class="line"><span class="code">      path: /api/order/**</span></span><br><span class="line"><span class="code">      service-id: service-order</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>4.依次启动注册中心、service-member、service-order、service-zuul,分别访问<a href="http://localhost:8765/api/member/getMemberService、http://localhost:8765/api/order/getOrderService接口，效果如下：" target="_blank" rel="noopener">http://localhost:8765/api/member/getMemberService、http://localhost:8765/api/order/getOrderService接口，效果如下：</a></p>
+<p>/api/member/getMemberService</p>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul3.png"></div>
+
+<p>/api/order/getOrderService</p>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul4.png"></div>
+
+
+
+
       
     </div>
     
@@ -313,13 +349,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></p>
+        <p><span>本文标题:</span><a  href="/year/07/31/SpringCloud-chapter7/">第七章:SpringCloud-接口网关</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2017年08月30日 - 22时32分</p>
-        <p><span>最后更新:</span>2017年09月03日 - 13时51分</p>
+        <p><span>发布时间:</span>2018年07月31日 - 10时06分</p>
+        <p><span>最后更新:</span>2018年07月31日 - 12时30分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/08/30/codeparse_gbk2utf/" title="使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码">http://jchanji.github.io/year/08/30/codeparse_gbk2utf/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/08/30/codeparse_gbk2utf/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/07/31/SpringCloud-chapter7/" title="第七章:SpringCloud-接口网关">http://jchanji.github.io/year/07/31/SpringCloud-chapter7/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/07/31/SpringCloud-chapter7/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -330,18 +366,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/08/30/hbase_step/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          伪分布式hbase安装配置
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/08/29/tensorflow_step/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</div>
+    <a  href="/year/07/31/SrpingCloud-chapter6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第六章:SpringCloud-负载均衡</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -353,7 +380,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、建立java项目，导入commons-io-jar"><span class="toc-number">1.1.</span> <span class="toc-text">一、建立java项目，导入commons-io-*.jar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、新建class，文件名随便起，我的是Codeparse-包名为exchangecode"><span class="toc-number">1.2.</span> <span class="toc-text">二、新建class，文件名随便起，我的是Codeparse,包名为exchangecode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、运行"><span class="toc-number">1.3.</span> <span class="toc-text">三、运行</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是接口网关"><span class="toc-number">2.</span> <span class="toc-text">什么是接口网关?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建接口网关"><span class="toc-number">3.</span> <span class="toc-text">搭建接口网关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编写调用接口"><span class="toc-number">3.1.</span> <span class="toc-text">编写调用接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搭建网关项目"><span class="toc-number">3.2.</span> <span class="toc-text">搭建网关项目</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -413,13 +440,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/08/30/hbase_step/" title="上一篇: 伪分布式hbase安装配置">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/08/29/tensorflow_step/" title="下一篇: ubuntu16.04 anaconda环境下安装tensoflow(GPU)">
+            <a  href="/year/07/31/SrpingCloud-chapter6/" title="下一篇: 第六章:SpringCloud-负载均衡">
                 <i class="fa fa-angle-right"></i>
             </a>
         
