@@ -288,57 +288,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>本章节主要介绍SpringCloud配置中心的实现原理和项目搭建</p>
 </blockquote>
-<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><ol>
-<li>服务项目发送配置请求给配置中心</li>
-<li>配置中心从缓存中查找配置</li>
-<li>如果缓存中没有则从远程仓库中拉取</li>
-</ol>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config1.png"></div>
-
-<h2 id="项目搭建"><a href="#项目搭建" class="headerlink" title="项目搭建"></a>项目搭建</h2><h3 id="创建git远程配置中心"><a href="#创建git远程配置中心" class="headerlink" title="创建git远程配置中心"></a>创建git远程配置中心</h3><blockquote>
-<p>创建远程仓库，上传文件config-client-dev.yml</p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config2.png"></div>
-
-<h3 id="创建配置中心服务端"><a href="#创建配置中心服务端" class="headerlink" title="创建配置中心服务端"></a>创建配置中心服务端</h3><blockquote>
-<p>配置中心服务端用于获取、缓存远程仓库的配置</p>
-<p>1.引入web、eureka、config server 依赖，项目名称为service-config-server</p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config3.png"></div>
-
-<blockquote>
-<p>2.编写配置文件</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line"><span class="code">    name: service-config-server</span></span><br><span class="line">  cloud:</span><br><span class="line"><span class="code">    config:</span></span><br><span class="line"><span class="code">      server:</span></span><br><span class="line"><span class="code">        git:</span></span><br><span class="line"><span class="code">        #远程仓库地址</span></span><br><span class="line"><span class="code">          uri: https://github.com/jChanJi/service-config-server.git</span></span><br><span class="line"><span class="code">          search-paths: repo</span></span><br><span class="line"><span class="code">          #公共仓库不用写</span></span><br><span class="line"><span class="code">          username:</span></span><br><span class="line"><span class="code">          password:</span></span><br><span class="line"><span class="code">      #配置所在分支</span></span><br><span class="line"><span class="code">      label: master</span></span><br><span class="line"></span><br><span class="line">server:</span><br><span class="line">  port: 8889</span><br><span class="line"></span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line"><span class="code">    serviceUrl:</span></span><br><span class="line"><span class="code">      defaultZone: http://localhost:1234/eureka/</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>3.在启动类上加上@EnableConfigServer、@EnableEurekaClient注解</p>
-<p>4.启动项目，在浏览器输入<a href="http://localhost:8889/foo/dev，显示如下信息则配置成功" target="_blank" rel="noopener">http://localhost:8889/foo/dev，显示如下信息则配置成功</a></p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config4.png"></div>
-
-<h3 id="创建配置中心客户端"><a href="#创建配置中心客户端" class="headerlink" title="创建配置中心客户端"></a>创建配置中心客户端</h3><blockquote>
-<p>配置中心客户端用于获取服务端的配置</p>
-<p>1.引入web、eureka server、 config client 依赖，项目名称为 service-config-client</p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config5.png"></div>
-
-<blockquote>
-<p>2.在resource目录下新建并且配置bootstrap.yml文件</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line"><span class="code">    name: service-config-client</span></span><br><span class="line">  cloud:</span><br><span class="line"><span class="code">    config:</span></span><br><span class="line"><span class="code">      label: master</span></span><br><span class="line"><span class="code">      #指定了Spring profiles，那么这些profiles将有较高优先级</span></span><br><span class="line"><span class="code">      profile: dev</span></span><br><span class="line"><span class="code">      uri: http://localhost:8889/</span></span><br><span class="line">server:</span><br><span class="line">  port: 8888</span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line"><span class="code">    service-url:</span></span><br><span class="line"><span class="code">        defaultZone: http://localhost:1234/eureka</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>3.在启动了类上加上@EnableEurekaClient注解</p>
-<p>4.编写controller</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class Controller &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    @Value("$&#123;userName&#125;")</span></span><br><span class="line"><span class="code">    private String userName;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    @GetMapping("/getUserName")</span></span><br><span class="line"><span class="code">    public String getUserName() &#123;</span></span><br><span class="line"><span class="code">        return userName;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>5.运行项目，访问<a href="http://localhost:8888/getUserName接口如果返回结果这配置成功" target="_blank" rel="noopener">http://localhost:8888/getUserName接口如果返回结果这配置成功</a></p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config6.png"></div>
-
+          
       
     </div>
     
@@ -355,6 +308,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务/">微服务</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a   href="/year/08/02/SpringCloud-chapter8/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
