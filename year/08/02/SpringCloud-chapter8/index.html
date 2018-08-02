@@ -7,15 +7,15 @@
   
   
   
-  <title>第七章:SpringCloud-配置中心 | Chanji</title>
+  <title>第八章:SpringCloud-配置中心 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言 本章节主要介绍SpringCloud配置中心的实现原理和项目搭建  实现原理 服务项目发送配置请求给配置中心 配置中心从缓存中查找配置 如果缓存中没有则从远程仓库中拉取    项目搭建创建git远程配置中心 创建远程仓库，上传文件config-client-dev.yml    创建配置中心服务端 配置中心服务端用于获取、缓存远程仓库的配置  引入web、eureka、config serv">
+  <meta name="description" content="前言 本章节主要介绍SpringCloud配置中心的实现原理和项目搭建  实现原理 服务项目发送配置请求给配置中心 配置中心从缓存中查找配置 如果缓存中没有则从远程仓库中拉取    项目搭建创建git远程配置中心 创建远程仓库，上传文件config-client-dev.yml    创建配置中心服务端 配置中心服务端用于获取、缓存远程仓库的配置 1.引入web、eureka、config ser">
 <meta name="keywords" content="SpringCloud,微服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第七章:SpringCloud-配置中心">
+<meta property="og:title" content="第八章:SpringCloud-配置中心">
 <meta property="og:url" content="http://jchanji.github.io/year/08/02/SpringCloud-chapter8/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="前言 本章节主要介绍SpringCloud配置中心的实现原理和项目搭建  实现原理 服务项目发送配置请求给配置中心 配置中心从缓存中查找配置 如果缓存中没有则从远程仓库中拉取    项目搭建创建git远程配置中心 创建远程仓库，上传文件config-client-dev.yml    创建配置中心服务端 配置中心服务端用于获取、缓存远程仓库的配置  引入web、eureka、config serv">
+<meta property="og:description" content="前言 本章节主要介绍SpringCloud配置中心的实现原理和项目搭建  实现原理 服务项目发送配置请求给配置中心 配置中心从缓存中查找配置 如果缓存中没有则从远程仓库中拉取    项目搭建创建git远程配置中心 创建远程仓库，上传文件config-client-dev.yml    创建配置中心服务端 配置中心服务端用于获取、缓存远程仓库的配置 1.引入web、eureka、config ser">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config2.png">
@@ -23,10 +23,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config5.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config6.png">
-<meta property="og:updated_time" content="2018-08-02T05:31:09.585Z">
+<meta property="og:updated_time" content="2018-08-02T05:36:26.473Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第七章:SpringCloud-配置中心">
-<meta name="twitter:description" content="前言 本章节主要介绍SpringCloud配置中心的实现原理和项目搭建  实现原理 服务项目发送配置请求给配置中心 配置中心从缓存中查找配置 如果缓存中没有则从远程仓库中拉取    项目搭建创建git远程配置中心 创建远程仓库，上传文件config-client-dev.yml    创建配置中心服务端 配置中心服务端用于获取、缓存远程仓库的配置  引入web、eureka、config serv">
+<meta name="twitter:title" content="第八章:SpringCloud-配置中心">
+<meta name="twitter:description" content="前言 本章节主要介绍SpringCloud配置中心的实现原理和项目搭建  实现原理 服务项目发送配置请求给配置中心 配置中心从缓存中查找配置 如果缓存中没有则从远程仓库中拉取    项目搭建创建git远程配置中心 创建远程仓库，上传文件config-client-dev.yml    创建配置中心服务端 配置中心服务端用于获取、缓存远程仓库的配置 1.引入web、eureka、config ser">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
@@ -281,7 +281,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      第七章:SpringCloud-配置中心
+      第八章:SpringCloud-配置中心
     </h1>
   
 
@@ -324,25 +324,17 @@
 
 <h3 id="创建配置中心服务端"><a href="#创建配置中心服务端" class="headerlink" title="创建配置中心服务端"></a>创建配置中心服务端</h3><blockquote>
 <p>配置中心服务端用于获取、缓存远程仓库的配置</p>
-<ol>
-<li>引入web、eureka、config server 依赖，项目名称为service-config-server</li>
-</ol>
+<p>1.引入web、eureka、config server 依赖，项目名称为service-config-server</p>
 </blockquote>
 <div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config3.png"></div>
 
 <blockquote>
-<ol>
-<li>编写配置文件</li>
-</ol>
+<p>2.编写配置文件</p>
 </blockquote>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line"><span class="code">    name: service-config-server</span></span><br><span class="line">  cloud:</span><br><span class="line"><span class="code">    config:</span></span><br><span class="line"><span class="code">      server:</span></span><br><span class="line"><span class="code">        git:</span></span><br><span class="line"><span class="code">        #远程仓库地址</span></span><br><span class="line"><span class="code">          uri: https://github.com/jChanJi/service-config-server.git</span></span><br><span class="line"><span class="code">          search-paths: repo</span></span><br><span class="line"><span class="code">          #公共仓库不用写</span></span><br><span class="line"><span class="code">          username:</span></span><br><span class="line"><span class="code">          password:</span></span><br><span class="line"><span class="code">      #配置所在分支</span></span><br><span class="line"><span class="code">      label: master</span></span><br><span class="line"></span><br><span class="line">server:</span><br><span class="line">  port: 8889</span><br><span class="line"></span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line"><span class="code">    serviceUrl:</span></span><br><span class="line"><span class="code">      defaultZone: http://localhost:1234/eureka/</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<ol>
-<li><p>在启动类上加上@EnableConfigServer、@EnableEurekaClient注解</p>
-</li>
-<li><p>启动项目，在浏览器输入<a href="http://localhost:8889/foo/dev，显示如下信息则配置成功" target="_blank" rel="noopener">http://localhost:8889/foo/dev，显示如下信息则配置成功</a></p>
-</li>
-</ol>
+<p>3.在启动类上加上@EnableConfigServer、@EnableEurekaClient注解</p>
+<p>4.启动项目，在浏览器输入<a href="http://localhost:8889/foo/dev，显示如下信息则配置成功" target="_blank" rel="noopener">http://localhost:8889/foo/dev，显示如下信息则配置成功</a></p>
 </blockquote>
 <div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config4.png"></div>
 
@@ -353,24 +345,16 @@
 <div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config5.png"></div>
 
 <blockquote>
-<ol>
-<li>在resource目录下新建并且配置bootstrap.yml文件</li>
-</ol>
+<p>2.在resource目录下新建并且配置bootstrap.yml文件</p>
 </blockquote>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line"><span class="code">    name: service-config-client</span></span><br><span class="line">  cloud:</span><br><span class="line"><span class="code">    config:</span></span><br><span class="line"><span class="code">      label: master</span></span><br><span class="line"><span class="code">      #指定了Spring profiles，那么这些profiles将有较高优先级</span></span><br><span class="line"><span class="code">      profile: dev</span></span><br><span class="line"><span class="code">      uri: http://localhost:8889/</span></span><br><span class="line">server:</span><br><span class="line">  port: 8888</span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line"><span class="code">    service-url:</span></span><br><span class="line"><span class="code">        defaultZone: http://localhost:1234/eureka</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<ol>
-<li><p>在启动了类上加上@EnableEurekaClient注解</p>
-</li>
-<li><p>编写controller</p>
-</li>
-</ol>
+<p>3.在启动了类上加上@EnableEurekaClient注解</p>
+<p>4.编写controller</p>
 </blockquote>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class Controller &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    @Value("$&#123;userName&#125;")</span></span><br><span class="line"><span class="code">    private String userName;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    @GetMapping("/getUserName")</span></span><br><span class="line"><span class="code">    public String getUserName() &#123;</span></span><br><span class="line"><span class="code">        return userName;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<ol>
-<li>运行项目，访问<a href="http://localhost:8888/getUserName接口如果返回结果这配置成功" target="_blank" rel="noopener">http://localhost:8888/getUserName接口如果返回结果这配置成功</a></li>
-</ol>
+<p>5.运行项目，访问<a href="http://localhost:8888/getUserName接口如果返回结果这配置成功" target="_blank" rel="noopener">http://localhost:8888/getUserName接口如果返回结果这配置成功</a></p>
 </blockquote>
 <div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config6.png"></div>
 
@@ -381,12 +365,12 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/08/02/SpringCloud-chapter8/">第七章:SpringCloud-配置中心</a></p>
+        <p><span>本文标题:</span><a  href="/year/08/02/SpringCloud-chapter8/">第八章:SpringCloud-配置中心</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
         <p><span>发布时间:</span>2018年08月02日 - 09时48分</p>
-        <p><span>最后更新:</span>2018年08月02日 - 13时31分</p>
+        <p><span>最后更新:</span>2018年08月02日 - 13时36分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/08/02/SpringCloud-chapter8/" title="第七章:SpringCloud-配置中心">http://jchanji.github.io/year/08/02/SpringCloud-chapter8/</a>
+            <span>原始链接:</span><a class="post-url" href="/year/08/02/SpringCloud-chapter8/" title="第八章:SpringCloud-配置中心">http://jchanji.github.io/year/08/02/SpringCloud-chapter8/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/08/02/SpringCloud-chapter8/　　作者: Chanji" title=""></span>
         </p>
         <p>
@@ -481,7 +465,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/year/08/02/SpringCloud-chapter8/">第七章:SpringCloud-配置中心</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/31/SpringCloud-chapter7/">第七章:SpringCloud-接口网关</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/31/SrpingCloud-chapter6/">第六章:SpringCloud-负载均衡</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/27/SpringCloud-chapter5/">第五章:SpringCloud-服务消费</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/27/SpringCloud-chapter4/">第四章:SpringCloud-服务注册</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/25/SpringCloud-chapter3/">第三章:SpringCloud-eureka环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/24/springCloud-chapter2/">第二章:SpringCloud-SpringCloud简述</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/19/springCloud-chapter1/">第一章:SpringCloud-网站架构演变</a></li><li class="post-list-item"><a class="post-list-link" href="/year/06/20/MySQL/">MySQL性能管理及架构设计</a></li><li class="post-list-item"><a class="post-list-link" href="/year/02/23/xiaoma/">浏览器被www.t999.cn劫持</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/17/springbootstudy/">spring boot从基础到进阶</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/spark_sougou_logs/">spark项目基础实战</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/scalastudy/">scala基础学习</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/12/vps/">digitalocean服务器搭建ss服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/combineByKey/">spark之combineByKey</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/10/docker/">ubuntu下Docker的安装和使用</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/12/29/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/year/11/19/knowledgegraph/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/year/10/30/artical_1/">Arabesque:A System for Distributed Graph Mining</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/spark_step/">伪分布式spark安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/">从互联到新工业革命-读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/vnc/">CentOS7 安装vnc</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/citycosumption/">K-means算法-对31省消费水平分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/year/08/02/SpringCloud-chapter8/">第八章:SpringCloud-配置中心</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/31/SpringCloud-chapter7/">第七章:SpringCloud-接口网关</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/31/SrpingCloud-chapter6/">第六章:SpringCloud-负载均衡</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/27/SpringCloud-chapter5/">第五章:SpringCloud-服务消费</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/27/SpringCloud-chapter4/">第四章:SpringCloud-服务注册</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/25/SpringCloud-chapter3/">第三章:SpringCloud-eureka环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/24/springCloud-chapter2/">第二章:SpringCloud-SpringCloud简述</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/19/springCloud-chapter1/">第一章:SpringCloud-网站架构演变</a></li><li class="post-list-item"><a class="post-list-link" href="/year/06/20/MySQL/">MySQL性能管理及架构设计</a></li><li class="post-list-item"><a class="post-list-link" href="/year/02/23/xiaoma/">浏览器被www.t999.cn劫持</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/17/springbootstudy/">spring boot从基础到进阶</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/spark_sougou_logs/">spark项目基础实战</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/scalastudy/">scala基础学习</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/12/vps/">digitalocean服务器搭建ss服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/combineByKey/">spark之combineByKey</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/10/docker/">ubuntu下Docker的安装和使用</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a></li><li class="post-list-item"><a class="post-list-link" href="/year/12/29/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/year/11/19/knowledgegraph/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/year/10/30/artical_1/">Arabesque:A System for Distributed Graph Mining</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/spark_step/">伪分布式spark安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/">从互联到新工业革命-读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/vnc/">CentOS7 安装vnc</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/citycosumption/">K-means算法-对31省消费水平分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hello-world/">Hello World</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
