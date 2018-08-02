@@ -7,20 +7,27 @@
   
   
   
-  <title>spark之combineByKey | Chanji</title>
+  <title>第七章:SpringCloud-配置中心 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)">
-<meta name="keywords" content="spark,big data">
+  <meta name="description" content="前言 本章节主要介绍SpringCloud配置中心的实现原理和项目搭建  实现原理 服务项目发送配置请求给配置中心 配置中心从缓存中查找配置 如果缓存中没有则从远程仓库中拉取    项目搭建创建git远程配置中心 创建远程仓库，上传文件config-client-dev.yml    创建配置中心服务端 配置中心服务端用于获取、缓存远程仓库的配置  引入web、eureka、config serv">
+<meta name="keywords" content="SpringCloud,微服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spark之combineByKey">
-<meta property="og:url" content="http://jchanji.github.io/year/01/11/combineByKey/index.html">
+<meta property="og:title" content="第七章:SpringCloud-配置中心">
+<meta property="og:url" content="http://jchanji.github.io/year/08/02/SpringCloud-chapter8/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)">
+<meta property="og:description" content="前言 本章节主要介绍SpringCloud配置中心的实现原理和项目搭建  实现原理 服务项目发送配置请求给配置中心 配置中心从缓存中查找配置 如果缓存中没有则从远程仓库中拉取    项目搭建创建git远程配置中心 创建远程仓库，上传文件config-client-dev.yml    创建配置中心服务端 配置中心服务端用于获取、缓存远程仓库的配置  引入web、eureka、config serv">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-11T00:49:27.972Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config5.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config6.png">
+<meta property="og:updated_time" content="2018-08-02T05:31:09.585Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spark之combineByKey">
-<meta name="twitter:description" content="函数1combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)">
+<meta name="twitter:title" content="第七章:SpringCloud-配置中心">
+<meta name="twitter:description" content="前言 本章节主要介绍SpringCloud配置中心的实现原理和项目搭建  实现原理 服务项目发送配置请求给配置中心 配置中心从缓存中查找配置 如果缓存中没有则从远程仓库中拉取    项目搭建创建git远程配置中心 创建远程仓库，上传文件config-client-dev.yml    创建配置中心服务端 配置中心服务端用于获取、缓存远程仓库的配置  引入web、eureka、config serv">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -256,11 +263,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-combineByKey" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-SpringCloud-chapter8" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/01/11/combineByKey/" class="article-date">
-      <time datetime="2018-01-11T00:33:21.078Z" itemprop="datePublished">2018-01-11</time>
+      <a  href="/year/08/02/SpringCloud-chapter8/" class="article-date">
+      <time datetime="2018-08-02T01:48:39.209Z" itemprop="datePublished">2018-08-02</time>
 </a>
 
     </div>
@@ -274,7 +281,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      spark之combineByKey
+      第七章:SpringCloud-配置中心
     </h1>
   
 
@@ -284,13 +291,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
+    <a class="article-category-link" href="/categories/SpringCloud/">-SpringCloud</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务/">微服务</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -300,15 +307,72 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h1 id="实例讲解"><a href="#实例讲解" class="headerlink" title="实例讲解"></a>实例讲解</h1><h2 id="生成数据"><a href="#生成数据" class="headerlink" title="生成数据"></a>生成数据</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val scores = sc.parallelize(Array(("jake",80.0),</span><br><span class="line"><span class="code">                                  ("jake",90.0),</span></span><br><span class="line"><span class="code">                                  ("jake",85.0),</span></span><br><span class="line"><span class="code">                                  ("mike",85.0),</span></span><br><span class="line"><span class="code">                                  ("mike",92.0),</span></span><br><span class="line"><span class="code">                                  ("mike",90.0)))</span></span><br></pre></td></tr></table></figure>
-<p>查看数据<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scores.foreach(println)</span><br><span class="line">(jake,90.0)</span><br><span class="line">(jake,80.0)</span><br><span class="line">(jake,85.0)</span><br><span class="line">(mike,92.0)</span><br><span class="line">(mike,85.0)</span><br><span class="line">(mike,90.0)</span><br></pre></td></tr></table></figure></p>
-<h2 id="求三门总分"><a href="#求三门总分" class="headerlink" title="求三门总分"></a>求三门总分</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val score2 = scores.combineByKey(score=&gt;(1,score),</span><br><span class="line"><span class="code">                                (c1:(Int,Double),newScore)=&gt;(c1._1+1,c1._2+newScore),</span></span><br><span class="line"><span class="code">                                (c1:(Int,Double),c2:(Int,Double))=&gt;(c1._1+c2._1,c1._2+c2._2))</span></span><br></pre></td></tr></table></figure>
-<p>查看scores内容<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">score2.foreach(println)</span><br><span class="line">(mike,(3,267.0))</span><br><span class="line">(jake,(3,255.0))</span><br></pre></td></tr></table></figure></p>
-<p>注解：<br><br>1、Int表示科目出现的数目，Double表示第一门与第二门课累加之后的值，newScore表示的是遍历的时候出现的新的分数<br><br>2、当遍历到第二个时因为jake已经遍历过所以调用mergeValue这个参数，科目数变为 +1 分数也变为和newScore之和<br><br>mergeCombiner:c1和c2的科目数和分数相加（所有key相同的value相加）<br><br>3、partitioner一般用不到</p>
-<h2 id="求平均分"><a href="#求平均分" class="headerlink" title="求平均分"></a>求平均分</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val average = score2.map&#123;case(name,(num,score))=&gt;(name,score/num)&#125;</span><br><span class="line">average.foreach(println)</span><br></pre></td></tr></table></figure>
-<p>运行结果<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(mike,89.0)</span><br><span class="line">(jake,85.0)</span><br></pre></td></tr></table></figure></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本章节主要介绍SpringCloud配置中心的实现原理和项目搭建</p>
+</blockquote>
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><ol>
+<li>服务项目发送配置请求给配置中心</li>
+<li>配置中心从缓存中查找配置</li>
+<li>如果缓存中没有则从远程仓库中拉取</li>
+</ol>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config1.png"></div>
+
+<h2 id="项目搭建"><a href="#项目搭建" class="headerlink" title="项目搭建"></a>项目搭建</h2><h3 id="创建git远程配置中心"><a href="#创建git远程配置中心" class="headerlink" title="创建git远程配置中心"></a>创建git远程配置中心</h3><blockquote>
+<p>创建远程仓库，上传文件config-client-dev.yml</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config2.png"></div>
+
+<h3 id="创建配置中心服务端"><a href="#创建配置中心服务端" class="headerlink" title="创建配置中心服务端"></a>创建配置中心服务端</h3><blockquote>
+<p>配置中心服务端用于获取、缓存远程仓库的配置</p>
+<ol>
+<li>引入web、eureka、config server 依赖，项目名称为service-config-server</li>
+</ol>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config3.png"></div>
+
+<blockquote>
+<ol>
+<li>编写配置文件</li>
+</ol>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line"><span class="code">    name: service-config-server</span></span><br><span class="line">  cloud:</span><br><span class="line"><span class="code">    config:</span></span><br><span class="line"><span class="code">      server:</span></span><br><span class="line"><span class="code">        git:</span></span><br><span class="line"><span class="code">        #远程仓库地址</span></span><br><span class="line"><span class="code">          uri: https://github.com/jChanJi/service-config-server.git</span></span><br><span class="line"><span class="code">          search-paths: repo</span></span><br><span class="line"><span class="code">          #公共仓库不用写</span></span><br><span class="line"><span class="code">          username:</span></span><br><span class="line"><span class="code">          password:</span></span><br><span class="line"><span class="code">      #配置所在分支</span></span><br><span class="line"><span class="code">      label: master</span></span><br><span class="line"></span><br><span class="line">server:</span><br><span class="line">  port: 8889</span><br><span class="line"></span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line"><span class="code">    serviceUrl:</span></span><br><span class="line"><span class="code">      defaultZone: http://localhost:1234/eureka/</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li><p>在启动类上加上@EnableConfigServer、@EnableEurekaClient注解</p>
+</li>
+<li><p>启动项目，在浏览器输入<a href="http://localhost:8889/foo/dev，显示如下信息则配置成功" target="_blank" rel="noopener">http://localhost:8889/foo/dev，显示如下信息则配置成功</a></p>
+</li>
+</ol>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config4.png"></div>
+
+<h3 id="创建配置中心客户端"><a href="#创建配置中心客户端" class="headerlink" title="创建配置中心客户端"></a>创建配置中心客户端</h3><blockquote>
+<p>配置中心客户端用于获取服务端的配置</p>
+<p>1.引入web、eureka server、 config client 依赖，项目名称为 service-config-client</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config5.png"></div>
+
+<blockquote>
+<ol>
+<li>在resource目录下新建并且配置bootstrap.yml文件</li>
+</ol>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line"><span class="code">    name: service-config-client</span></span><br><span class="line">  cloud:</span><br><span class="line"><span class="code">    config:</span></span><br><span class="line"><span class="code">      label: master</span></span><br><span class="line"><span class="code">      #指定了Spring profiles，那么这些profiles将有较高优先级</span></span><br><span class="line"><span class="code">      profile: dev</span></span><br><span class="line"><span class="code">      uri: http://localhost:8889/</span></span><br><span class="line">server:</span><br><span class="line">  port: 8888</span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line"><span class="code">    service-url:</span></span><br><span class="line"><span class="code">        defaultZone: http://localhost:1234/eureka</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li><p>在启动了类上加上@EnableEurekaClient注解</p>
+</li>
+<li><p>编写controller</p>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class Controller &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    @Value("$&#123;userName&#125;")</span></span><br><span class="line"><span class="code">    private String userName;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    @GetMapping("/getUserName")</span></span><br><span class="line"><span class="code">    public String getUserName() &#123;</span></span><br><span class="line"><span class="code">        return userName;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>运行项目，访问<a href="http://localhost:8888/getUserName接口如果返回结果这配置成功" target="_blank" rel="noopener">http://localhost:8888/getUserName接口如果返回结果这配置成功</a></li>
+</ol>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/config6.png"></div>
 
       
     </div>
@@ -317,13 +381,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/01/11/combineByKey/">spark之combineByKey</a></p>
+        <p><span>本文标题:</span><a  href="/year/08/02/SpringCloud-chapter8/">第七章:SpringCloud-配置中心</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2018年01月11日 - 08时33分</p>
-        <p><span>最后更新:</span>2018年01月11日 - 08时49分</p>
+        <p><span>发布时间:</span>2018年08月02日 - 09时48分</p>
+        <p><span>最后更新:</span>2018年08月02日 - 13时31分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/01/11/combineByKey/" title="spark之combineByKey">http://jchanji.github.io/year/01/11/combineByKey/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/01/11/combineByKey/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/08/02/SpringCloud-chapter8/" title="第七章:SpringCloud-配置中心">http://jchanji.github.io/year/08/02/SpringCloud-chapter8/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/08/02/SpringCloud-chapter8/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -334,18 +398,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/01/12/vps/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          digitalocean服务器搭建ss服务器
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/01/11/idea_scala_spark/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">scala 运行spark程序</div>
+    <a  href="/year/07/31/SpringCloud-chapter7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第七章:SpringCloud-接口网关</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -357,7 +412,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#函数"><span class="toc-number">1.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例讲解"><span class="toc-number">2.</span> <span class="toc-text">实例讲解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成数据"><span class="toc-number">2.1.</span> <span class="toc-text">生成数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求三门总分"><span class="toc-number">2.2.</span> <span class="toc-text">求三门总分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求平均分"><span class="toc-number">2.3.</span> <span class="toc-text">求平均分</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现原理"><span class="toc-number">2.</span> <span class="toc-text">实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目搭建"><span class="toc-number">3.</span> <span class="toc-text">项目搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建git远程配置中心"><span class="toc-number">3.1.</span> <span class="toc-text">创建git远程配置中心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建配置中心服务端"><span class="toc-number">3.2.</span> <span class="toc-text">创建配置中心服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建配置中心客户端"><span class="toc-number">3.3.</span> <span class="toc-text">创建配置中心客户端</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -417,13 +472,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/01/12/vps/" title="上一篇: digitalocean服务器搭建ss服务器">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/01/11/idea_scala_spark/" title="下一篇: scala 运行spark程序">
+            <a  href="/year/07/31/SpringCloud-chapter7/" title="下一篇: 第七章:SpringCloud-接口网关">
                 <i class="fa fa-angle-right"></i>
             </a>
         
