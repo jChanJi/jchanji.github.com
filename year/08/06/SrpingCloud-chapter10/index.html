@@ -7,15 +7,15 @@
   
   
   
-  <title>第七章:SpringCloud-hystrix解决雪崩效应 | Chanji</title>
+  <title>第十章:SpringCloud-hystrix解决雪崩效应 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言 本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应  什么是雪崩效应? 当所有的请求都调用了一个服务，占满了服务器的最大线程，而导致无法请求其他服务。当A服务调用B服务时超时或者错误，导致调用A服务的C服务也无法返回结果，依次类推，导致Ng个服务无法返回结果。 假设tomcat服务器的最大线程数为50，现在有50个请求从客户端同时访问/order/getOrder接口，当第51个请求访">
+  <meta name="description" content="前言 本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应">
 <meta name="keywords" content="SpringCloud,微服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第七章:SpringCloud-hystrix解决雪崩效应">
+<meta property="og:title" content="第十章:SpringCloud-hystrix解决雪崩效应">
 <meta property="og:url" content="http://jchanji.github.io/year/08/06/SrpingCloud-chapter10/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="前言 本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应  什么是雪崩效应? 当所有的请求都调用了一个服务，占满了服务器的最大线程，而导致无法请求其他服务。当A服务调用B服务时超时或者错误，导致调用A服务的C服务也无法返回结果，依次类推，导致Ng个服务无法返回结果。 假设tomcat服务器的最大线程数为50，现在有50个请求从客户端同时访问/order/getOrder接口，当第51个请求访">
+<meta property="og:description" content="前言 本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix2.png">
@@ -23,10 +23,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix3.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix4.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix5.png">
-<meta property="og:updated_time" content="2018-08-07T03:25:50.794Z">
+<meta property="og:updated_time" content="2018-08-07T03:45:08.494Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第七章:SpringCloud-hystrix解决雪崩效应">
-<meta name="twitter:description" content="前言 本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应  什么是雪崩效应? 当所有的请求都调用了一个服务，占满了服务器的最大线程，而导致无法请求其他服务。当A服务调用B服务时超时或者错误，导致调用A服务的C服务也无法返回结果，依次类推，导致Ng个服务无法返回结果。 假设tomcat服务器的最大线程数为50，现在有50个请求从客户端同时访问/order/getOrder接口，当第51个请求访">
+<meta name="twitter:title" content="第十章:SpringCloud-hystrix解决雪崩效应">
+<meta name="twitter:description" content="前言 本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
@@ -281,7 +281,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      第七章:SpringCloud-hystrix解决雪崩效应
+      第十章:SpringCloud-hystrix解决雪崩效应
     </h1>
   
 
@@ -310,6 +310,7 @@
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应</p>
 </blockquote>
+<a id="more"></a>
 <h2 id="什么是雪崩效应"><a href="#什么是雪崩效应" class="headerlink" title="什么是雪崩效应?"></a>什么是雪崩效应?</h2><blockquote>
 <p>当所有的请求都调用了一个服务，占满了服务器的最大线程，而导致无法请求其他服务。当A服务调用B服务时超时或者错误，导致调用A服务的C服务也无法返回结果，依次类推，导致Ng个服务无法返回结果。</p>
 <p>假设tomcat服务器的最大线程数为50，现在有50个请求从客户端同时访问/order/getOrder接口，当第51个请求访问/order/addOrder接口的时候就会发生一直等待的情况，导致请求超时。而造成雪崩效应的最主要的原因在于请求的超时。当/order/getOrder接口访问/user/get接口，由于网络延时等原因一直未收到响应，所以getOrder会一直占用着线程。</p>
@@ -387,12 +388,12 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/08/06/SrpingCloud-chapter10/">第七章:SpringCloud-hystrix解决雪崩效应</a></p>
+        <p><span>本文标题:</span><a  href="/year/08/06/SrpingCloud-chapter10/">第十章:SpringCloud-hystrix解决雪崩效应</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
         <p><span>发布时间:</span>2018年08月06日 - 16时48分</p>
-        <p><span>最后更新:</span>2018年08月07日 - 11时25分</p>
+        <p><span>最后更新:</span>2018年08月07日 - 11时45分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/08/06/SrpingCloud-chapter10/" title="第七章:SpringCloud-hystrix解决雪崩效应">http://jchanji.github.io/year/08/06/SrpingCloud-chapter10/</a>
+            <span>原始链接:</span><a class="post-url" href="/year/08/06/SrpingCloud-chapter10/" title="第十章:SpringCloud-hystrix解决雪崩效应">http://jchanji.github.io/year/08/06/SrpingCloud-chapter10/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/08/06/SrpingCloud-chapter10/　　作者: Chanji" title=""></span>
         </p>
         <p>
@@ -487,7 +488,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/year/08/06/SrpingCloud-chapter10/">第七章:SpringCloud-hystrix解决雪崩效应</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/06/springCloud-chapter9/">第九章:SpringCloud-feign</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/02/SpringCloud-chapter8/">第八章:SpringCloud-配置中心</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/31/SpringCloud-chapter7/">第七章:SpringCloud-接口网关</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/31/SrpingCloud-chapter6/">第六章:SpringCloud-负载均衡</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/27/SpringCloud-chapter5/">第五章:SpringCloud-服务消费</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/27/SpringCloud-chapter4/">第四章:SpringCloud-服务注册</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/25/SpringCloud-chapter3/">第三章:SpringCloud-eureka环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/24/springCloud-chapter2/">第二章:SpringCloud-SpringCloud简述</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/19/springCloud-chapter1/">第一章:SpringCloud-网站架构演变</a></li><li class="post-list-item"><a class="post-list-link" href="/year/06/20/MySQL/">MySQL性能管理及架构设计</a></li><li class="post-list-item"><a class="post-list-link" href="/year/02/23/xiaoma/">浏览器被www.t999.cn劫持</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/17/springbootstudy/">spring boot从基础到进阶</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/spark_sougou_logs/">spark项目基础实战</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/scalastudy/">scala基础学习</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/12/vps/">digitalocean服务器搭建ss服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/combineByKey/">spark之combineByKey</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/10/docker/">ubuntu下Docker的安装和使用</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a></li><li class="post-list-item"><a class="post-list-link" href="/year/12/29/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/year/11/19/knowledgegraph/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/year/10/30/artical_1/">Arabesque:A System for Distributed Graph Mining</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/spark_step/">伪分布式spark安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/">从互联到新工业革命-读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/vnc/">CentOS7 安装vnc</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/citycosumption/">K-means算法-对31省消费水平分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/year/08/06/SrpingCloud-chapter10/">第十章:SpringCloud-hystrix解决雪崩效应</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/06/springCloud-chapter9/">第九章:SpringCloud-feign</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/02/SpringCloud-chapter8/">第八章:SpringCloud-配置中心</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/31/SpringCloud-chapter7/">第七章:SpringCloud-接口网关</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/31/SrpingCloud-chapter6/">第六章:SpringCloud-负载均衡</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/27/SpringCloud-chapter5/">第五章:SpringCloud-服务消费</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/27/SpringCloud-chapter4/">第四章:SpringCloud-服务注册</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/25/SpringCloud-chapter3/">第三章:SpringCloud-eureka环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/24/springCloud-chapter2/">第二章:SpringCloud-SpringCloud简述</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/19/springCloud-chapter1/">第一章:SpringCloud-网站架构演变</a></li><li class="post-list-item"><a class="post-list-link" href="/year/06/20/MySQL/">MySQL性能管理及架构设计</a></li><li class="post-list-item"><a class="post-list-link" href="/year/02/23/xiaoma/">浏览器被www.t999.cn劫持</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/17/springbootstudy/">spring boot从基础到进阶</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/spark_sougou_logs/">spark项目基础实战</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/scalastudy/">scala基础学习</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/12/vps/">digitalocean服务器搭建ss服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/combineByKey/">spark之combineByKey</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/10/docker/">ubuntu下Docker的安装和使用</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a></li><li class="post-list-item"><a class="post-list-link" href="/year/12/29/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/year/11/19/knowledgegraph/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/year/10/30/artical_1/">Arabesque:A System for Distributed Graph Mining</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/spark_step/">伪分布式spark安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/">从互联到新工业革命-读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/vnc/">CentOS7 安装vnc</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/citycosumption/">K-means算法-对31省消费水平分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hello-world/">Hello World</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");

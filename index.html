@@ -277,7 +277,7 @@
         
   
     <h1 itemprop="name">
-      <a  class="article-title" href="/year/08/06/SrpingCloud-chapter10/">第七章:SpringCloud-hystrix解决雪崩效应</a>
+      <a  class="article-title" href="/year/08/06/SrpingCloud-chapter10/">第十章:SpringCloud-hystrix解决雪崩效应</a>
     </h1>
   
 
@@ -288,79 +288,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应</p>
 </blockquote>
-<h2 id="什么是雪崩效应"><a href="#什么是雪崩效应" class="headerlink" title="什么是雪崩效应?"></a>什么是雪崩效应?</h2><blockquote>
-<p>当所有的请求都调用了一个服务，占满了服务器的最大线程，而导致无法请求其他服务。当A服务调用B服务时超时或者错误，导致调用A服务的C服务也无法返回结果，依次类推，导致Ng个服务无法返回结果。</p>
-<p>假设tomcat服务器的最大线程数为50，现在有50个请求从客户端同时访问/order/getOrder接口，当第51个请求访问/order/addOrder接口的时候就会发生一直等待的情况，导致请求超时。而造成雪崩效应的最主要的原因在于请求的超时。当/order/getOrder接口访问/user/get接口，由于网络延时等原因一直未收到响应，所以getOrder会一直占用着线程。</p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix1.png"></div>
-
-<h3 id="模拟雪崩效应"><a href="#模拟雪崩效应" class="headerlink" title="模拟雪崩效应"></a>模拟雪崩效应</h3><blockquote>
-<p>在sevice-member会员服务的controller的getAllUser中将线程休眠3秒</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(value = "/getAllUser",produces = "application/json;charset=UTF-8")</span><br><span class="line">public List&lt;String&gt; getAllUser() &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    try &#123;</span></span><br><span class="line"><span class="code">        Thread.sleep(3000);</span></span><br><span class="line"><span class="code">    &#125; catch (InterruptedException e) &#123;</span></span><br><span class="line"><span class="code">        e.printStackTrace();</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    List&lt;String&gt; users = new ArrayList&lt;&gt;();</span></span><br><span class="line"><span class="code">    users.add("user1");</span></span><br><span class="line"><span class="code">    users.add("user2");</span></span><br><span class="line"><span class="code">    users.add("user3");</span></span><br><span class="line"><span class="code">    users.add("user4");</span></span><br><span class="line"><span class="code">    users.add("port:" + port);</span></span><br><span class="line"><span class="code">    return users;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在service-order-feign 订单服务中设置tomcat的最大线程数，ribbon、hystrix的超时时间</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://localhost:1234/eureka/</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: service-order-feign</span><br><span class="line"></span><br><span class="line">server:</span><br><span class="line">  port: 8766</span><br><span class="line">  #设置tomcat最大线程数</span><br><span class="line">  tomcat:</span><br><span class="line">  #默认150</span><br><span class="line">    max-connections: 10</span><br><span class="line"></span><br><span class="line">#设置 ribbon 读取和连接超时时间</span><br><span class="line">ribbon:</span><br><span class="line">  ReadTimeout: 60000</span><br><span class="line">  #默认两秒</span><br><span class="line">  ConnectTimeout: 60000</span><br><span class="line"></span><br><span class="line">#设置feign连接超时时间</span><br><span class="line">hystrix:</span><br><span class="line">  command:</span><br><span class="line">      default:</span><br><span class="line">        execution:</span><br><span class="line">          isolation:</span><br><span class="line">            thread:</span><br><span class="line">              timeoutInMilliseconds: 5000</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在service-order-feign 的controller中添加接口,用于在发生雪崩效应的时候调用另外一个接口</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping("/userInfo")</span><br><span class="line">public  String getUserInfo() &#123;</span><br><span class="line"><span class="code">    return "userInfo";</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>使用JMeter测试，新建web测试</p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix2.png"></div>
-
-<blockquote>
-<p>删除下图中的三个文件</p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix31.png"></div>
-
-<blockquote>
-<p>设置线程数等参数</p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix3.png"></div>
-
-<blockquote>
-<p>点击 Home Page 设置测试的url等信息</p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix4.png"></div>
-
-
-<blockquote>
-<p>启动注册中心、会员服务、订单服务、测试用例，并立刻访问接口<a href="http://localhost:8766/userInfo，如出现等待的状态则表示配置成功。" target="_blank" rel="noopener">http://localhost:8766/userInfo，如出现等待的状态则表示配置成功。</a></p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix5.png"></div>
-
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><ol>
-<li>使用超时机制</li>
-<li>服务降级： 服务调用接口超时或者发生错误，不让其调用接口而去调用本地的failback接口。</li>
-<li>熔断机制：类似于保险丝，对于高并发的场景，一旦达到某个请求量就会触发熔断，报错，再使用服务降级</li>
-<li>限流机制：可以使用nginx进行限流</li>
-<li>隔离机制：对每个接口分配一个线程池，将每个接口隔离开</li>
-</ol>
-<blockquote>
-<p>修改service-order-feign中的配置，开启hystrix、设置hystrix超时时间为10秒</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://localhost:1234/eureka/</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: service-order-feign</span><br><span class="line"></span><br><span class="line">server:</span><br><span class="line">  port: 8766</span><br><span class="line">  #设置tomcat最大线程数</span><br><span class="line">  tomcat:</span><br><span class="line">  #默认150</span><br><span class="line">    max-connections: 10</span><br><span class="line"></span><br><span class="line">#设置 ribbon 读取和连接超时时间</span><br><span class="line">ribbon:</span><br><span class="line">  ReadTimeout: 10000</span><br><span class="line">  #默认两秒</span><br><span class="line">  ConnectTimeout: 10000</span><br><span class="line"></span><br><span class="line">feign:</span><br><span class="line">  hystrix:</span><br><span class="line">    enabled: true</span><br><span class="line">#设置feign连接超时时间</span><br><span class="line">hystrix:</span><br><span class="line">  command:</span><br><span class="line">      default:</span><br><span class="line">        execution:</span><br><span class="line">          isolation:</span><br><span class="line">            thread:</span><br><span class="line">              timeoutInMilliseconds: 10000</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>配置fallback处理类，新建类FallBack,继承FeignService接口</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class FallBack implements FeignService &#123;</span><br><span class="line"><span class="code">    @Override</span></span><br><span class="line"><span class="code">    public List&lt;String&gt; getAllUser() &#123;</span></span><br><span class="line"><span class="code">        List&lt;String&gt; list = new ArrayList&lt;&gt;();</span></span><br><span class="line"><span class="code">        list.add("fallback");</span></span><br><span class="line"><span class="code">        return list;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在 FeignService 中配置Fallback</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(value = &quot;service-member&quot;,fallback = FallBack.class)</span><br><span class="line">@Component</span><br><span class="line">public interface FeignService &#123;</span><br><span class="line">    @GetMapping(&quot;getAllUser&quot;)</span><br><span class="line">    List&lt;String&gt; getAllUser();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>启动项目、运行测试，第一次访问<a href="http://localhost:8766/userInfo还是等待，第二次访问不需要等待。其原因请看hystrix熔断机制原理" target="_blank" rel="noopener">http://localhost:8766/userInfo还是等待，第二次访问不需要等待。其原因请看hystrix熔断机制原理</a></p>
-</blockquote>
-<h2 id="hystrix-熔断机制原理"><a href="#hystrix-熔断机制原理" class="headerlink" title="hystrix 熔断机制原理"></a>hystrix 熔断机制原理</h2><blockquote>
-<p>关于熔断机制的实现原理网上很多讲的也比较详细，这里不重复阐述，可以参考<a href="https://segmentfault.com/a/1190000005988895" target="_blank" rel="noopener">传送门</a>。</p>
-</blockquote>
-
+          
       
     </div>
     
@@ -377,6 +308,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务/">微服务</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a   href="/year/08/06/SrpingCloud-chapter10/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
