@@ -7,20 +7,27 @@
   
   
   
-  <title>win10 安装ubuntu 16.04 | Chanji</title>
+  <title>第七章:SpringCloud-hystrix解决雪崩效应 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言 在win10下安装ubuntu双系统。在笔记本安装ubuntu的时候遇到了很多的挫折，曾经也放弃过，但很不幸的是，在未来的今天又碰上了。有时候问题的答案很简单，但是需要大量的时间去得到它，并不是你的能力不行，而是网上的干扰答案实在是太多，无法分辨谁对谁假的时候，往往会一个个的试过去。我不认为这是个很笨的方法，因为多花点时间总能体会更多的东西。貌似废话有点多，下面直接上干货。">
-<meta name="keywords" content="ubuntu,win 10">
+  <meta name="description" content="前言 本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应  什么是雪崩效应? 当所有的请求都调用了一个服务，占满了服务器的最大线程，而导致无法请求其他服务。当A服务调用B服务时超时或者错误，导致调用A服务的C服务也无法返回结果，依次类推，导致Ng个服务无法返回结果。 假设tomcat服务器的最大线程数为50，现在有50个请求从客户端同时访问/order/getOrder接口，当第51个请求访">
+<meta name="keywords" content="SpringCloud,微服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="win10 安装ubuntu 16.04">
-<meta property="og:url" content="http://jchanji.github.io/year/09/03/install_ubuntu/index.html">
+<meta property="og:title" content="第七章:SpringCloud-hystrix解决雪崩效应">
+<meta property="og:url" content="http://jchanji.github.io/year/08/06/SrpingCloud-chapter10/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="前言 在win10下安装ubuntu双系统。在笔记本安装ubuntu的时候遇到了很多的挫折，曾经也放弃过，但很不幸的是，在未来的今天又碰上了。有时候问题的答案很简单，但是需要大量的时间去得到它，并不是你的能力不行，而是网上的干扰答案实在是太多，无法分辨谁对谁假的时候，往往会一个个的试过去。我不认为这是个很笨的方法，因为多花点时间总能体会更多的东西。貌似废话有点多，下面直接上干货。">
+<meta property="og:description" content="前言 本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应  什么是雪崩效应? 当所有的请求都调用了一个服务，占满了服务器的最大线程，而导致无法请求其他服务。当A服务调用B服务时超时或者错误，导致调用A服务的C服务也无法返回结果，依次类推，导致Ng个服务无法返回结果。 假设tomcat服务器的最大线程数为50，现在有50个请求从客户端同时访问/order/getOrder接口，当第51个请求访">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-03T06:47:07.748Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix31.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix5.png">
+<meta property="og:updated_time" content="2018-08-07T03:25:50.794Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="win10 安装ubuntu 16.04">
-<meta name="twitter:description" content="前言 在win10下安装ubuntu双系统。在笔记本安装ubuntu的时候遇到了很多的挫折，曾经也放弃过，但很不幸的是，在未来的今天又碰上了。有时候问题的答案很简单，但是需要大量的时间去得到它，并不是你的能力不行，而是网上的干扰答案实在是太多，无法分辨谁对谁假的时候，往往会一个个的试过去。我不认为这是个很笨的方法，因为多花点时间总能体会更多的东西。貌似废话有点多，下面直接上干货。">
+<meta name="twitter:title" content="第七章:SpringCloud-hystrix解决雪崩效应">
+<meta name="twitter:description" content="前言 本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应  什么是雪崩效应? 当所有的请求都调用了一个服务，占满了服务器的最大线程，而导致无法请求其他服务。当A服务调用B服务时超时或者错误，导致调用A服务的C服务也无法返回结果，依次类推，导致Ng个服务无法返回结果。 假设tomcat服务器的最大线程数为50，现在有50个请求从客户端同时访问/order/getOrder接口，当第51个请求访">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -256,11 +263,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-install_ubuntu" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-SrpingCloud-chapter10" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/09/03/install_ubuntu/" class="article-date">
-      <time datetime="2017-09-03T06:44:05.312Z" itemprop="datePublished">2017-09-03</time>
+      <a  href="/year/08/06/SrpingCloud-chapter10/" class="article-date">
+      <time datetime="2018-08-06T08:48:34.981Z" itemprop="datePublished">2018-08-06</time>
 </a>
 
     </div>
@@ -274,7 +281,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      win10 安装ubuntu 16.04
+      第七章:SpringCloud-hystrix解决雪崩效应
     </h1>
   
 
@@ -284,13 +291,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
+    <a class="article-category-link" href="/categories/SpringCloud/">-SpringCloud</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/win-10/">win 10</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务/">微服务</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -301,28 +308,77 @@
       
           
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>在win10下安装ubuntu双系统。在笔记本安装ubuntu的时候遇到了很多的挫折，曾经也放弃过，但很不幸的是，在未来的今天又碰上了。有时候问题的答案很简单，但是需要大量的时间去得到它，并不是你的能力不行，而是网上的干扰答案实在是太多，无法分辨谁对谁假的时候，往往会一个个的试过去。我不认为这是个很笨的方法，因为多花点时间总能体会更多的东西。貌似废话有点多，下面直接上干货。</p>
+<p>本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应</p>
 </blockquote>
-<a id="more"></a>
-<h2 id="一、版本"><a href="#一、版本" class="headerlink" title="一、版本"></a>一、版本</h2><ol>
-<li>win10 企业版</li>
-<li>ubuntu 16.04</li>
-<li>UltraSO 9.6.6.3300</li>
-<li>显卡：GTX 965M</li>
-<li>cup:i7-6700HQ</li>
+<h2 id="什么是雪崩效应"><a href="#什么是雪崩效应" class="headerlink" title="什么是雪崩效应?"></a>什么是雪崩效应?</h2><blockquote>
+<p>当所有的请求都调用了一个服务，占满了服务器的最大线程，而导致无法请求其他服务。当A服务调用B服务时超时或者错误，导致调用A服务的C服务也无法返回结果，依次类推，导致Ng个服务无法返回结果。</p>
+<p>假设tomcat服务器的最大线程数为50，现在有50个请求从客户端同时访问/order/getOrder接口，当第51个请求访问/order/addOrder接口的时候就会发生一直等待的情况，导致请求超时。而造成雪崩效应的最主要的原因在于请求的超时。当/order/getOrder接口访问/user/get接口，由于网络延时等原因一直未收到响应，所以getOrder会一直占用着线程。</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix1.png"></div>
+
+<h3 id="模拟雪崩效应"><a href="#模拟雪崩效应" class="headerlink" title="模拟雪崩效应"></a>模拟雪崩效应</h3><blockquote>
+<p>在sevice-member会员服务的controller的getAllUser中将线程休眠3秒</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(value = "/getAllUser",produces = "application/json;charset=UTF-8")</span><br><span class="line">public List&lt;String&gt; getAllUser() &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    try &#123;</span></span><br><span class="line"><span class="code">        Thread.sleep(3000);</span></span><br><span class="line"><span class="code">    &#125; catch (InterruptedException e) &#123;</span></span><br><span class="line"><span class="code">        e.printStackTrace();</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    List&lt;String&gt; users = new ArrayList&lt;&gt;();</span></span><br><span class="line"><span class="code">    users.add("user1");</span></span><br><span class="line"><span class="code">    users.add("user2");</span></span><br><span class="line"><span class="code">    users.add("user3");</span></span><br><span class="line"><span class="code">    users.add("user4");</span></span><br><span class="line"><span class="code">    users.add("port:" + port);</span></span><br><span class="line"><span class="code">    return users;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在service-order-feign 订单服务中设置tomcat的最大线程数，ribbon、hystrix的超时时间</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://localhost:1234/eureka/</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: service-order-feign</span><br><span class="line"></span><br><span class="line">server:</span><br><span class="line">  port: 8766</span><br><span class="line">  #设置tomcat最大线程数</span><br><span class="line">  tomcat:</span><br><span class="line">  #默认150</span><br><span class="line">    max-connections: 10</span><br><span class="line"></span><br><span class="line">#设置 ribbon 读取和连接超时时间</span><br><span class="line">ribbon:</span><br><span class="line">  ReadTimeout: 60000</span><br><span class="line">  #默认两秒</span><br><span class="line">  ConnectTimeout: 60000</span><br><span class="line"></span><br><span class="line">#设置feign连接超时时间</span><br><span class="line">hystrix:</span><br><span class="line">  command:</span><br><span class="line">      default:</span><br><span class="line">        execution:</span><br><span class="line">          isolation:</span><br><span class="line">            thread:</span><br><span class="line">              timeoutInMilliseconds: 5000</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在service-order-feign 的controller中添加接口,用于在发生雪崩效应的时候调用另外一个接口</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping("/userInfo")</span><br><span class="line">public  String getUserInfo() &#123;</span><br><span class="line"><span class="code">    return "userInfo";</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用JMeter测试，新建web测试</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix2.png"></div>
+
+<blockquote>
+<p>删除下图中的三个文件</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix31.png"></div>
+
+<blockquote>
+<p>设置线程数等参数</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix3.png"></div>
+
+<blockquote>
+<p>点击 Home Page 设置测试的url等信息</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix4.png"></div>
+
+
+<blockquote>
+<p>启动注册中心、会员服务、订单服务、测试用例，并立刻访问接口<a href="http://localhost:8766/userInfo，如出现等待的状态则表示配置成功。" target="_blank" rel="noopener">http://localhost:8766/userInfo，如出现等待的状态则表示配置成功。</a></p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/hystrix5.png"></div>
+
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><ol>
+<li>使用超时机制</li>
+<li>服务降级： 服务调用接口超时或者发生错误，不让其调用接口而去调用本地的failback接口。</li>
+<li>熔断机制：类似于保险丝，对于高并发的场景，一旦达到某个请求量就会触发熔断，报错，再使用服务降级</li>
+<li>限流机制：可以使用nginx进行限流</li>
+<li>隔离机制：对每个接口分配一个线程池，将每个接口隔离开</li>
 </ol>
-<h2 id="二、下载"><a href="#二、下载" class="headerlink" title="二、下载"></a>二、下载</h2><ol>
-<li><a href="http://releases.ubuntu.com/16.04.2/ubuntu-16.04.2-desktop-amd64.iso?_ga=2.92867550.254780022.1497589112-1524410519.1497589112" target="_blank" rel="noopener">ubuntu 16.04</a></li>
-<li><a href="http://172.19.251.251/files/510300000015EB65/dl.softmgr.qq.com/original/Compression/uiso9_cn_9.6.6.3300.exe" target="_blank" rel="noopener">UltraSO</a></li>
-</ol>
-<h2 id="三、安装配置"><a href="#三、安装配置" class="headerlink" title="三、安装配置"></a>三、安装配置</h2><h3 id="1-将镜像刻录到u盘（至少4g）"><a href="#1-将镜像刻录到u盘（至少4g）" class="headerlink" title="1.将镜像刻录到u盘（至少4g）"></a>1.将镜像刻录到u盘（至少4g）</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">打开UltraSO，点击试用。</span><br><span class="line">1、文件-&gt;打开-&gt;镜像位置</span><br><span class="line">2、启动-&gt;写如硬盘映像-&gt;写入</span><br></pre></td></tr></table></figure>
-<h3 id="2、分配空闲分区"><a href="#2、分配空闲分区" class="headerlink" title="2、分配空闲分区"></a>2、分配空闲分区</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、右击我的电脑-&gt;管理-&gt;磁盘管理</span><br><span class="line">2、选择非系统盘的主分区，右击-&gt;压缩卷，选择压缩大小，一般为50G,我的是100G,</span><br><span class="line">根据自己磁盘情况分配。</span><br></pre></td></tr></table></figure>
-<h3 id="3、将电脑设置为U盘启动"><a href="#3、将电脑设置为U盘启动" class="headerlink" title="3、将电脑设置为U盘启动"></a>3、将电脑设置为U盘启动</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">插入U盘，进入BIOS将U盘设置为启动项</span><br><span class="line">注：不同主板的BIOS大多都不会相同，所以根据自己电脑型号到网上查找。</span><br></pre></td></tr></table></figure>
-<h3 id="4、安装系统"><a href="#4、安装系统" class="headerlink" title="4、安装系统"></a>4、安装系统</h3><h4 id="1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。"><a href="#1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。" class="headerlink" title="1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。"></a>1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。</h4><h4 id="2、卡在logo"><a href="#2、卡在logo" class="headerlink" title="2、卡在logo"></a>2、卡在logo</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">重新启动电脑，在选择系统安装的界面按e,进入grup界面，让后在splash后面加上：空格nomodeset空格，按F10执行。后面重启出了最后一次也是一样操作</span><br></pre></td></tr></table></figure>
-<h4 id="3、创建分区"><a href="#3、创建分区" class="headerlink" title="3、创建分区"></a>3、创建分区</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1、选择自己分配的空闲的磁盘，进行分盘</span><br><span class="line">2、分盘的注意点是：</span><br><span class="line">    2.1、 /：存储系统文件，建议10GB ~ 15GB,我分配16G；</span><br><span class="line">    2.2、 swap：交换分区，即Linux系统的虚拟内存，建议是物理内存的2倍,我分配16G；</span><br><span class="line">    2.3、 /home：建议最后分配所有剩下的空间；</span><br><span class="line">    2.4、 boot：包含系统内核和系统启动所需的文件，实现双系统的关键所在，建议200M,我分配400M。</span><br><span class="line">3、其他的默认或者根据自己需求设置，点击安装</span><br></pre></td></tr></table></figure>
-<h3 id="5、分辨率问题"><a href="#5、分辨率问题" class="headerlink" title="5、分辨率问题"></a>5、分辨率问题</h3><p>一般比较新的N（英伟达）卡会出现没有安装驱动的问题，所以屏幕的分率很低，这时候就需要安装N卡驱动。直接安装会导致开机的时候卡在登陆界面进不去，所以必须借助于bumblebee(大黄蜂)，至于原因有兴趣的可以查一查，这里不多阐述。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install bumblebee bumblebee-nvidia primus linux-headers-generic</span><br><span class="line">Reboot</span><br></pre></td></tr></table></figure></p>
-<p>重新启动后：<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get purge nvidia-* #删除所有的N卡驱动</span><br><span class="line">sudo add-apt-repository ppa:graphics-drivers/ppa  #添加第三方驱动源</span><br><span class="line">sudo apt-get update #更新源</span><br><span class="line">sudo  apt-cache search nvidia-*  #查询nvidia驱动可用版本，这里推荐到英伟达官网查看自己显卡驱动的版本，我的是375</span><br><span class="line">sudo apt-get install nvidia-375 # 安装驱动</span><br></pre></td></tr></table></figure></p>
-<p>打开软件更新器，然后将附加驱动－&gt;未知换成显卡的驱动<br><br>最后重新启动，什么都不用做，等开机！</p>
+<blockquote>
+<p>修改service-order-feign中的配置，开启hystrix、设置hystrix超时时间为10秒</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://localhost:1234/eureka/</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: service-order-feign</span><br><span class="line"></span><br><span class="line">server:</span><br><span class="line">  port: 8766</span><br><span class="line">  #设置tomcat最大线程数</span><br><span class="line">  tomcat:</span><br><span class="line">  #默认150</span><br><span class="line">    max-connections: 10</span><br><span class="line"></span><br><span class="line">#设置 ribbon 读取和连接超时时间</span><br><span class="line">ribbon:</span><br><span class="line">  ReadTimeout: 10000</span><br><span class="line">  #默认两秒</span><br><span class="line">  ConnectTimeout: 10000</span><br><span class="line"></span><br><span class="line">feign:</span><br><span class="line">  hystrix:</span><br><span class="line">    enabled: true</span><br><span class="line">#设置feign连接超时时间</span><br><span class="line">hystrix:</span><br><span class="line">  command:</span><br><span class="line">      default:</span><br><span class="line">        execution:</span><br><span class="line">          isolation:</span><br><span class="line">            thread:</span><br><span class="line">              timeoutInMilliseconds: 10000</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>配置fallback处理类，新建类FallBack,继承FeignService接口</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class FallBack implements FeignService &#123;</span><br><span class="line"><span class="code">    @Override</span></span><br><span class="line"><span class="code">    public List&lt;String&gt; getAllUser() &#123;</span></span><br><span class="line"><span class="code">        List&lt;String&gt; list = new ArrayList&lt;&gt;();</span></span><br><span class="line"><span class="code">        list.add("fallback");</span></span><br><span class="line"><span class="code">        return list;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 FeignService 中配置Fallback</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(value = &quot;service-member&quot;,fallback = FallBack.class)</span><br><span class="line">@Component</span><br><span class="line">public interface FeignService &#123;</span><br><span class="line">    @GetMapping(&quot;getAllUser&quot;)</span><br><span class="line">    List&lt;String&gt; getAllUser();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>启动项目、运行测试，第一次访问<a href="http://localhost:8766/userInfo还是等待，第二次访问不需要等待。其原因请看hystrix熔断机制原理" target="_blank" rel="noopener">http://localhost:8766/userInfo还是等待，第二次访问不需要等待。其原因请看hystrix熔断机制原理</a></p>
+</blockquote>
+<h2 id="hystrix-熔断机制原理"><a href="#hystrix-熔断机制原理" class="headerlink" title="hystrix 熔断机制原理"></a>hystrix 熔断机制原理</h2><blockquote>
+<p>关于熔断机制的实现原理网上很多讲的也比较详细，这里不重复阐述，可以参考<a href="https://segmentfault.com/a/1190000005988895" target="_blank" rel="noopener">传送门</a>。</p>
+</blockquote>
 
       
     </div>
@@ -331,13 +387,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></p>
+        <p><span>本文标题:</span><a  href="/year/08/06/SrpingCloud-chapter10/">第七章:SpringCloud-hystrix解决雪崩效应</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2017年09月03日 - 14时44分</p>
-        <p><span>最后更新:</span>2017年09月03日 - 14时47分</p>
+        <p><span>发布时间:</span>2018年08月06日 - 16时48分</p>
+        <p><span>最后更新:</span>2018年08月07日 - 11时25分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/09/03/install_ubuntu/" title="win10 安装ubuntu 16.04">http://jchanji.github.io/year/09/03/install_ubuntu/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/09/03/install_ubuntu/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/08/06/SrpingCloud-chapter10/" title="第七章:SpringCloud-hystrix解决雪崩效应">http://jchanji.github.io/year/08/06/SrpingCloud-chapter10/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/08/06/SrpingCloud-chapter10/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -348,18 +404,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          从互联到新工业革命-读后感
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/09/03/vnc/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">CentOS7 安装vnc</div>
+    <a  href="/year/08/06/springCloud-chapter9/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第九章:SpringCloud-feign</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -371,7 +418,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、版本"><span class="toc-number">2.</span> <span class="toc-text">一、版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、下载"><span class="toc-number">3.</span> <span class="toc-text">二、下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、安装配置"><span class="toc-number">4.</span> <span class="toc-text">三、安装配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-将镜像刻录到u盘（至少4g）"><span class="toc-number">4.1.</span> <span class="toc-text">1.将镜像刻录到u盘（至少4g）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、分配空闲分区"><span class="toc-number">4.2.</span> <span class="toc-text">2、分配空闲分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、将电脑设置为U盘启动"><span class="toc-number">4.3.</span> <span class="toc-text">3、将电脑设置为U盘启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、安装系统"><span class="toc-number">4.4.</span> <span class="toc-text">4、安装系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。"><span class="toc-number">4.4.1.</span> <span class="toc-text">1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、卡在logo"><span class="toc-number">4.4.2.</span> <span class="toc-text">2、卡在logo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、创建分区"><span class="toc-number">4.4.3.</span> <span class="toc-text">3、创建分区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、分辨率问题"><span class="toc-number">4.5.</span> <span class="toc-text">5、分辨率问题</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是雪崩效应"><span class="toc-number">2.</span> <span class="toc-text">什么是雪崩效应?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟雪崩效应"><span class="toc-number">2.1.</span> <span class="toc-text">模拟雪崩效应</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">3.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hystrix-熔断机制原理"><span class="toc-number">4.</span> <span class="toc-text">hystrix 熔断机制原理</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -431,13 +478,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/" title="上一篇: 从互联到新工业革命-读后感">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/09/03/vnc/" title="下一篇: CentOS7 安装vnc">
+            <a  href="/year/08/06/springCloud-chapter9/" title="下一篇: 第九章:SpringCloud-feign">
                 <i class="fa fa-angle-right"></i>
             </a>
         
