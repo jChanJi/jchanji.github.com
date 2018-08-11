@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jchanji.github.io/year/08/11/Mysql_chapter3/</loc>
+    
+    <lastmod>2018-08-11T07:35:33.800Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/08/10/Mysql_chapter2/</loc>
+    
+    <lastmod>2018-08-10T12:50:50.656Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/06/20/Mysql_chapter1/</loc>
+    
+    <lastmod>2018-08-10T11:53:55.132Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/08/10/MySQL/</loc>
+    
+    <lastmod>2018-08-10T11:49:19.682Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jchanji.github.io/year/08/06/SrpingCloud-chapter10/</loc>
     
     <lastmod>2018-08-07T03:45:08.494Z</lastmod>
@@ -61,13 +89,6 @@
     <loc>http://jchanji.github.io/year/07/25/SpringCloud-chapter3/</loc>
     
     <lastmod>2018-07-25T03:36:14.567Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/06/20/MySQL/</loc>
-    
-    <lastmod>2018-07-25T03:34:14.552Z</lastmod>
     
   </url>
   

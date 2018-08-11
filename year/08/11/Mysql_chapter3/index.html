@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
+  
+  
+  
+  
+  <title>第三章：MySQL性能管理及架构设计-基准测试 | Chanji</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言 在优化mysql性能之前需要学习下基准测试以便对性能进行评估。基准测试不关注业务的逻辑，所使用的查询和业务的逻辑没有任何关系，而压力测试则是针对不同的主题，所使用的查询也是真实用到的数据。">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第三章：MySQL性能管理及架构设计-基准测试">
+<meta property="og:url" content="http://jchanji.github.io/year/08/11/Mysql_chapter3/index.html">
+<meta property="og:site_name" content="Chanji">
+<meta property="og:description" content="前言 在优化mysql性能之前需要学习下基准测试以便对性能进行评估。基准测试不关注业务的逻辑，所使用的查询和业务的逻辑没有任何关系，而压力测试则是针对不同的主题，所使用的查询也是真实用到的数据。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter3-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter3-2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter3-3.png">
+<meta property="og:updated_time" content="2018-08-11T07:35:33.800Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第三章：MySQL性能管理及架构设计-基准测试">
+<meta name="twitter:description" content="前言 在优化mysql性能之前需要学习下基准测试以便对性能进行评估。基准测试不关注业务的逻辑，所使用的查询和业务的逻辑没有任何关系，而压力测试则是针对不同的主题，所使用的查询也是真实用到的数据。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter3-1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/fav.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Chanji</a></h1>
+        </hgroup>
+        
+        <p class="header-subtitle">Stay Hungry,Stay Foolish</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0)
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a  href="/archives/">所有文章</a></li>
+                        
+                            <li><a  href="/categories/bigdata">大数据</a></li>
+                        
+                            <li><a  href="/categories/machinelearning">机器学习</a></li>
+                        
+                            <li><a  href="/categories/javaweb">javaweb</a></li>
+                        
+                            <li><a  href="/categories/articals">文章</a></li>
+                        
+                            <li><a  href="/categories/others">其他</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github"  target="_blank" href="https://github.com/jChanJi" title="github">github</a>
+                            
+                                <a class="fl rss"  target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/DBSCAN/" style="font-size: 10px;">DBSCAN</a> <a href="/tags/Graph-Mining/" style="font-size: 10px;">Graph Mining</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/MySQL/" style="font-size: 16px;">MySQL</a> <a href="/tags/NMF/" style="font-size: 10px;">NMF</a> <a href="/tags/PCA/" style="font-size: 10px;">PCA</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/big-data/" style="font-size: 18px;">big data</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/ideaIU/" style="font-size: 10px;">ideaIU</a> <a href="/tags/machinelearning/" style="font-size: 16px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/object-detection/" style="font-size: 10px;">object detection</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scala/" style="font-size: 12px;">scala</a> <a href="/tags/spark/" style="font-size: 16px;">spark</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 14px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/vps/" style="font-size: 10px;">vps</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a> <a href="/tags/微服务/" style="font-size: 20px;">微服务</a>
+                    </div>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">Love Live,Love Refliction,Love Coding，Have dreams !</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Chanji</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Chanji</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Stay Hungry,Stay Foolish</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/categories/bigdata">大数据</a></li>
+                
+                    <li><a href="/categories/machinelearning">机器学习</a></li>
+                
+                    <li><a href="/categories/javaweb">javaweb</a></li>
+                
+                    <li><a href="/categories/articals">文章</a></li>
+                
+                    <li><a href="/categories/others">其他</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-Mysql_chapter3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/year/08/11/Mysql_chapter3/" class="article-date">
+      <time datetime="2018-08-11T03:07:15.837Z" itemprop="datePublished">2018-08-11</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      第三章：MySQL性能管理及架构设计-基准测试
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/DataBase/">-DataBase</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>在优化mysql性能之前需要学习下基准测试以便对性能进行评估。基准测试不关注业务的逻辑，所使用的查询和业务的逻辑没有任何关系，而压力测试则是针对不同的主题，所使用的查询也是真实用到的数据。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="如何进行基准测试"><a href="#如何进行基准测试" class="headerlink" title="如何进行基准测试"></a>如何进行基准测试</h2><h3 id="基准测试的目的"><a href="#基准测试的目的" class="headerlink" title="基准测试的目的"></a>基准测试的目的</h3><ol>
+<li>建立Mysql服务器的性能基准线。确定当前Mysql服务器运行情况</li>
+<li>模拟比当前系统更高的负载， 以找出系统的拓展瓶颈增加数据库并发，观察QPS,TPS变化，确定并发量与性能最优关系</li>
+<li>测试不同的硬件、软件和操作系统配置</li>
+<li>证明新采购的硬件设备是否配置正确</li>
+</ol>
+<h3 id="如何进行基准测试-1"><a href="#如何进行基准测试-1" class="headerlink" title="如何进行基准测试"></a>如何进行基准测试</h3><ol>
+<li>对整个系统进行基准测试<ol>
+<li>能够测试整个系统性能，包括web服务器缓存、数据库</li>
+<li>能够反映出系统中各个组件接口间的性能问题，体现真实性能情况</li>
+<li>测试设计复杂，消耗时间长</li>
+</ol>
+</li>
+<li>单独的对Mysql进行基准测试<ol>
+<li>测试设计简单，所需耗费时间短</li>
+<li>无法全面了解整个系统的性能基准线<h3 id="常见的指标"><a href="#常见的指标" class="headerlink" title="常见的指标"></a>常见的指标</h3></li>
+</ol>
+</li>
+<li>单位时间内所处理的事务数（TPS）</li>
+<li>单位时间内处理的查询数（QPS）</li>
+<li>响应时间<blockquote>
+<p>平均响应时间、最小响应时间、最大响应时间、各时间所占百分比，主要看百分比响应时间</p>
+</blockquote>
+</li>
+<li>并发量,同时处理的查询请求的数量。正在工作中的并发的操作数或者和同时工作的数量</li>
+</ol>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+<li>对整个系统还是某一组件</li>
+<li>使用什么样的数据（生产环境的数据、生成的数据）</li>
+<li>准备基准测试以及数据收集脚本。CPU使用率、IO、网络流量、状态与计数器信息<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter3-1.png"></div><br><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter3-2.png"></div><br><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter3-3.png"></div></li>
+<li>运行基准测试</li>
+<li>保存及分析基准测试结果</li>
+</ol>
+<h2 id="容易忽略的问题"><a href="#容易忽略的问题" class="headerlink" title="容易忽略的问题"></a>容易忽略的问题</h2><ol>
+<li>使用生产环境数据时只使用了部分的数据</li>
+<li>在多用户的场景中只做单用户的测试，推荐多线程并发测试</li>
+<li>在单服务器上测试分布式应用，推荐使用相同的架构</li>
+<li>反复执行同一查询，容易缓存命中，无法反映真实的查询性能。</li>
+</ol>
+<h2 id="基准测试工具"><a href="#基准测试工具" class="headerlink" title="基准测试工具"></a>基准测试工具</h2><h3 id="mysqlslap"><a href="#mysqlslap" class="headerlink" title="mysqlslap"></a>mysqlslap</h3><blockquote>
+<p>mysql自带的基准测试工具，随mysql一起安装,缺点在于没有在自增id列上加上索引，对服务器的cup、IO、内存的测试体现不出来</p>
+</blockquote>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ol>
+<li>可以模拟服务器负载，并输出相关统计信息</li>
+<li>可以指定也可以自动生成查询语句</li>
+</ol>
+<h4 id="常用参数说明"><a href="#常用参数说明" class="headerlink" title="常用参数说明"></a>常用参数说明</h4><ol>
+<li>–auto-generate-sql 由系统自动生成sql脚本进行测试</li>
+<li>–auto-generate-sql-add-autoincrement 在生成的表中增加自动ID</li>
+<li>–auto-generate-load-type 指定测试中使用的查询类型</li>
+<li>–auto-generate-sql-write-number 指定初始化数据时生成对的数据量</li>
+<li>-concurrency指定并发线程的数量</li>
+<li>–engine 指定测试表的存储引擎，可以使用逗号分割多个存储引擎</li>
+<li>–no-drop 指定不清理测试数据</li>
+<li>–iteratons 指定测试运行的次数</li>
+<li>–number-of-queries 指定每个线程执行的查询的数量</li>
+<li>–debug-info 指定输出额外的内存以及CPU统计信息</li>
+<li>–number-int-cols 指定测试表中包含的int类型列的数量</li>
+<li>–number-char-cols指定测试表中包含的varchar类型的数量</li>
+<li>–create-schema 制定了用于执行测试的数据库的名称</li>
+<li>–query 用于指定自定义sql的脚本</li>
+<li>–only-print 并不运行脚本，而是把生成的脚本打印出来</li>
+</ol>
+<h4 id="测试命令"><a href="#测试命令" class="headerlink" title="测试命令"></a>测试命令</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlslap -uroot -p --concurrency=1,50,100,200 --iterations=3 --number-int-cols=5 --number-char-cols=5 --auto-generate-sql --auto-generate-sql-add-autoincrement --engine=myisam,innodb --number-of-queries=10 --create-schema=sbtest</span><br></pre></td></tr></table></figure>
+<h3 id="sysbench"><a href="#sysbench" class="headerlink" title="sysbench"></a>sysbench</h3><blockquote>
+<p>更为通用的测试工具，比mysqlslap更强大，使用方法可以自行查找</p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/year/08/11/Mysql_chapter3/">第三章：MySQL性能管理及架构设计-基准测试</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
+        <p><span>发布时间:</span>2018年08月11日 - 11时07分</p>
+        <p><span>最后更新:</span>2018年08月11日 - 15时35分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/year/08/11/Mysql_chapter3/" title="第三章：MySQL性能管理及架构设计-基准测试">http://jchanji.github.io/year/08/11/Mysql_chapter3/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/08/11/Mysql_chapter3/　　作者: Chanji" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a  href="/year/08/10/Mysql_chapter2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第二章：MySQL性能管理及架构设计-影响Mysql性能的因素</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何进行基准测试"><span class="toc-number">2.</span> <span class="toc-text">如何进行基准测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基准测试的目的"><span class="toc-number">2.1.</span> <span class="toc-text">基准测试的目的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何进行基准测试-1"><span class="toc-number">2.2.</span> <span class="toc-text">如何进行基准测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见的指标"><span class="toc-number">2.3.</span> <span class="toc-text">常见的指标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤"><span class="toc-number">3.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容易忽略的问题"><span class="toc-number">4.</span> <span class="toc-text">容易忽略的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基准测试工具"><span class="toc-number">5.</span> <span class="toc-text">基准测试工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysqlslap"><span class="toc-number">5.1.</span> <span class="toc-text">mysqlslap</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#特点"><span class="toc-number">5.1.1.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常用参数说明"><span class="toc-number">5.1.2.</span> <span class="toc-text">常用参数说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试命令"><span class="toc-number">5.1.3.</span> <span class="toc-text">测试命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sysbench"><span class="toc-number">5.2.</span> <span class="toc-text">sysbench</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='https://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/year/08/10/Mysql_chapter2/" title="下一篇: 第二章：MySQL性能管理及架构设计-影响Mysql性能的因素">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/year/08/11/Mysql_chapter3/">第三章：MySQL性能管理及架构设计-基准测试</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/10/Mysql_chapter2/">第二章：MySQL性能管理及架构设计-影响Mysql性能的因素</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/10/MySQL/">第一章：MySQL性能管理及架构设计-实例</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/06/SrpingCloud-chapter10/">第十章:SpringCloud-hystrix解决雪崩效应</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/06/springCloud-chapter9/">第九章:SpringCloud-feign</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/02/SpringCloud-chapter8/">第八章:SpringCloud-配置中心</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/31/SpringCloud-chapter7/">第七章:SpringCloud-接口网关</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/31/SrpingCloud-chapter6/">第六章:SpringCloud-负载均衡</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/27/SpringCloud-chapter5/">第五章:SpringCloud-服务消费</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/27/SpringCloud-chapter4/">第四章:SpringCloud-服务注册</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/25/SpringCloud-chapter3/">第三章:SpringCloud-eureka环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/24/springCloud-chapter2/">第二章:SpringCloud-SpringCloud简述</a></li><li class="post-list-item"><a class="post-list-link" href="/year/07/19/springCloud-chapter1/">第一章:SpringCloud-网站架构演变</a></li><li class="post-list-item"><a class="post-list-link" href="/year/06/20/Mysql_chapter1/">第一章：MySQL性能管理及架构设计-实例</a></li><li class="post-list-item"><a class="post-list-link" href="/year/02/23/xiaoma/">浏览器被www.t999.cn劫持</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/17/springbootstudy/">spring boot从基础到进阶</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/spark_sougou_logs/">spark项目基础实战</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/15/scalastudy/">scala基础学习</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/12/vps/">digitalocean服务器搭建ss服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/combineByKey/">spark之combineByKey</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/10/docker/">ubuntu下Docker的安装和使用</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/studentOnline_timeslot/">聚类算法DBSCAN实现大学生上网时长分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a></li><li class="post-list-item"><a class="post-list-link" href="/year/01/09/NMF_PCA/">NMF和PCA算法对人脸进行特征提取并且进行对比</a></li><li class="post-list-item"><a class="post-list-link" href="/year/12/29/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/year/11/19/knowledgegraph/">知识图谱</a></li><li class="post-list-item"><a class="post-list-link" href="/year/10/30/artical_1/">Arabesque:A System for Distributed Graph Mining</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/spark_step/">伪分布式spark安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/markdown/">sumlime text3 配置Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/internet_of_everthing_for_new_industrial_revolution/">从互联到新工业革命-读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_ubuntu/">win10 安装ubuntu 16.04</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/vnc/">CentOS7 安装vnc</a></li><li class="post-list-item"><a class="post-list-link" href="/year/09/03/install_eclipse/">CentOS 7 安装eclipse mars 2</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/hbase_step/">伪分布式hbase安装配置</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/30/codeparse_gbk2utf/">使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/citycosumption/">K-means算法-对31省消费水平分类</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hadoop/">CentOS7安装配置hadoop集群</a></li><li class="post-list-item"><a class="post-list-link" href="/year/08/29/hello-world/">Hello World</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 Chanji
+            </div>
+            <div class="footer-right">
+                <a href="https://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >极客到访数:
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量:
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 1;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
