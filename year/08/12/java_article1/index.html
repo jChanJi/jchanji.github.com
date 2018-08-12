@@ -7,27 +7,24 @@
   
   
   
-  <title>第七章:SpringCloud-接口网关 | Chanji</title>
+  <title>Number1：java基础-&lt;? extends T&gt; and &lt;? super T&gt; | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言 本章主要介绍接口网关的概念和搭建">
-<meta name="keywords" content="SpringCloud,微服务">
+  <meta name="description" content="前言 本篇主要讲解&amp;lt;? extends T&amp;gt; 和 &amp;lt;? super T&amp;gt;的一些基础概念，参考了传送门文章。">
+<meta name="keywords" content="范型">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第七章:SpringCloud-接口网关">
-<meta property="og:url" content="http://jchanji.github.io/year/07/31/SpringCloud-chapter7/index.html">
+<meta property="og:title" content="Number1：java基础-&lt;? extends T&gt; and &lt;? super T&gt;">
+<meta property="og:url" content="http://jchanji.github.io/year/08/12/java_article1/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="前言 本章主要介绍接口网关的概念和搭建">
+<meta property="og:description" content="前言 本篇主要讲解&amp;lt;? extends T&amp;gt; 和 &amp;lt;? super T&amp;gt;的一些基础概念，参考了传送门文章。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul1.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul2.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul3.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul4.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul5.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul6.png">
-<meta property="og:updated_time" content="2018-08-02T05:38:42.153Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java2.png">
+<meta property="og:updated_time" content="2018-08-12T03:05:49.862Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第七章:SpringCloud-接口网关">
-<meta name="twitter:description" content="前言 本章主要介绍接口网关的概念和搭建">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul1.png">
+<meta name="twitter:title" content="Number1：java基础-&lt;? extends T&gt; and &lt;? super T&gt;">
+<meta name="twitter:description" content="前言 本篇主要讲解&amp;lt;? extends T&amp;gt; 和 &amp;lt;? super T&amp;gt;的一些基础概念，参考了传送门文章。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java3.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -263,11 +260,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-SpringCloud-chapter7" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-java_article1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/07/31/SpringCloud-chapter7/" class="article-date">
-      <time datetime="2018-07-31T02:06:56.874Z" itemprop="datePublished">2018-07-31</time>
+      <a  href="/year/08/12/java_article1/" class="article-date">
+      <time datetime="2018-08-12T02:50:31.348Z" itemprop="datePublished">2018-08-12</time>
 </a>
 
     </div>
@@ -281,7 +278,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      第七章:SpringCloud-接口网关
+      Number1：java基础-&lt;? extends T&gt; and &lt;? super T&gt;
     </h1>
   
 
@@ -291,13 +288,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/SpringCloud/">-SpringCloud</a>
+    <a class="article-category-link" href="/categories/java/">-java</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务/">微服务</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/范型/">范型</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -308,50 +305,29 @@
       
           
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>本章主要介绍接口网关的概念和搭建</p>
+<p>本篇主要讲解&lt;? extends T&gt; 和 &lt;? super T&gt;的一些基础概念，参考了<a href="https://www.cnblogs.com/drizzlewithwind/p/6100164.html" target="_blank" rel="noopener">传送门</a>文章。</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="什么是接口网关"><a href="#什么是接口网关" class="headerlink" title="什么是接口网关?"></a>什么是接口网关?</h2><blockquote>
-<p>接口网关的作用是拦截请求，类似于nginx,下面是简略原理图</p>
+<h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><ol>
+<li>PECS原则<blockquote>
+<p>PECS（Producer Extends Consumer Super）原则,频繁往外读取内容的，适合用上界Extends。经常往里插入的，适合用下界Super。</p>
 </blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul1.png"></div>
+</li>
+<li>基类<blockquote>
+<p>包含所有实体共性的class类型，即父类</p>
+</blockquote>
+</li>
+<li>派生类<blockquote>
+<p>利用继承机制，新的类可以从已有的类中派生，即子类</p>
+</blockquote>
+</li>
+<li>其他术语(参考Effective Java)<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java3.png"></div>
 
-<ol>
-<li>客户端发送两个请求分别请求会员服务和订单服务</li>
-<li>网官拦截,根据接口名称映射到实际的接口地址。其中接口名称根据项目名称定。</li>
-</ol>
-<h2 id="搭建接口网关"><a href="#搭建接口网关" class="headerlink" title="搭建接口网关"></a>搭建接口网关</h2><h3 id="编写调用接口"><a href="#编写调用接口" class="headerlink" title="编写调用接口"></a>编写调用接口</h3><blockquote>
-<p>在会员服务service-member的controller中添加需要调用的接口</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping("getMemberService")</span><br><span class="line"> public String getMemberService() &#123;</span><br><span class="line"><span class="code">     return "this is member service";</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在订单服务service-order的controller中添加需要调用的接口</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping("getOrderService")</span><br><span class="line">public String getOrderService() &#123;</span><br><span class="line"><span class="code">    return "this is order service";</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="搭建网关项目"><a href="#搭建网关项目" class="headerlink" title="搭建网关项目"></a>搭建网关项目</h3><ol>
-<li>新建service-zuul网关项目，选择web、eureka、zuul依赖,项目名称为serice-zuul<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul2.png"></div></li>
-<li>在启动内上加上@EnableEurekaClient、@EnableZuulProxy注解</li>
-<li>配置<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line"><span class="code">    serviceUrl:</span></span><br><span class="line"><span class="code">      defaultZone: http://localhost:1234/eureka/</span></span><br><span class="line">server:</span><br><span class="line">  port: 8765</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line"><span class="code">    name: service-zuul</span></span><br><span class="line">zuul:</span><br><span class="line">  routes:</span><br><span class="line"><span class="code">    api-a:</span></span><br><span class="line"><span class="code">    #对外提供的接口</span></span><br><span class="line"><span class="code">      path: /api/member/**</span></span><br><span class="line"><span class="code">      #映射到的服务项目名称</span></span><br><span class="line"><span class="code">      service-id: service-member</span></span><br><span class="line"><span class="code">    api-b:</span></span><br><span class="line"><span class="code">      path: /api/order/**</span></span><br><span class="line"><span class="code">      service-id: service-order</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>4.依次启动注册中心、service-member、service-order、service-zuul,分别访问<a href="http://localhost:8765/api/member/getMemberService、http://localhost:8765/api/order/getOrderService接口，效果如下：" target="_blank" rel="noopener">http://localhost:8765/api/member/getMemberService、http://localhost:8765/api/order/getOrderService接口，效果如下：</a></p>
-<p>/api/member/getMemberService</p>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul3.png"></div>
-
-<p>/api/order/getOrderService</p>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul4.png"></div>
-
-<h3 id="网关参数拦截"><a href="#网关参数拦截" class="headerlink" title="网关参数拦截"></a>网关参数拦截</h3><blockquote>
-<p>网关拦截类似于过滤器，但是不同点在于过滤器在每个服务中，而网关拦截在进入服务之前</p>
-<p>新建一个类，Filter，代码</p>
-</blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class Filter extends ZuulFilter &#123;</span><br><span class="line"><span class="code">    public static  final Logger log = LoggerFactory.getLogger(Filter.class);</span></span><br><span class="line"><span class="code">    @Override</span></span><br><span class="line"><span class="code">    public String filterType() &#123;</span></span><br><span class="line"><span class="code">        return "pre";</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    @Override</span></span><br><span class="line"><span class="code">    public int filterOrder() &#123;</span></span><br><span class="line"><span class="code">        return 0;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    @Override</span></span><br><span class="line"><span class="code">    public boolean shouldFilter() &#123;</span></span><br><span class="line"><span class="code">        return true;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    @Override</span></span><br><span class="line"><span class="code">    public Object run() throws ZuulException &#123;</span></span><br><span class="line"><span class="code">        RequestContext ctx = RequestContext.getCurrentContext();</span></span><br><span class="line"><span class="code">        HttpServletRequest request = ctx.getRequest();</span></span><br><span class="line"><span class="code">        log.info(String.format("%s &gt;&gt;&gt; %s", request.getMethod(),request.getRequestURL().toString()));</span></span><br><span class="line"><span class="code">        Object accessToken = request.getParameter("token");</span></span><br><span class="line"><span class="code">        //如果有token这放行</span></span><br><span class="line"><span class="code">        if (accessToken != null) &#123;</span></span><br><span class="line"><span class="code">            return null;</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">        log.warn("token is empty");</span></span><br><span class="line">   //sendZuulResponse(false),就等于对其它过滤器一路开了红灯，都不会被执行了，直到SendResponseFilter，输出Response的内容。</span><br><span class="line"><span class="code">        ctx.setSendZuulResponse(false);</span></span><br><span class="line"><span class="code">        ctx.setResponseStatusCode(401);</span></span><br><span class="line"></span><br><span class="line"><span class="code">        try &#123;</span></span><br><span class="line"><span class="code">            ctx.getResponse().getWriter().write("token is empty");</span></span><br><span class="line"><span class="code">        &#125; catch (IOException e) &#123;</span></span><br><span class="line"><span class="code">            e.printStackTrace();</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">        return null;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>重新启动service-zuul,访问接口，不加token时返回：</p>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul5.png"></div><br>加上token返回<br><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/zuul6.png"></div>
-
-
-
-
+<h2 id="lt-extends-T-gt-and-lt-super-T-gt-的作用范围"><a href="#lt-extends-T-gt-and-lt-super-T-gt-的作用范围" class="headerlink" title="&lt;? extends T&gt; and &lt;? super T&gt;的作用范围"></a>&lt;? extends T&gt; and &lt;? super T&gt;的作用范围</h2><p><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java1.png"></div></p>
+<p><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java2.png"></div></p>
+<h2 id="程序代码即讲解"><a href="#程序代码即讲解" class="headerlink" title="程序代码即讲解"></a>程序代码即讲解</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    public static void main(String[] args) &#123;</span></span><br><span class="line"><span class="code">        System.out.println("Hello World!");</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    private class Food &#123;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     *水果类</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    private class Fruit extends Food &#123;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     *苹果类，继承水果类</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    private class Apple extends Fruit &#123;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     * 盘子</span></span><br><span class="line"><span class="code">     * @param &lt;T&gt;</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    private class Plate&lt;T&gt; &#123;</span></span><br><span class="line"><span class="code">        private T item;</span></span><br><span class="line"></span><br><span class="line"><span class="code">        private void setItem(T item) &#123;</span></span><br><span class="line"><span class="code">            this.item = item;</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">        private T getItem() &#123;</span></span><br><span class="line"><span class="code">            return this.item;</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     * 新建水果类</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Fruit fruit = new Fruit();</span></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     * 新建苹果类，父类可以接受子类（基类可以接受派生类，Fruit可以接受Apple）</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Fruit apple = new Apple();</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     * Apple继承Fruit，但是Plate&lt;Apple&gt;不继承Plate&lt;Fruit&gt;,编译报错</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Plate&lt;Fruit&gt; fruitPlate = new Plate&lt;Apple&gt;();</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     *?代表不确定什么类型，extends Fruit:继承Fruit,规定了类的上限</span></span><br><span class="line"><span class="code">     *Plate&lt;? extends Fruit&gt;  是Plate&lt;Apple&gt;，Plate&lt;Fruit&gt;的父类</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Plate&lt;? extends Fruit&gt; fruitPlate2 = new Plate&lt;Apple&gt;();</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     *Plate&lt;? super Fruit&gt;是Plate&lt;Fruit&gt;的父类，但Plate&lt;? super Fruit&gt;不是Plate&lt;Apple&gt;的父类，所以编译报错</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Plate&lt;? super Fruit&gt; fruitPlate3 = new Plate&lt;Apple&gt;();</span></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     * Plate&lt;? super Fruit&gt;是 Plate&lt;Fruit&gt;()的父类，可以理解为用右边&lt;&gt;中的类型代替左边的?看是否合法，对象有set方法，但是get方法部分失效，只能够存在Object对象中</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Plate&lt;? super Fruit&gt; fruitPlate4 = new Plate&lt;Fruit&gt;();</span></span><br><span class="line"><span class="code">    Plate&lt;? super Fruit&gt; fruitPlate5 = new Plate&lt;Food&gt;();</span></span><br><span class="line"><span class="code">    Plate&lt;? super Fruit&gt; fruitPlate6 = new Plate&lt;Apple&gt;();</span></span><br><span class="line"></span><br><span class="line"><span class="code">    public void getAndSet() &#123;</span></span><br><span class="line"><span class="code">        //&lt;? extends Fruit&gt;的set方法失效，因为编译器只知道容器内是它的子类，但是不知道是具体的哪一个子类</span></span><br><span class="line"><span class="code">        fruitPlate2.setItem(new Apple());</span></span><br><span class="line"><span class="code">        fruitPlate2.setItem(new Fruit());</span></span><br><span class="line"><span class="code">        //取出来的东西也只能放在Fruit或者他的父类当中,因为取出来的是Fruit的子类,所以用Fruit或者他的父类接受都可以</span></span><br><span class="line"><span class="code">        Fruit friut = fruitPlate2.getItem();</span></span><br><span class="line"><span class="code">        Food food = fruitPlate2.getItem();</span></span><br><span class="line"><span class="code">        //&lt;? super Fruit&gt;的set方法有效，相当于将子类赋值给父类,将粒度小的赋值给粒度大的</span></span><br><span class="line"><span class="code">        fruitPlate4.setItem(new Fruit());</span></span><br><span class="line"><span class="code">        fruitPlate4.setItem(new Apple());</span></span><br><span class="line"><span class="code">        //&lt;? super Fruit&gt;的get方法只能用Object接受，相当于父类赋值给子类，取出来的粒度大的无法赋值给粒度小的</span></span><br><span class="line"><span class="code">        Apple apple = fruitPlate4.getItem();</span></span><br><span class="line"><span class="code">        Fruit fruit = fruitPlate4.getItem();</span></span><br><span class="line"><span class="code">        Object object2 = fruitPlate4.getItem();</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -359,13 +335,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/07/31/SpringCloud-chapter7/">第七章:SpringCloud-接口网关</a></p>
+        <p><span>本文标题:</span><a  href="/year/08/12/java_article1/">Number1：java基础-&lt;? extends T&gt; and &lt;? super T&gt;</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2018年07月31日 - 10时06分</p>
-        <p><span>最后更新:</span>2018年08月02日 - 13时38分</p>
+        <p><span>发布时间:</span>2018年08月12日 - 10时50分</p>
+        <p><span>最后更新:</span>2018年08月12日 - 11时05分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/07/31/SpringCloud-chapter7/" title="第七章:SpringCloud-接口网关">http://jchanji.github.io/year/07/31/SpringCloud-chapter7/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/07/31/SpringCloud-chapter7/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/08/12/java_article1/" title="Number1：java基础-&lt;? extends T&gt; and &lt;? super T&gt;">http://jchanji.github.io/year/08/12/java_article1/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/08/12/java_article1/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -376,18 +352,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/08/02/SpringCloud-chapter8/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          第八章:SpringCloud-配置中心
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/07/31/SrpingCloud-chapter6/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">第六章:SpringCloud-负载均衡</div>
+    <a  href="/year/08/11/Mysql_chapter3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第三章：MySQL性能管理及架构设计-基准测试</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -399,7 +366,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是接口网关"><span class="toc-number">2.</span> <span class="toc-text">什么是接口网关?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建接口网关"><span class="toc-number">3.</span> <span class="toc-text">搭建接口网关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编写调用接口"><span class="toc-number">3.1.</span> <span class="toc-text">编写调用接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搭建网关项目"><span class="toc-number">3.2.</span> <span class="toc-text">搭建网关项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网关参数拦截"><span class="toc-number">3.3.</span> <span class="toc-text">网关参数拦截</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本术语"><span class="toc-number">2.</span> <span class="toc-text">基本术语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-extends-T-gt-and-lt-super-T-gt-的作用范围"><span class="toc-number">3.</span> <span class="toc-text">&lt;? extends T&gt; and &lt;? super T&gt;的作用范围</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序代码即讲解"><span class="toc-number">4.</span> <span class="toc-text">程序代码即讲解</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -459,13 +426,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/08/02/SpringCloud-chapter8/" title="上一篇: 第八章:SpringCloud-配置中心">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/07/31/SrpingCloud-chapter6/" title="下一篇: 第六章:SpringCloud-负载均衡">
+            <a  href="/year/08/11/Mysql_chapter3/" title="下一篇: 第三章：MySQL性能管理及架构设计-基准测试">
                 <i class="fa fa-angle-right"></i>
             </a>
         
