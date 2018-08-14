@@ -2,23 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://jchanji.github.io/year/08/12/java_article1/</loc>
+    <loc>http://jchanji.github.io/year/08/13/java_io_ByteArrayInputStream/</loc>
     
-    <lastmod>2018-08-12T03:05:49.862Z</lastmod>
+    <lastmod>2018-08-14T06:55:51.301Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://jchanji.github.io/year/08/11/Mysql_chapter3/</loc>
     
-    <lastmod>2018-08-11T07:35:33.800Z</lastmod>
+    <lastmod>2018-08-12T04:56:08.608Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://jchanji.github.io/year/08/10/Mysql_chapter2/</loc>
     
-    <lastmod>2018-08-10T12:50:50.656Z</lastmod>
+    <lastmod>2018-08-12T04:37:10.810Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/08/12/java_article1/</loc>
+    
+    <lastmod>2018-08-12T03:05:49.862Z</lastmod>
     
   </url>
   
@@ -65,7 +72,7 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/07/31/SrpingCloud-chapter6/</loc>
+    <loc>http://jchanji.github.io/year/07/31/SpringCloud-chapter6/</loc>
     
     <lastmod>2018-08-02T05:38:38.241Z</lastmod>
     

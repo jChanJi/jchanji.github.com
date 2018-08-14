@@ -7,22 +7,22 @@
   
   
   
-  <title>第二章:SpringCloud-SpringCloud简述 | Chanji</title>
+  <title>java基础-IO-ByteArrayInputStream-01 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言 本章节主要介绍SpringClou所解决哪些问题,以及SpringCloud有哪些模块构成。">
-<meta name="keywords" content="SpringCloud,微服务">
+  <meta name="description" content="前言 此篇为java基础笔记的第一篇，java基础系列文章将主要记录学习IO、集合、多线程等内容，大部分是对比较函数的介绍和源码的分析。由于时间有限，函数中输入值的范围以及异常处理不加以详细介绍,以实现原理和容易出错点为主。java基础-IO-ByteArrayInputStream-01">
+<meta name="keywords" content="IO">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第二章:SpringCloud-SpringCloud简述">
-<meta property="og:url" content="http://jchanji.github.io/year/07/24/springCloud-chapter2/index.html">
+<meta property="og:title" content="java基础-IO-ByteArrayInputStream-01">
+<meta property="og:url" content="http://jchanji.github.io/year/08/13/java_io_ByteArrayInputStream/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="前言 本章节主要介绍SpringClou所解决哪些问题,以及SpringCloud有哪些模块构成。">
+<meta property="og:description" content="前言 此篇为java基础笔记的第一篇，java基础系列文章将主要记录学习IO、集合、多线程等内容，大部分是对比较函数的介绍和源码的分析。由于时间有限，函数中输入值的范围以及异常处理不加以详细介绍,以实现原理和容易出错点为主。java基础-IO-ByteArrayInputStream-01">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/register-center.png">
-<meta property="og:updated_time" content="2018-07-31T00:50:28.399Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java_io_1.png">
+<meta property="og:updated_time" content="2018-08-14T06:55:51.301Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第二章:SpringCloud-SpringCloud简述">
-<meta name="twitter:description" content="前言 本章节主要介绍SpringClou所解决哪些问题,以及SpringCloud有哪些模块构成。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/register-center.png">
+<meta name="twitter:title" content="java基础-IO-ByteArrayInputStream-01">
+<meta name="twitter:description" content="前言 此篇为java基础笔记的第一篇，java基础系列文章将主要记录学习IO、集合、多线程等内容，大部分是对比较函数的介绍和源码的分析。由于时间有限，函数中输入值的范围以及异常处理不加以详细介绍,以实现原理和容易出错点为主。java基础-IO-ByteArrayInputStream-01">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java_io_1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -258,11 +258,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-springCloud-chapter2" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-java_io_ByteArrayInputStream" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/07/24/springCloud-chapter2/" class="article-date">
-      <time datetime="2018-07-24T03:41:00.614Z" itemprop="datePublished">2018-07-24</time>
+      <a  href="/year/08/13/java_io_ByteArrayInputStream/" class="article-date">
+      <time datetime="2018-08-13T09:24:26.057Z" itemprop="datePublished">2018-08-13</time>
 </a>
 
     </div>
@@ -276,7 +276,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      第二章:SpringCloud-SpringCloud简述
+      java基础-IO-ByteArrayInputStream-01
     </h1>
   
 
@@ -286,13 +286,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/SpringCloud/">-SpringCloud</a>
+    <a class="article-category-link" href="/categories/java/">-java</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微服务/">微服务</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IO/">IO</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -303,20 +303,49 @@
       
           
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>本章节主要介绍SpringClou所解决哪些问题,以及SpringCloud有哪些模块构成。</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="SpringCloud解决什么样的问题"><a href="#SpringCloud解决什么样的问题" class="headerlink" title="SpringCloud解决什么样的问题"></a>SpringCloud解决什么样的问题</h2><blockquote>
-<p>上一节简单的提到过springCloud和dubbo一样是一种RPC远程调用框架，顾名思义，其要解决的问题主要集中在接口调用中。其中包含容错机制、路由策略、高并发的情况、接口限流、断路等问题。</p>
-</blockquote>
-<h2 id="SpringCloud由哪些服务组成"><a href="#SpringCloud由哪些服务组成" class="headerlink" title="SpringCloud由哪些服务组成"></a>SpringCloud由哪些服务组成</h2><h3 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h3><blockquote>
-<p>SpringCloud中使用eureka作为配置管理的服务注册中心、zookeeper这是dubbo官方认可的注册中心。eureka分为服务端和客户端，服务端也成为服务注册中心，负责服务的注册与发现。客户端包含服务消费者和服务生产者。下面折eureka的注册中心、消费者、生产者关系图。</p>
-</blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/register-center.png"></div>
+<p>此篇为java基础笔记的第一篇，java基础系列文章将主要记录学习IO、集合、多线程等内容，大部分是对比较函数的介绍和源码的分析。由于时间有限，函数中输入值的范围以及异常处理不加以详细介绍,以实现原理和容易出错点为主。java基础-IO-ByteArrayInputStream-01<br><a id="more"></a></p>
+<h2 id="IO总体结构图"><a href="#IO总体结构图" class="headerlink" title="IO总体结构图"></a>IO总体结构图</h2><p>此图源自<a href="https://www.cnblogs.com/zhaoyanjun/p/6292384.html" target="_blank" rel="noopener">赵彦军</a></p>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java_io_1.png"></div>
 
-<h3 id="断路器"><a href="#断路器" class="headerlink" title="断路器"></a>断路器</h3><h3 id="路由策略"><a href="#路由策略" class="headerlink" title="路由策略"></a>路由策略</h3><h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><h3 id="全局锁"><a href="#全局锁" class="headerlink" title="全局锁"></a>全局锁</h3><h3 id="分布式会话"><a href="#分布式会话" class="headerlink" title="分布式会话"></a>分布式会话</h3><h3 id="客户端调用"><a href="#客户端调用" class="headerlink" title="客户端调用"></a>客户端调用</h3><h3 id="接口网关"><a href="#接口网关" class="headerlink" title="接口网关"></a>接口网关</h3><blockquote>
-<p>zuul</p>
-<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2></blockquote>
+</blockquote>
+<h2 id="InputStream"><a href="#InputStream" class="headerlink" title="InputStream"></a>InputStream</h2><h3 id="public-abstract-int-read"><a href="#public-abstract-int-read" class="headerlink" title="public abstract int read()"></a>public abstract int read()</h3><p>读取输入流中的下一个字节的数据，返回读取流的大小，范围为0-255，如果读到了流的尾部将返回-1。此方法将被阻塞的,直到有可获取的数据或者检测到了流的结尾或者抛出异常，所以返回的字节大小不总是255，如果检测到尾部则获取的是最后不满一个字节长度的数据，抛出异常时返回的异常之前读取的字节数。</p>
+<h3 id="public-int-read-byte-b"><a href="#public-int-read-byte-b" class="headerlink" title="public int read(byte b[])"></a>public int read(byte b[])</h3><p>将输入流全部读取带字节数组b中，放回的是实际的数组的长度，此方法调用的是public int read(byte b[], int off, int len)，off为0，len为b.length</p>
+<h3 id="public-int-read-byte-b-int-off-int-len"><a href="#public-int-read-byte-b-int-off-int-len" class="headerlink" title="public int read(byte b[], int off, int len)"></a>public int read(byte b[], int off, int len)</h3><p>从指定字节位置读取指定长度的数据，并存到字节数组中，返回的是实际的读取的长度（因为此方法也是阻塞的），方法中其实是一个总数为len的for循环，每次循环调用一次read()方法读取下一字节的数据。同样，该方法数阻塞的。当off或者len为负数，len超过b.length-off的大小时会报超出索引边界异常。</p>
+<h3 id="public-long-skip-long-n"><a href="#public-long-skip-long-n" class="headerlink" title="public long skip(long n)"></a>public long skip(long n)</h3><p>跳过指定长度的字节，返回的是实际跳过的字节的长度（因为也是阻塞的），skip方法会存在跳过的字节数小于预期的情况。如果不对返回值进行处理的话，很容易忽视这个问题，导致结果错误。类中定义了 private static final int MAX_SKIP_BUFFER_SIZE = 2048,当跳过的字节数大于2048时会循环的调用 read(skipBuffer, 0, (int)Math.min(size, remaining))方法。代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int size = (int)Math.min(MAX_SKIP_BUFFER_SIZE, remaining);</span><br><span class="line">byte[] skipBuffer = new byte[size];</span><br><span class="line">while (remaining &gt; 0) &#123;</span><br><span class="line">    nr = read(skipBuffer, 0, (int)Math.min(size, remaining));</span><br><span class="line">    if (nr &lt; 0) &#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    remaining -= nr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当跳过的字节数太大时，这有可能是影响性能的地方。</p>
+<h3 id="public-int-available"><a href="#public-int-available" class="headerlink" title="public int available()"></a>public int available()</h3><p>available()方法是非阻塞的，返回的是流数据的字节大小。在获取本地文件的时候也许不会有什么问题，但是在接受网络传输的流时由于数非阻塞的，返回的值和发送的总数据字节数有可能不相等。为网络通讯往往是间断性的，一串字节往往分几批进行发送。</p>
+<h3 id="public-void-close"><a href="#public-void-close" class="headerlink" title="public void close()"></a>public void close()</h3><p>关闭流，释放资源</p>
+<h3 id="public-synchronized-void-mark-int-readlimit"><a href="#public-synchronized-void-mark-int-readlimit" class="headerlink" title="public synchronized void mark(int readlimit)"></a>public synchronized void mark(int readlimit)</h3><p>标记流的当前位置，readlimit为在标记失效之前，标记位置之后最多可以读取对少字节的数据。当markSupported()返回true的时候，调用reset时会返回调用mark之后读取的所有数据，如果在调用 reset 之前可以从流中读取多于 readlimit 的字节，则根本不需要该流记住任何数据。 InputStream中不支持mark，reset操作，具体在其子类中实现。对于关闭的流mark没有效果。</p>
+<h3 id="public-synchronized-void-reset"><a href="#public-synchronized-void-reset" class="headerlink" title="public synchronized void reset()"></a>public synchronized void reset()</h3><p>调用reset方法将会回到上一次使用mark的位置，</p>
+<h3 id="public-boolean-markSupported"><a href="#public-boolean-markSupported" class="headerlink" title="public boolean markSupported()"></a>public boolean markSupported()</h3><p>测试输入流是否有mark和reset方法。</p>
+<h2 id="ByteArrayInputStream"><a href="#ByteArrayInputStream" class="headerlink" title="ByteArrayInputStream"></a>ByteArrayInputStream</h2><p>ByteArrayInputStream的操作在我看来本质是是字节数组的复制。</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ol>
+<li>protected byte buf[];<blockquote>
+<p>字节数组，用来存储从流中读取的字节</p>
+</blockquote>
+</li>
+<li>protected int pos;<blockquote>
+<p>字节流中读取下一个字节的位置</p>
+</blockquote>
+</li>
+<li>protected int mark = 0;<blockquote>
+<p>字节流中目前被标记的位置</p>
+</blockquote>
+</li>
+<li>protected int count;<blockquote>
+<p>字节流的长度</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="public-ByteArrayInputStream-byte-buf"><a href="#public-ByteArrayInputStream-byte-buf" class="headerlink" title="public ByteArrayInputStream(byte buf[])"></a>public ByteArrayInputStream(byte buf[])</h3><p>将传入的字节数组参数保存在buf参数中</p>
+<h3 id="public-ByteArrayInputStream-byte-buf-int-offset-int-length"><a href="#public-ByteArrayInputStream-byte-buf-int-offset-int-length" class="headerlink" title="public ByteArrayInputStream(byte buf[], int offset, int length)"></a>public ByteArrayInputStream(byte buf[], int offset, int length)</h3><p>将读入的字节流数组buf[]存到this.buf中并设置读取下一个字节的位置pos为偏移量offset，this.buf的长度为min(offset + length,buf.length)</p>
+<h3 id="public-synchronized-int-read"><a href="#public-synchronized-int-read" class="headerlink" title="public synchronized int read()"></a>public synchronized int read()</h3><p>读取下一个字节，返回的读取的字节的大小，此方法是非阻塞的。当到输入流的结尾时会返回-1</p>
+<h3 id="public-synchronized-int-read-byte-b-int-off-int-len"><a href="#public-synchronized-int-read-byte-b-int-off-int-len" class="headerlink" title="public synchronized int read(byte b[], int off, int len)"></a>public synchronized int read(byte b[], int off, int len)</h3><p>将输入的字节流从off位置开始读取len长度的字节，其原理其实是数组的复制<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.arraycopy(buf, pos, b, off, len);</span><br></pre></td></tr></table></figure></p>
+<p>将b从off位置复制len长度的字节到buf中，从buf的pos位置开始</p>
+<h3 id="public-synchronized-long-skip-long-n"><a href="#public-synchronized-long-skip-long-n" class="headerlink" title="public synchronized long skip(long n)"></a>public synchronized long skip(long n)</h3><p>跳过n个字节，其实是将pos加n个数</p>
+<h3 id="public-boolean-markSupported-1"><a href="#public-boolean-markSupported-1" class="headerlink" title="public boolean markSupported()"></a>public boolean markSupported()</h3><p>ByteArrayInputStream的markSupported()方法返回的永远是true</p>
+<h3 id="public-void-mark-int-readAheadLimit"><a href="#public-void-mark-int-readAheadLimit" class="headerlink" title="public void mark(int readAheadLimit)"></a>public void mark(int readAheadLimit)</h3><p>将pos的位置记录下来，放在mark变量中</p>
+<h3 id="public-synchronized-void-reset-1"><a href="#public-synchronized-void-reset-1" class="headerlink" title="public synchronized void reset()"></a>public synchronized void reset()</h3><p>将mark的值赋值给pos</p>
 
       
     </div>
@@ -325,13 +354,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/07/24/springCloud-chapter2/">第二章:SpringCloud-SpringCloud简述</a></p>
+        <p><span>本文标题:</span><a  href="/year/08/13/java_io_ByteArrayInputStream/">java基础-IO-ByteArrayInputStream-01</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2018年07月24日 - 11时41分</p>
-        <p><span>最后更新:</span>2018年07月31日 - 08时50分</p>
+        <p><span>发布时间:</span>2018年08月13日 - 17时24分</p>
+        <p><span>最后更新:</span>2018年08月14日 - 14时55分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/07/24/springCloud-chapter2/" title="第二章:SpringCloud-SpringCloud简述">http://jchanji.github.io/year/07/24/springCloud-chapter2/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/07/24/springCloud-chapter2/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/08/13/java_io_ByteArrayInputStream/" title="java基础-IO-ByteArrayInputStream-01">http://jchanji.github.io/year/08/13/java_io_ByteArrayInputStream/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/08/13/java_io_ByteArrayInputStream/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -342,18 +371,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/07/25/SpringCloud-chapter3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          第三章:SpringCloud-eureka环境搭建
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/07/19/springCloud-chapter1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">第一章:SpringCloud-网站架构演变</div>
+    <a  href="/year/08/12/java_article1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Number1：java基础-&lt;? extends T&gt; and &lt;? super T&gt;</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -365,7 +385,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringCloud解决什么样的问题"><span class="toc-number">2.</span> <span class="toc-text">SpringCloud解决什么样的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringCloud由哪些服务组成"><span class="toc-number">3.</span> <span class="toc-text">SpringCloud由哪些服务组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注册中心"><span class="toc-number">3.1.</span> <span class="toc-text">注册中心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#断路器"><span class="toc-number">3.2.</span> <span class="toc-text">断路器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由策略"><span class="toc-number">3.3.</span> <span class="toc-text">路由策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#负载均衡"><span class="toc-number">3.4.</span> <span class="toc-text">负载均衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局锁"><span class="toc-number">3.5.</span> <span class="toc-text">全局锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分布式会话"><span class="toc-number">3.6.</span> <span class="toc-text">分布式会话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端调用"><span class="toc-number">3.7.</span> <span class="toc-text">客户端调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接口网关"><span class="toc-number">3.8.</span> <span class="toc-text">接口网关</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关键词"><span class="toc-number">4.</span> <span class="toc-text">关键词</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO总体结构图"><span class="toc-number">2.</span> <span class="toc-text">IO总体结构图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#InputStream"><span class="toc-number">3.</span> <span class="toc-text">InputStream</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#public-abstract-int-read"><span class="toc-number">3.1.</span> <span class="toc-text">public abstract int read()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-int-read-byte-b"><span class="toc-number">3.2.</span> <span class="toc-text">public int read(byte b[])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-int-read-byte-b-int-off-int-len"><span class="toc-number">3.3.</span> <span class="toc-text">public int read(byte b[], int off, int len)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-long-skip-long-n"><span class="toc-number">3.4.</span> <span class="toc-text">public long skip(long n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-int-available"><span class="toc-number">3.5.</span> <span class="toc-text">public int available()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-void-close"><span class="toc-number">3.6.</span> <span class="toc-text">public void close()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-synchronized-void-mark-int-readlimit"><span class="toc-number">3.7.</span> <span class="toc-text">public synchronized void mark(int readlimit)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-synchronized-void-reset"><span class="toc-number">3.8.</span> <span class="toc-text">public synchronized void reset()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-boolean-markSupported"><span class="toc-number">3.9.</span> <span class="toc-text">public boolean markSupported()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ByteArrayInputStream"><span class="toc-number">4.</span> <span class="toc-text">ByteArrayInputStream</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">4.1.</span> <span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-ByteArrayInputStream-byte-buf"><span class="toc-number">4.2.</span> <span class="toc-text">public ByteArrayInputStream(byte buf[])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-ByteArrayInputStream-byte-buf-int-offset-int-length"><span class="toc-number">4.3.</span> <span class="toc-text">public ByteArrayInputStream(byte buf[], int offset, int length)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-synchronized-int-read"><span class="toc-number">4.4.</span> <span class="toc-text">public synchronized int read()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-synchronized-int-read-byte-b-int-off-int-len"><span class="toc-number">4.5.</span> <span class="toc-text">public synchronized int read(byte b[], int off, int len)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-synchronized-long-skip-long-n"><span class="toc-number">4.6.</span> <span class="toc-text">public synchronized long skip(long n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-boolean-markSupported-1"><span class="toc-number">4.7.</span> <span class="toc-text">public boolean markSupported()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-void-mark-int-readAheadLimit"><span class="toc-number">4.8.</span> <span class="toc-text">public void mark(int readAheadLimit)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#public-synchronized-void-reset-1"><span class="toc-number">4.9.</span> <span class="toc-text">public synchronized void reset()</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -425,13 +445,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/07/25/SpringCloud-chapter3/" title="上一篇: 第三章:SpringCloud-eureka环境搭建">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/07/19/springCloud-chapter1/" title="下一篇: 第一章:SpringCloud-网站架构演变">
+            <a  href="/year/08/12/java_article1/" title="下一篇: Number1：java基础-&lt;? extends T&gt; and &lt;? super T&gt;">
                 <i class="fa fa-angle-right"></i>
             </a>
         
