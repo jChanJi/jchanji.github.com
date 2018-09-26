@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://jchanji.github.io/year/08/15/java_io_ByteArrayOutputStream/</loc>
+    <loc>http://jchanji.github.io/year/09/26/redis-persistence/</loc>
     
-    <lastmod>2018-08-15T04:20:21.683Z</lastmod>
+    <lastmod>2018-09-26T14:41:46.105Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://jchanji.github.io/year/08/13/java_io_ByteArrayInputStream/</loc>
     
-    <lastmod>2018-08-14T13:52:54.575Z</lastmod>
+    <lastmod>2018-08-29T08:39:54.347Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/08/15/java_io_ByteArrayOutputStream/</loc>
+    
+    <lastmod>2018-08-15T04:20:21.683Z</lastmod>
     
   </url>
   

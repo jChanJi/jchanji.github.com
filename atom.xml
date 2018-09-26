@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jchanji.github.io/"/>
-  <updated>2018-08-15T04:20:21.683Z</updated>
+  <updated>2018-09-26T14:41:46.105Z</updated>
   <id>http://jchanji.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Redis持久化</title>
+    <link href="http://jchanji.github.io/year/09/26/redis-persistence/"/>
+    <id>http://jchanji.github.io/year/09/26/redis-persistence/</id>
+    <published>2018-09-26T07:59:17.948Z</published>
+    <updated>2018-09-26T14:41:46.105Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>redis 的持久化方式哦有两种 RDB和AOF,本文重要介绍这两种方式的原理。</p></blockquote><a id="more"></a><h3 id="RDB持久化"><a href="#RDB持久化" class="headerlink" title="RDB持久化"></a>RDB持久化</h3><blockquote><p>服务器在载入RDB文件的期间服务器会一直处于阻塞的状态。</p></blockquote><h4 id="SAVE"><a href="#SAVE" class="headerlink" title="SAVE"></a>SAVE</h4><blockquote><p>SAVE命令由主进程执行，会阻塞服务器的主进程 </p></blockquote><h4 id="BGSAVE"><a href="#BGSAVE" class="headerlink" title="BGSAVE"></a>BGSAVE</h4><blockquote><p>BGSAVE会派生出一个子进程然后由子进程创建RDB文件，完成创建RDB文件后向父进程发送信号，而父进程通过轮询等待子进程的信号。</p></blockquote><h4 id="RDB和AOF的执行顺序"><a href="#RDB和AOF的执行顺序" class="headerlink" title="RDB和AOF的执行顺序"></a>RDB和AOF的执行顺序</h4><blockquote><p>如果开启了AOF功能服务器将会优先使用AOF文件还原数据</p></blockquote><p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-persistence.png" alt="RDB和AOF执行顺序"></p><h4 id="BGSAVE执行时的服务器状态"><a href="#BGSAVE执行时的服务器状态" class="headerlink" title="BGSAVE执行时的服务器状态"></a>BGSAVE执行时的服务器状态</h4><p>在BGSAVE执行期间：</p><ol><li>SAVE命令将会被拒绝，防止父进程和子进程同时执行两个rdbSave，产生竞争</li><li>BGSAV命令将会被拒绝，两个BGSAVE命令也会产生竞争</li><li>BGREWRITEAOF命令将会被延时到BGSAVE执行之后执行，相反如果先BGREWRITEAOF执行过程中BGSAVE 命令将会被拒绝。这两个命令都由子进程执行，不会产生竞争，但是为了性能考虑，不能同时有两个子进程产生大量的IO。</li></ol><h3 id="AOF-append-only-file-持久化"><a href="#AOF-append-only-file-持久化" class="headerlink" title="AOF(append only file)持久化"></a>AOF(append only file)持久化</h3><blockquote><p>AOF持久化保存Redis服务器所执行的写命令来记录数据库状态</p></blockquote><p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-aof-persistence.png" alt="AOF持久化"></p><h4 id="AOF持久化的实现"><a href="#AOF持久化的实现" class="headerlink" title="AOF持久化的实现"></a>AOF持久化的实现</h4><blockquote><p>持久化的实现可以分为三个部分：命令的追加、文件的写入、文件的同步。</p></blockquote><h5 id="命令追加"><a href="#命令追加" class="headerlink" title="命令追加"></a>命令追加</h5><blockquote><p>服务器执行完写命令后会以协议格式讲过命令追加到aof_buf缓冲区的末尾</p></blockquote><h5 id="文件写入"><a href="#文件写入" class="headerlink" title="文件写入"></a>文件写入</h5><blockquote><p>在每次结束事件循环前都会调用flushAppendOnlyFile函数考虑是否将aof_buf缓冲区内容写入和保存到AOF文件里。</p><h5 id="文件同步"><a href="#文件同步" class="headerlink" title="文件同步"></a>文件同步</h5><p>flushAppendOnlyFile函数的行为主要有服务器配置的appendfsync选项的值来决定的。</p></blockquote><ol><li>always:每一个事件循环都会清空aof_buf缓冲区，效率最低但也是最安全的，只会丢失一个循环中的命令指令。</li><li>everysec:每一秒钟清空一下缓冲区，对AOF文件进行同步，这个同步操作是由一个线程专门负责执行的。效率较高，只会丢失一秒钟的指令。</li><li>no：将aof_buf缓冲区的内容写入带AOF文件中，但是不对AOF文件进行同步，何时同步由操作系统决定。写入速度是最快的，单次同步时长是三种模式中最长的，平均来说和everysec模式效率类似，但是出现故障停机时将丢失同步AOF文件后的所有写命令。</li></ol><h4 id="AOF重写"><a href="#AOF重写" class="headerlink" title="AOF重写"></a>AOF重写</h4><blockquote><p>随着AOF文件中的内容越来越多文件体积会越来越大，为了给AOF文件瘦身，Redis提供了重写的功能。AOF的重写不需要对现有的AOF文件有任何的读取、分析或者写入操作，重写AOF文件的内容是通过读取数据库状态（数据）实现的。重写过程：</p></blockquote><ol><li>创建新AOF文件</li><li>遍历数据库，忽略已经过期的键、根据键的类型对键进行重写（五种基本类型）、如果有过期时间过期时间也要进行重写</li><li>AOF重写使用了一个子进程，在重写过程中父进程将重写期间的命令存放到AOF重写缓冲区中，重写完成后将缓冲区内容写到新的AOF文件中</li><li>对新的AOF文件尽心改名，覆盖现有的AOF文件</li></ol><blockquote><p>在AOF重写过程中父进程有三个工作：1、执行客户端发送的命令。2、将执行的命令追加到AOF缓冲区、3、将执行后的写命令追加到AOF重写缓冲区。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;redis 的持久化方式哦有两种 RDB和AOF,本文重要介绍这两种方式的原理。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="-Redis" scheme="http://jchanji.github.io/categories/Redis/"/>
+    
+    
+      <category term="Redis" scheme="http://jchanji.github.io/tags/Redis/"/>
+    
+  </entry>
   
   <entry>
     <title>java基础-IO-ByteArrayOutStream-02</title>
@@ -45,14 +69,15 @@
     <link href="http://jchanji.github.io/year/08/13/java_io_ByteArrayInputStream/"/>
     <id>http://jchanji.github.io/year/08/13/java_io_ByteArrayInputStream/</id>
     <published>2018-08-13T09:24:26.057Z</published>
-    <updated>2018-08-14T13:52:54.575Z</updated>
+    <updated>2018-08-29T08:39:54.347Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>此篇为java基础笔记的第一篇，java基础系列文章将主要记录学习IO、集合、多线程等内容，大部分是对比较函数的介绍和源码的分析。由于时间有限，函数中输入值的范围以及异常处理不加以详细介绍,以实现原理和容易出错点为主。<br><a id="more"></a></p><h2 id="IO总体结构图"><a href="#IO总体结构图" class="headerlink" title="IO总体结构图"></a>IO总体结构图</h2><p>此图源自<a href="https://www.cnblogs.com/zhaoyanjun/p/6292384.html" target="_blank" rel="noopener">赵彦军</a>的博客</p></blockquote><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java_io_1.png"></div><h2 id="InputStream"><a href="#InputStream" class="headerlink" title="InputStream"></a>InputStream</h2><h3 id="public-abstract-int-read"><a href="#public-abstract-int-read" class="headerlink" title="public abstract int read()"></a>public abstract int read()</h3><p>读取输入流中的下一个字节的数据，返回读取流的大小，范围为0-255，如果读到了流的尾部将返回-1。此方法将被阻塞的,直到有可获取的数据或者检测到了流的结尾或者抛出异常，所以返回的字节大小不总是255，如果检测到尾部则获取的是最后不满一个字节长度的数据，抛出异常时返回的异常之前读取的字节数。</p><h3 id="public-int-read-byte-b"><a href="#public-int-read-byte-b" class="headerlink" title="public int read(byte b[])"></a>public int read(byte b[])</h3><p>将输入流全部读取带字节数组b中，放回的是实际的数组的长度，此方法调用的是public int read(byte b[], int off, int len)，off为0，len为b.length</p><h3 id="public-int-read-byte-b-int-off-int-len"><a href="#public-int-read-byte-b-int-off-int-len" class="headerlink" title="public int read(byte b[], int off, int len)"></a>public int read(byte b[], int off, int len)</h3><p>从指定字节位置读取指定长度的数据，并存到字节数组中，返回的是实际的读取的长度（因为此方法也是阻塞的），方法中其实是一个总数为len的for循环，每次循环调用一次read()方法读取下一字节的数据。同样，该方法数阻塞的。当off或者len为负数，len超过b.length-off的大小时会报超出索引边界异常。</p><h3 id="public-long-skip-long-n"><a href="#public-long-skip-long-n" class="headerlink" title="public long skip(long n)"></a>public long skip(long n)</h3><p>跳过指定长度的字节，返回的是实际跳过的字节的长度（因为也是阻塞的），skip方法会存在跳过的字节数小于预期的情况。如果不对返回值进行处理的话，很容易忽视这个问题，导致结果错误。类中定义了 private static final int MAX_SKIP_BUFFER_SIZE = 2048,当跳过的字节数大于2048时会循环的调用 read(skipBuffer, 0, (int)Math.min(size, remaining))方法。代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int size = (int)Math.min(MAX_SKIP_BUFFER_SIZE, remaining);</span><br><span class="line">byte[] skipBuffer = new byte[size];</span><br><span class="line">while (remaining &gt; 0) &#123;</span><br><span class="line">    nr = read(skipBuffer, 0, (int)Math.min(size, remaining));</span><br><span class="line">    if (nr &lt; 0) &#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    remaining -= nr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>当跳过的字节数太大时，这有可能是影响性能的地方。</p><h3 id="public-int-available"><a href="#public-int-available" class="headerlink" title="public int available()"></a>public int available()</h3><p>available()方法是非阻塞的，返回的是流数据的字节大小。在获取本地文件的时候也许不会有什么问题，但是在接受网络传输的流时由于数非阻塞的，返回的值和发送的总数据字节数有可能不相等。为网络通讯往往是间断性的，一串字节往往分几批进行发送。</p><h3 id="public-void-close"><a href="#public-void-close" class="headerlink" title="public void close()"></a>public void close()</h3><p>关闭流，释放资源</p><h3 id="public-synchronized-void-mark-int-readlimit"><a href="#public-synchronized-void-mark-int-readlimit" class="headerlink" title="public synchronized void mark(int readlimit)"></a>public synchronized void mark(int readlimit)</h3><p>标记流的当前位置，readlimit为在标记失效之前，标记位置之后最多可以读取对少字节的数据。当markSupported()返回true的时候，调用reset时会返回调用mark之后读取的所有数据，如果在调用 reset 之前可以从流中读取多于 readlimit 的字节，则根本不需要该流记住任何数据。 InputStream中不支持mark，reset操作，具体在其子类中实现。对于关闭的流mark没有效果。</p><h3 id="public-synchronized-void-reset"><a href="#public-synchronized-void-reset" class="headerlink" title="public synchronized void reset()"></a>public synchronized void reset()</h3><p>调用reset方法将会回到上一次使用mark的位置，</p><h3 id="public-boolean-markSupported"><a href="#public-boolean-markSupported" class="headerlink" title="public boolean markSupported()"></a>public boolean markSupported()</h3><p>测试输入流是否有mark和reset方法。</p><h2 id="ByteArrayInputStream"><a href="#ByteArrayInputStream" class="headerlink" title="ByteArrayInputStream"></a>ByteArrayInputStream</h2><p>ByteArrayInputStream的操作在我看来本质是是字节数组的复制。</p><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ol><li>protected byte buf[];<blockquote><p>字节数组，用来存储从流中读取的字节</p></blockquote></li><li>protected int pos;<blockquote><p>字节流中读取下一个字节的位置</p></blockquote></li><li>protected int mark = 0;<blockquote><p>字节流中目前被标记的位置</p></blockquote></li><li>protected int count;<blockquote><p>字节流的长度</p></blockquote></li></ol><h3 id="public-ByteArrayInputStream-byte-buf"><a href="#public-ByteArrayInputStream-byte-buf" class="headerlink" title="public ByteArrayInputStream(byte buf[])"></a>public ByteArrayInputStream(byte buf[])</h3><p>将传入的字节数组参数保存在buf参数中</p><h3 id="public-ByteArrayInputStream-byte-buf-int-offset-int-length"><a href="#public-ByteArrayInputStream-byte-buf-int-offset-int-length" class="headerlink" title="public ByteArrayInputStream(byte buf[], int offset, int length)"></a>public ByteArrayInputStream(byte buf[], int offset, int length)</h3><p>将读入的字节流数组buf[]存到this.buf中并设置读取下一个字节的位置pos为偏移量offset，this.buf的长度为min(offset + length,buf.length)</p><h3 id="public-synchronized-int-read"><a href="#public-synchronized-int-read" class="headerlink" title="public synchronized int read()"></a>public synchronized int read()</h3><p>读取下一个字节，返回的读取的字节的大小，此方法是非阻塞的。当到输入流的结尾时会返回-1</p><h3 id="public-synchronized-int-read-byte-b-int-off-int-len"><a href="#public-synchronized-int-read-byte-b-int-off-int-len" class="headerlink" title="public synchronized int read(byte b[], int off, int len)"></a>public synchronized int read(byte b[], int off, int len)</h3><p>将输入的字节流从off位置开始读取len长度的字节，其原理其实是数组的复制<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.arraycopy(buf, pos, b, off, len);</span><br></pre></td></tr></table></figure></p><p>将b从off位置复制len长度的字节到buf中，从buf的pos位置开始</p><h3 id="public-synchronized-long-skip-long-n"><a href="#public-synchronized-long-skip-long-n" class="headerlink" title="public synchronized long skip(long n)"></a>public synchronized long skip(long n)</h3><p>跳过n个字节，其实是将pos加n个数</p><h3 id="public-boolean-markSupported-1"><a href="#public-boolean-markSupported-1" class="headerlink" title="public boolean markSupported()"></a>public boolean markSupported()</h3><p>ByteArrayInputStream的markSupported()方法返回的永远是true</p><h3 id="public-void-mark-int-readAheadLimit"><a href="#public-void-mark-int-readAheadLimit" class="headerlink" title="public void mark(int readAheadLimit)"></a>public void mark(int readAheadLimit)</h3><p>将pos的位置记录下来，放在mark变量中</p><h3 id="public-synchronized-void-reset-1"><a href="#public-synchronized-void-reset-1" class="headerlink" title="public synchronized void reset()"></a>public synchronized void reset()</h3><p>将mark的值赋值给pos</p><h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ol><li><a href="http://www.cnblogs.com/skywang12345/p/io_02.html" target="_blank" rel="noopener">java io系列02之 ByteArrayInputStream的简介,源码分析和示例(包括InputStream)</a></li><li><a href="https://www.cnblogs.com/zhaoyanjun/p/6292384.html" target="_blank" rel="noopener">Java IO流学习总结一：输入输出流</a></li><li><a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">jdk document-InputStream</a></li><li><a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">jdk document-ByteArrayInputStream</a></li><li>jdk源码-InputStream、ByteArrayInputStream</li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>此篇为java基础笔记的第一篇，java基础系列文章将主要记录学习IO、集合、多线程等内容，大部分是对比较函数的介绍和源码的分析。由于时间有限，函数中输入值的范围以及异常处理不加以详细介绍,以实现原理和容易出错点为主。</p></blockquote><a id="more"></a><h2 id="IO总体结构图"><a href="#IO总体结构图" class="headerlink" title="IO总体结构图"></a>IO总体结构图</h2><blockquote><p>此图源自<a href="https://www.cnblogs.com/zhaoyanjun/p/6292384.html" target="_blank" rel="noopener">赵彦军</a>的博客</p></blockquote><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java_io_1.png"></div><h2 id="InputStream"><a href="#InputStream" class="headerlink" title="InputStream"></a>InputStream</h2><h3 id="public-abstract-int-read"><a href="#public-abstract-int-read" class="headerlink" title="public abstract int read()"></a>public abstract int read()</h3><p>读取输入流中的下一个字节的数据，返回读取流的大小，范围为0-255，如果读到了流的尾部将返回-1。此方法将被阻塞的,直到有可获取的数据或者检测到了流的结尾或者抛出异常，所以返回的字节大小不总是255，如果检测到尾部则获取的是最后不满一个字节长度的数据，抛出异常时返回的异常之前读取的字节数。</p><h3 id="public-int-read-byte-b"><a href="#public-int-read-byte-b" class="headerlink" title="public int read(byte b[])"></a>public int read(byte b[])</h3><p>将输入流全部读取带字节数组b中，放回的是实际的数组的长度，此方法调用的是public int read(byte b[], int off, int len)，off为0，len为b.length</p><h3 id="public-int-read-byte-b-int-off-int-len"><a href="#public-int-read-byte-b-int-off-int-len" class="headerlink" title="public int read(byte b[], int off, int len)"></a>public int read(byte b[], int off, int len)</h3><p>从指定字节位置读取指定长度的数据，并存到字节数组中，返回的是实际的读取的长度（因为此方法也是阻塞的），方法中其实是一个总数为len的for循环，每次循环调用一次read()方法读取下一字节的数据。同样，该方法数阻塞的。当off或者len为负数，len超过b.length-off的大小时会报超出索引边界异常。</p><h3 id="public-long-skip-long-n"><a href="#public-long-skip-long-n" class="headerlink" title="public long skip(long n)"></a>public long skip(long n)</h3><p>跳过指定长度的字节，返回的是实际跳过的字节的长度（因为也是阻塞的），skip方法会存在跳过的字节数小于预期的情况。如果不对返回值进行处理的话，很容易忽视这个问题，导致结果错误。类中定义了 private static final int MAX_SKIP_BUFFER_SIZE = 2048,当跳过的字节数大于2048时会循环的调用 read(skipBuffer, 0, (int)Math.min(size, remaining))方法。代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int size = (int)Math.min(MAX_SKIP_BUFFER_SIZE, remaining);</span><br><span class="line">byte[] skipBuffer = new byte[size];</span><br><span class="line">while (remaining &gt; 0) &#123;</span><br><span class="line">    nr = read(skipBuffer, 0, (int)Math.min(size, remaining));</span><br><span class="line">    if (nr &lt; 0) &#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    remaining -= nr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>当跳过的字节数太大时，这有可能是影响性能的地方。</p><h3 id="public-int-available"><a href="#public-int-available" class="headerlink" title="public int available()"></a>public int available()</h3><p>available()方法是非阻塞的，返回的是流数据的字节大小。在获取本地文件的时候也许不会有什么问题，但是在接受网络传输的流时由于数非阻塞的，返回的值和发送的总数据字节数有可能不相等。为网络通讯往往是间断性的，一串字节往往分几批进行发送。</p><h3 id="public-void-close"><a href="#public-void-close" class="headerlink" title="public void close()"></a>public void close()</h3><p>关闭流，释放资源</p><h3 id="public-synchronized-void-mark-int-readlimit"><a href="#public-synchronized-void-mark-int-readlimit" class="headerlink" title="public synchronized void mark(int readlimit)"></a>public synchronized void mark(int readlimit)</h3><p>标记流的当前位置，readlimit为在标记失效之前，标记位置之后最多可以读取对少字节的数据。当markSupported()返回true的时候，调用reset时会返回调用mark之后读取的所有数据，如果在调用 reset 之前可以从流中读取多于 readlimit 的字节，则根本不需要该流记住任何数据。 InputStream中不支持mark，reset操作，具体在其子类中实现。对于关闭的流mark没有效果。</p><h3 id="public-synchronized-void-reset"><a href="#public-synchronized-void-reset" class="headerlink" title="public synchronized void reset()"></a>public synchronized void reset()</h3><p>调用reset方法将会回到上一次使用mark的位置，</p><h3 id="public-boolean-markSupported"><a href="#public-boolean-markSupported" class="headerlink" title="public boolean markSupported()"></a>public boolean markSupported()</h3><p>测试输入流是否有mark和reset方法。</p><h2 id="ByteArrayInputStream"><a href="#ByteArrayInputStream" class="headerlink" title="ByteArrayInputStream"></a>ByteArrayInputStream</h2><p>ByteArrayInputStream的操作在我看来本质是是字节数组的复制。</p><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ol><li>protected byte buf[];<blockquote><p>字节数组，用来存储从流中读取的字节</p></blockquote></li><li>protected int pos;<blockquote><p>字节流中读取下一个字节的位置</p></blockquote></li><li>protected int mark = 0;<blockquote><p>字节流中目前被标记的位置</p></blockquote></li><li>protected int count;<blockquote><p>字节流的长度</p></blockquote></li></ol><h3 id="public-ByteArrayInputStream-byte-buf"><a href="#public-ByteArrayInputStream-byte-buf" class="headerlink" title="public ByteArrayInputStream(byte buf[])"></a>public ByteArrayInputStream(byte buf[])</h3><p>将传入的字节数组参数保存在buf参数中</p><h3 id="public-ByteArrayInputStream-byte-buf-int-offset-int-length"><a href="#public-ByteArrayInputStream-byte-buf-int-offset-int-length" class="headerlink" title="public ByteArrayInputStream(byte buf[], int offset, int length)"></a>public ByteArrayInputStream(byte buf[], int offset, int length)</h3><p>将读入的字节流数组buf[]存到this.buf中并设置读取下一个字节的位置pos为偏移量offset，this.buf的长度为min(offset + length,buf.length)</p><h3 id="public-synchronized-int-read"><a href="#public-synchronized-int-read" class="headerlink" title="public synchronized int read()"></a>public synchronized int read()</h3><p>读取下一个字节，返回的读取的字节的大小，此方法是非阻塞的。当到输入流的结尾时会返回-1</p><h3 id="public-synchronized-int-read-byte-b-int-off-int-len"><a href="#public-synchronized-int-read-byte-b-int-off-int-len" class="headerlink" title="public synchronized int read(byte b[], int off, int len)"></a>public synchronized int read(byte b[], int off, int len)</h3><p>将输入的字节流从off位置开始读取len长度的字节，其原理其实是数组的复制<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.arraycopy(buf, pos, b, off, len);</span><br></pre></td></tr></table></figure></p><p>将b从off位置复制len长度的字节到buf中，从buf的pos位置开始</p><h3 id="public-synchronized-long-skip-long-n"><a href="#public-synchronized-long-skip-long-n" class="headerlink" title="public synchronized long skip(long n)"></a>public synchronized long skip(long n)</h3><p>跳过n个字节，其实是将pos加n个数</p><h3 id="public-boolean-markSupported-1"><a href="#public-boolean-markSupported-1" class="headerlink" title="public boolean markSupported()"></a>public boolean markSupported()</h3><p>ByteArrayInputStream的markSupported()方法返回的永远是true</p><h3 id="public-void-mark-int-readAheadLimit"><a href="#public-void-mark-int-readAheadLimit" class="headerlink" title="public void mark(int readAheadLimit)"></a>public void mark(int readAheadLimit)</h3><p>将pos的位置记录下来，放在mark变量中</p><h3 id="public-synchronized-void-reset-1"><a href="#public-synchronized-void-reset-1" class="headerlink" title="public synchronized void reset()"></a>public synchronized void reset()</h3><p>将mark的值赋值给pos</p><h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ol><li><a href="http://www.cnblogs.com/skywang12345/p/io_02.html" target="_blank" rel="noopener">java io系列02之 ByteArrayInputStream的简介,源码分析和示例(包括InputStream)</a></li><li><a href="https://www.cnblogs.com/zhaoyanjun/p/6292384.html" target="_blank" rel="noopener">Java IO流学习总结一：输入输出流</a></li><li><a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">jdk document-InputStream</a></li><li><a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">jdk document-ByteArrayInputStream</a></li><li>jdk源码-InputStream、ByteArrayInputStream</li></ol>]]></content>
     
     <summary type="html">
     
       &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;此篇为java基础笔记的第一篇，java基础系列文章将主要记录学习IO、集合、多线程等内容，大部分是对比较函数的介绍和源码的分析。由于时间有限，函数中输入值的范围以及异常处理不加以详细介绍,以实现原理和容易出错点为主。&lt;br&gt;
+&lt;p&gt;此篇为java基础笔记的第一篇，java基础系列文章将主要记录学习IO、集合、多线程等内容，大部分是对比较函数的介绍和源码的分析。由于时间有限，函数中输入值的范围以及异常处理不加以详细介绍,以实现原理和容易出错点为主。&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
@@ -527,9 +552,9 @@
       <category term="-bigdata" scheme="http://jchanji.github.io/categories/bigdata/"/>
     
     
-      <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
-    
       <category term="spark" scheme="http://jchanji.github.io/tags/spark/"/>
+    
+      <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
     
       <category term="scala" scheme="http://jchanji.github.io/tags/scala/"/>
     
@@ -608,9 +633,9 @@
       <category term="-bigdata" scheme="http://jchanji.github.io/categories/bigdata/"/>
     
     
-      <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
-    
       <category term="spark" scheme="http://jchanji.github.io/tags/spark/"/>
+    
+      <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
     
   </entry>
   
@@ -632,9 +657,9 @@
       <category term="-bigdata" scheme="http://jchanji.github.io/categories/bigdata/"/>
     
     
-      <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
-    
       <category term="spark" scheme="http://jchanji.github.io/tags/spark/"/>
+    
+      <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
     
   </entry>
   
@@ -871,9 +896,9 @@
       <category term="-bigdata" scheme="http://jchanji.github.io/categories/bigdata/"/>
     
     
-      <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
-    
       <category term="spark" scheme="http://jchanji.github.io/tags/spark/"/>
+    
+      <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
     
   </entry>
   
@@ -1126,9 +1151,9 @@
       <category term="-bigdata" scheme="http://jchanji.github.io/categories/bigdata/"/>
     
     
-      <category term="hadoop" scheme="http://jchanji.github.io/tags/hadoop/"/>
-    
       <category term="big data" scheme="http://jchanji.github.io/tags/big-data/"/>
+    
+      <category term="hadoop" scheme="http://jchanji.github.io/tags/hadoop/"/>
     
   </entry>
   
