@@ -7,23 +7,26 @@
   
   
   
-  <title>Redis持久化 | Chanji</title>
+  <title>Redis复制 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言 redis 的持久化方式哦有两种 RDB和AOF,本文重要介绍这两种方式的原理。">
+  <meta name="description" content="前言 Redis复制2.8版本之前和2.8版本之后的的有比较大的区别，主要介绍新旧两个版本的区别。">
 <meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis持久化">
-<meta property="og:url" content="http://jchanji.github.io/year/09/26/redis-persistence/index.html">
+<meta property="og:title" content="Redis复制">
+<meta property="og:url" content="http://jchanji.github.io/year/09/27/redis-copy/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="前言 redis 的持久化方式哦有两种 RDB和AOF,本文重要介绍这两种方式的原理。">
+<meta property="og:description" content="前言 Redis复制2.8版本之前和2.8版本之后的的有比较大的区别，主要介绍新旧两个版本的区别。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-persistence.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-aof-persistence.png">
-<meta property="og:updated_time" content="2018-09-26T14:41:46.105Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-copy-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-psync.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-ping.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-auth.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-flow.png">
+<meta property="og:updated_time" content="2018-09-30T10:41:56.003Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis持久化">
-<meta name="twitter:description" content="前言 redis 的持久化方式哦有两种 RDB和AOF,本文重要介绍这两种方式的原理。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-persistence.png">
+<meta name="twitter:title" content="Redis复制">
+<meta name="twitter:description" content="前言 Redis复制2.8版本之前和2.8版本之后的的有比较大的区别，主要介绍新旧两个版本的区别。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-copy-1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -259,11 +262,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-redis-persistence" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-redis-copy" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/09/26/redis-persistence/" class="article-date">
-      <time datetime="2018-09-26T07:59:17.948Z" itemprop="datePublished">2018-09-26</time>
+      <a  href="/year/09/27/redis-copy/" class="article-date">
+      <time datetime="2018-09-27T13:16:19.585Z" itemprop="datePublished">2018-09-27</time>
 </a>
 
     </div>
@@ -277,7 +280,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Redis持久化
+      Redis复制
     </h1>
   
 
@@ -304,58 +307,110 @@
       
           
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>redis 的持久化方式哦有两种 RDB和AOF,本文重要介绍这两种方式的原理。</p>
+<p>Redis复制2.8版本之前和2.8版本之后的的有比较大的区别，主要介绍新旧两个版本的区别<br>。</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="RDB持久化"><a href="#RDB持久化" class="headerlink" title="RDB持久化"></a>RDB持久化</h3><blockquote>
-<p>服务器在载入RDB文件的期间服务器会一直处于阻塞的状态。</p>
+<h2 id="2-8版本之前"><a href="#2-8版本之前" class="headerlink" title="2.8版本之前"></a>2.8版本之前</h2><blockquote>
+<p>Redis复制主要分为同步和命令传播两个操作，同步操作用于第一次复制时将主服务器的状态更新到从服务器的状态，而命令传播用于同步操作之后主从数据库状态不一致的情况下将主库的数据写入到从库的操作。</p>
 </blockquote>
-<h4 id="SAVE"><a href="#SAVE" class="headerlink" title="SAVE"></a>SAVE</h4><blockquote>
-<p>SAVE命令由主进程执行，会阻塞服务器的主进程 </p>
+<h3 id="同步过程"><a href="#同步过程" class="headerlink" title="同步过程"></a>同步过程</h3><blockquote>
+<p>同步过程如下图所示,主库在接受到SYNC请求之后，执行BGSAVE命令，在后台生成RDB文件。</p>
 </blockquote>
-<h4 id="BGSAVE"><a href="#BGSAVE" class="headerlink" title="BGSAVE"></a>BGSAVE</h4><blockquote>
-<p>BGSAVE会派生出一个子进程然后由子进程创建RDB文件，完成创建RDB文件后向父进程发送信号，而父进程通过轮询等待子进程的信号。</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-copy-1.png" alt="redis复制过程-2.8之前"></p>
+<h3 id="旧版缺陷"><a href="#旧版缺陷" class="headerlink" title="旧版缺陷"></a>旧版缺陷</h3><blockquote>
+<p>在第一次复制的时候将全量的RDB文件复制到从服务器没有什么问题，但是一旦主从服务器断开连接，从服务器尝试连接主服务器成功的时，主服务器将再次全量的复制，效率很低。</p>
 </blockquote>
-<h4 id="RDB和AOF的执行顺序"><a href="#RDB和AOF的执行顺序" class="headerlink" title="RDB和AOF的执行顺序"></a>RDB和AOF的执行顺序</h4><blockquote>
-<p>如果开启了AOF功能服务器将会优先使用AOF文件还原数据</p>
+<h2 id="2-8版之后"><a href="#2-8版之后" class="headerlink" title="2.8版之后"></a>2.8版之后</h2><blockquote>
+<p>新版的复制功能使用PSYNC代替了SYNC。PSYNC具有完整重同步和部分重同步两种模式。</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-persistence.png" alt="RDB和AOF执行顺序"></p>
-<h4 id="BGSAVE执行时的服务器状态"><a href="#BGSAVE执行时的服务器状态" class="headerlink" title="BGSAVE执行时的服务器状态"></a>BGSAVE执行时的服务器状态</h4><p>在BGSAVE执行期间：</p>
 <ol>
-<li>SAVE命令将会被拒绝，防止父进程和子进程同时执行两个rdbSave，产生竞争</li>
-<li>BGSAV命令将会被拒绝，两个BGSAVE命令也会产生竞争</li>
-<li>BGREWRITEAOF命令将会被延时到BGSAVE执行之后执行，相反如果先BGREWRITEAOF执行过程中BGSAVE 命令将会被拒绝。这两个命令都由子进程执行，不会产生竞争，但是为了性能考虑，不能同时有两个子进程产生大量的IO。</li>
+<li>完整重同步用于第一次复制期间，和旧版本没什么不同</li>
+<li>部分重同步则使用在断线的情况下，它将从断线后的地方重新开始同步而不会全量的同步。</li>
 </ol>
-<h3 id="AOF-append-only-file-持久化"><a href="#AOF-append-only-file-持久化" class="headerlink" title="AOF(append only file)持久化"></a>AOF(append only file)持久化</h3><blockquote>
-<p>AOF持久化保存Redis服务器所执行的写命令来记录数据库状态</p>
+<h3 id="部分重同步的实现"><a href="#部分重同步的实现" class="headerlink" title="部分重同步的实现"></a>部分重同步的实现</h3><blockquote>
+<p>部分重同步在发生断线的情况下，在从服务器重新连接上主服务器的时候回从断开连接后的地方开始复制。部分重同步主要由三个部分组成</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-aof-persistence.png" alt="AOF持久化"></p>
-<h4 id="AOF持久化的实现"><a href="#AOF持久化的实现" class="headerlink" title="AOF持久化的实现"></a>AOF持久化的实现</h4><blockquote>
-<p>持久化的实现可以分为三个部分：命令的追加、文件的写入、文件的同步。</p>
+<h4 id="1-主、从服务器的复制偏移量-replication-offset"><a href="#1-主、从服务器的复制偏移量-replication-offset" class="headerlink" title="1. 主、从服务器的复制偏移量(replication offset)"></a>1. 主、从服务器的复制偏移量(replication offset)</h4><blockquote>
+<p>主从服务器都会保持一致的复制偏移量。主服务器发送长度为n字节的数据到从服务器时主服务器的复制偏移量会加n,而从服务器接受到主服务器的n个字节时偏移量也会加n,当主从的偏移量不一致的时候就会进行部分重同步。</p>
 </blockquote>
-<h5 id="命令追加"><a href="#命令追加" class="headerlink" title="命令追加"></a>命令追加</h5><blockquote>
-<p>服务器执行完写命令后会以协议格式讲过命令追加到aof_buf缓冲区的末尾</p>
-</blockquote>
-<h5 id="文件写入"><a href="#文件写入" class="headerlink" title="文件写入"></a>文件写入</h5><blockquote>
-<p>在每次结束事件循环前都会调用flushAppendOnlyFile函数考虑是否将aof_buf缓冲区内容写入和保存到AOF文件里。</p>
-<h5 id="文件同步"><a href="#文件同步" class="headerlink" title="文件同步"></a>文件同步</h5><p>flushAppendOnlyFile函数的行为主要有服务器配置的appendfsync选项的值来决定的。</p>
+<h4 id="2-主服务器的复制积压缓冲区-replication-backlog"><a href="#2-主服务器的复制积压缓冲区-replication-backlog" class="headerlink" title="2. 主服务器的复制积压缓冲区(replication backlog)"></a>2. 主服务器的复制积压缓冲区(replication backlog)</h4><blockquote>
+<p>当主服务器进行命令传播的时候会同时将写命令放入一个定长的队列当中（默认为1M），里面始终保存着最新的写命令，当从服务器重新连接成功时会通过PSYNC命令将自己的复制偏移量发送给主服务器。</p>
 </blockquote>
 <ol>
-<li>always:每一个事件循环都会清空aof_buf缓冲区，效率最低但也是最安全的，只会丢失一个循环中的命令指令。</li>
-<li>everysec:每一秒钟清空一下缓冲区，对AOF文件进行同步，这个同步操作是由一个线程专门负责执行的。效率较高，只会丢失一秒钟的指令。</li>
-<li>no：将aof_buf缓冲区的内容写入带AOF文件中，但是不对AOF文件进行同步，何时同步由操作系统决定。写入速度是最快的，单次同步时长是三种模式中最长的，平均来说和everysec模式效率类似，但是出现故障停机时将丢失同步AOF文件后的所有写命令。</li>
-</ol>
-<h4 id="AOF重写"><a href="#AOF重写" class="headerlink" title="AOF重写"></a>AOF重写</h4><blockquote>
-<p>随着AOF文件中的内容越来越多文件体积会越来越大，为了给AOF文件瘦身，Redis提供了重写的功能。AOF的重写不需要对现有的AOF文件有任何的读取、分析或者写入操作，重写AOF文件的内容是通过读取数据库状态（数据）实现的。重写过程：</p>
-</blockquote>
-<ol>
-<li>创建新AOF文件</li>
-<li>遍历数据库，忽略已经过期的键、根据键的类型对键进行重写（五种基本类型）、如果有过期时间过期时间也要进行重写</li>
-<li>AOF重写使用了一个子进程，在重写过程中父进程将重写期间的命令存放到AOF重写缓冲区中，重写完成后将缓冲区内容写到新的AOF文件中</li>
-<li>对新的AOF文件尽心改名，覆盖现有的AOF文件</li>
+<li>如果偏移量之后的数据仍然在复制积压缓冲区中那么将进行部分重同步操作，从积压缓冲区中将命令发送到从服务器。</li>
+<li>如果偏移量之后的数据不在积压复制积压 缓冲区中的话就会进行完全重同步操作。</li>
 </ol>
 <blockquote>
-<p>在AOF重写过程中父进程有三个工作：1、执行客户端发送的命令。2、将执行的命令追加到AOF缓冲区、3、将执行后的写命令追加到AOF重写缓冲区。</p>
+<p>积压缓冲区的大小要根据业业务来定，一般为 2 <em> 断线后重新连接的平均时间 </em> 主服务器平均每秒钟产生的写命令的数量。</p>
+</blockquote>
+<h4 id="3-服务器的运行ID"><a href="#3-服务器的运行ID" class="headerlink" title="3. 服务器的运行ID"></a>3. 服务器的运行ID</h4><blockquote>
+<p>每个服务器都有自己的一个运行id,由40个随机的16进制字符组成，运行id的主要作用在于确认断线前后连接的是否为同一个主服务器。</p>
+</blockquote>
+<h3 id="PSYNC-命令的实现"><a href="#PSYNC-命令的实现" class="headerlink" title="PSYNC 命令的实现"></a>PSYNC 命令的实现</h3><p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-psync.png" alt="部分重同步过程"></p>
+<h3 id="复制的实现"><a href="#复制的实现" class="headerlink" title="复制的实现"></a>复制的实现</h3><ol>
+<li><p>设置主服务器的地址和端口</p>
+<blockquote>
+<p>使用saveof命令后从服务器中将保存主服务器的地址和端口，之后从服务器向发送saveof命令的客户端返回ok,之后复制工作才开始执行。 </p>
+ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">saveof XX.XX.XX.XX 6379</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>建立套接字连接</p>
+<blockquote>
+<p>从服务器将根据ip 和 端口创建连向主服务器的套接字连接，如果成功连接到主服务器从服务器将这个套接字关联一个专门用于处理复制工作的文件事务处理器。</p>
+<p>主服务器接受从服务器的套接字连接后为套接字创建相应的客户端状态，并将从服务器看作是<strong><em>主服务器的一个客户端</em></strong></p>
+</blockquote>
+</li>
+<li><p>发送PING命令</p>
+<blockquote>
+<p>从服务器成为主服务器的客户端后第一件事就是向主服务器发送PING命令。主要作用有两个</p>
+</blockquote>
+<ol>
+<li>通过PING命令检查套接字读写状态是否正常。</li>
+<li><p>检查主服务器是否能正常处理命令请求</p>
+<p>PING过程中可能出现的情况有：</p>
+</li>
+<li><p>主服务器像从服务器返回了命令但是从服务器读取超时，说明网络连接不佳，从服务器将断开并且重新创建连向主服务器的的套接字。</p>
+</li>
+<li>如果主服务器返回一个错误，那么表示主服务器暂时没有办法处理从服务器的命令请求（比如在处理一个超时的脚本），从服务器将重新创建连向主服务器的套接字。</li>
+<li><p>如果从服务器读到PONG回复那么主从服务器之间的网络状态正常并且能正常处理从服务器的的请求，将继续执行复制的下个步骤。</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-ping.png" alt="ping"></p>
+</li>
+</ol>
+</li>
+<li><p>身份验证</p>
+<blockquote>
+<p>如果从服务器设置了masterauth选项则进行身份验证，否则不进行。首相从服务器向主服务器发送一条AUTH命令，命令的参数为从服务器masterauth选项的值。主服务器密码选项的字段为requirepass,从服务器的验证字段为masterauth。验证流程和情况如下</p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-auth.png" alt="auth"></p>
+</li>
+<li><p>发送端口信息</p>
+<blockquote>
+<p>身份验证后从服务器将执行REPLICONF listening-port <port-number>命令，向主服务器发送从服务器的监听端口，主服务器将记录到slave_listening_port属性中。主服务器在执行INFO replication命令时将会打印出来。</port-number></p>
+</blockquote>
+</li>
+<li><p>同步</p>
+<blockquote>
+<p>接下来就要执行PSYC命令了，在执行PSYNC命令之前从服务器是主服务器的客户端，在同步之后主服务器也会成为从服务器的客户端。只有主服务器将缓冲区里的写命令和积压缓冲区的写命令发送给从服务器的时候都是作为客户点的角色执行的。</p>
+</blockquote>
+</li>
+<li><p>命令传播</p>
+<blockquote>
+<p>命令传播阶段主服务器只要一直讲执行的写命令发送给从服务器，从服务器直接接受并执行主服务器发送的写命令就可以保证主从一致。</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-flow.png" alt="flow"></p>
+<h3 id="心跳检测"><a href="#心跳检测" class="headerlink" title="心跳检测"></a>心跳检测</h3><blockquote>
+<p>从服务器将会以每秒一次的频率向主服务器发送 REPLCONF ACK <replication_offset> 命令。作用如下</replication_offset></p>
+</blockquote>
+<h4 id="1-检测主从服务器的网络连接状态"><a href="#1-检测主从服务器的网络连接状态" class="headerlink" title="1. 检测主从服务器的网络连接状态"></a>1. 检测主从服务器的网络连接状态</h4><blockquote>
+<p>在主服务器上执行INFO replication 命令，在列出的服务器列表的lag一栏中可以看出相应的服务器最后一次向主服务器发送 REPLCONF ACK 命令距离现在过了多少秒。如果超过1秒则表示连接故障。</p>
+</blockquote>
+<h4 id="2-辅助实现min-slaves配置选项"><a href="#2-辅助实现min-slaves配置选项" class="headerlink" title="2. 辅助实现min-slaves配置选项"></a>2. 辅助实现min-slaves配置选项</h4><blockquote>
+<p>主服务器中的min-slaves-to-write n,min-slaves-max-lag m,两个配置表示当从服务器数量少于n个，或者从服务器延时大于m时主服务器你拒绝执行写命令。这里的延时就是lag的值。</p>
+</blockquote>
+<h4 id="3-检测命令丢失"><a href="#3-检测命令丢失" class="headerlink" title="3. 检测命令丢失"></a>3. 检测命令丢失</h4><blockquote>
+<p>如果主服务器的写命令在半路丢失，当从服务器向主服务器发送REPLCONF ACK命令时，主服务器会根据从服务器的复制偏移量来进行同步。</p>
 </blockquote>
 
       
@@ -365,13 +420,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/09/26/redis-persistence/">Redis持久化</a></p>
+        <p><span>本文标题:</span><a  href="/year/09/27/redis-copy/">Redis复制</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2018年09月26日 - 15时59分</p>
-        <p><span>最后更新:</span>2018年09月26日 - 22时41分</p>
+        <p><span>发布时间:</span>2018年09月27日 - 21时16分</p>
+        <p><span>最后更新:</span>2018年09月30日 - 18时41分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/09/26/redis-persistence/" title="Redis持久化">http://jchanji.github.io/year/09/26/redis-persistence/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/09/26/redis-persistence/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/09/27/redis-copy/" title="Redis复制">http://jchanji.github.io/year/09/27/redis-copy/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/09/27/redis-copy/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -382,18 +437,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/09/27/redis-copy/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Redis复制
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/08/15/java_io_ByteArrayOutputStream/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">java基础-IO-ByteArrayOutStream-02</div>
+    <a  href="/year/09/26/redis-persistence/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Redis持久化</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -405,7 +451,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RDB持久化"><span class="toc-number">1.1.</span> <span class="toc-text">RDB持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SAVE"><span class="toc-number">1.1.1.</span> <span class="toc-text">SAVE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BGSAVE"><span class="toc-number">1.1.2.</span> <span class="toc-text">BGSAVE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RDB和AOF的执行顺序"><span class="toc-number">1.1.3.</span> <span class="toc-text">RDB和AOF的执行顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BGSAVE执行时的服务器状态"><span class="toc-number">1.1.4.</span> <span class="toc-text">BGSAVE执行时的服务器状态</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOF-append-only-file-持久化"><span class="toc-number">1.2.</span> <span class="toc-text">AOF(append only file)持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AOF持久化的实现"><span class="toc-number">1.2.1.</span> <span class="toc-text">AOF持久化的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#命令追加"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">命令追加</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#文件写入"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">文件写入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#文件同步"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">文件同步</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AOF重写"><span class="toc-number">1.2.2.</span> <span class="toc-text">AOF重写</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8版本之前"><span class="toc-number">2.</span> <span class="toc-text">2.8版本之前</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#同步过程"><span class="toc-number">2.1.</span> <span class="toc-text">同步过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#旧版缺陷"><span class="toc-number">2.2.</span> <span class="toc-text">旧版缺陷</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8版之后"><span class="toc-number">3.</span> <span class="toc-text">2.8版之后</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#部分重同步的实现"><span class="toc-number">3.1.</span> <span class="toc-text">部分重同步的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-主、从服务器的复制偏移量-replication-offset"><span class="toc-number">3.1.1.</span> <span class="toc-text">1. 主、从服务器的复制偏移量(replication offset)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-主服务器的复制积压缓冲区-replication-backlog"><span class="toc-number">3.1.2.</span> <span class="toc-text">2. 主服务器的复制积压缓冲区(replication backlog)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-服务器的运行ID"><span class="toc-number">3.1.3.</span> <span class="toc-text">3. 服务器的运行ID</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PSYNC-命令的实现"><span class="toc-number">3.2.</span> <span class="toc-text">PSYNC 命令的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复制的实现"><span class="toc-number">3.3.</span> <span class="toc-text">复制的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#心跳检测"><span class="toc-number">3.4.</span> <span class="toc-text">心跳检测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-检测主从服务器的网络连接状态"><span class="toc-number">3.4.1.</span> <span class="toc-text">1. 检测主从服务器的网络连接状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-辅助实现min-slaves配置选项"><span class="toc-number">3.4.2.</span> <span class="toc-text">2. 辅助实现min-slaves配置选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-检测命令丢失"><span class="toc-number">3.4.3.</span> <span class="toc-text">3. 检测命令丢失</span></a></li></ol></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -465,13 +511,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/09/27/redis-copy/" title="上一篇: Redis复制">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/08/15/java_io_ByteArrayOutputStream/" title="下一篇: java基础-IO-ByteArrayOutStream-02">
+            <a  href="/year/09/26/redis-persistence/" title="下一篇: Redis持久化">
                 <i class="fa fa-angle-right"></i>
             </a>
         
