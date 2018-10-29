@@ -1,514 +1,329 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
+  <title>  hexo-theme-nayo </title>
+
+ 
   
+    <link rel="icon" href="/images/favicon.png">
   
-  <title>Chanji</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Whish you like">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Chanji">
-<meta property="og:url" content="http://jchanji.github.io/page/3/index.html">
-<meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="Whish you like">
-<meta property="og:locale" content="zh-Hans">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chanji">
-<meta name="twitter:description" content="Whish you like">
-  
-    <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/img/fav.png">
-  
-  
-  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
     
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
     
-  
-  
-      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  
-  <!-- 加载特效 -->
-    <script src="/js/pace.js"></script>
-    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
-  <script>
-      var yiliaConfig = {
-          fancybox: true,
-          animate: true,
-          isHome: true,
-          isPost: false,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false
-      }
-  </script>
-</head>
-<body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-        <a href="/" class="profilepic">
-            
-            <img lazy-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
-            
-        </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">Chanji</a></h1>
-        </hgroup>
-        
-        <p class="header-subtitle">Stay Hungry,Stay Foolish</p>
-        
-        
-            <form>
-                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
-            </form>
-            <div id="local-search-result"></div>
-        
-        
-            <script type="text/javascript">
-                (function() {
-                    'use strict';
-                    function getMatchData(keyword, data) {
-                        var matchData = [];
-                        for(var i =0;i<data.length;i++){
-                            if(data[i].title.toLowerCase().indexOf(keyword)>=0)
-                                matchData.push(data[i])
-                        }
-                        return matchData;
-                    }
-                    var $input = $('#local-search-input');
-                    var $resultContent = $('#local-search-result');
-                    $input.keyup(function(){
-                        $.ajax({
-                            url: '/search.json',
-                            dataType: "json",
-                            success: function( json ) {
-                                var str='<ul class=\"search-result-list\">';
-                                var keyword = $input.val().trim().toLowerCase();
-                                $resultContent.innerHTML = "";
-                                if ($input.val().trim().length <= 0) {
-                                    $resultContent.empty();
-                                    $('#switch-area').show();
-                                    return;
-                                }
-                                var results = getMatchData(keyword, json);
-                                if(results.length === 0){
-                                    $resultContent.empty();
-                                    $('#switch-area').show();
-                                    return;
-                                }
-                                for(var i =0; i<results.length; i++){
-                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
-                                }
-                                str += "</ul>";
-                                $resultContent.empty();
-                                $resultContent.append(str);
-                                $('#switch-area').hide();
-                            }
-                        });
-                    });
-                })();
-            </script>
-        
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a  href="/archives/">所有文章</a></li>
-                        
-                            <li><a  href="/categories/bigdata">大数据</a></li>
-                        
-                            <li><a  href="/categories/machinelearning">机器学习</a></li>
-                        
-                            <li><a  href="/categories/javaweb">javaweb</a></li>
-                        
-                            <li><a  href="/categories/articals">文章</a></li>
-                        
-                            <li><a  href="/categories/others">其他</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fl github"  target="_blank" href="https://github.com/jChanJi" title="github">github</a>
-                            
-                                <a class="fl rss"  target="_blank" href="/atom.xml" title="rss">rss</a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/java/" style="font-size: 10px;">-java</a> <a href="/tags/ubuntu/" style="font-size: 10px;">-ubuntu</a> <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/CentOS-7/" style="font-size: 10px;">CentOS 7</a> <a href="/tags/DBSCAN/" style="font-size: 10px;">DBSCAN</a> <a href="/tags/IO/" style="font-size: 11.67px;">IO</a> <a href="/tags/K-means/" style="font-size: 10px;">K-means</a> <a href="/tags/Made-in-China-2025/" style="font-size: 10px;">Made in China 2025</a> <a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/NMF/" style="font-size: 10px;">NMF</a> <a href="/tags/PCA/" style="font-size: 10px;">PCA</a> <a href="/tags/Redis/" style="font-size: 11.67px;">Redis</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/big-data/" style="font-size: 18.33px;">big data</a> <a href="/tags/book/" style="font-size: 10px;">book</a> <a href="/tags/deeplearning/" style="font-size: 10px;">deeplearning</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/eclispe/" style="font-size: 10px;">eclispe</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/hbase/" style="font-size: 10px;">hbase</a> <a href="/tags/ideaIU/" style="font-size: 10px;">ideaIU</a> <a href="/tags/machinelearning/" style="font-size: 15px;">machinelearning</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/object-detection/" style="font-size: 10px;">object detection</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/scala/" style="font-size: 11.67px;">scala</a> <a href="/tags/spark/" style="font-size: 15px;">spark</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/sublime-text3/" style="font-size: 10px;">sublime text3</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a> <a href="/tags/vnc/" style="font-size: 10px;">vnc</a> <a href="/tags/vps/" style="font-size: 10px;">vps</a> <a href="/tags/win-10/" style="font-size: 10px;">win 10</a> <a href="/tags/微服务/" style="font-size: 20px;">微服务</a> <a href="/tags/范型/" style="font-size: 10px;">范型</a>
-                    </div>
-                </section>
-                
-                
-                
-                
-                <section class="switch-part switch-part3">
-                
-                    <div id="js-aboutme">Love Live,Love Refliction,Love Coding，Have dreams !</div>
-                </section>
-                
-            </div>
-        </div>
-    </header>
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          
+
+
+
+
+<div class="profile sildeUpMin">
+	
+		<img class="avatar" src="/images/header.jpg">
+
+		<p class="author">Lemon</p>
+		
+		<div class="social">
+   		      	
+			<a target="_blank" class="social-links" href="https://github.com/Lemonreds/hexo-theme-nayo">		
+				<i class="iconfont icon-Github">
+			</i></a>	
+	          	
+			<a target="_blank" class="social-links" href="">		
+				<i class="iconfont icon-Weibo">
+			</i></a>	
+	          	
+			<a target="_blank" class="social-links" href="">		
+				<i class="iconfont icon-Facebook">
+			</i></a>	
+	          	
+			<a target="_blank" class="social-links" href="">		
+				<i class="iconfont icon-Instagram">
+			</i></a>	
+	          	
+			<a target="_blank" class="social-links" href="">		
+				<i class="iconfont icon-Neteasemusic">
+			</i></a>	
+	    
+    	</div>		
 </div>
 
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Chanji</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                
-                    <img lazy-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/head.png" class="js-avatar">
-                
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">Chanji</a></h1>
-            </hgroup>
-            
-            <p class="header-subtitle">Stay Hungry,Stay Foolish</p>
-            
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/archives/">所有文章</a></li>
-                
-                    <li><a href="/categories/bigdata">大数据</a></li>
-                
-                    <li><a href="/categories/machinelearning">机器学习</a></li>
-                
-                    <li><a href="/categories/javaweb">javaweb</a></li>
-                
-                    <li><a href="/categories/articals">文章</a></li>
-                
-                    <li><a href="/categories/others">其他</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                <div class="social">
-                    
-                        <a class="github" target="_blank" href="https://github.com/jChanJi" title="github">github</a>
-                    
-                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-                    
-                </div>
-            </nav>
-        </header>                
-    </div>
-</nav>
-      <div class="body-wrap">
-  
-    <article id="post-Mysql_chapter1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/06/20/Mysql_chapter1/" class="article-date">
-      <time datetime="2018-06-20T13:15:32.921Z" itemprop="datePublished">2018-06-20</time>
-</a>
 
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/06/20/Mysql_chapter1/">第一章：MySQL性能管理及架构设计-实例</a>
-    </h1>
-  
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/07/19/springCloud-chapter1/">第一章:SpringCloud-网站架构演变</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Jul 19, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/SpringCloud/">SpringCloud</a>           
+				            
+						<a class="article-tag" href="/tags/微服务/">微服务</a>           
+				
+			
+		</div>
+	</div>
 
 
-      </header>
-      
+	
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>##前言</p>
+	<div class="typo article-excerpt">	
+		
+			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本章节主要简单介绍一下网站架构的演变，从“单点应用”-&gt;”分布式系统面向于服务架构”-&gt;”微服务架构”。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/07/19/springCloud-chapter1/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/06/20/Mysql_chapter1/">第一章：MySQL性能管理及架构设计-实例</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Jun 20, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/MySQL/">MySQL</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p>##前言</p>
 <blockquote>
 <p>此笔记为听慕课网上的课程《MySQL性能管理及架构设计》时记录的粗略笔记大纲，第一章主要介绍了一些实例。</p>
 </blockquote>
-          
-      
-    </div>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/06/20/Mysql_chapter1/">阅读更多</a> 	
+	</div>	
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/DataBase/">-DataBase</a>
-    </div>
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/02/23/xiaoma/">浏览器被www.t999.cn劫持</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Feb 23, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/Windows/">Windows</a>           
+				
+			
+		</div>
+	</div>
 
 
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
-    </div>
+	
 
-      
-        <p class="article-more-link">
-          <a   href="/year/06/20/Mysql_chapter1/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-xiaoma" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/02/23/xiaoma/" class="article-date">
-      <time datetime="2018-02-23T06:09:52.848Z" itemprop="datePublished">2018-02-23</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/02/23/xiaoma/">浏览器被www.t999.cn劫持</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="使用小马激活后浏览器被www-t999-cn劫持"><a href="#使用小马激活后浏览器被www-t999-cn劫持" class="headerlink" title="使用小马激活后浏览器被www.t999.cn劫持"></a>使用小马激活后浏览器被www.t999.cn劫持</h2><blockquote>
+	<div class="typo article-excerpt">	
+		 
+			<h2 id="使用小马激活后浏览器被www-t999-cn劫持"><a href="#使用小马激活后浏览器被www-t999-cn劫持" class="headerlink" title="使用小马激活后浏览器被www.t999.cn劫持"></a>使用小马激活后浏览器被www.t999.cn劫持</h2><blockquote>
 <p>1、查看文件路径:C:\Windows\System32\DRIVERS\mssafel.sys<br>右键&gt;属性，时间不对，数字签名为上海域联软件技术有限公司</p>
 <p>2、Win+R，输入regedit打开注册表，注册表路径:HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mssafel<br>注册表名称:ImagePath 注册表值:system32\DRIVERS\mssafel.sys</p>
 <p>3、删除C:\Windows\System32\DRIVERS\mssafel.sys</p>
 <p>4、重启</p>
 </blockquote>
 
-      
-    </div>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/02/23/xiaoma/">阅读更多</a> 	
+	</div>	
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
-    </div>
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/01/17/springbootstudy/">spring boot从基础到进阶</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Jan 17, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/springboot/">springboot</a>           
+				            
+						<a class="article-tag" href="/tags/spring/">spring</a>           
+				
+			
+		</div>
+	</div>
 
 
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
-    </div>
+	
 
-      
-      <div class="clearfix"></div>
-    </div>
     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-springbootstudy" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/01/17/springbootstudy/" class="article-date">
-      <time datetime="2018-01-17T04:27:40.697Z" itemprop="datePublished">2018-01-17</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/17/springbootstudy/">spring boot从基础到进阶</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+	<div class="typo article-excerpt">	
+		
+			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>springboot作为springmvc的升级版，具有很多优势，下面简单一下springboot的搭建与配置，并运行一个小项目。</p>
 </blockquote>
 <h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><ol>
 <li>jdk1.8</li>
 <li>ideaIU</li>
 <li>maven3.3.9
-          
-      
-    </div>
+		  	  
+	</li></ol></div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/01/17/springbootstudy/">阅读更多</a> 	
+	</div>	
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/javaweb/">-javaweb</a>
-    </div>
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/01/15/spark_sougou_logs/">spark项目基础实战</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Jan 15, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/spark/">spark</a>           
+				            
+						<a class="article-tag" href="/tags/big-data/">big data</a>           
+				            
+						<a class="article-tag" href="/tags/scala/">scala</a>           
+				            
+						<a class="article-tag" href="/tags/ideaIU/">ideaIU</a>           
+				
+			
+		</div>
+	</div>
 
 
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
-    </div>
+	
 
-      
-        <p class="article-more-link">
-          <a   href="/year/01/17/springbootstudy/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-spark_sougou_logs" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/01/15/spark_sougou_logs/" class="article-date">
-      <time datetime="2018-01-15T04:38:24.926Z" itemprop="datePublished">2018-01-15</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/15/spark_sougou_logs/">spark项目基础实战</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+	<div class="typo article-excerpt">	
+		
+			<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
 <p>使用搜狗开源的日志分析数据等实践一些spark操作</p>
 </blockquote>
 <h1 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h1><ol>
@@ -520,576 +335,335 @@
 <blockquote>
 <p>注意:要配置好spark和hadoop的环境变量</p>
 </blockquote>
-          
-      
-    </div>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/01/15/spark_sougou_logs/">阅读更多</a> 	
+	</div>	
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
-    </div>
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/01/15/scalastudy/">scala基础学习</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Jan 15, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/big-data/">big data</a>           
+				            
+						<a class="article-tag" href="/tags/scala/">scala</a>           
+				
+			
+		</div>
+	</div>
 
 
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ideaIU/">ideaIU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
-    </div>
+	
 
-      
-        <p class="article-more-link">
-          <a   href="/year/01/15/spark_sougou_logs/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
     
-  </div>
-  
-</article>
+	<div class="typo article-excerpt">	
+		
+			<h1 id="scala基础"><a href="#scala基础" class="headerlink" title="scala基础"></a>scala基础</h1><h2 id="scala类型体系"><a href="#scala类型体系" class="headerlink" title="scala类型体系"></a>scala类型体系</h2>
+		  	  
+	</div>
 
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-scalastudy" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/01/15/scalastudy/" class="article-date">
-      <time datetime="2018-01-14T16:20:22.676Z" itemprop="datePublished">2018-01-15</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/01/15/scalastudy/">阅读更多</a> 	
+	</div>	
     
-      <input type="hidden" class="isFancy" />
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/01/12/vps/">digitalocean服务器搭建ss服务器</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Jan 12, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/ubuntu/">ubuntu</a>           
+				            
+						<a class="article-tag" href="/tags/vps/">vps</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
     
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/15/scalastudy/">scala基础学习</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="scala基础"><a href="#scala基础" class="headerlink" title="scala基础"></a>scala基础</h1><h2 id="scala类型体系"><a href="#scala类型体系" class="headerlink" title="scala类型体系"></a>scala类型体系</h2>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a   href="/year/01/15/scalastudy/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-vps" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/01/12/vps/" class="article-date">
-      <time datetime="2018-01-11T18:33:39.700Z" itemprop="datePublished">2018-01-12</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/12/vps/">digitalocean服务器搭建ss服务器</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+	<div class="typo article-excerpt">	
+		
+			<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
 <p>经朋友介绍digitalocean服务器对于学生而言比较划算，最基础的服务器5$一个月，通过推荐链接注册可以领取10$的优惠或通过其他网上的推荐码获得15$,25$等不等的优惠券，如果使用github学生优惠券的还可以领50$的优惠。我找到的是15$优惠券。这里比较人性的是这里的优惠券是直接充值到账户上的，和腾讯，阿里的的只能使用一次的优惠券有点不同。需要注意的是优惠码只能用一次，如果使用过一次再使用github优惠码的时候会失败。网上的说法是直接联系客服，联系后的回信是。</p>
 <p>Hello, and thank you for contacting DigitalOcean!<br>I apologize for the inconvenience, however as you already have a promotional code on this account, we are unable to apply any additional codes at this time.<br></p>
 <p>很无奈<br>不甘心的我又发了一封工单，结果50$到账！也就是说5$变成了70$.</p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/ss4.PNG" alt="ss4"><br>
-          
-      
-    </div>
+		  	  
+	</p></div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/01/12/vps/">阅读更多</a> 	
+	</div>	
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
-    </div>
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/01/11/combineByKey/">spark之combineByKey</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Jan 11, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/spark/">spark</a>           
+				            
+						<a class="article-tag" href="/tags/big-data/">big data</a>           
+				
+			
+		</div>
+	</div>
 
 
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vps/">vps</a></li></ul>
-    </div>
+	
 
-      
-        <p class="article-more-link">
-          <a   href="/year/01/12/vps/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
     
-  </div>
-  
-</article>
+	<div class="typo article-excerpt">	
+		
+			<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)</span><br></pre></td></tr></table></figure>
+		  	  
+	</div>
 
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-combineByKey" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/01/11/combineByKey/" class="article-date">
-      <time datetime="2018-01-11T00:33:21.078Z" itemprop="datePublished">2018-01-11</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/01/11/combineByKey/">阅读更多</a> 	
+	</div>	
     
-      <input type="hidden" class="isFancy" />
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Jan 11, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/spark/">spark</a>           
+				            
+						<a class="article-tag" href="/tags/big-data/">big data</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
     
+	<div class="typo article-excerpt">	
+		
+			<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="配置maven镜像地址"><a href="#配置maven镜像地址" class="headerlink" title="配置maven镜像地址"></a>配置maven镜像地址</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;id&gt;alimaven&lt;/id&gt;</span></span><br><span class="line"><span class="code">    &lt;name&gt;aliyun maven&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span></span><br><span class="line"><span class="code">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;      </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/01/11/idea_scala_spark/">阅读更多</a> 	
+	</div>	
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/11/combineByKey/">spark之combineByKey</a>
-    </h1>
-  
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/01/10/docker/">ubuntu下Docker的安装和使用</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Jan 10, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/ubuntu/">ubuntu</a>           
+				            
+						<a class="article-tag" href="/tags/docker/">docker</a>           
+				
+			
+		</div>
+	</div>
 
 
-      </header>
-      
+	
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">combineByKey(creatCombiner,mergeValue,mergeCombiners,partitioner)</span><br></pre></td></tr></table></figure>
-          
-      
-    </div>
+	<div class="typo article-excerpt">	
+		
+			<h1 id="安装环境检查"><a href="#安装环境检查" class="headerlink" title="安装环境检查"></a>安装环境检查</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br><span class="line">ls -l /sys/class/misc/device-mapper</span><br></pre></td></tr></table></figure>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/01/10/docker/">阅读更多</a> 	
+	</div>	
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
-    </div>
+</article>     
+     	
 
 
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
-    </div>
 
-      
-        <p class="article-more-link">
-          <a   href="/year/01/11/combineByKey/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
+ 
+   <nav class="paginator">
     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-idea_scala_spark" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/01/11/idea_scala_spark/" class="article-date">
-      <time datetime="2018-01-11T00:14:52.449Z" itemprop="datePublished">2018-01-11</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
+        <a class="prev" href="/page/2/"> 
+            <i class="iconfont icon-left"></i>
+            上一页
+        </a>
     
-      <input type="hidden" class="isFancy" />
+
+   <span class="page-number"> Page <strong>3</strong>. </span>
+
     
+        <a class="next" href="/page/4/"> 
+            下一页
+            <i class="iconfont icon-right"></i>
+        </a>
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a>
-    </h1>
-  
+  </nav> 
 
-
-      </header>
-      
+          </section> 
+      </div>            
     
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="配置maven镜像地址"><a href="#配置maven镜像地址" class="headerlink" title="配置maven镜像地址"></a>配置maven镜像地址</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;id&gt;alimaven&lt;/id&gt;</span></span><br><span class="line"><span class="code">    &lt;name&gt;aliyun maven&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span></span><br><span class="line"><span class="code">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;      </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-          
-      
-    </div>
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a   href="/year/01/11/idea_scala_spark/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-docker" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/01/10/docker/" class="article-date">
-      <time datetime="2018-01-09T16:00:00.000Z" itemprop="datePublished">2018-01-10</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/10/docker/">ubuntu下Docker的安装和使用</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="安装环境检查"><a href="#安装环境检查" class="headerlink" title="安装环境检查"></a>安装环境检查</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br><span class="line">ls -l /sys/class/misc/device-mapper</span><br></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/others/">-others</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a   href="/year/01/10/docker/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-pca" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/year/01/09/pca/" class="article-date">
-      <time datetime="2018-01-08T16:00:00.000Z" itemprop="datePublished">2018-01-09</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/year/01/09/pca/">对四维的鸢尾花数据使用PCA进行降维</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
-<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
-</blockquote>
-<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>对四维的鸢尾花数据使用PCA进行降维并且可视化，数据格式如下：<br><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/iris.PNG" alt="图1"><br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/machinelearning/">-machinelearning</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCA/">PCA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a   href="/year/01/09/pca/#more">查看更多 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
-    </nav>
-  
-
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                &copy; 2018 Chanji
-            </div>
-            <div class="footer-right">
-                <a href="https://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a><a href="https://github.com/maochunguang" target="_blank">Blog</a> by tommy
-            </div>
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
         </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >极客到访数:
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">本页阅读量:
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
+        <div id="search-result" class="search-result"></div>
     </div>
-</footer>
+ 
+     <div class="mobile-menu">      
 
-    </div>
-    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
 
-    <script>
-        $(document).ready(function() {
-            var backgroundnum = 1;
-            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-        })
-    </script>
+         
+            
 
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
 
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
 
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
 
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
 
-
-<div class="scroll" id="scroll">
-    <a href="#"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script>
-    $(document).ready(function() {
-        if ($("#comments").length < 1) {
-            $("#scroll > a:nth-child(2)").hide();
-        };
-    })
-</script>
-
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-
-  <script language="javascript">
-    $(function() {
-        $("a[title]").each(function() {
-            var a = $(this);
-            var title = a.attr('title');
-            if (title == undefined || title == "") return;
-            a.data('title', title).removeAttr('title').hover(
-            function() {
-                var offset = a.offset();
-                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
-                    top: offset.top - a.outerHeight() - 15,
-                    left: offset.left + a.outerWidth()/2 + 1
-                }).fadeIn(function() {
-                    var pop = $(this);
-                    setTimeout(function() {
-                        pop.remove();
-                    }, pop.text().length * 800);
-                });
-            }, function() {
-                $("#anchortitlecontainer").remove();
-            });
-        });
-    });
-</script>
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
 
 
-  </div>
-</body>
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Lemon
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
 </html>
