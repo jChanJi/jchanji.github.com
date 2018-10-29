@@ -7,22 +7,25 @@
   
   
   
-  <title>scala 运行spark程序 | Chanji</title>
+  <title>Mysql复制 | Chanji</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="环境配置配置maven镜像地址123456&amp;lt;mirror&amp;gt;    &amp;lt;id&amp;gt;alimaven&amp;lt;/id&amp;gt;    &amp;lt;name&amp;gt;aliyun maven&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;http://maven.aliyun.com/nexus/content/groups/public/&amp;lt;/url&amp;gt;    &amp;lt;mirr">
-<meta name="keywords" content="spark,big data">
+  <meta name="description" content="前言 本篇主要介绍mysql复制的相关流程和细节,Mysql实现的是异步复制，所以主从之间会存在一定的差异，一般实时性不高的数据从库中查询，而实时性要求高的依旧要从主库中查询，主库同时负责写入。">
+<meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="scala 运行spark程序">
-<meta property="og:url" content="http://jchanji.github.io/year/01/11/idea_scala_spark/index.html">
+<meta property="og:title" content="Mysql复制">
+<meta property="og:url" content="http://jchanji.github.io/year/10/29/mysql_copy/index.html">
 <meta property="og:site_name" content="Chanji">
-<meta property="og:description" content="环境配置配置maven镜像地址123456&amp;lt;mirror&amp;gt;    &amp;lt;id&amp;gt;alimaven&amp;lt;/id&amp;gt;    &amp;lt;name&amp;gt;aliyun maven&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;http://maven.aliyun.com/nexus/content/groups/public/&amp;lt;/url&amp;gt;    &amp;lt;mirr">
+<meta property="og:description" content="前言 本篇主要介绍mysql复制的相关流程和细节,Mysql实现的是异步复制，所以主从之间会存在一定的差异，一般实时性不高的数据从库中查询，而实时性要求高的依旧要从主库中查询，主库同时负责写入。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/1.png">
-<meta property="og:updated_time" content="2018-01-11T00:52:12.259Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-4.png">
+<meta property="og:updated_time" content="2018-10-29T13:33:22.104Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="scala 运行spark程序">
-<meta name="twitter:description" content="环境配置配置maven镜像地址123456&amp;lt;mirror&amp;gt;    &amp;lt;id&amp;gt;alimaven&amp;lt;/id&amp;gt;    &amp;lt;name&amp;gt;aliyun maven&amp;lt;/name&amp;gt;    &amp;lt;url&amp;gt;http://maven.aliyun.com/nexus/content/groups/public/&amp;lt;/url&amp;gt;    &amp;lt;mirr">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/1.png">
+<meta name="twitter:title" content="Mysql复制">
+<meta name="twitter:description" content="前言 本篇主要介绍mysql复制的相关流程和细节,Mysql实现的是异步复制，所以主从之间会存在一定的差异，一般实时性不高的数据从库中查询，而实时性要求高的依旧要从主库中查询，主库同时负责写入。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-1.png">
   
     <link rel="alternative" href="/atom.xml" title="Chanji" type="application/atom+xml">
   
@@ -258,11 +261,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-idea_scala_spark" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-mysql_copy" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/year/01/11/idea_scala_spark/" class="article-date">
-      <time datetime="2018-01-11T00:14:52.449Z" itemprop="datePublished">2018-01-11</time>
+      <a  href="/year/10/29/mysql_copy/" class="article-date">
+      <time datetime="2018-10-29T10:11:01.786Z" itemprop="datePublished">2018-10-29</time>
 </a>
 
     </div>
@@ -276,7 +279,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      scala 运行spark程序
+      Mysql复制
     </h1>
   
 
@@ -286,13 +289,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">-bigdata</a>
+    <a class="article-category-link" href="/categories/DataBase/">-DataBase</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data/">big data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -302,28 +305,46 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="配置maven镜像地址"><a href="#配置maven镜像地址" class="headerlink" title="配置maven镜像地址"></a>配置maven镜像地址</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span></span><br><span class="line"><span class="code">    &lt;id&gt;alimaven&lt;/id&gt;</span></span><br><span class="line"><span class="code">    &lt;name&gt;aliyun maven&lt;/name&gt;</span></span><br><span class="line"><span class="code">    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span></span><br><span class="line"><span class="code">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;      </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本篇主要介绍mysql复制的相关流程和细节,Mysql实现的是异步复制，所以主从之间会存在一定的差异，一般实时性不高的数据从库中查询，而实时性要求高的依旧要从主库中查询，主库同时负责写入。</p>
+</blockquote>
 <a id="more"></a>
-<h2 id="sbt仓库地址"><a href="#sbt仓库地址" class="headerlink" title="sbt仓库地址"></a>sbt仓库地址</h2><p>编辑~/.sbt/repositories（没有就新建）<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[repositories]</span><br><span class="line">local</span><br><span class="line">dl bintray: https://dl.bintray.com/typesafe/ivy-releases/, [<span class="string">organization</span>]/[<span class="string">module</span>]/[<span class="string">revision</span>]/[<span class="string">type</span>]s/[<span class="string">artifact</span>](<span class="link">-[classifier]</span>).[ext], bootOnly</span><br><span class="line">jcenter: https://jcenter.bintray.com/</span><br><span class="line">typesafe-ivy-releases: https://repo.typesafe.com/typesafe/ivy-releases/, [<span class="string">organization</span>]/[<span class="string">module</span>]/[<span class="string">revision</span>]/[<span class="string">type</span>]s/[<span class="string">artifact</span>](<span class="link">-[classifier]</span>).[ext], bootOnly</span><br><span class="line">maven-central</span><br><span class="line">sonatype-snapshots: https://oss.sonatype.org/content/repositories/snapshot</span><br></pre></td></tr></table></figure></p>
-<h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><blockquote>
-<p>jdk1.8</p>
-<p>spark 2.2  </p>
-<p>scala 2.11.11</p>
-<p>sbt0.13.16</p>
-</blockquote>
-<h1 id="sbt依赖"><a href="#sbt依赖" class="headerlink" title="sbt依赖"></a>sbt依赖</h1><p>build.sbt文件内容为<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">name := "scala_test"</span><br><span class="line">version := "1.0"</span><br><span class="line">scalaVersion := "2.11.11" #后面不需要配置</span><br><span class="line">libraryDependencies ++= Seq("org.apache.spark" %% "spark-core" % "2.2.0")</span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-mllib_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-sql_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming-kafka-0-8_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-streaming-flume_2.11" % "2.2.0"  </span><br><span class="line">libraryDependencies += "org.apache.spark" % "spark-hive_2.11" % "2.2.0" % "provided"  </span><br><span class="line">libraryDependencies += "org.scalanlp" % "breeze_2.11" % "0.11"  </span><br><span class="line">libraryDependencies += "org.scalanlp" % "breeze-natives_2.11" % "0.11"  </span><br><span class="line">libraryDependencies += "org.apache.hadoop" % "hadoop-common" % "2.6.0"</span><br></pre></td></tr></table></figure></p>
-<p>然后使用sbt打包,如下图所示</p>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/1.png" alt="图一"></p>
-<p><strong>注意本机实验的时候一定要先登录localhost的ssh不然到提交作业的时候会没有权限写入文件</strong></p>
-<h1 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./sbin/start-master.sh # 启动spark</span><br><span class="line">./bin/spark-class org.apache.spark.deploy.worker.Worker spark://localhost.localdomain:7077 # 启动worker, spark://localhost.localdomain:7077到8080端口查看   </span><br><span class="line">./bin/spark-submit --master spark://localhost.localdomain:7077  --class WordCount /home/chanji/scala_test.jar # 提交作业</span><br></pre></td></tr></table></figure>
-<p>再到<a href="http://localhost:8080/jobs" target="_blank" rel="noopener">http://localhost:8080/jobs</a> 查看作业</p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="无法解析主机名"><a href="#无法解析主机名" class="headerlink" title="无法解析主机名"></a>无法解析主机名</h2><blockquote>
-<p>无法解析主机：promote.cache-dns.local＜br&gt;</p>
-<p>hostname分为三种类型：<br><br>静态的（static），瞬态的（transient），和灵活的（pret不然ty）<br><br>执行系统命令hostname得到的是瞬态的主机名，扫描文件中得到的是静态主机名。<br><br>将这两者统一起来就可以解决问题了。<br><br>1.自定义hostname，假设myname<br><br>2.执行hostnamectl set-hostname myname<br><br>这个命令能同时修改三种类型的主机名定义。<br><br>重启</p>
-</blockquote>
-<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><blockquote>
-<p>Drive program 是程序的入口,包含这main函数<br>context起着和集群连接的作用<br>RDDs　弹性分布式数据集,实质就是一个数据集，指向一个变量，数据集可以被分为若干部分存在与不同的主机上，但操作这些数据只能通过定义的数据集变量。</p>
-</blockquote>
+<h3 id="复制流程"><a href="#复制流程" class="headerlink" title="复制流程"></a>复制流程</h3><h4 id="大致原理如下"><a href="#大致原理如下" class="headerlink" title="大致原理如下"></a>大致原理如下</h4><ol>
+<li>提交事务时将事务变更作为事件Events记录在二进制文件<strong>Binlog</strong>中，主库上的sync_binlog参数控制Binlog日志刷新到磁盘。</li>
+<li>主库<strong>推送</strong>Binglog文件到从库的<strong>中继日志Relay Log</strong>中，从库根据Relay Log 根据Relay Log做数据变更。</li>
+</ol>
+<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><ol>
+<li>从库连接主库</li>
+<li>从库I/O线程向主库要求数据</li>
+<li>主库上Binlog Dump 线程读取数据库事件并且发给I/O线程，I/O线程将数据更新到从库的中继文件Relay Log中</li>
+<li>从库上的SQL线程应用</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-1.png" alt="复制流程"></p>
+<h3 id="复制中的文件"><a href="#复制中的文件" class="headerlink" title="复制中的文件"></a>复制中的文件</h3><h4 id="Binlog"><a href="#Binlog" class="headerlink" title="Binlog"></a>Binlog</h4><p>二进制文件(Binlog)会将Mysql所有数据修改操作以二进制的形式记录到日志文件中。并不会记录select操作。Binlog支持Statement、row、Mixed三种格式，对应着Mysql的三种复制技术</p>
+<h4 id="Relay-Log"><a href="#Relay-Log" class="headerlink" title="Relay Log"></a>Relay Log</h4><p>中继文件Relay Log的文件格式、内容和二进制文件Binlog一样，唯一区别在于SQL线程在执行完当前的Relay Log文件后将删除当前的中继文件。</p>
+<h4 id="master-info"><a href="#master-info" class="headerlink" title="master.info"></a>master.info</h4><p>记录I/O线程读取Binlog文件的进度</p>
+<h4 id="relay-log-info"><a href="#relay-log-info" class="headerlink" title="relay-log.info"></a>relay-log.info</h4><p>记录SQL线程应用中继日志Relay Log的进度</p>
+<h3 id="三种复制方式"><a href="#三种复制方式" class="headerlink" title="三种复制方式"></a>三种复制方式</h3><h4 id="Statement"><a href="#Statement" class="headerlink" title="Statement"></a>Statement</h4><p>基于sql语句级别的Binlog,每条修改语句都会保存到Binlog中</p>
+<h4 id="Row"><a href="#Row" class="headerlink" title="Row"></a>Row</h4><p>基于行级别，记录每一行的数据变化，但是不会记录原始的sql，复制的时候不会因为存储过程或者触发器造成主从不一致的问题，但是文件的体积要大的多</p>
+<h4 id="Mixed"><a href="#Mixed" class="headerlink" title="Mixed"></a>Mixed</h4><p>混合Statement和Row模式，默认使用Statement模式记录，当sql中包含时间、用户相关信息函数等使用Row模式。</p>
+<h3 id="三种复制技术"><a href="#三种复制技术" class="headerlink" title="三种复制技术"></a>三种复制技术</h3><h4 id="binlog-format-Statement"><a href="#binlog-format-Statement" class="headerlink" title="binlog_format=Statement"></a>binlog_format=Statement</h4><p>基于Sql语句的复制，Statement-Based Replication(SBR)</p>
+<h4 id="binlog-format-Row"><a href="#binlog-format-Row" class="headerlink" title="binlog_format=Row"></a>binlog_format=Row</h4><p>基于行的复制，Row-Based Replication(RBR)</p>
+<h4 id="binlog-format-Mixed"><a href="#binlog-format-Mixed" class="headerlink" title="binlog_format=Mixed"></a>binlog_format=Mixed</h4><p>混合复制模式</p>
+<h3 id="三种常见的架构"><a href="#三种常见的架构" class="headerlink" title="三种常见的架构"></a>三种常见的架构</h3><h4 id="一主多从复制架构"><a href="#一主多从复制架构" class="headerlink" title="一主多从复制架构"></a>一主多从复制架构</h4><p>在数据库读请求压力特别大的时候可以使用一主多从的复制架构实现读写分离，对实时性不是很高的读请求负载均衡分布到多个从库上。当主库出现异常宕机时可以把一个从库切换为主库继续使用。</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-2.png" alt="一主多从复制架构"></p>
+<h4 id="多级复制架构"><a href="#多级复制架构" class="headerlink" title="多级复制架构"></a>多级复制架构</h4><p>仅仅是在主从数据库间加了一个二<strong>级主数据库</strong>。由于每个从库在主库上都有一个独立的Binlog Dump线程来发送事件，所以主库的I/O压力和网络压力会随着从库的增多而加大。增加二级主数据库后主数据库只需要将Binlog文件推送到二级主数据库，二级主数据库上选择表引擎为<strong>BLACKHOLE</strong>,写数据并不会写到磁盘上，仅仅在Binlog文件中记录事件。</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-3.png" alt="多级复制架构"></p>
+<h4 id="双主复制、Dual-Master架构"><a href="#双主复制、Dual-Master架构" class="headerlink" title="双主复制、Dual Master架构"></a>双主复制、Dual Master架构</h4><p>Master1和Master2都互为主从，所有的客户端请求都访问主库Master1,而读请求可以选择访问主库Master1或者Master2。</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-4.png" alt="双主复制"></p>
+<h5 id="切换流程"><a href="#切换流程" class="headerlink" title="切换流程"></a>切换流程</h5><ol>
+<li>在Master1库上停止Slave线程，避免后续对Master2库的维护操作被实时复制到Master1库对服务器造成的影响</li>
+<li>在Master2上停止Slave线程，开始日常维护操作，例如创建索引</li>
+<li>在Master2上完成维护后打开Master2库上的Slave线程，让Master2和Master1同步，同步完成后将应用的写请求切换到Master2上。</li>
+<li>最后确认Master1库上没有应用访问后打开Master1库的Slave线程。</li>
+</ol>
+<p>###异步复制和半同步复制</p>
+<h4 id="异步复制"><a href="#异步复制" class="headerlink" title="异步复制"></a>异步复制</h4><p>异步复制在日志写入到Binlog文件中时即成功返回给客户端，当从库尚未得到主库推送的Binlog文件时服务器发生故障，导致Binlog丢失，从而造成主从不一致。</p>
+<h4 id="半同步复制"><a href="#半同步复制" class="headerlink" title="半同步复制"></a>半同步复制</h4><p>为了保证主库上的Binlog文件能够可靠的被复制到从数据库中，主库事务提交时并不及时反馈给客户端，而是等待一个从库也接受到了Binlog事务并成功写入中继日志后才返回Commit操作给客户端。在半同步复制模式下如果Binlog长时间没有推送到从服务器（时间由rpl_semi_master_timeout参数决定）则Mysql会自动调整为异步模式。</p>
 
       
     </div>
@@ -332,13 +353,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/year/01/11/idea_scala_spark/">scala 运行spark程序</a></p>
+        <p><span>本文标题:</span><a  href="/year/10/29/mysql_copy/">Mysql复制</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Chanji 的个人博客">Chanji</a></p>
-        <p><span>发布时间:</span>2018年01月11日 - 08时14分</p>
-        <p><span>最后更新:</span>2018年01月11日 - 08时52分</p>
+        <p><span>发布时间:</span>2018年10月29日 - 18时11分</p>
+        <p><span>最后更新:</span>2018年10月29日 - 21时33分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/year/01/11/idea_scala_spark/" title="scala 运行spark程序">http://jchanji.github.io/year/01/11/idea_scala_spark/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/01/11/idea_scala_spark/　　作者: Chanji" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/year/10/29/mysql_copy/" title="Mysql复制">http://jchanji.github.io/year/10/29/mysql_copy/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jchanji.github.io/year/10/29/mysql_copy/　　作者: Chanji" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -349,18 +370,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/year/01/11/combineByKey/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          spark之combineByKey
-        
-      </div>
-    </a>
   
-  
-    <a  href="/year/01/10/docker/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ubuntu下Docker的安装和使用</div>
+    <a  href="/year/10/29/risk_wise/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">冒险的智慧</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -372,7 +384,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境配置"><span class="toc-number">1.</span> <span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置maven镜像地址"><span class="toc-number">1.1.</span> <span class="toc-text">配置maven镜像地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sbt仓库地址"><span class="toc-number">1.2.</span> <span class="toc-text">sbt仓库地址</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#版本"><span class="toc-number">2.</span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sbt依赖"><span class="toc-number">3.</span> <span class="toc-text">sbt依赖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行服务"><span class="toc-number">4.</span> <span class="toc-text">运行服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#问题"><span class="toc-number">5.</span> <span class="toc-text">问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#无法解析主机名"><span class="toc-number">5.1.</span> <span class="toc-text">无法解析主机名</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基础知识"><span class="toc-number">6.</span> <span class="toc-text">基础知识</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#复制流程"><span class="toc-number">1.1.</span> <span class="toc-text">复制流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#大致原理如下"><span class="toc-number">1.1.1.</span> <span class="toc-text">大致原理如下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#流程"><span class="toc-number">1.1.2.</span> <span class="toc-text">流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复制中的文件"><span class="toc-number">1.2.</span> <span class="toc-text">复制中的文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Binlog"><span class="toc-number">1.2.1.</span> <span class="toc-text">Binlog</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Relay-Log"><span class="toc-number">1.2.2.</span> <span class="toc-text">Relay Log</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#master-info"><span class="toc-number">1.2.3.</span> <span class="toc-text">master.info</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#relay-log-info"><span class="toc-number">1.2.4.</span> <span class="toc-text">relay-log.info</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三种复制方式"><span class="toc-number">1.3.</span> <span class="toc-text">三种复制方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Statement"><span class="toc-number">1.3.1.</span> <span class="toc-text">Statement</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Row"><span class="toc-number">1.3.2.</span> <span class="toc-text">Row</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Mixed"><span class="toc-number">1.3.3.</span> <span class="toc-text">Mixed</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三种复制技术"><span class="toc-number">1.4.</span> <span class="toc-text">三种复制技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#binlog-format-Statement"><span class="toc-number">1.4.1.</span> <span class="toc-text">binlog_format=Statement</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#binlog-format-Row"><span class="toc-number">1.4.2.</span> <span class="toc-text">binlog_format=Row</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#binlog-format-Mixed"><span class="toc-number">1.4.3.</span> <span class="toc-text">binlog_format=Mixed</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三种常见的架构"><span class="toc-number">1.5.</span> <span class="toc-text">三种常见的架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一主多从复制架构"><span class="toc-number">1.5.1.</span> <span class="toc-text">一主多从复制架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多级复制架构"><span class="toc-number">1.5.2.</span> <span class="toc-text">多级复制架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#双主复制、Dual-Master架构"><span class="toc-number">1.5.3.</span> <span class="toc-text">双主复制、Dual Master架构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#切换流程"><span class="toc-number">1.5.3.1.</span> <span class="toc-text">切换流程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#异步复制"><span class="toc-number">1.5.4.</span> <span class="toc-text">异步复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#半同步复制"><span class="toc-number">1.5.5.</span> <span class="toc-text">半同步复制</span></a></li></ol></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -432,13 +444,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/year/01/11/combineByKey/" title="上一篇: spark之combineByKey">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/year/01/10/docker/" title="下一篇: ubuntu下Docker的安装和使用">
+            <a  href="/year/10/29/risk_wise/" title="下一篇: 冒险的智慧">
                 <i class="fa fa-angle-right"></i>
             </a>
         
