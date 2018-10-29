@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jchanji.github.io/year/10/29/risk_wise/</loc>
+    
+    <lastmod>2018-10-29T07:24:37.513Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jchanji.github.io/year/09/27/redis-copy/</loc>
     
-    <lastmod>2018-09-30T14:38:01.700Z</lastmod>
+    <lastmod>2018-09-30T14:40:12.900Z</lastmod>
     
   </url>
   
@@ -131,13 +138,6 @@
     <loc>http://jchanji.github.io/year/07/19/springCloud-chapter1/</loc>
     
     <lastmod>2018-07-23T08:39:59.638Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/10/30/artical_1/</loc>
-    
-    <lastmod>2018-06-20T13:26:55.742Z</lastmod>
     
   </url>
   
