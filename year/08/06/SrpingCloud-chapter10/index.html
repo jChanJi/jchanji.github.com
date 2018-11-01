@@ -118,7 +118,7 @@
 <h3 id="模拟雪崩效应"><a href="#模拟雪崩效应" class="headerlink" title="模拟雪崩效应"></a>模拟雪崩效应</h3><blockquote>
 <p>在sevice-member会员服务的controller的getAllUser中将线程休眠3秒</p>
 </blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(value = "/getAllUser",produces = "application/json;charset=UTF-8")</span><br><span class="line">public List&lt;String&gt; getAllUser() &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    try &#123;</span></span><br><span class="line"><span class="code">        Thread.sleep(3000);</span></span><br><span class="line"><span class="code">    &#125; catch (InterruptedException e) &#123;</span></span><br><span class="line"><span class="code">        e.printStackTrace();</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    List&lt;String&gt; users = new ArrayList&lt;&gt;();</span></span><br><span class="line"><span class="code">    users.add("user1");</span></span><br><span class="line"><span class="code">    users.add("user2");</span></span><br><span class="line"><span class="code">    users.add("user3");</span></span><br><span class="line"><span class="code">    users.add("user4");</span></span><br><span class="line"><span class="code">    users.add("port:" + port);</span></span><br><span class="line"><span class="code">    return users;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(value = "/getAllUser",produces = "application/json;charset=UTF-8")</span><br><span class="line">public List<span class="xml"><span class="tag">&lt;<span class="name">String</span>&gt;</span></span> getAllUser() &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    try &#123;</span></span><br><span class="line"><span class="code">        Thread.sleep(3000);</span></span><br><span class="line"><span class="code">    &#125; catch (InterruptedException e) &#123;</span></span><br><span class="line"><span class="code">        e.printStackTrace();</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    List&lt;String&gt; users = new ArrayList&lt;&gt;();</span></span><br><span class="line"><span class="code">    users.add("user1");</span></span><br><span class="line"><span class="code">    users.add("user2");</span></span><br><span class="line"><span class="code">    users.add("user3");</span></span><br><span class="line"><span class="code">    users.add("user4");</span></span><br><span class="line"><span class="code">    users.add("port:" + port);</span></span><br><span class="line"><span class="code">    return users;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>在service-order-feign 订单服务中设置tomcat的最大线程数，ribbon、hystrix的超时时间</p>
 </blockquote>
@@ -306,7 +306,7 @@
     
     <div class="search-container sildeUpMin">
         <div class="search-header">
-            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
             <span class="search-cancel">
                 <i class="iconfont icon-cancel">
             </i></span>
@@ -323,31 +323,31 @@
          
             
 
-            <a class="mobile-menu-link" href="/">首页
+            <a class="mobile-menu-link" href="/">Home
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">归档
+            <a class="mobile-menu-link" href="/archives">Archives
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">标签
+            <a class="mobile-menu-link" href="/tags">Tags
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/about">关于
+            <a class="mobile-menu-link" href="/about">About
             </a>
             
          
                           
 
-            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
             
          
       

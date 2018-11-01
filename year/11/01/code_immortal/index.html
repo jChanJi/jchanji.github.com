@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  Spring Boot从基础到进阶 |   Jonas </title>
+  <title>  代码不朽：编写可维护软件的10大要则（Java版） |   Jonas </title>
 
  
   
@@ -79,20 +79,20 @@
 	<div class="post-header">
 
 	<p class="post-title">	
-		spring boot从基础到进阶
+		代码不朽：编写可维护软件的10大要则（Java版）
 	</p>
 			
 
 	<div class="meta-info">	
 	<span>
-		Jan 17, 2018
+		Nov 01, 2018
 	</span>
 
 	
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			250
+			838
 		</span>
 	
 </div>
@@ -106,23 +106,44 @@
 
 			
 					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>springboot作为springmvc的升级版，具有很多优势，下面简单一下springboot的搭建与配置，并运行一个小项目。</p>
+<p>往往很多人注重自己的编程思维的锻炼、业务需求理解能力的提升、编程框架原理、网站架构的理解等等所谓的上层建筑，但是作为一位合格的程序员基本的要求是很够写出让别人容易理解，让自己思路清晰，让bug尽量减少的代码。</p>
 </blockquote>
-<h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><ol>
-<li>jdk1.8</li>
-<li>ideaIU</li>
-<li>maven3.3.9<a id="more"></a>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/springbboot1.PNG" alt="springboot1"></li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/springboot2.PNG" alt="springtboo2"></p>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/springboot3.PNG" alt="springtboot3"></p>
-<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/spingboot4.PNG" alt="springtboot4"></p>
-<p>项目的整体目录结构为：</p>
-<p><img src="/images/placeholder.png" alt="projec_structures" data-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/project_structures.PNG" class="lazyload"></p>
+<a id="more"></a>
 <blockquote>
-<p>其中GirlApplication.java为程序启动的入口,application.properties文件为配置文件</p>
-<h2 id="程序代码"><a href="#程序代码" class="headerlink" title="程序代码"></a>程序代码</h2><p>本程序由慕课网提供教学，本人在此基础上加入了很多注释，以方便理解，项目<a href="https://github.com/jChanJi/springboot_study" target="_blank" rel="noopener">地址</a><br>,下面是搭建springboot应用的关键技术<br><img src="/images/placeholder.png" alt="key_technology" data-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/springboot/springboot.PNG" class="lazyload"></p>
+<p>在阅读过代码不朽这本书后，对代码整洁的认证就多了一个认知的标准，文中通过具体的数字来对所写的代码进行约束，这样就使我们对自己的代码有了一把衡量的尺度。也许有些标准确实是很难遵循，那也无伤大雅，我们需要做的就是努力的向标准逼近。这些看似简单的标准在实际编码中可能尤为困难。</p>
+<p>本文并没有将书中所有的规则都罗列出来，挑选了比较重要且体会比较深的几条。</p>
 </blockquote>
+<h2 id="1-编写短小的代码单元"><a href="#1-编写短小的代码单元" class="headerlink" title="1. 编写短小的代码单元"></a>1. 编写短小的代码单元</h2><ol>
+<li>代码单元的长度限制在15行以内</li>
+<li>不写重复的代码</li>
+</ol>
+<h2 id="2-编写简单的代码单元"><a href="#2-编写简单的代码单元" class="headerlink" title="2. 编写简单的代码单元"></a>2. 编写简单的代码单元</h2><p>每个代码的分支点数量不超过4个,即if，else的等条件语句的分支个数不宜超过4个</p>
+<h2 id="3-代码单元的接口简单"><a href="#3-代码单元的接口简单" class="headerlink" title="3. 代码单元的接口简单"></a>3. 代码单元的接口简单</h2><ol>
+<li>每一行代码的参数个数不能超过4个</li>
+<li>将多个参数提取成对象</li>
+</ol>
+<h2 id="4-分离模块（类）之间的关注点"><a href="#4-分离模块（类）之间的关注点" class="headerlink" title="4. 分离模块（类）之间的关注点"></a>4. 分离模块（类）之间的关注点</h2><pre><code>保持类的体积尽可能的小，并限制外部类的调用数量&lt;br&gt;
+</code></pre><ol>
+<li>根据不同的关注点拆分类（尽量使类的职能单一）</li>
+<li>隐藏接口背后的特定实现（实现接口，接口中写公共方法）</li>
+<li>使用第三方库，框架替换自定义代码</li>
+<li>一个接口至少被两个类实现，否则不要使用接口</li>
+</ol>
+<h2 id="5-架构组件松耦合"><a href="#5-架构组件松耦合" class="headerlink" title="5. 架构组件松耦合"></a>5. 架构组件松耦合</h2><ol>
+<li>尽量减少当前模块中需要暴露给其他组件模块的相关代码</li>
+<li>透传代码必须避免（将自己的代理暴露给客户），就如同你向一个公司的帮助中心咨询了一个问题，他没有给出答案而是将问题转给了另外一个公司</li>
+</ol>
+<h2 id="6-保持架构组件之间的平衡"><a href="#6-保持架构组件之间的平衡" class="headerlink" title="6. 保持架构组件之间的平衡"></a>6. 保持架构组件之间的平衡</h2><p>保持代码中组件的数量接近7（6-12）</p>
+<h2 id="7-保持小规模代码库"><a href="#7-保持小规模代码库" class="headerlink" title="7. 保持小规模代码库"></a>7. 保持小规模代码库</h2><p>要控制需求的蔓延，难以理解已有的代码，进而畏惧触碰代码，这是开发人员选择复制粘贴代码的通常理由</p>
+<h2 id="8-编些简洁的代码"><a href="#8-编些简洁的代码" class="headerlink" title="8. 编些简洁的代码"></a>8. 编些简洁的代码</h2><ol>
+<li>不要编写单元级别的代码坏味道</li>
+<li>不要编写不好的注释</li>
+<li>不要注释代码</li>
+<li>不要保留废弃的代码</li>
+<li>不要使用过长的标识符名称</li>
+<li>不要使用魔术常量</li>
+<li>不要使用未正确处理的异常</li>
+</ol>
   	
 					
 	  </div>     
@@ -147,8 +168,8 @@
 	<span class="donate-cancel iconfont icon-cancel"></span>
 
 	<div class="donate-img-box">
-		<img id="donate-qr-wechat" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate1.png">	
-		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate2.png">	
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/donate2.png" alt="No Donate Image!">	
 	</div>
 
 	<span class="donate-word">世界美好 你也是</span>
@@ -196,15 +217,11 @@
   </div>  
 
   <div class="post-footer-meta">
-        
-          <i class="iconfont icon-category"></i>       
-          <a class="category-link" href="/categories/javaweb/">-javaweb</a> 	
-      
         	
 
         
           <i class="iconfont icon-tag"></i>     
-            <a class="tag-link" href="/tags/spring/">spring</a> <a class="tag-link" href="/tags/springboot/">springboot</a>    
+            <a class="tag-link" href="/tags/book/">book</a>    
         	
   </div>
 
@@ -213,22 +230,13 @@
 
 <nav class="post-footer-nav">
   
-    <div class="post-footer-link">
-      <a href="/year/02/23/xiaoma/" id="post-nav-newer" class="post-nav-link-wrap">
-        <strong class="post-nav-caption">newer</strong>
-           
-          <a class="post-nav-title" href="/year/02/23/xiaoma/">
-          浏览器被www.t999.cn劫持</a>
-      </a>
-    </div>
-  
   
     <div class="post-footer-link">
-      <a href="/year/01/15/spark_sougou_logs/" id="post-nav-older" class="post-nav-link-wrap">
+      <a href="/year/10/29/mysql_copy/" id="post-nav-older" class="post-nav-link-wrap">
         <strong class="post-nav-caption">older</strong>
         
-          <a class="post-nav-title" href="/year/01/15/spark_sougou_logs/">
-          spark项目基础实战</a>
+          <a class="post-nav-title" href="/year/10/29/mysql_copy/">
+          Mysql复制</a>
       </a>
     </div>
   
@@ -262,7 +270,7 @@
      <div class="mobile-menu">      
 
       
-      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
       
 
          

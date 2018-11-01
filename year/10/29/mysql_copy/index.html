@@ -92,7 +92,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			1828
+			1824
 		</span>
 	
 </div>
@@ -142,8 +142,7 @@
 <li>在Master2上完成维护后打开Master2库上的Slave线程，让Master2和Master1同步，同步完成后将应用的写请求切换到Master2上。</li>
 <li>最后确认Master1库上没有应用访问后打开Master1库的Slave线程。</li>
 </ol>
-<p>###异步复制和半同步复制</p>
-<h4 id="异步复制"><a href="#异步复制" class="headerlink" title="异步复制"></a>异步复制</h4><p>异步复制在日志写入到Binlog文件中时即成功返回给客户端，当从库尚未得到主库推送的Binlog文件时服务器发生故障，导致Binlog丢失，从而造成主从不一致。</p>
+<h3 id="异步复制和半同步复制"><a href="#异步复制和半同步复制" class="headerlink" title="异步复制和半同步复制"></a>异步复制和半同步复制</h3><h4 id="异步复制"><a href="#异步复制" class="headerlink" title="异步复制"></a>异步复制</h4><p>异步复制在日志写入到Binlog文件中时即成功返回给客户端，当从库尚未得到主库推送的Binlog文件时服务器发生故障，导致Binlog丢失，从而造成主从不一致。</p>
 <h4 id="半同步复制"><a href="#半同步复制" class="headerlink" title="半同步复制"></a>半同步复制</h4><p>为了保证主库上的Binlog文件能够可靠的被复制到从数据库中，主库事务提交时并不及时反馈给客户端，而是等待一个从库也接受到了Binlog事务并成功写入中继日志后才返回Commit操作给客户端。在半同步复制模式下如果Binlog长时间没有推送到从服务器（时间由rpl_semi_master_timeout参数决定）则Mysql会自动调整为异步模式。</p>
   	
 					
@@ -235,6 +234,15 @@
 
 <nav class="post-footer-nav">
   
+    <div class="post-footer-link">
+      <a href="/year/11/01/code_immortal/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/01/code_immortal/">
+          代码不朽：编写可维护软件的10大要则（Java版）</a>
+      </a>
+    </div>
+  
   
     <div class="post-footer-link">
       <a href="/year/10/29/risk_wise/" id="post-nav-older" class="post-nav-link-wrap">
@@ -264,7 +272,7 @@
     
     <div class="search-container sildeUpMin">
         <div class="search-header">
-            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
             <span class="search-cancel">
                 <i class="iconfont icon-cancel">
             </i></span>
@@ -281,31 +289,31 @@
          
             
 
-            <a class="mobile-menu-link" href="/">首页
+            <a class="mobile-menu-link" href="/">Home
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">归档
+            <a class="mobile-menu-link" href="/archives">Archives
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">标签
+            <a class="mobile-menu-link" href="/tags">Tags
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/about">关于
+            <a class="mobile-menu-link" href="/about">About
             </a>
             
          
                           
 
-            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
             
          
       
