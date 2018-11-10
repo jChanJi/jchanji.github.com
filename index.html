@@ -119,6 +119,104 @@
 	   
 	<div class="article-header">
 	    
+		<a class="article-title" href="/year/11/11/heart/">回忆录</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Nov 11, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/artical/">artical</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><blockquote>
+<p>我是一个工科男，专业是计算机科学与技术，也就是众人口中的程序员，也许是比较感性的那种理工直男吧，语文不是很好却总是喜欢写一下感悟，发一些牢骚，有时也很烦恼自己的这种性格，和自己向往的大男子主义好像是完全不搭。从出生到现在一晃就是23年，本来就是个悲观主义者，仿佛自己已经过了50年一般。今天的阳光很好，那种就算再丧，坐在草坪上，都能感觉到世界美好的那种。过去的一周，感觉自己过的很丧，又是碰上连绵阴冷的冬雨，心里有点事情，常常夜里失眠，很少见的那种。和往常一样，坐在实验室，却久久不能平静，往事一一的浮现在眼前，快乐的，伤心的，感动的，怨恨的。情绪总是会迸发，只是大小而已。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/11/11/heart/">Continue</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/11/08/zookeeper/">从Paxos到ZooKeeper 分布式一致性原理与实战</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Nov 08, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/ZooKeeper/">ZooKeeper</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		 
+			<p>##前言</p>
+<blockquote>
+<p>《从Paxos到ZooKeeper 分布式一致性原理与实战》笔记</p>
+</blockquote>
+<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><h3 id="ACID"><a href="#ACID" class="headerlink" title="ACID"></a>ACID</h3><blockquote>
+<p>事务一方面在多个应用程序并发访问数据库的时候为应用程序之间提供一个隔离的方法，另一方面事务为数据库操作序列提供了一个从失败到恢复正常状态的方法。事务具有以下的四个特征。这</p>
+</blockquote>
+<p>####原子性(Atomicity)<br>要么全部成功，要么全部不成功</p>
+<h4 id="一致性-Consistency"><a href="#一致性-Consistency" class="headerlink" title="一致性(Consistency)"></a>一致性(Consistency)</h4><p>数据库值包含成功事务体检的结果的时，就说数据库处于一致性状态。如果数据库系统在运行过程中发生故障，有些事务尚未完成就被迫中断，这些未完成的事务对数据库做的修改有一部分已写入物理数据库，这时数据库就处于一种不正确的状态。</p>
+<h4 id="隔离性-Isolation"><a href="#隔离性-Isolation" class="headerlink" title="隔离性(Isolation)"></a>隔离性(Isolation)</h4><p>一个事务内部操作及使用的数据对其他并发书屋是分离的，隔离级别由地到高：</p>
+<h5 id="未提交读-Read-Uncommitted"><a href="#未提交读-Read-Uncommitted" class="headerlink" title="未提交读(Read Uncommitted)"></a>未提交读(Read Uncommitted)</h5><p>允许脏读，及A在处理数据并跟新了数据但是还未提交事务的情况下，允许B对数据进行读取，</p>
+<h5 id="已提交读-Read-Committed"><a href="#已提交读-Read-Committed" class="headerlink" title="已提交读(Read Committed)"></a>已提交读(Read Committed)</h5><p>以为未提交读类似，区别在于只允许获得已经被提交的数据。</p>
+<h5 id="可重复读-Repeatable-Read"><a href="#可重复读-Repeatable-Read" class="headerlink" title="可重复读(Repeatable Read)"></a>可重复读(Repeatable Read)</h5><p><strong>在事务处理过程中</strong>，多次读取同一个数据的时候，其值都和事务开始时刻是一致的。但是同样的会有幻读的问题，同样的事务操作在前后两个时间段内执行对同一个数据的读取出现不一致的情况，注意的是两个时间段内进行的是同一个事务的两次调用。</p>
+<h5 id="串行化"><a href="#串行化" class="headerlink" title="串行化"></a>串行化</h5><p>所有的事务都被串行执行</p>
+<p>###</p>
+<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><h4 id="1-网络分区"><a href="#1-网络分区" class="headerlink" title="1. 网络分区"></a>1. 网络分区</h4><blockquote>
+<p>当网络发生异常情况，导致分布式系统中部分节点之间的网络延时不断增大，最终导致组成分布式系统的所有节点中，只有不封节点之， 间能够正常通信，而另外一些不能。</p>
+</blockquote>
+<h4 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h4>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/11/08/zookeeper/">Continue</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="article-title" href="/year/11/01/code_immortal/">代码不朽：编写可维护软件的10大要则（Java版）</a>  
 	       
 		 
@@ -435,88 +533,6 @@
 
 	<div class="article-bottom">
 		<a class="article-readmore" href="/year/08/12/java_article1/">Continue</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/year/08/11/Mysql_chapter3/">第三章：MySQL性能管理及架构设计-基准测试</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Aug 11, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/MySQL/">MySQL</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>在优化mysql性能之前需要学习下基准测试以便对性能进行评估。基准测试不关注业务的逻辑，所使用的查询和业务的逻辑没有任何关系，而压力测试则是针对不同的主题，所使用的查询也是真实用到的数据。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/year/08/11/Mysql_chapter3/">Continue</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/year/08/10/Mysql_chapter2/">第二章：MySQL性能管理及架构设计-影响Mysql性能的因素</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Aug 10, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/MySQL/">MySQL</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>本章主要介绍影响Mysql性能的一些因素以及一些性能优化的参数的配置</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/year/08/10/Mysql_chapter2/">Continue</a> 	
 	</div>	
     
 </article>     

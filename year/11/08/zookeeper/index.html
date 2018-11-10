@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  第六章:SpringCloud-负载均衡 |   Jonas </title>
+  <title>  从Paxos到ZooKeeper 分布式一致性原理与实战 |   Jonas </title>
 
  
   
@@ -79,20 +79,20 @@
 	<div class="post-header">
 
 	<p class="post-title">	
-		第六章:SpringCloud-负载均衡
+		从Paxos到ZooKeeper 分布式一致性原理与实战
 	</p>
 			
 
 	<div class="meta-info">	
 	<span>
-		Jul 31, 2018
+		Nov 08, 2018
 	</span>
 
 	
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			1007
+			697
 		</span>
 	
 </div>
@@ -105,43 +105,25 @@
 		
 
 			
-					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>本章主要介绍负载均衡的原理和使用Ribbon搭建负载均衡环境</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/load_balance.png"></div>
-
+					<p>##前言</p>
 <blockquote>
-<ol>
-<li>客户端发送请求</li>
-<li>nginx反向代理、负载均衡等</li>
-<li>所有的服务在项目启动时全部注册到了注册中心</li>
-<li>nginx分配求求到了其中的一台提供会员服务的服务器:会员服务1，会员服务1从注册中心获取所有的订单服务的接口。</li>
-<li>注册中心返回所有的订单服务接口给会员服务</li>
-<li>会员服务1再将获取到的所有接口交给Ribbon做负载均衡</li>
-<li>Ribbon直接调用某一个订单服务</li>
-</ol>
+<p>《从Paxos到ZooKeeper 分布式一致性原理与实战》笔记</p>
 </blockquote>
-<h2 id="搭建负载均衡"><a href="#搭建负载均衡" class="headerlink" title="搭建负载均衡"></a>搭建负载均衡</h2><blockquote>
-<p>其实最简单的负载均衡的配置我们已经搭建好了，即在service-order项目中加的Ribbon依赖和在启动类中配置的负载均衡。这里需要注意的是负载均衡配置放在service-order服务中，即放在需要做负载均衡的服务中而不是注册中心。为了能够辨别清晰，我们在会员服务返回的数据中加上端口号</p>
-<p>在service-member中返回数据的中添加端口号</p>
+<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><h3 id="ACID"><a href="#ACID" class="headerlink" title="ACID"></a>ACID</h3><blockquote>
+<p>事务一方面在多个应用程序并发访问数据库的时候为应用程序之间提供一个隔离的方法，另一方面事务为数据库操作序列提供了一个从失败到恢复正常状态的方法。事务具有以下的四个特征。这</p>
 </blockquote>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Value("$&#123;server.port&#125;")</span><br><span class="line">   private String port;</span><br><span class="line"></span><br><span class="line">   @GetMapping(value = "/getAllUser",produces = "application/json;charset=UTF-8")</span><br><span class="line">   public List&lt;String&gt; getAllUser() &#123;</span><br><span class="line"><span class="code">       List&lt;String&gt; users = new ArrayList&lt;&gt;();</span></span><br><span class="line"><span class="code">       users.add("user1");</span></span><br><span class="line"><span class="code">       users.add("user2");</span></span><br><span class="line"><span class="code">       users.add("user3");</span></span><br><span class="line"><span class="code">       users.add("user4");</span></span><br><span class="line"><span class="code">       users.add("port:" + port);</span></span><br><span class="line"><span class="code">       return users;</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>启动项目注册中心、会员服务端口号为8762的会员服务,然后修改端口号为8763,再启动一个服务，idea启动项目默认的为单例模式，在Edited configurations界面的最右上方，将single instance only 取消勾选</p>
-<p>打开注册中心，发现有两个service-member服务，端口号不同</p>
+<p>####原子性(Atomicity)<br>要么全部成功，要么全部不成功</p>
+<h4 id="一致性-Consistency"><a href="#一致性-Consistency" class="headerlink" title="一致性(Consistency)"></a>一致性(Consistency)</h4><p>数据库值包含成功事务体检的结果的时，就说数据库处于一致性状态。如果数据库系统在运行过程中发生故障，有些事务尚未完成就被迫中断，这些未完成的事务对数据库做的修改有一部分已写入物理数据库，这时数据库就处于一种不正确的状态。</p>
+<h4 id="隔离性-Isolation"><a href="#隔离性-Isolation" class="headerlink" title="隔离性(Isolation)"></a>隔离性(Isolation)</h4><p>一个事务内部操作及使用的数据对其他并发书屋是分离的，隔离级别由地到高：</p>
+<h5 id="未提交读-Read-Uncommitted"><a href="#未提交读-Read-Uncommitted" class="headerlink" title="未提交读(Read Uncommitted)"></a>未提交读(Read Uncommitted)</h5><p>允许脏读，及A在处理数据并跟新了数据但是还未提交事务的情况下，允许B对数据进行读取，</p>
+<h5 id="已提交读-Read-Committed"><a href="#已提交读-Read-Committed" class="headerlink" title="已提交读(Read Committed)"></a>已提交读(Read Committed)</h5><p>以为未提交读类似，区别在于只允许获得已经被提交的数据。</p>
+<h5 id="可重复读-Repeatable-Read"><a href="#可重复读-Repeatable-Read" class="headerlink" title="可重复读(Repeatable Read)"></a>可重复读(Repeatable Read)</h5><p><strong>在事务处理过程中</strong>，多次读取同一个数据的时候，其值都和事务开始时刻是一致的。但是同样的会有幻读的问题，同样的事务操作在前后两个时间段内执行对同一个数据的读取出现不一致的情况，注意的是两个时间段内进行的是同一个事务的两次调用。</p>
+<h5 id="串行化"><a href="#串行化" class="headerlink" title="串行化"></a>串行化</h5><p>所有的事务都被串行执行</p>
+<p>###</p>
+<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><h4 id="1-网络分区"><a href="#1-网络分区" class="headerlink" title="1. 网络分区"></a>1. 网络分区</h4><blockquote>
+<p>当网络发生异常情况，导致分布式系统中部分节点之间的网络延时不断增大，最终导致组成分布式系统的所有节点中，只有不封节点之， 间能够正常通信，而另外一些不能。</p>
 </blockquote>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/ribbon2.png"></div>
-
-<blockquote>
-<p>启动订单服务service-order、访问接口，第一次返回的数据总端口号是8762，第二次请求的端口号数据8763，因为Ribbon默认的负载均衡策略为轮询模式</p>
-</blockquote>
-<p>第一次请求</p>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/ribbon3.png"></div>
-
-<p>第二次请求</p>
-<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/ribbon4.png"></div>
-  	
+<h4 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h4>  	
 					
 	  </div>     
 	  
@@ -165,8 +147,8 @@
 	<span class="donate-cancel iconfont icon-cancel"></span>
 
 	<div class="donate-img-box">
-		<img id="donate-qr-wechat" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate1.png">	
-		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate2.png">	
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/donate2.png" alt="No Donate Image!">	
 	</div>
 
 	<span class="donate-word">世界美好 你也是</span>
@@ -214,15 +196,11 @@
   </div>  
 
   <div class="post-footer-meta">
-        
-          <i class="iconfont icon-category"></i>       
-          <a class="category-link" href="/categories/SpringCloud/">-SpringCloud</a> 	
-      
         	
 
         
           <i class="iconfont icon-tag"></i>     
-            <a class="tag-link" href="/tags/SpringCloud/">SpringCloud</a> <a class="tag-link" href="/tags/微服务/">微服务</a>    
+            <a class="tag-link" href="/tags/ZooKeeper/">ZooKeeper</a>    
         	
   </div>
 
@@ -232,21 +210,21 @@
 <nav class="post-footer-nav">
   
     <div class="post-footer-link">
-      <a href="/year/07/31/SpringCloud-chapter7/" id="post-nav-newer" class="post-nav-link-wrap">
+      <a href="/year/11/11/heart/" id="post-nav-newer" class="post-nav-link-wrap">
         <strong class="post-nav-caption">newer</strong>
            
-          <a class="post-nav-title" href="/year/07/31/SpringCloud-chapter7/">
-          第七章:SpringCloud-接口网关</a>
+          <a class="post-nav-title" href="/year/11/11/heart/">
+          回忆录</a>
       </a>
     </div>
   
   
     <div class="post-footer-link">
-      <a href="/year/07/27/SpringCloud-chapter5/" id="post-nav-older" class="post-nav-link-wrap">
+      <a href="/year/11/01/code_immortal/" id="post-nav-older" class="post-nav-link-wrap">
         <strong class="post-nav-caption">older</strong>
         
-          <a class="post-nav-title" href="/year/07/27/SpringCloud-chapter5/">
-          第五章:SpringCloud-服务消费</a>
+          <a class="post-nav-title" href="/year/11/01/code_immortal/">
+          代码不朽：编写可维护软件的10大要则（Java版）</a>
       </a>
     </div>
   
@@ -280,7 +258,7 @@
      <div class="mobile-menu">      
 
       
-      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
       
 
          
