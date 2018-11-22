@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  第三章：MySQL性能管理及架构设计-基准测试 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		第三章：MySQL性能管理及架构设计-基准测试
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1600
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>在优化mysql性能之前需要学习下基准测试以便对性能进行评估。基准测试不关注业务的逻辑，所使用的查询和业务的逻辑没有任何关系，而压力测试则是针对不同的主题，所使用的查询也是真实用到的数据。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="如何进行基准测试"><a href="#如何进行基准测试" class="headerlink" title="如何进行基准测试"></a>如何进行基准测试</h2><h3 id="基准测试的目的"><a href="#基准测试的目的" class="headerlink" title="基准测试的目的"></a>基准测试的目的</h3><ol>
+<li>建立Mysql服务器的性能基准线。确定当前Mysql服务器运行情况</li>
+<li>模拟比当前系统更高的负载， 以找出系统的拓展瓶颈增加数据库并发，观察QPS,TPS变化，确定并发量与性能最优关系</li>
+<li>测试不同的硬件、软件和操作系统配置</li>
+<li>证明新采购的硬件设备是否配置正确</li>
+</ol>
+<h3 id="如何进行基准测试-1"><a href="#如何进行基准测试-1" class="headerlink" title="如何进行基准测试"></a>如何进行基准测试</h3><ol>
+<li>对整个系统进行基准测试<ol>
+<li>能够测试整个系统性能，包括web服务器缓存、数据库</li>
+<li>能够反映出系统中各个组件接口间的性能问题，体现真实性能情况</li>
+<li>测试设计复杂，消耗时间长</li>
+</ol>
+</li>
+<li>单独的对Mysql进行基准测试<ol>
+<li>测试设计简单，所需耗费时间短</li>
+<li>无法全面了解整个系统的性能基准线<h3 id="常见的指标"><a href="#常见的指标" class="headerlink" title="常见的指标"></a>常见的指标</h3></li>
+</ol>
+</li>
+<li>单位时间内所处理的事务数（TPS）</li>
+<li>单位时间内处理的查询数（QPS）</li>
+<li>响应时间<blockquote>
+<p>平均响应时间、最小响应时间、最大响应时间、各时间所占百分比，主要看百分比响应时间</p>
+</blockquote>
+</li>
+<li>并发量,同时处理的查询请求的数量。正在工作中的并发的操作数或者和同时工作的数量</li>
+</ol>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+<li>对整个系统还是某一组件</li>
+<li>使用什么样的数据（生产环境的数据、生成的数据）</li>
+<li>准备基准测试以及数据收集脚本。CPU使用率、IO、网络流量、状态与计数器信息<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter3-1.png"></div><br><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter3-2.png"></div><br><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter3-3.png"></div></li>
+<li>运行基准测试</li>
+<li>保存及分析基准测试结果</li>
+</ol>
+<h2 id="容易忽略的问题"><a href="#容易忽略的问题" class="headerlink" title="容易忽略的问题"></a>容易忽略的问题</h2><ol>
+<li>使用生产环境数据时只使用了部分的数据</li>
+<li>在多用户的场景中只做单用户的测试，推荐多线程并发测试</li>
+<li>在单服务器上测试分布式应用，推荐使用相同的架构</li>
+<li>反复执行同一查询，容易缓存命中，无法反映真实的查询性能。</li>
+</ol>
+<h2 id="基准测试工具"><a href="#基准测试工具" class="headerlink" title="基准测试工具"></a>基准测试工具</h2><h3 id="mysqlslap"><a href="#mysqlslap" class="headerlink" title="mysqlslap"></a>mysqlslap</h3><blockquote>
+<p>mysql自带的基准测试工具，随mysql一起安装,缺点在于没有在自增id列上加上索引，对服务器的cup、IO、内存的测试体现不出来</p>
+</blockquote>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ol>
+<li>可以模拟服务器负载，并输出相关统计信息</li>
+<li>可以指定也可以自动生成查询语句</li>
+</ol>
+<h4 id="常用参数说明"><a href="#常用参数说明" class="headerlink" title="常用参数说明"></a>常用参数说明</h4><ol>
+<li>–auto-generate-sql 由系统自动生成sql脚本进行测试</li>
+<li>–auto-generate-sql-add-autoincrement 在生成的表中增加自动ID</li>
+<li>–auto-generate-load-type 指定测试中使用的查询类型</li>
+<li>–auto-generate-sql-write-number 指定初始化数据时生成对的数据量</li>
+<li>-concurrency指定并发线程的数量</li>
+<li>–engine 指定测试表的存储引擎，可以使用逗号分割多个存储引擎</li>
+<li>–no-drop 指定不清理测试数据</li>
+<li>–iteratons 指定测试运行的次数</li>
+<li>–number-of-queries 指定每个线程执行的查询的数量</li>
+<li>–debug-info 指定输出额外的内存以及CPU统计信息</li>
+<li>–number-int-cols 指定测试表中包含的int类型列的数量</li>
+<li>–number-char-cols指定测试表中包含的varchar类型的数量</li>
+<li>–create-schema 制定了用于执行测试的数据库的名称</li>
+<li>–query 用于指定自定义sql的脚本</li>
+<li>–only-print 并不运行脚本，而是把生成的脚本打印出来</li>
+</ol>
+<h4 id="测试命令"><a href="#测试命令" class="headerlink" title="测试命令"></a>测试命令</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlslap -uroot -p --concurrency=1,50,100,200 --iterations=3 --number-int-cols=5 --number-char-cols=5 --auto-generate-sql --auto-generate-sql-add-autoincrement --engine=myisam,innodb --number-of-queries=10 --create-schema=sbtest</span><br></pre></td></tr></table></figure>
+<h3 id="sysbench"><a href="#sysbench" class="headerlink" title="sysbench"></a>sysbench</h3><blockquote>
+<p>更为通用的测试工具，比mysqlslap更强大，使用方法可以自行查找</p>
+</blockquote>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate2.png">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/DataBase/">-DataBase</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/MySQL/">MySQL</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/mysql_copy/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/mysql_copy/">
+          Mysql复制</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/Mysql_chapter2/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/Mysql_chapter2/">
+          第二章：MySQL性能管理及架构设计-影响Mysql性能的因素</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

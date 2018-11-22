@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Java基础-IO-ByteArrayInputStream-01 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		java基础-IO-ByteArrayInputStream-01
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			2668
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>此篇为java基础笔记的第一篇，java基础系列文章将主要记录学习IO、集合、多线程等内容，大部分是对比较函数的介绍和源码的分析。由于时间有限，函数中输入值的范围以及异常处理不加以详细介绍,以实现原理和容易出错点为主。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="IO总体结构图"><a href="#IO总体结构图" class="headerlink" title="IO总体结构图"></a>IO总体结构图</h2><blockquote>
+<p>此图源自<a href="https://www.cnblogs.com/zhaoyanjun/p/6292384.html" target="_blank" rel="noopener">赵彦军</a>的博客</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java_io_1.png"></div>
+
+<h2 id="InputStream"><a href="#InputStream" class="headerlink" title="InputStream"></a>InputStream</h2><h3 id="public-abstract-int-read"><a href="#public-abstract-int-read" class="headerlink" title="public abstract int read()"></a>public abstract int read()</h3><p>读取输入流中的下一个字节的数据，返回读取流的大小，范围为0-255，如果读到了流的尾部将返回-1。此方法将被阻塞的,直到有可获取的数据或者检测到了流的结尾或者抛出异常，所以返回的字节大小不总是255，如果检测到尾部则获取的是最后不满一个字节长度的数据，抛出异常时返回的异常之前读取的字节数。</p>
+<h3 id="public-int-read-byte-b"><a href="#public-int-read-byte-b" class="headerlink" title="public int read(byte b[])"></a>public int read(byte b[])</h3><p>将输入流全部读取带字节数组b中，放回的是实际的数组的长度，此方法调用的是public int read(byte b[], int off, int len)，off为0，len为b.length</p>
+<h3 id="public-int-read-byte-b-int-off-int-len"><a href="#public-int-read-byte-b-int-off-int-len" class="headerlink" title="public int read(byte b[], int off, int len)"></a>public int read(byte b[], int off, int len)</h3><p>从指定字节位置读取指定长度的数据，并存到字节数组中，返回的是实际的读取的长度（因为此方法也是阻塞的），方法中其实是一个总数为len的for循环，每次循环调用一次read()方法读取下一字节的数据。同样，该方法数阻塞的。当off或者len为负数，len超过b.length-off的大小时会报超出索引边界异常。</p>
+<h3 id="public-long-skip-long-n"><a href="#public-long-skip-long-n" class="headerlink" title="public long skip(long n)"></a>public long skip(long n)</h3><p>跳过指定长度的字节，返回的是实际跳过的字节的长度（因为也是阻塞的），skip方法会存在跳过的字节数小于预期的情况。如果不对返回值进行处理的话，很容易忽视这个问题，导致结果错误。类中定义了 private static final int MAX_SKIP_BUFFER_SIZE = 2048,当跳过的字节数大于2048时会循环的调用 read(skipBuffer, 0, (int)Math.min(size, remaining))方法。代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int size = (int)Math.min(MAX_SKIP_BUFFER_SIZE, remaining);</span><br><span class="line">byte[] skipBuffer = new byte[size];</span><br><span class="line">while (remaining &gt; 0) &#123;</span><br><span class="line">    nr = read(skipBuffer, 0, (int)Math.min(size, remaining));</span><br><span class="line">    if (nr &lt; 0) &#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    remaining -= nr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当跳过的字节数太大时，这有可能是影响性能的地方。</p>
+<h3 id="public-int-available"><a href="#public-int-available" class="headerlink" title="public int available()"></a>public int available()</h3><p>available()方法是非阻塞的，返回的是流数据的字节大小。在获取本地文件的时候也许不会有什么问题，但是在接受网络传输的流时由于数非阻塞的，返回的值和发送的总数据字节数有可能不相等。为网络通讯往往是间断性的，一串字节往往分几批进行发送。</p>
+<h3 id="public-void-close"><a href="#public-void-close" class="headerlink" title="public void close()"></a>public void close()</h3><p>关闭流，释放资源</p>
+<h3 id="public-synchronized-void-mark-int-readlimit"><a href="#public-synchronized-void-mark-int-readlimit" class="headerlink" title="public synchronized void mark(int readlimit)"></a>public synchronized void mark(int readlimit)</h3><p>标记流的当前位置，readlimit为在标记失效之前，标记位置之后最多可以读取对少字节的数据。当markSupported()返回true的时候，调用reset时会返回调用mark之后读取的所有数据，如果在调用 reset 之前可以从流中读取多于 readlimit 的字节，则根本不需要该流记住任何数据。 InputStream中不支持mark，reset操作，具体在其子类中实现。对于关闭的流mark没有效果。</p>
+<h3 id="public-synchronized-void-reset"><a href="#public-synchronized-void-reset" class="headerlink" title="public synchronized void reset()"></a>public synchronized void reset()</h3><p>调用reset方法将会回到上一次使用mark的位置，</p>
+<h3 id="public-boolean-markSupported"><a href="#public-boolean-markSupported" class="headerlink" title="public boolean markSupported()"></a>public boolean markSupported()</h3><p>测试输入流是否有mark和reset方法。</p>
+<h2 id="ByteArrayInputStream"><a href="#ByteArrayInputStream" class="headerlink" title="ByteArrayInputStream"></a>ByteArrayInputStream</h2><p>ByteArrayInputStream的操作在我看来本质是是字节数组的复制。</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ol>
+<li>protected byte buf[];<blockquote>
+<p>字节数组，用来存储从流中读取的字节</p>
+</blockquote>
+</li>
+<li>protected int pos;<blockquote>
+<p>字节流中读取下一个字节的位置</p>
+</blockquote>
+</li>
+<li>protected int mark = 0;<blockquote>
+<p>字节流中目前被标记的位置</p>
+</blockquote>
+</li>
+<li>protected int count;<blockquote>
+<p>字节流的长度</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="public-ByteArrayInputStream-byte-buf"><a href="#public-ByteArrayInputStream-byte-buf" class="headerlink" title="public ByteArrayInputStream(byte buf[])"></a>public ByteArrayInputStream(byte buf[])</h3><p>将传入的字节数组参数保存在buf参数中</p>
+<h3 id="public-ByteArrayInputStream-byte-buf-int-offset-int-length"><a href="#public-ByteArrayInputStream-byte-buf-int-offset-int-length" class="headerlink" title="public ByteArrayInputStream(byte buf[], int offset, int length)"></a>public ByteArrayInputStream(byte buf[], int offset, int length)</h3><p>将读入的字节流数组buf[]存到this.buf中并设置读取下一个字节的位置pos为偏移量offset，this.buf的长度为min(offset + length,buf.length)</p>
+<h3 id="public-synchronized-int-read"><a href="#public-synchronized-int-read" class="headerlink" title="public synchronized int read()"></a>public synchronized int read()</h3><p>读取下一个字节，返回的读取的字节的大小，此方法是非阻塞的。当到输入流的结尾时会返回-1</p>
+<h3 id="public-synchronized-int-read-byte-b-int-off-int-len"><a href="#public-synchronized-int-read-byte-b-int-off-int-len" class="headerlink" title="public synchronized int read(byte b[], int off, int len)"></a>public synchronized int read(byte b[], int off, int len)</h3><p>将输入的字节流从off位置开始读取len长度的字节，其原理其实是数组的复制<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.arraycopy(buf, pos, b, off, len);</span><br></pre></td></tr></table></figure></p>
+<p>将b从off位置复制len长度的字节到buf中，从buf的pos位置开始</p>
+<h3 id="public-synchronized-long-skip-long-n"><a href="#public-synchronized-long-skip-long-n" class="headerlink" title="public synchronized long skip(long n)"></a>public synchronized long skip(long n)</h3><p>跳过n个字节，其实是将pos加n个数</p>
+<h3 id="public-boolean-markSupported-1"><a href="#public-boolean-markSupported-1" class="headerlink" title="public boolean markSupported()"></a>public boolean markSupported()</h3><p>ByteArrayInputStream的markSupported()方法返回的永远是true</p>
+<h3 id="public-void-mark-int-readAheadLimit"><a href="#public-void-mark-int-readAheadLimit" class="headerlink" title="public void mark(int readAheadLimit)"></a>public void mark(int readAheadLimit)</h3><p>将pos的位置记录下来，放在mark变量中</p>
+<h3 id="public-synchronized-void-reset-1"><a href="#public-synchronized-void-reset-1" class="headerlink" title="public synchronized void reset()"></a>public synchronized void reset()</h3><p>将mark的值赋值给pos</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ol>
+<li><a href="http://www.cnblogs.com/skywang12345/p/io_02.html" target="_blank" rel="noopener">java io系列02之 ByteArrayInputStream的简介,源码分析和示例(包括InputStream)</a></li>
+<li><a href="https://www.cnblogs.com/zhaoyanjun/p/6292384.html" target="_blank" rel="noopener">Java IO流学习总结一：输入输出流</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">jdk document-InputStream</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">jdk document-ByteArrayInputStream</a></li>
+<li>jdk源码-InputStream、ByteArrayInputStream</li>
+</ol>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/donate2.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/java/">-java</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/IO/">IO</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/java_io_ByteArrayOutputStream/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/java_io_ByteArrayOutputStream/">
+          java基础-IO-ByteArrayOutStream-02</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/java_article1/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/java_article1/">
+          Number1：java基础-&lt;? extends T&gt; and &lt;? super T&gt;</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

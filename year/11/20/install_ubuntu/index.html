@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Win10 安装Ubuntu 16.04 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		win10 安装ubuntu 16.04
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1354
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>在win10下安装ubuntu双系统。在笔记本安装ubuntu的时候遇到了很多的挫折，曾经也放弃过，但很不幸的是，在未来的今天又碰上了。有时候问题的答案很简单，但是需要大量的时间去得到它，并不是你的能力不行，而是网上的干扰答案实在是太多，无法分辨谁对谁假的时候，往往会一个个的试过去。我不认为这是个很笨的方法，因为多花点时间总能体会更多的东西。貌似废话有点多，下面直接上干货。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="一、版本"><a href="#一、版本" class="headerlink" title="一、版本"></a>一、版本</h2><ol>
+<li>win10 企业版</li>
+<li>ubuntu 16.04</li>
+<li>UltraSO 9.6.6.3300</li>
+<li>显卡：GTX 965M</li>
+<li>cup:i7-6700HQ</li>
+</ol>
+<h2 id="二、下载"><a href="#二、下载" class="headerlink" title="二、下载"></a>二、下载</h2><ol>
+<li><a href="http://releases.ubuntu.com/16.04.2/ubuntu-16.04.2-desktop-amd64.iso?_ga=2.92867550.254780022.1497589112-1524410519.1497589112" target="_blank" rel="noopener">ubuntu 16.04</a></li>
+<li><a href="http://172.19.251.251/files/510300000015EB65/dl.softmgr.qq.com/original/Compression/uiso9_cn_9.6.6.3300.exe" target="_blank" rel="noopener">UltraSO</a></li>
+</ol>
+<h2 id="三、安装配置"><a href="#三、安装配置" class="headerlink" title="三、安装配置"></a>三、安装配置</h2><h3 id="1-将镜像刻录到u盘（至少4g）"><a href="#1-将镜像刻录到u盘（至少4g）" class="headerlink" title="1.将镜像刻录到u盘（至少4g）"></a>1.将镜像刻录到u盘（至少4g）</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">打开UltraSO，点击试用。</span><br><span class="line">1、文件-&gt;打开-&gt;镜像位置</span><br><span class="line">2、启动-&gt;写如硬盘映像-&gt;写入</span><br></pre></td></tr></table></figure>
+<h3 id="2、分配空闲分区"><a href="#2、分配空闲分区" class="headerlink" title="2、分配空闲分区"></a>2、分配空闲分区</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、右击我的电脑-&gt;管理-&gt;磁盘管理</span><br><span class="line">2、选择非系统盘的主分区，右击-&gt;压缩卷，选择压缩大小，一般为50G,我的是100G,</span><br><span class="line">根据自己磁盘情况分配。</span><br></pre></td></tr></table></figure>
+<h3 id="3、将电脑设置为U盘启动"><a href="#3、将电脑设置为U盘启动" class="headerlink" title="3、将电脑设置为U盘启动"></a>3、将电脑设置为U盘启动</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">插入U盘，进入BIOS将U盘设置为启动项</span><br><span class="line">注：不同主板的BIOS大多都不会相同，所以根据自己电脑型号到网上查找。</span><br></pre></td></tr></table></figure>
+<h3 id="4、安装系统"><a href="#4、安装系统" class="headerlink" title="4、安装系统"></a>4、安装系统</h3><h4 id="1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。"><a href="#1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。" class="headerlink" title="1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。"></a>1、重新启动电脑，会进入安装界面，先择安装系统，进行安装。</h4><h4 id="2、卡在logo"><a href="#2、卡在logo" class="headerlink" title="2、卡在logo"></a>2、卡在logo</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">重新启动电脑，在选择系统安装的界面按e,进入grup界面，让后在splash后面加上：空格nomodeset空格，按F10执行。后面重启出了最后一次也是一样操作</span><br></pre></td></tr></table></figure>
+<h4 id="3、创建分区"><a href="#3、创建分区" class="headerlink" title="3、创建分区"></a>3、创建分区</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1、选择自己分配的空闲的磁盘，进行分盘</span><br><span class="line">2、分盘的注意点是：</span><br><span class="line">    2.1、 /：存储系统文件，建议10GB ~ 15GB,我分配16G；</span><br><span class="line">    2.2、 swap：交换分区，即Linux系统的虚拟内存，建议是物理内存的2倍,我分配16G；</span><br><span class="line">    2.3、 /home：建议最后分配所有剩下的空间；</span><br><span class="line">    2.4、 boot：包含系统内核和系统启动所需的文件，实现双系统的关键所在，建议200M,我分配400M。</span><br><span class="line">3、其他的默认或者根据自己需求设置，点击安装</span><br></pre></td></tr></table></figure>
+<h3 id="5、分辨率问题"><a href="#5、分辨率问题" class="headerlink" title="5、分辨率问题"></a>5、分辨率问题</h3><p>一般比较新的N（英伟达）卡会出现没有安装驱动的问题，所以屏幕的分率很低，这时候就需要安装N卡驱动。直接安装会导致开机的时候卡在登陆界面进不去，所以必须借助于bumblebee(大黄蜂)，至于原因有兴趣的可以查一查，这里不多阐述。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install bumblebee bumblebee-nvidia primus linux-headers-generic</span><br><span class="line">Reboot</span><br></pre></td></tr></table></figure></p>
+<p>重新启动后：<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get purge nvidia-* #删除所有的N卡驱动</span><br><span class="line">sudo add-apt-repository ppa:graphics-drivers/ppa  #添加第三方驱动源</span><br><span class="line">sudo apt-get update #更新源</span><br><span class="line">sudo  apt-cache search nvidia-*  #查询nvidia驱动可用版本，这里推荐到英伟达官网查看自己显卡驱动的版本，我的是375</span><br><span class="line">sudo apt-get install nvidia-375 # 安装驱动</span><br></pre></td></tr></table></figure></p>
+<p>打开软件更新器，然后将附加驱动－&gt;未知换成显卡的驱动<br><br>最后重新启动，什么都不用做，等开机！</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/donate2.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/others/">-others</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/ubuntu/">ubuntu</a> <a class="tag-link" href="/tags/win-10/">win 10</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/internet_of_everthing_for_new_industrial_revolution/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/internet_of_everthing_for_new_industrial_revolution/">
+          从互联到新工业革命-读后感</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/install_eclipse/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/install_eclipse/">
+          CentOS 7 安装eclipse mars 2</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

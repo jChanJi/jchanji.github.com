@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  代码不朽：编写可维护软件的10大要则（Java版） |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		代码不朽：编写可维护软件的10大要则（Java版）
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			838
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>往往很多人注重自己的编程思维的锻炼、业务需求理解能力的提升、编程框架原理、网站架构的理解等等所谓的上层建筑，但是作为一位合格的程序员基本的要求是很够写出让别人容易理解，让自己思路清晰，让bug尽量减少的代码。</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>在阅读过代码不朽这本书后，对代码整洁的认证就多了一个认知的标准，文中通过具体的数字来对所写的代码进行约束，这样就使我们对自己的代码有了一把衡量的尺度。也许有些标准确实是很难遵循，那也无伤大雅，我们需要做的就是努力的向标准逼近。这些看似简单的标准在实际编码中可能尤为困难。</p>
+<p>本文并没有将书中所有的规则都罗列出来，挑选了比较重要且体会比较深的几条。</p>
+</blockquote>
+<h2 id="1-编写短小的代码单元"><a href="#1-编写短小的代码单元" class="headerlink" title="1. 编写短小的代码单元"></a>1. 编写短小的代码单元</h2><ol>
+<li>代码单元的长度限制在15行以内</li>
+<li>不写重复的代码</li>
+</ol>
+<h2 id="2-编写简单的代码单元"><a href="#2-编写简单的代码单元" class="headerlink" title="2. 编写简单的代码单元"></a>2. 编写简单的代码单元</h2><p>每个代码的分支点数量不超过4个,即if，else的等条件语句的分支个数不宜超过4个</p>
+<h2 id="3-代码单元的接口简单"><a href="#3-代码单元的接口简单" class="headerlink" title="3. 代码单元的接口简单"></a>3. 代码单元的接口简单</h2><ol>
+<li>每一行代码的参数个数不能超过4个</li>
+<li>将多个参数提取成对象</li>
+</ol>
+<h2 id="4-分离模块（类）之间的关注点"><a href="#4-分离模块（类）之间的关注点" class="headerlink" title="4. 分离模块（类）之间的关注点"></a>4. 分离模块（类）之间的关注点</h2><pre><code>保持类的体积尽可能的小，并限制外部类的调用数量&lt;br&gt;
+</code></pre><ol>
+<li>根据不同的关注点拆分类（尽量使类的职能单一）</li>
+<li>隐藏接口背后的特定实现（实现接口，接口中写公共方法）</li>
+<li>使用第三方库，框架替换自定义代码</li>
+<li>一个接口至少被两个类实现，否则不要使用接口</li>
+</ol>
+<h2 id="5-架构组件松耦合"><a href="#5-架构组件松耦合" class="headerlink" title="5. 架构组件松耦合"></a>5. 架构组件松耦合</h2><ol>
+<li>尽量减少当前模块中需要暴露给其他组件模块的相关代码</li>
+<li>透传代码必须避免（将自己的代理暴露给客户），就如同你向一个公司的帮助中心咨询了一个问题，他没有给出答案而是将问题转给了另外一个公司</li>
+</ol>
+<h2 id="6-保持架构组件之间的平衡"><a href="#6-保持架构组件之间的平衡" class="headerlink" title="6. 保持架构组件之间的平衡"></a>6. 保持架构组件之间的平衡</h2><p>保持代码中组件的数量接近7（6-12）</p>
+<h2 id="7-保持小规模代码库"><a href="#7-保持小规模代码库" class="headerlink" title="7. 保持小规模代码库"></a>7. 保持小规模代码库</h2><p>要控制需求的蔓延，难以理解已有的代码，进而畏惧触碰代码，这是开发人员选择复制粘贴代码的通常理由</p>
+<h2 id="8-编些简洁的代码"><a href="#8-编些简洁的代码" class="headerlink" title="8. 编些简洁的代码"></a>8. 编些简洁的代码</h2><ol>
+<li>不要编写单元级别的代码坏味道</li>
+<li>不要编写不好的注释</li>
+<li>不要注释代码</li>
+<li>不要保留废弃的代码</li>
+<li>不要使用过长的标识符名称</li>
+<li>不要使用魔术常量</li>
+<li>不要使用未正确处理的异常</li>
+</ol>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/donate2.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/book/">book</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/combineByKey/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/combineByKey/">
+          spark之combineByKey</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/codeparse_gbk2utf/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/codeparse_gbk2utf/">
+          使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

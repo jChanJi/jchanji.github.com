@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Number1：java基础-&lt;? Extends T&gt; and &lt;? Super T&gt; |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		Number1：java基础-&lt;? extends T&gt; and &lt;? super T&gt;
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			2294
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本篇主要讲解&lt;? extends T&gt; 和 &lt;? super T&gt;的一些基础概念，参考了<a href="https://www.cnblogs.com/drizzlewithwind/p/6100164.html" target="_blank" rel="noopener">传送门</a>文章。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><ol>
+<li>PECS原则<blockquote>
+<p>PECS（Producer Extends Consumer Super）原则,频繁往外读取内容的，适合用上界Extends。经常往里插入的，适合用下界Super。</p>
+</blockquote>
+</li>
+<li>基类<blockquote>
+<p>包含所有实体共性的class类型，即父类</p>
+</blockquote>
+</li>
+<li>派生类<blockquote>
+<p>利用继承机制，新的类可以从已有的类中派生，即子类</p>
+</blockquote>
+</li>
+<li>其他术语(参考Effective Java)<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java3.png"></div>
+
+</li>
+</ol>
+<h2 id="lt-extends-T-gt-and-lt-super-T-gt-的作用范围"><a href="#lt-extends-T-gt-and-lt-super-T-gt-的作用范围" class="headerlink" title="&lt;? extends T&gt; and &lt;? super T&gt;的作用范围"></a>&lt;? extends T&gt; and &lt;? super T&gt;的作用范围</h2><p><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java1.png"></div></p>
+<p><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/java2.png"></div></p>
+<h2 id="程序代码即讲解"><a href="#程序代码即讲解" class="headerlink" title="程序代码即讲解"></a>程序代码即讲解</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    public static void main(String[] args) &#123;</span></span><br><span class="line"><span class="code">        System.out.println("Hello World!");</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    private class Food &#123;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     *水果类</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    private class Fruit extends Food &#123;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     *苹果类，继承水果类</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    private class Apple extends Fruit &#123;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     * 盘子</span></span><br><span class="line"><span class="code">     * @param &lt;T&gt;</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    private class Plate&lt;T&gt; &#123;</span></span><br><span class="line"><span class="code">        private T item;</span></span><br><span class="line"></span><br><span class="line"><span class="code">        private void setItem(T item) &#123;</span></span><br><span class="line"><span class="code">            this.item = item;</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">        private T getItem() &#123;</span></span><br><span class="line"><span class="code">            return this.item;</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     * 新建水果类</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Fruit fruit = new Fruit();</span></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     * 新建苹果类，父类可以接受子类（基类可以接受派生类，Fruit可以接受Apple）</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Fruit apple = new Apple();</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     * Apple继承Fruit，但是Plate&lt;Apple&gt;不继承Plate&lt;Fruit&gt;,编译报错</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Plate&lt;Fruit&gt; fruitPlate = new Plate&lt;Apple&gt;();</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     *?代表不确定什么类型，extends Fruit:继承Fruit,规定了类的上限</span></span><br><span class="line"><span class="code">     *Plate&lt;? extends Fruit&gt;  是Plate&lt;Apple&gt;，Plate&lt;Fruit&gt;的父类</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Plate&lt;? extends Fruit&gt; fruitPlate2 = new Plate&lt;Apple&gt;();</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     *Plate&lt;? super Fruit&gt;是Plate&lt;Fruit&gt;的父类，但Plate&lt;? super Fruit&gt;不是Plate&lt;Apple&gt;的父类，所以编译报错</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Plate&lt;? super Fruit&gt; fruitPlate3 = new Plate&lt;Apple&gt;();</span></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">     * Plate&lt;? super Fruit&gt;是 Plate&lt;Fruit&gt;()的父类，可以理解为用右边&lt;&gt;中的类型代替左边的?看是否合法，对象有set方法，但是get方法部分失效，只能够存在Object对象中</span></span><br><span class="line"><span class="code">     */</span></span><br><span class="line"><span class="code">    Plate&lt;? super Fruit&gt; fruitPlate4 = new Plate&lt;Fruit&gt;();</span></span><br><span class="line"><span class="code">    Plate&lt;? super Fruit&gt; fruitPlate5 = new Plate&lt;Food&gt;();</span></span><br><span class="line"><span class="code">    Plate&lt;? super Fruit&gt; fruitPlate6 = new Plate&lt;Apple&gt;();</span></span><br><span class="line"></span><br><span class="line"><span class="code">    public void getAndSet() &#123;</span></span><br><span class="line"><span class="code">        //&lt;? extends Fruit&gt;的set方法失效，因为编译器只知道容器内是它的子类，但是不知道是具体的哪一个子类</span></span><br><span class="line"><span class="code">        fruitPlate2.setItem(new Apple());</span></span><br><span class="line"><span class="code">        fruitPlate2.setItem(new Fruit());</span></span><br><span class="line"><span class="code">        //取出来的东西也只能放在Fruit或者他的父类当中,因为取出来的是Fruit的子类,所以用Fruit或者他的父类接受都可以</span></span><br><span class="line"><span class="code">        Fruit friut = fruitPlate2.getItem();</span></span><br><span class="line"><span class="code">        Food food = fruitPlate2.getItem();</span></span><br><span class="line"><span class="code">        //&lt;? super Fruit&gt;的set方法有效，相当于将子类赋值给父类,将粒度小的赋值给粒度大的</span></span><br><span class="line"><span class="code">        fruitPlate4.setItem(new Fruit());</span></span><br><span class="line"><span class="code">        fruitPlate4.setItem(new Apple());</span></span><br><span class="line"><span class="code">        //&lt;? super Fruit&gt;的get方法只能用Object接受，相当于父类赋值给子类，取出来的粒度大的无法赋值给粒度小的</span></span><br><span class="line"><span class="code">        Apple apple = fruitPlate4.getItem();</span></span><br><span class="line"><span class="code">        Fruit fruit = fruitPlate4.getItem();</span></span><br><span class="line"><span class="code">        Object object2 = fruitPlate4.getItem();</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate2.png">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/java/">-java</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/范型/">范型</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/java_io_ByteArrayInputStream/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/java_io_ByteArrayInputStream/">
+          java基础-IO-ByteArrayInputStream-01</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/internet_of_everthing_for_new_industrial_revolution/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/internet_of_everthing_for_new_industrial_revolution/">
+          从互联到新工业革命-读后感</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

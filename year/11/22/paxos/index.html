@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  从Paxos到ZooKeeper 分布式一致性原理与实战-Paxos算法 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		从Paxos到ZooKeeper 分布式一致性原理与实战-Paxos算法
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 22, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			2569
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>zookeeper中主要是采取了部分Paxos算法的思想，使用了Zookeeper Atomic Broadcast (ZAB,Zookeeper原子消息广播协议)作为其数据一致性的核心算法。此章节主要介绍Paxos算法。</p>
+<p>Paxos是一种提高分布式系统容错性的一致性算法，其最终目标在于提案的生成。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="拜占庭将军问题"><a href="#拜占庭将军问题" class="headerlink" title="拜占庭将军问题"></a>拜占庭将军问题</h2><blockquote>
+<p>在介绍Paxos之前先简单的介绍一下拜占庭将军问题。拜占庭帝国有多支军队，不同军队之间必须制定一个统一的行动计划。<br>每支军队由一位将军带领，军队之间通过通讯员保持消息的通讯，然而通讯员中可能存在叛徒，这些叛徒可以任意的篡改消息，从而达到欺骗将军的目的。</p>
+<p>在分布式计算领域试图在异步系统和不可靠通道上达到一致性状态是不可能的，但是我们可以假设信道是可靠的。因为一方面，大部分的分布式系统都是部署在同一个局域网中，所以消息被篡改的的情况几乎不存在。另一方面，由于硬件和网络原因而造成的消息不完整我们只需要一套简单的校验算法即可避免，因此，在实际的工程实践中不存在拜占庭将军问题。</p>
+</blockquote>
+<h2 id="Paxos算法"><a href="#Paxos算法" class="headerlink" title="Paxos算法"></a>Paxos算法</h2><h3 id="命名由来"><a href="#命名由来" class="headerlink" title="命名由来"></a>命名由来</h3><blockquote>
+<p>古希腊有一个叫做Paxos的小岛，岛上采取议会的形式通过法令，议会中的议员通过信使进行消息的传递。值得注意的是议员和信使都是兼职的，他们随时都可能离开议会，并且信使可能会重复的传递消息，也可能一去不复返。因此，议会协议要保证在这种情况下法令仍然能够正确的产生，而不会出现冲突。Paxos算法的名称也就取自这个小岛的名字。</p>
+</blockquote>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><blockquote>
+<p>对于分布式算法有两个重要的属性：安全性(safety)和活性(Liveness),安全性是指那些需要保证永远都不会发生的事情，活性是指那些最终一定会发生的事情。</p>
+<p>假设有一组可以提出提案的进程的集合，对于一个一致性算法来说需要保证一下几点：</p>
+</blockquote>
+<ol>
+<li>在这些被提出的提案中，只有一个会被选定</li>
+<li>如果没有提案被提出，则不会有被选定的提案</li>
+<li>当一个提案被选定后，进程应该获取被选定的提案信息。</li>
+</ol>
+<blockquote>
+<p>对于一致性来说，安全性需求如下：</p>
+</blockquote>
+<ol>
+<li>只有被提出的听才能被选定</li>
+<li>只有一个值被选定</li>
+<li>如果某个进程认为某个提案被选定了，那么这个提案必须是真的被选定的那个。</li>
+</ol>
+<blockquote>
+<p>在该一致性算法中有三种角色：Proposer(提出提案)、Acceptor（批准提案）、Learner（获取提案）。<br>在具体的实现中一个进程可能充当不止一种角色，这里我们不关心进程和角色如何映射，假设不同的参与者之间通过收发消息进行通讯则：</p>
+</blockquote>
+<ol>
+<li>参与者可能失败或者重启，因此，除非那些失败或者重启的的参与者可以记录某些信息，否则将无法确定最终的值。</li>
+<li>消息在传输过程中会有一定的延迟，也可能会丢失或者重复，但消息内容不会被篡改(不会发生拜占庭式问题)</li>
+</ol>
+<h3 id="提案的选定"><a href="#提案的选定" class="headerlink" title="提案的选定"></a>提案的选定</h3><h4 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h4><blockquote>
+<p>选定提案的最简单的方法就是只有一个Accpetor,这样Proposer只管将提案发送给Accpetor,Accpetor会选择接受到的第一个提案作为被选定的提案。但是一旦Acceptor出现问题，系统就无法工作了。</p>
+</blockquote>
+<h4 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h4><blockquote>
+<p>方式二选择多个Accptor从而避免了单个Accptor的单点问题。Proposer向一个Accptor集合发送提案，集合中的每个Accptor都会批准提案，当有足够多的Accptor批准这个提案的时候，我们就可以认为该提案被选定了。</p>
+<p>那么什么是足够多了？1、我们假定做够多的Accptor是整个Accptor集合的一个子集，，并且让这个集合大的可以包含Accptor集合的大多数吃成员。2、每个Accptor只能够批准一个提案。</p>
+</blockquote>
+<h3 id="推导过程"><a href="#推导过程" class="headerlink" title="推导过程"></a>推导过程</h3><h4 id="P1-一个Acceptor必须批准它收到的第一个提案"><a href="#P1-一个Acceptor必须批准它收到的第一个提案" class="headerlink" title="P1: 一个Acceptor必须批准它收到的第一个提案"></a>P1: 一个Acceptor必须批准它收到的第一个提案</h4><h5 id="阐述"><a href="#阐述" class="headerlink" title="阐述"></a>阐述</h5><blockquote>
+<p>因为我们必须要确保即使在只有一个提案被提出的情况下，仍然可以选出一个提案。</p>
+</blockquote>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><blockquote>
+<p>如果多个提案被不同的Proposer同时提出，这可能会导致虽然每个Acceptor都批准了第一个提案，但是没有一个提案是由多数人都批准的。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/zookeeper/p1_01.png" alt="P1_01"></p>
+<blockquote>
+<p>另外如果有两个提案提出，并且都差不多被一般的Acceptor批准了，例如提案1被批准了n次，而提案2被批准了n+1次，但是有一个Acceptor出错了，就使得提案1和提案2批准的次数一样多，导致无法确定选定哪个提案。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/zookeeper/p1_02.png" alt="P1_02"></p>
+<h4 id="P2-如果编号为M0-Value值为V0的提案-即-M0-V0-被选定了，那么所有比编号M0更高的，且被选定的提案，其Value值必须也是V0"><a href="#P2-如果编号为M0-Value值为V0的提案-即-M0-V0-被选定了，那么所有比编号M0更高的，且被选定的提案，其Value值必须也是V0" class="headerlink" title="P2: 如果编号为M0,Value值为V0的提案(即[M0,V0])被选定了，那么所有比编号M0更高的，且被选定的提案，其Value值必须也是V0."></a>P2: 如果编号为M0,Value值为V0的提案(即[M0,V0])被选定了，那么所有比编号M0更高的，且被选定的提案，其Value值必须也是V0.</h4><blockquote>
+<p>在P1的基础上，在加上一个提案被选定需要由半数以上的Acceptor批准的需求，暗示着一个Acceptor必须能够批准不止一个提案。</p>
+<p>我们使用一个全局的提案编号来标识每一个提案，当具有某Value值得提案被半数以上的Acceptor批准后，我们就认为该Value被选定了。此时我们也认为该提案被选定了。</p>
+<p>这里的提案是指类似于[M0,V0]这样的编号和Value的组合。</p>
+<p>我们已经允许多个提案被选定了，但同时必须要保证所有被选定的提案都具有相同的Value</p>
+<p><strong>而P2这句话怎么理解了？</strong>由必须保证所有被选定的提案都具有相同的Value值，当[M0,V0]提案被选定了（假设M0是被选定的提案中最小的编号），那么比M0编号更大的提案的Value值就必须和M0保持一致。</p>
+</blockquote>
+<h4 id="P2a-如果编号为M0，Value值为V0的提案-即-M0-V0-被选定了，那么所有比编号M0更高的-且被Acceptor批准的的提案，其Value值也必须是V0。"><a href="#P2a-如果编号为M0，Value值为V0的提案-即-M0-V0-被选定了，那么所有比编号M0更高的-且被Acceptor批准的的提案，其Value值也必须是V0。" class="headerlink" title="P2a: 如果编号为M0，Value值为V0的提案(即[M0,V0])被选定了，那么所有比编号M0更高的,且被Acceptor批准的的提案，其Value值也必须是V0。"></a>P2a: 如果编号为M0，Value值为V0的提案(即[M0,V0])被选定了，那么所有比编号M0更高的,且被Acceptor批准的的提案，其Value值也必须是V0。</h4><blockquote>
+<p>在P2的基础上就保证了只有一个Value值被选定这一关键安全性属性。同时一个提案如果被选定，其首先必须被至少一个Acceptor批准，因此，编号比M0高的且被批准的提案其Value值必须是V0。</p>
+</blockquote>
+<h4 id="P2b-如果一个提案-M0-V0-被选定之后，那么之后任何Proposer产生的编号更高的提案，其Value值都为V0。"><a href="#P2b-如果一个提案-M0-V0-被选定之后，那么之后任何Proposer产生的编号更高的提案，其Value值都为V0。" class="headerlink" title="P2b: 如果一个提案[M0,V0]被选定之后，那么之后任何Proposer产生的编号更高的提案，其Value值都为V0。"></a>P2b: 如果一个提案[M0,V0]被选定之后，那么之后任何Proposer产生的编号更高的提案，其Value值都为V0。</h4><blockquote>
+<p>在Acceptor没有收到任何提案的情况下，4个Acceptor已经批准了来之Propose2的提案[M0,V0]，而此时Proposer1 产生了一个具有其他Value的值，并且为编号更高的提案[M1，V2],并且发送给Acceptor1，根据P1，Acceptor必须要批准该提案，但是这与P2a相矛盾，于是就出现了强化版的P2a:P2b.即严格程度：P2b &gt; P2a &gt; p2。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/zookeeper/p2a.png" alt="p2a"></p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate2.png">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/ZooKeeper/">ZooKeeper</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/22/zookeeper/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/22/zookeeper/">
+          从Paxos到ZooKeeper 分布式一致性原理与实战-基础知识</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

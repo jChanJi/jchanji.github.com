@@ -1,0 +1,631 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  第二章：MySQL性能管理及架构设计-影响Mysql性能的因素 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		第二章：MySQL性能管理及架构设计-影响Mysql性能的因素
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			7370
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本章主要介绍影响Mysql性能的一些因素以及一些性能优化的参数的配置</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><ol>
+<li>cpu、内存、磁盘等硬件</li>
+<li>操作系统以及其参数优化</li>
+<li><p>数据库存储引擎的选择</p>
+<blockquote>
+<p>MyISAM：不支持事务、表级锁</p>
+<p>InnoDB: 支持事务、行级锁、事务的ACID特性</p>
+</blockquote>
+</li>
+<li><p>数据库参数配置</p>
+</li>
+<li>数据库表结构设计、sql语句的编写</li>
+</ol>
+<h2 id="CentOS-系统参数优化"><a href="#CentOS-系统参数优化" class="headerlink" title="CentOS 系统参数优化"></a>CentOS 系统参数优化</h2><h3 id="内核相关参数-etc-sysctl-conf"><a href="#内核相关参数-etc-sysctl-conf" class="headerlink" title="内核相关参数(/etc/sysctl.conf)"></a>内核相关参数(/etc/sysctl.conf)</h3><blockquote>
+<p>相关参数直接增加到文件末尾</p>
+</blockquote>
+<ol>
+<li><p>每个端口最大的监听队列长度：net.core.somaxconn =65535（&gt;2048）</p>
+</li>
+<li><p>net.core.netdev_max_backlog = 65535</p>
+<blockquote>
+<p>三次握手后网络端口由监听状态变成可连接状态，每个网络接口接受数据包的速率比内核处理数据包的速率快的时候，允许被发送到队列中的数据包的数目</p>
+</blockquote>
+</li>
+<li><p>net.ipv4.tcp_max_syn_backlog = 65535</p>
+<blockquote>
+<p>还未获得连接的请求可保存在队列中的最大数目</p>
+</blockquote>
+</li>
+<li><p>处理tcp连接等待状态的时间,加快tcp连接的回收:</p>
+<blockquote>
+<p>net.ipv4.tcp_fin_timeout = 10</p>
+<p>net.ipv4.tcp_tw_resuse = 1</p>
+<p>net.ipv4.tcp_tw_recycle = 1</p>
+</blockquote>
+</li>
+<li><p>tcp连接接受和发送缓冲区的最小值和最大值</p>
+<blockquote>
+<p>net.core.wmem_default = 87380</p>
+<p>net.core.wmem_max = 16777216</p>
+<p>net.core.rmem_default = 87380</p>
+<p>net.core.rmem.max = 16777216</p>
+</blockquote>
+</li>
+<li><p>失效的tcp连接占用系统资源的数量</p>
+<blockquote>
+<p>net.ipv4.tcp_keepalive_time = 120 :tcp发送keepalive时间的间隔</p>
+<p>net.ipv4.tcp_keepalive_intvl = 30 : 当探测点消息未获得响应时重发该消息的时间间隔</p>
+<p>net.ipv4.tcp_keepalive_probes = 3 ：认定tcp连接失效之前，最多发送多少个keepalive参数消息</p>
+</blockquote>
+</li>
+<li><p>kernel.shnmax = 4294967295</p>
+<blockquote>
+<p>linux中最重要的参数之一，用于定义单个共享的内存段的最大值，这个应该设置的足够大，以便在一个共享内存下容纳下整个的Innodb缓冲池的大小，取物理内存-1byte</p>
+</blockquote>
+</li>
+<li><p>vm.swappiness =0</p>
+<blockquote>
+<p>除非虚拟内存完全满了，否则不使用交换区</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="增加资源限制-etc-security-limit-conf"><a href="#增加资源限制-etc-security-limit-conf" class="headerlink" title="增加资源限制(/etc/security/limit.conf)"></a>增加资源限制(/etc/security/limit.conf)</h3><ol>
+<li><p>控制打开文件数量的限制<br>其中 *代表对所有用户有效， soft指当前系统生效的设置,hard指当前系统中所能设置的最大值，nofile 表示所限制的资源是打开文件的最大数目，65535就是限制的数目,这个文件的修改需要重启系统才能生效</p>
+<blockquote>
+<ul>
+<li><p>soft nofile 65535</p>
+</li>
+<li><p>hard nofile 65535</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h3 id="磁盘调度策略-sys-block-devname-queue-scheduler"><a href="#磁盘调度策略-sys-block-devname-queue-scheduler" class="headerlink" title="磁盘调度策略(/sys/block/devname/queue/scheduler)"></a>磁盘调度策略(/sys/block/devname/queue/scheduler)</h3><blockquote>
+<p>默认使用cfq完全公平的磁盘调度策略，使用下面的命令查看侧畔的当前调度策略<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat /sys/block/sda/queue/scheduler</span><br><span class="line"></span><br><span class="line">noop anticipatory deadline [cfq]</span><br></pre></td></tr></table></figure></p>
+<p>将磁盘的调度策略改成deadline<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo deadline &gt; /sys/block/sda/queue/scheduler</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="文件系统对性能的影响"><a href="#文件系统对性能的影响" class="headerlink" title="文件系统对性能的影响"></a>文件系统对性能的影响</h2><table>
+<thead>
+<tr>
+<th>window</th>
+<th>linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FAR 、NTFS</td>
+<td>EXT3、EXT4、XFS</td>
+</tr>
+</tbody>
+</table>
+<p>其中windows服务器只有NTFS,linux服务器三个中XFS比其他的性能要高</p>
+<h3 id="Ext3-4系统的挂载参数-etc-fstab"><a href="#Ext3-4系统的挂载参数-etc-fstab" class="headerlink" title="Ext3/4系统的挂载参数(/etc/fstab)"></a>Ext3/4系统的挂载参数(/etc/fstab)</h3><ol>
+<li><p>常用配置</p>
+<blockquote>
+<p>/dev/sda1/ext4 noatime,nodiratime,data=writeback 11</p>
+<p>noatime用于禁止记录文件的访问时间，nodiratime:用于禁止记录读取目录的时间</p>
+</blockquote>
+</li>
+<li><p>data=writeback | ordered | journal</p>
+<ol>
+<li>writeback：只有元数据写入日志，元数据写入和数据写入不同步,最快的一种配置，InnoDb有自己的事务日志所以，对于InnoDB来说是最好的选择</li>
+<li>ordered：只会记录元数据，但是提供一些一致性的保障，写元数据之前会先写数据，使他们抱持一致，比writeback更加慢些，但是更加安全</li>
+<li>journal：在数据写入到文件之前将先写到例子当中，最慢的一种</li>
+</ol>
+</li>
+</ol>
+<h2 id="MySQL-体系结构"><a href="#MySQL-体系结构" class="headerlink" title="MySQL 体系结构"></a>MySQL 体系结构</h2><h3 id="体系结构图"><a href="#体系结构图" class="headerlink" title="体系结构图"></a>体系结构图</h3><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/1myqlarti.png"></div>
+
+
+<h3 id="MyISAM存储引擎"><a href="#MyISAM存储引擎" class="headerlink" title="MyISAM存储引擎"></a>MyISAM存储引擎</h3><blockquote>
+<p>MySQL5.5之前版本默认存储引擎，大部分系统表和临时表会使用这种存储引擎，这里的临时表指的是在排序、分组操作中，但数量超过一定大小后，由查询优化器建立的临时表。MyISANM存储引擎<br>由MUYD和MYI组成</p>
+</blockquote>
+<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><ol>
+<li>表级锁<blockquote>
+<p>修改表的时候都会对整张表加上锁，读取数据的时候会表加上共享锁，所以读写的并发性并不好，只读操作的话还可以接受，因为共享锁不会阻塞共享锁。</p>
+</blockquote>
+</li>
+<li>表损坏修复<blockquote>
+<p>支持对由于意外关闭二损坏的表的恢复，这里的恢复并不是事务恢复，因为他并不是事务存储引擎，所以进行修复的时候会造成数据丢失。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">check table tablename</span><br><span class="line">repair table tablename</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<p>3.支持全文索引和对text,blog建立前500个词的前缀索引<br><br>4.支持数据压缩</p>
+<pre><code><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myisampack -b -f myISam.MYI</span><br></pre></td></tr></table></figure>
+</code></pre><blockquote>
+<p>-f 表示强制压缩，由于数据太小不能压缩，这里使用-f强制压缩，是导致压缩后的muIsam.MYD文件更大。对于已经压缩的表只能进行读操作</p>
+</blockquote>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/myIsam_zip.png"></div>
+
+<h4 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h4><p>版本 &lt; MySQL5.0时默认表的大小为4G,如果要存储大表则要修改MAX_Rows和AVG_ROW_LENGTH,相乘的大小为表的大小。版本&gt;MySQL5.0时默认支持为256T。</p>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><ol>
+<li>非事务型应用（不涉及财务、报表、）</li>
+<li>只读类应用（只读）</li>
+<li>空间类应用，MySQL5.7之前MyISAM是唯一支持空间函数的存储引擎的，如果存储GPS等空间类数据或者使用空间函数只能用MyISAM。</li>
+</ol>
+<h3 id="InnoDB存储引擎"><a href="#InnoDB存储引擎" class="headerlink" title="InnoDB存储引擎"></a>InnoDB存储引擎</h3><blockquote>
+<p>Innodb使用表空间进行数据存储，innodb_file_per_table参数，on:独立表空间：tablenameibd;off:系统表空间：ibdataX,其中X代表一个数字，从1开始。</p>
+</blockquote>
+<h4 id="系统表空间和独立表空间要如何选择"><a href="#系统表空间和独立表空间要如何选择" class="headerlink" title="系统表空间和独立表空间要如何选择"></a>系统表空间和独立表空间要如何选择</h4><ol>
+<li>MySQL5.5之前的表默认的存储在系统表空间中，当系统的磁盘空间不够时，需要删除一些日志文件或者其他不重要的数据时，系统表空间的大小并不会减小，所以删除数据会浪费很大的空间</li>
+<li>独立表空间可以通过optimize table 命令收缩系统文件</li>
+<li>在对多个表进行刷新时，由于数据在系统表空间中是顺序进行刷新的，所以会产生IO瓶颈</li>
+<li>独立表空间可以同时向多个文件刷新数据</li>
+</ol>
+<h4 id="从系统表空间迁移到独立表空间的步骤"><a href="#从系统表空间迁移到独立表空间的步骤" class="headerlink" title="从系统表空间迁移到独立表空间的步骤"></a>从系统表空间迁移到独立表空间的步骤</h4><ol>
+<li>使用mysqldump 导出所有数据库表数据</li>
+<li>停止Mysql服务，修改参数,并删除Innodb相关文件</li>
+<li>重启Mysql服务，重建Innodb系统表空间</li>
+<li>重新导入数据</li>
+</ol>
+<h4 id="系统表空间存放的数据"><a href="#系统表空间存放的数据" class="headerlink" title="系统表空间存放的数据"></a>系统表空间存放的数据</h4><ol>
+<li><p>Innopdb数据字典信息</p>
+</li>
+<li><p>Undo回滚段,Innodb临时表</p>
+</li>
+</ol>
+<blockquote>
+<p>在Mysql5.7之后被移出了系统表，到那时还是有很多人默认的存放在系统表中。Undo段在Mysql5.6中就已经支持</p>
+</blockquote>
+<h4 id="Innodb特性"><a href="#Innodb特性" class="headerlink" title="Innodb特性"></a>Innodb特性</h4><ol>
+<li>事务性，完全支持事务的ACID特性（Atomicity原子性、Consistency一致性、Isolation隔离性、Durability持久性），Redo Log 和 Undo Log<blockquote>
+<p>重做日志和回滚日志，redo log用于实现事务的持久性，由内存中的重做日志(innodb_log_buffer_size设置大小,每隔一秒写到磁盘上)缓冲区和重做日志文件（ib_logfile,由innodb_log_files_in_group决定）。Undo log 用于对未提交事务进行回滚和多版本并发控制。实现了事务的原子性、一致性、持久性</p>
+<div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter2-1.png"></div><br><div align="center"><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter2-2.png"></div></blockquote>
+</li>
+<li>支持行级锁，可以最大程度的支持并发，行级锁是存储引擎层实现的<blockquote>
+<p>锁主要作用是管理共享资源的并发控制，用于实现事务的隔离性。主要分类共享锁（读锁），独占锁（写锁）</p>
+</blockquote>
+</li>
+<li>Innodb状态检查<blockquote>
+<p>show engine innodb status</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="CSV存储引擎"><a href="#CSV存储引擎" class="headerlink" title="CSV存储引擎"></a>CSV存储引擎</h3><blockquote>
+<p>数据以文本方式存储在文件中，。csv文件存储表内容，.csm文件存储表的元数据，.frm文件存储表结构信息。</p>
+</blockquote>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ol>
+<li>以csv格式进行数据存储</li>
+<li>所有的列必须都是不能为NULL的</li>
+<li>不支持索引</li>
+<li>可以对数据文件直接编辑</li>
+</ol>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><blockquote>
+<p>作为数据交换的中间表，数据 - &gt; csv文件 - &gt; MYSql数据目录，</p>
+</blockquote>
+<h3 id="Archive存储引擎"><a href="#Archive存储引擎" class="headerlink" title="Archive存储引擎"></a>Archive存储引擎</h3><blockquote>
+<p>Archive存储引擎会缓存所有的写，并对数据进行压缩，比MYISAM和Innodb压缩</p>
+</blockquote>
+<h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><ol>
+<li>以zlib对表数据进行压缩，磁盘I/O更少</li>
+<li>数据存储在ARZ为后缀的文件中</li>
+<li>只支持insert和select操作</li>
+<li>只支持在自增ID上加索引</li>
+</ol>
+<h4 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h4><p>日志和数据采集类应用</p>
+<h3 id="Memory存储引擎"><a href="#Memory存储引擎" class="headerlink" title="Memory存储引擎"></a>Memory存储引擎</h3><blockquote>
+<p>也称为HEAP存储引擎，所以数据保存在内存中</p>
+</blockquote>
+<h4 id="功能特点"><a href="#功能特点" class="headerlink" title="功能特点"></a>功能特点</h4><ol>
+<li>支持HASH索引和BTree 索引，HASH适合等值索引，BTree适合范围查找</li>
+<li>所有的字段都为固定的长度varchar(10) = char(10)</li>
+<li>不支持BLOG和TEXT等大字段</li>
+<li>存储引擎使用表级锁</li>
+<li>表的最大大小由max_heap_table_size参数决定</li>
+</ol>
+<h4 id="Memory存储引擎表和临时表"><a href="#Memory存储引擎表和临时表" class="headerlink" title="Memory存储引擎表和临时表"></a>Memory存储引擎表和临时表</h4><div align="center"><img src="/images/placeholder.png" data-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter2-3.png" class="lazyload"></div>
+
+<h4 id="使用场景-2"><a href="#使用场景-2" class="headerlink" title="使用场景"></a>使用场景</h4><ol>
+<li>用于参照或者是映射表，例如邮编和地区的对应表</li>
+<li>用于保存数据分析中产生的中间结果</li>
+<li>用于缓存周期性聚合数据的结果集</li>
+</ol>
+<blockquote>
+<p>因为Memory表的数据是易丢失的所以要保证数据必须是可以再生的，使用主从复制的策略也是不行的，主库使用Memory存储引擎而从库复制使用Innodb存储引擎保存主库的信息。因为主库重启时会重建Memory表，从数据库中对应的表也会被重建，数据一样会丢失。</p>
+</blockquote>
+<h3 id="Federated存储引擎"><a href="#Federated存储引擎" class="headerlink" title="Federated存储引擎"></a>Federated存储引擎</h3><blockquote>
+<p>由于性能不太好，而且通常可以通过复制获得相同的效果，所以默认是禁止的，启用需要在启动时增加federated参数</p>
+</blockquote>
+<ol>
+<li>提供了远程访问Mysql服务器上表的方法</li>
+<li>本地不存储数据，数据全部放在远程服务器上</li>
+<li>本地需要保存表结构和远程服务器的连接信息</li>
+</ol>
+<h3 id="Mysql服务器参数介绍"><a href="#Mysql服务器参数介绍" class="headerlink" title="Mysql服务器参数介绍"></a>Mysql服务器参数介绍</h3><blockquote>
+<p>Mysql获取文件配置信息路径有两种，命令行参数和配置文件。命令行参数形式如：mysqld_safe –datadir = /data/sql_data,配置文件配置的时候先配置的文件会被后配置的文件覆盖，使用：mysql –help –verbose | grep -A1 ‘Default options’,一般不建议直接修改全局变量</p>
+</blockquote>
+<div align="center"><img src="/images/placeholder.png" data-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/chapter2-4.png" class="lazyload"></div>
+
+<h4 id="Mysql参数作用域"><a href="#Mysql参数作用域" class="headerlink" title="Mysql参数作用域"></a>Mysql参数作用域</h4><ol>
+<li>全局参数<ol>
+<li>set global 参数名=参数值</li>
+<li>set @@global.参数名 := 参数值</li>
+<li>全局参数配置完了需要登出才能使配置生效</li>
+</ol>
+</li>
+<li>会话参数<ol>
+<li>set[session]参数名 = 参数值</li>
+<li>set @@session.参数名 := 参数值</li>
+</ol>
+</li>
+</ol>
+<h4 id="内存配置相关参数"><a href="#内存配置相关参数" class="headerlink" title="内存配置相关参数"></a>内存配置相关参数</h4><ol>
+<li>确定可以使用的内存的上限，32位系统是单线程的，配置的内存最多3G</li>
+<li><p>确定 Mysql 的每个连接使用的内存，以下的参数都是为每个线程分配的，如果有100个连接则会分配100倍以下四个参数大小的和，如果参数配置的过大会造成内存的浪费和溢出</p>
+<ol>
+<li>排序缓冲区的尺寸，sort_buffer_size,Mysql不是建立连接时候就分配内存给排序缓冲区的，而是在排序的时候分配，并且分配参数指定大小的全部内存</li>
+<li>连接缓冲区的尺寸，join_buffer_size,多张表关联，每个join会分配一个缓冲区，所以这个值不用设置的太大</li>
+<li>读缓冲池的大小，read_buffer_size 在MYISAM表进行全表扫描的时候，读缓冲区的大小，只有在有查询的时候才会分配，分配设置的值的大小大小必须是4K的倍</li>
+<li>索引缓冲区的大小，read_rnd_buffer_size ,在有查询需要的时候会分配需要的大小而不是设置的值的全部大小</li>
+</ol>
+</li>
+<li><p>确定为操作系统保留多少内存</p>
+<ol>
+<li>测试，开发环境为了节约成本可以和服务器共用内存</li>
+<li>线上版本需要使用单独的数据库服务器</li>
+</ol>
+</li>
+<li>为缓冲池分配内存<ol>
+<li>Innodb_buffer_pool_size:总内存-（每个线程所需要的内存*连接数）-系统保留内存</li>
+<li>key)buffer_size,MYISAM只缓存索引，数据由操作系统缓存</li>
+</ol>
+</li>
+</ol>
+<h4 id="I-O相关配置参数"><a href="#I-O相关配置参数" class="headerlink" title="I/O相关配置参数"></a>I/O相关配置参数</h4><h5 id="Innodb-I-O相关配置"><a href="#Innodb-I-O相关配置" class="headerlink" title="Innodb I/O相关配置"></a>Innodb I/O相关配置</h5><blockquote>
+<p>Innodb在提交事务的时候会使用预写日志的方式，在事务提交的时候会先写入到事务日志中，而不是每次将修改的数据刷新到文件中。事务修改时数据和索引文件会映射到表的随机的位置，所以刷新数据变更到数据文件会产大量的随机IO,而记录日志所需要的是顺序的IO.</p>
+</blockquote>
+<ol>
+<li>Innodb_log_file_size,单个事务日志文件的大小</li>
+<li>Innodb_log_files_in_group,事务日志的总个数</li>
+<li>事务日志的总大小 = Innodb_log_files_in_group * Innodb_log_file_size</li>
+<li>Innodb_log_buffer_size,事务日志缓冲区的大小，每一秒刷新到磁盘</li>
+<li>Innodb_flush_log_at_trx_commit,事务日志刷新的频率。<blockquote>
+<p>0:每秒进行依次log写入cache,并刷新 log到磁盘。这种方式在服务器down机的情况下会丢失1秒钟的数据<br>1[默认]: 每次事务提交执行log写入cache,并刷新到磁盘。这种情况下最安全，但是效率也是最低的。<br>2[建议]：每次事务提交，执行log数据写到cache,每秒执行一次 刷新log到磁盘中。事务日志文件刷新到磁盘中才是完成了事务的持久化操作,而事务日志先是刷新到操作系统的cache中，再从cache中刷新到磁盘中。</p>
+</blockquote>
+</li>
+<li>Innodb_flush_method = O_DIRECT，Innodb刷新的方式，影响着Innodb数据文件和日志文件如何和文件系统进行交互。linux系统设置为O_DIRECT，直接从存储系统中读或者写数据，完全屏蔽了操作系统的缓存，从而避免了Innodb和文件系统的双重缓存。</li>
+<li>Innodb_file_per_table = 1,Innodb会给每一个表建立独立的表空间，强烈建议开启</li>
+<li>Innodb_doublewrite = 1,启动Innodbd的双写缓存，主要用来避免页没有写完整导致的数据的不完整。Innodb的一个页是16k，当系统崩溃或者是程序BUG导致的一个写操作没有能够完成，造成16k的数据不能完整的写入，导致数据文件的损坏，双写缓存就是为了解决这种问题。</li>
+</ol>
+<h5 id="MyISAM-I-O相关配置"><a href="#MyISAM-I-O相关配置" class="headerlink" title="MyISAM I/O相关配置"></a>MyISAM I/O相关配置</h5><blockquote>
+<p>如果使用延迟写入，服务器出现崩溃，缓冲区中的有些块没有能够写入到磁盘中，这时候会造成MYISAM表中索引文件的损坏，这时候就需要使用repair table对表进行修复了。</p>
+</blockquote>
+<ol>
+<li>delay_key_write<ol>
+<li>OFF:每次写操作后刷新键缓冲中的脏块到磁盘</li>
+<li>ON:只对在键表时制定了delay_key_wirte选项的表进行延迟刷新</li>
+<li>ALL:对所有MYISAM 表都使用延迟键刷新</li>
+</ol>
+</li>
+</ol>
+<h5 id="安全相关配置参数"><a href="#安全相关配置参数" class="headerlink" title="安全相关配置参数"></a>安全相关配置参数</h5><ol>
+<li>expire_logs_days 指定自动清理binlog的天数</li>
+<li>max_allowed_packet 控制Mysql可以接受的包的大小，一般为32M，使用主从服务器的情况要保证参数一致</li>
+<li>skip_name_resolve 禁用DNS查找。当连接数据库时mysql会试图确定连接的mysql客户端的主机的域名，为了验证域名又会进行DNS的正向和反向查找，如果DNS服务器出现问题就会产生查询的堆积，最终导致连接的超时。</li>
+<li>sysdate_is_no:确保sysdate()和now()返回的结果是一样的，在一个sql中多次调用sysdate()函数可能会返回不一样的结果，会造成意想不到的结果，如基于段的主从复制中会造成主从复制的数据的不一致。</li>
+<li>read_only;禁止非super权限的用户写权限。建议在主从复制数据库中的从库中启用，它可以禁止没有任何super权限的用户对数据的变更操作，只接受从主库中传输过来的数据变更。</li>
+<li>skip_slave_start:禁止Slave自动恢复。使用在从库上，阻止mysql在重启后试图自动的进行主从复制。因为咋i一个不安全的崩溃和其他操作后，自动的复制也是不安全的。</li>
+<li>sql_model 设置Mysql所使用的sql模式。默认情况下mysql对sql语法的检查是比较宽松的，比如我们在执行分组查询时，允许查询中使用的非汇聚和函数的列不全部出现在group By从句中，这是不符合sql规范的，但是mysql并不会报错。<ol>
+<li>strict_tans_tables:如果给的数据不能插入到给定的存储引擎中，则会中断当前操作，但是对于非事务的存储引擎是没有任何影响的。</li>
+<li>no_engine_subtitution :在建表时如果指定的存储引擎不可用不会使用默认的存储引擎建立表</li>
+<li>no_zero_date:不接受全部为0的日期</li>
+<li>no_zero_in_date：不接受部分日期为0的日期</li>
+<li>only_full_group_b:在分组查询中goup by中要将所有的没有聚合函数的列都列出来，否则sql语句不能执行</li>
+</ol>
+</li>
+</ol>
+<h5 id="其他常用参数配置"><a href="#其他常用参数配置" class="headerlink" title="其他常用参数配置"></a>其他常用参数配置</h5><ol>
+<li>sync_binlog 控制Mysql如何控制操作系统cache磁盘刷新binlog,默认为0,由操作系统自己决定，如果大于0则意味着两次刷新到磁盘文件之间，间隔着多少次二进制日志的写操作，通常是一次事务就是一次写操作，设置为1,每次事务都会有binlog写日志的操作，最安全，成本最高。</li>
+<li>tmp_table_size 和 max_heap_table_size控制内存临时表大小，不用设置过大</li>
+<li>max_connections 控制允许的最大连接数，默认为100，通常为2000</li>
+</ol>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate1.png">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate2.png">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/DataBase/">-DataBase</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/MySQL/">MySQL</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/Mysql_chapter3/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/Mysql_chapter3/">
+          第三章：MySQL性能管理及架构设计-基准测试</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/Mysql_chapter1/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/Mysql_chapter1/">
+          第一章：MySQL性能管理及架构设计-实例</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

@@ -2,345 +2,352 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://jchanji.github.io/year/11/08/zookeeper/</loc>
+    <loc>http://jchanji.github.io/year/11/22/paxos/</loc>
     
-    <lastmod>2018-11-19T08:34:11.283Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/10/29/mysql_copy/</loc>
-    
-    <lastmod>2018-11-10T02:30:45.172Z</lastmod>
+    <lastmod>2018-11-22T12:38:02.013Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/01/code_immortal/</loc>
+    <loc>http://jchanji.github.io/year/11/22/zookeeper/</loc>
     
-    <lastmod>2018-11-01T02:54:26.888Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/08/10/MySQL/</loc>
-    
-    <lastmod>2018-10-29T14:37:35.391Z</lastmod>
+    <lastmod>2018-11-22T02:26:15.546Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/09/03/internet_of_everthing_for_new_industrial_revolution/</loc>
+    <loc>http://jchanji.github.io/year/11/20/vps/</loc>
     
-    <lastmod>2018-10-29T13:46:22.421Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/10/29/risk_wise/</loc>
-    
-    <lastmod>2018-10-29T07:24:37.513Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.173Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/09/27/redis-copy/</loc>
+    <loc>http://jchanji.github.io/year/11/20/xiaoma/</loc>
     
-    <lastmod>2018-09-30T14:40:12.901Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/09/26/redis-persistence/</loc>
-    
-    <lastmod>2018-09-26T14:41:46.106Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.173Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/08/13/java_io_ByteArrayInputStream/</loc>
+    <loc>http://jchanji.github.io/year/11/20/vnc/</loc>
     
-    <lastmod>2018-08-29T08:39:54.348Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/08/15/java_io_ByteArrayOutputStream/</loc>
-    
-    <lastmod>2018-08-15T04:20:21.683Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.172Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/08/11/Mysql_chapter3/</loc>
+    <loc>http://jchanji.github.io/year/11/20/ubuntu_only_background/</loc>
     
-    <lastmod>2018-08-12T04:56:08.609Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/08/10/Mysql_chapter2/</loc>
-    
-    <lastmod>2018-08-12T04:37:10.811Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/08/12/java_article1/</loc>
-    
-    <lastmod>2018-08-12T03:05:49.863Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/06/20/Mysql_chapter1/</loc>
-    
-    <lastmod>2018-08-10T11:53:55.133Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/08/06/SrpingCloud-chapter10/</loc>
-    
-    <lastmod>2018-08-07T03:45:08.494Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/08/06/springCloud-chapter9/</loc>
-    
-    <lastmod>2018-08-07T03:32:34.405Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/08/02/SpringCloud-chapter8/</loc>
-    
-    <lastmod>2018-08-02T05:40:08.530Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/07/31/SpringCloud-chapter7/</loc>
-    
-    <lastmod>2018-08-02T05:38:42.154Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/07/31/SpringCloud-chapter6/</loc>
-    
-    <lastmod>2018-08-02T05:38:38.241Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/07/27/SpringCloud-chapter5/</loc>
-    
-    <lastmod>2018-07-31T01:30:33.191Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/07/27/SpringCloud-chapter4/</loc>
-    
-    <lastmod>2018-07-31T01:29:06.998Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/07/24/springCloud-chapter2/</loc>
-    
-    <lastmod>2018-07-31T00:50:28.400Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/07/25/SpringCloud-chapter3/</loc>
-    
-    <lastmod>2018-07-25T03:36:14.568Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/07/19/springCloud-chapter1/</loc>
-    
-    <lastmod>2018-07-23T08:39:59.639Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/02/23/xiaoma/</loc>
-    
-    <lastmod>2018-02-23T06:24:25.800Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/01/17/springbootstudy/</loc>
-    
-    <lastmod>2018-01-18T00:25:52.257Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/12/29/SSD-tensorflow/</loc>
-    
-    <lastmod>2018-01-17T04:44:42.055Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/11/19/knowledgegraph/</loc>
-    
-    <lastmod>2018-01-17T04:44:14.828Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/01/15/spark_sougou_logs/</loc>
-    
-    <lastmod>2018-01-15T04:44:02.680Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/01/15/scalastudy/</loc>
-    
-    <lastmod>2018-01-14T16:34:33.933Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/01/12/vps/</loc>
-    
-    <lastmod>2018-01-14T03:29:27.601Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/01/11/idea_scala_spark/</loc>
-    
-    <lastmod>2018-01-11T00:52:12.260Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/01/11/combineByKey/</loc>
-    
-    <lastmod>2018-01-11T00:49:27.973Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/01/10/docker/</loc>
-    
-    <lastmod>2018-01-09T17:25:55.413Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/01/09/NMF_PCA/</loc>
-    
-    <lastmod>2018-01-09T17:18:38.837Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.172Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://jchanji.github.io/year/01/09/studentOnline_timeslot/</loc>
     
-    <lastmod>2018-01-08T16:47:48.023Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.171Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/tensorflow_step/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.171Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/springbootstudy/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.171Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/springCloud-chapter9/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.171Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/spark_step/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.170Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/springCloud-chapter1/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.170Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/springCloud-chapter2/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.170Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/spark_sougou_logs/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.169Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/scalastudy/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.169Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/risk_wise/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.169Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/redis-copy/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.168Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/redis-persistence/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.168Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://jchanji.github.io/year/01/09/pca/</loc>
     
-    <lastmod>2018-01-08T16:47:30.893Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.168Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/09/03/spark_step/</loc>
+    <loc>http://jchanji.github.io/year/11/20/markdown/</loc>
     
-    <lastmod>2018-01-08T16:28:47.198Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/08/29/citycosumption/</loc>
-    
-    <lastmod>2018-01-08T16:14:14.476Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.167Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/09/03/ubuntu_only_background/</loc>
+    <loc>http://jchanji.github.io/year/11/20/knowledgegraph/</loc>
     
-    <lastmod>2017-09-03T07:13:09.263Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/09/03/vnc/</loc>
-    
-    <lastmod>2017-09-03T07:08:42.639Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.167Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/09/03/install_eclipse/</loc>
+    <loc>http://jchanji.github.io/year/11/20/mysql_copy/</loc>
     
-    <lastmod>2017-09-03T07:02:49.922Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/09/03/markdown/</loc>
-    
-    <lastmod>2017-09-03T06:57:25.191Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.167Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/09/03/install_ubuntu/</loc>
+    <loc>http://jchanji.github.io/year/11/20/java_io_ByteArrayOutputStream/</loc>
     
-    <lastmod>2017-09-03T06:47:07.749Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/08/30/hbase_step/</loc>
-    
-    <lastmod>2017-09-03T06:37:53.569Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.166Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/08/29/hadoop/</loc>
+    <loc>http://jchanji.github.io/year/11/20/java_article1/</loc>
     
-    <lastmod>2017-09-03T06:37:47.230Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/08/29/tensorflow_step/</loc>
-    
-    <lastmod>2017-09-03T06:36:41.389Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.166Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/08/30/codeparse_gbk2utf/</loc>
+    <loc>http://jchanji.github.io/year/11/20/internet_of_everthing_for_new_industrial_revolution/</loc>
     
-    <lastmod>2017-09-03T05:51:28.648Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.166Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/08/29/hello-world/</loc>
+    <loc>http://jchanji.github.io/year/11/20/java_io_ByteArrayInputStream/</loc>
     
-    <lastmod>2017-08-29T13:31:43.560Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.166Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/idea_scala_spark/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.165Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/install_ubuntu/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.165Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/install_eclipse/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.165Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/hbase_step/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.164Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/hello-world/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.164Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/hadoop/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.164Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/codeparse_gbk2utf/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.163Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/01/10/docker/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.163Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/combineByKey/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.163Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/code_immortal/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.163Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/SrpingCloud-chapter10/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.162Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/citycosumption/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.162Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter7/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.162Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter8/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.162Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter6/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter5/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter4/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/SSD-tensorflow/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.160Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter3/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.160Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/01/09/NMF_PCA/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.160Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/Mysql_chapter3/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.159Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/Mysql_chapter1/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.158Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/Mysql_chapter2/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.158Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/MySQL/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.158Z</lastmod>
     
   </url>
   

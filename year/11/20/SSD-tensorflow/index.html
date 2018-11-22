@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Single Shot MultiBox Detector翻译 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		Single Shot MultiBox Detector翻译
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1912
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>毕设的课题为基于SSD的深度学习目标检测研究，首先要对SSD框架的思想做到非常的了解，借此机会准备详细的翻译理解一下SSD的内容，如有错误指出，欢迎指出。原文链接：<a href="点我">https://arxiv.org/abs/1512.02325</a></p>
+</blockquote>
+<h2 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>我们展示了使用单层神经网络来检测图片中的物体的方法，称之为SSD,它将输出空间的bounding boxes (边界框)离散化为每一个特征图上的一系列不同纵横比和尺寸的（default boxes）默认框。在进行预测的时候，神经网络会对每个默认框中的每一个物体种类的存在形成一个分数，并且对默认框进行调整以更好的匹配目标的形状 。另外，这个网络还用了不同的方法来联合不同特征图上的预测结果以自然的解决不同尺寸的物体。SSD是一个相对简单的方法，它需要候选对象，因为它完全排除了生成候选对象和接下来对像素和特征重新采样的阶段并且将所有的计算都压缩在了一个单层网络里。这让SSD很容易的训练并且直接的应用到需要检测组件的系统中去。在PASACAL、VOC、COCO和ILASVRC数据集上的实验证明了SSD在精确度上和那些利用额外的候选目标步骤的方法相比很有竞争力并且更快，于此同时SSD还为训练和接口提供了一个统一的框架。，对PASCAL VOC 2007的数据集，在300×300像素的尺寸输入，SSD在Nvidia Titan X上59FPS时达到72.1％的mAP，500×500像素尺寸输入SSD达到75.1％的mAP，超过了相比较的state of art 模型Faster R-CNN 。和其他的单个步骤的方法相比，SSD对于更小尺寸图片的输入有着更好的检出率。<br><a id="more"></a></p>
+<h3 id="The-Single-Shot-Detector-SSD"><a href="#The-Single-Shot-Detector-SSD" class="headerlink" title="The Single Shot Detector (SSD)"></a>The Single Shot Detector (SSD)</h3><p>在模型的训练期间中只需要输入原图和ground truth boxes（真实边框图）（如：图四 (a)）。卷积处理中，在许多不同尺寸的特征图（例如8x8 feature map和4x4 feature map）中评估出一系列不同宽比的边界框值，其中默认的为四个，对于每一个默认框评估出所有目标的形状偏移和置信度。在训练时，我们首先将这些默认框匹配到真实标签框。这些框为正，其余视为负。模型损失是定位损失和置信损失之间的加权和。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/SSD/feature_map.PNG" alt="feature map"></p>
+<h3 id="model"><a href="#model" class="headerlink" title="model"></a>model</h3><blockquote>
+<p>SSD基于前馈卷积网络，其产生固定大小的边界框集合和框中对象类别的分数，接着是非最大化抑制步骤以产生最终检测。早期的网络基于使用高质量图片分类的标准结构，我们称之为基础网络。后来在基础网络的上进行了改进加上了辅助结构(图四 SSD的Extra Feature Layers部分)。其中关键的特征如下：</p>
+<p>⑴在检测的时候使用不同尺寸的特征图<br><br>在被删去的基础网络后面加上了卷积特征层，这些特征层减少了逐渐增多的<br>尺寸并且能够对不同尺寸的对象进行预测。这个预测检测目标的卷积模型每一个特征层都和YOLO不相同。</p>
+<p>⑵检测的卷积预测器<br><br>每一个添加了特征层或者从基础网络中选择了一个特征层的网络能够使用一个卷积过滤器的集合产生一个预测目标的确定集合。在图五SSD模型的顶部表明了这一特点。对一个m x n并且有p个通道的特征层来说，用来预测潜在目标的参数的基础元素有3 x 3 x p个小核心，它用来产生分数或者种类或者相对于默认框的相对形状偏移量。在每个核心应用到的m x n区域内它产生一个输出值。<br>边界框偏移量的输出值是相对与默认框的位置和特征图的位置测量的，而YOLO在这一步中使用中间全连接层而不是卷积过滤器。<br>与YOLO相比，他有如下的特征：首先它在基础网络的后面加上了一些特征层，从而能够对默认框的不同尺寸和方面的比例和他们置信联系的偏移进行预测。在VOC2007测试数据集上，SSD对于300x300尺寸的输入图片的训练结果远远的超过了YOLO对于424x425尺寸图片的训结果，并且在速度上也有很大的改进。</p>
+<p>⑶默认框和纵横比<br><br>针对网络顶部的多特征图，我们将默认的边界框集合和每一个特征图单元联系起来。默认框使用卷积的方式拼接特征图所以每一个默认框的位置相对于他对应的单元是固定的。在每一个特征图单元中我们能够预测每个单元中相对于默认框的形状偏移量和在每一个边框中表明一个类实体存在的分数。特别的，对于给定k个边框的每个边框，我们计算c类的分数和4个相对于原始默认框形状的偏移。在特征图的每个特征单元上需要有（c+4）x k个过滤器，对于m x n的特征图就会产生（c + 4） x k x m x n个输出。这里的默认框很类似于Faster R-CNN中的锚框，但是这里将他应用到不同解决方案的一些特征图中。在一些特征图中允许不同形状的默认框能偶有效的离散化可能的输出框形状的空间。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/SSD/model.PNG" alt="model"></p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/donate2.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/articals/">-articals</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/object-detection/">object detection</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/SrpingCloud-chapter10/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/SrpingCloud-chapter10/">
+          第十章:SpringCloud-hystrix解决雪崩效应</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/springCloud-chapter9/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/springCloud-chapter9/">
+          第九章:SpringCloud-feign</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

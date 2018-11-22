@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Mysql复制 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		Mysql复制
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1824
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本篇主要介绍mysql复制的相关流程和细节,Mysql实现的是异步复制，所以主从之间会存在一定的差异，一般实时性不高的数据从库中查询，而实时性要求高的依旧要从主库中查询，主库同时负责写入。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="复制流程"><a href="#复制流程" class="headerlink" title="复制流程"></a>复制流程</h3><h4 id="大致原理如下"><a href="#大致原理如下" class="headerlink" title="大致原理如下"></a>大致原理如下</h4><ol>
+<li>提交事务时将事务变更作为事件Events记录在二进制文件<strong>Binlog</strong>中，主库上的sync_binlog参数控制Binlog日志刷新到磁盘。</li>
+<li>主库<strong>推送</strong>Binglog文件到从库的<strong>中继日志Relay Log</strong>中，从库根据Relay Log 根据Relay Log做数据变更。</li>
+</ol>
+<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><ol>
+<li>从库连接主库</li>
+<li>从库I/O线程向主库要求数据</li>
+<li>主库上Binlog Dump 线程读取数据库事件并且发给I/O线程，I/O线程将数据更新到从库的中继文件Relay Log中</li>
+<li>从库上的SQL线程应用</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-1.png" alt="复制流程"></p>
+<h3 id="复制中的文件"><a href="#复制中的文件" class="headerlink" title="复制中的文件"></a>复制中的文件</h3><h4 id="Binlog"><a href="#Binlog" class="headerlink" title="Binlog"></a>Binlog</h4><p>二进制文件(Binlog)会将Mysql所有数据修改操作以二进制的形式记录到日志文件中。并不会记录select操作。Binlog支持Statement、row、Mixed三种格式，对应着Mysql的三种复制技术</p>
+<h4 id="Relay-Log"><a href="#Relay-Log" class="headerlink" title="Relay Log"></a>Relay Log</h4><p>中继文件Relay Log的文件格式、内容和二进制文件Binlog一样，唯一区别在于SQL线程在执行完当前的Relay Log文件后将删除当前的中继文件。</p>
+<h4 id="master-info"><a href="#master-info" class="headerlink" title="master.info"></a>master.info</h4><p>记录I/O线程读取Binlog文件的进度</p>
+<h4 id="relay-log-info"><a href="#relay-log-info" class="headerlink" title="relay-log.info"></a>relay-log.info</h4><p>记录SQL线程应用中继日志Relay Log的进度</p>
+<h3 id="三种复制方式"><a href="#三种复制方式" class="headerlink" title="三种复制方式"></a>三种复制方式</h3><h4 id="Statement"><a href="#Statement" class="headerlink" title="Statement"></a>Statement</h4><p>基于sql语句级别的Binlog,每条修改语句都会保存到Binlog中</p>
+<h4 id="Row"><a href="#Row" class="headerlink" title="Row"></a>Row</h4><p>基于行级别，记录每一行的数据变化，但是不会记录原始的sql，复制的时候不会因为存储过程或者触发器造成主从不一致的问题，但是文件的体积要大的多</p>
+<h4 id="Mixed"><a href="#Mixed" class="headerlink" title="Mixed"></a>Mixed</h4><p>混合Statement和Row模式，默认使用Statement模式记录，当sql中包含时间、用户相关信息函数等使用Row模式。</p>
+<h3 id="三种复制技术"><a href="#三种复制技术" class="headerlink" title="三种复制技术"></a>三种复制技术</h3><h4 id="binlog-format-Statement"><a href="#binlog-format-Statement" class="headerlink" title="binlog_format=Statement"></a>binlog_format=Statement</h4><p>基于Sql语句的复制，Statement-Based Replication(SBR)</p>
+<h4 id="binlog-format-Row"><a href="#binlog-format-Row" class="headerlink" title="binlog_format=Row"></a>binlog_format=Row</h4><p>基于行的复制，Row-Based Replication(RBR)</p>
+<h4 id="binlog-format-Mixed"><a href="#binlog-format-Mixed" class="headerlink" title="binlog_format=Mixed"></a>binlog_format=Mixed</h4><p>混合复制模式</p>
+<h3 id="三种常见的架构"><a href="#三种常见的架构" class="headerlink" title="三种常见的架构"></a>三种常见的架构</h3><h4 id="一主多从复制架构"><a href="#一主多从复制架构" class="headerlink" title="一主多从复制架构"></a>一主多从复制架构</h4><p>在数据库读请求压力特别大的时候可以使用一主多从的复制架构实现读写分离，对实时性不是很高的读请求负载均衡分布到多个从库上。当主库出现异常宕机时可以把一个从库切换为主库继续使用。</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-2.png" alt="一主多从复制架构"></p>
+<h4 id="多级复制架构"><a href="#多级复制架构" class="headerlink" title="多级复制架构"></a>多级复制架构</h4><p>仅仅是在主从数据库间加了一个二<strong>级主数据库</strong>。由于每个从库在主库上都有一个独立的Binlog Dump线程来发送事件，所以主库的I/O压力和网络压力会随着从库的增多而加大。增加二级主数据库后主数据库只需要将Binlog文件推送到二级主数据库，二级主数据库上选择表引擎为<strong>BLACKHOLE</strong>,写数据并不会写到磁盘上，仅仅在Binlog文件中记录事件。</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-3.png" alt="多级复制架构"></p>
+<h4 id="双主复制、Dual-Master架构"><a href="#双主复制、Dual-Master架构" class="headerlink" title="双主复制、Dual Master架构"></a>双主复制、Dual Master架构</h4><p>Master1和Master2都互为主从，所有的客户端请求都访问主库Master1,而读请求可以选择访问主库Master1或者Master2。</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/mysql/copy-4.png" alt="双主复制"></p>
+<h5 id="切换流程"><a href="#切换流程" class="headerlink" title="切换流程"></a>切换流程</h5><ol>
+<li>在Master1库上停止Slave线程，避免后续对Master2库的维护操作被实时复制到Master1库对服务器造成的影响</li>
+<li>在Master2上停止Slave线程，开始日常维护操作，例如创建索引</li>
+<li>在Master2上完成维护后打开Master2库上的Slave线程，让Master2和Master1同步，同步完成后将应用的写请求切换到Master2上。</li>
+<li>最后确认Master1库上没有应用访问后打开Master1库的Slave线程。</li>
+</ol>
+<h3 id="异步复制和半同步复制"><a href="#异步复制和半同步复制" class="headerlink" title="异步复制和半同步复制"></a>异步复制和半同步复制</h3><h4 id="异步复制"><a href="#异步复制" class="headerlink" title="异步复制"></a>异步复制</h4><p>异步复制在日志写入到Binlog文件中时即成功返回给客户端，当从库尚未得到主库推送的Binlog文件时服务器发生故障，导致Binlog丢失，从而造成主从不一致。</p>
+<h4 id="半同步复制"><a href="#半同步复制" class="headerlink" title="半同步复制"></a>半同步复制</h4><p>为了保证主库上的Binlog文件能够可靠的被复制到从数据库中，主库事务提交时并不及时反馈给客户端，而是等待一个从库也接受到了Binlog事务并成功写入中继日志后才返回Commit操作给客户端。在半同步复制模式下如果Binlog长时间没有推送到从服务器（时间由rpl_semi_master_timeout参数决定）则Mysql会自动调整为异步模式。</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate1.png">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate2.png">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/DataBase/">-DataBase</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/MySQL/">MySQL</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/redis-copy/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/redis-copy/">
+          Redis复制</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/Mysql_chapter3/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/Mysql_chapter3/">
+          第三章：MySQL性能管理及架构设计-基准测试</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

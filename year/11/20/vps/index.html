@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Digitalocean服务器搭建ss服务器 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		digitalocean服务器搭建ss服务器
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			3621
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>经朋友介绍digitalocean服务器对于学生而言比较划算，最基础的服务器5$一个月，通过推荐链接注册可以领取10$的优惠或通过其他网上的推荐码获得15$,25$等不等的优惠券，如果使用github学生优惠券的还可以领50$的优惠。我找到的是15$优惠券。这里比较人性的是这里的优惠券是直接充值到账户上的，和腾讯，阿里的的只能使用一次的优惠券有点不同。需要注意的是优惠码只能用一次，如果使用过一次再使用github优惠码的时候会失败。网上的说法是直接联系客服，联系后的回信是。</p>
+<p>Hello, and thank you for contacting DigitalOcean!<br>I apologize for the inconvenience, however as you already have a promotional code on this account, we are unable to apply any additional codes at this time.<br></p>
+<p>很无奈<br>不甘心的我又发了一封工单，结果50$到账！也就是说5$变成了70$.</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/ss4.PNG" alt="ss4"><br><a id="more"></a></p>
+<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><h2 id="github学生认证-非必需"><a href="#github学生认证-非必需" class="headerlink" title="github学生认证(非必需)"></a>github学生认证(非必需)</h2><blockquote>
+<p>1、登陆github,settings-&gt;emails-&gt;add email address,这里需要注意的是邮箱必须是你学校的邮箱，edu结尾的，每个学生都有。<br></p>
+<p>2、申请学生包：<a href="https://education.github.com/" target="_blank" rel="noopener">https://education.github.com/</a>  填写信息，如果收到通过邮件则成功。然后在get your pack页面下领取优惠码，如下图:<br></p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/digitalocean1.PNG" alt="img1"></p>
+<h2 id="点击邀请链接注册"><a href="#点击邀请链接注册" class="headerlink" title="点击邀请链接注册"></a>点击邀请链接注册</h2><blockquote>
+<p>点击<a href="https://m.do.co/c/efc4e6d6df86" target="_blank" rel="noopener">https://m.do.co/c/efc4e6d6df86</a> 邀请注册用户，可以得到10$优惠,注册邮箱随便填。<br></p>
+</blockquote>
+<h2 id="提交github邀请码使用不了的客服工单"><a href="#提交github邀请码使用不了的客服工单" class="headerlink" title="提交github邀请码使用不了的客服工单"></a>提交github邀请码使用不了的客服工单</h2><p>到support中提交申请工单，点击Go To Tricks，如下图所示：<br></p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/digitalocean2.PNG" alt="img2">,虽然有可能失败，但是尝试一下比较好，或者不通过邀请链接注册然后填写github邀请码。</p>
+<h2 id="创建服务器"><a href="#创建服务器" class="headerlink" title="创建服务器"></a>创建服务器</h2><blockquote>
+<p>1、创建5$套餐的vps,选择ubuntu16.04版本的服务器，我这里服务器地点选择的是新加坡，感觉网网速还可以</p>
+<p>2、下载<a href="http://rj.baidu.com/soft/detail/15699.html?ald" target="_blank" rel="noopener">putty</a>,登陆服务器，登陆用户名为root,密码会发到你邮箱。登录后会要求修改密码。第一次输入原始密码，第二次输入修改后的密码，第三次重复密码。到此为止服务器已经搭建完成。</p>
+</blockquote>
+<h1 id="搭建shadowsocks"><a href="#搭建shadowsocks" class="headerlink" title="搭建shadowsocks"></a>搭建shadowsocks</h1><blockquote>
+<p>1、教程各种版本的教程见 <a href="https://github.com/teddysun/shadowsocks_install" target="_blank" rel="noopener">https://github.com/teddysun/shadowsocks_install</a> 我们选择的是 shadowsocks-libev.sh的安装方式。加密方式为aes-256-cfb,这是没问题的。Your Server IP填写服务器外网地址，Your Server Port改一下,不要用默认的。</p>
+<p>2、搭建完成后下载window的shadowsocks的客户端 <a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a> 我安装的是4.0.7版本,解压运行，根据刚才配置的服务器填写选项。在用户栏右击图标，启用系统代理，代理模式选择全局。<br>3、到此为止就可以科学上网了。</p>
+</blockquote>
+<h1 id="使用google的BBR加速"><a href="#使用google的BBR加速" class="headerlink" title="使用google的BBR加速"></a>使用google的BBR加速</h1><p>BBR谷歌公司提出的一个开源TCP拥塞控制的算法。在最新的linux 4.9及以上的内核版本中已被采用。所以这里需要先更新内核。<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.9/linux-headers-4.9.9-040909<span class="emphasis">_4.9.9-040909.201702090333_</span>all.deb</span><br><span class="line"></span><br><span class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.9/linux-headers-4.9.9-040909-generic<span class="emphasis">_4.9.9-040909.201702090333_</span>amd64.deb</span><br><span class="line"></span><br><span class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9.9/linux-image-4.9.9-040909-generic<span class="emphasis">_4.9.9-040909.201702090333_</span>amd64.deb</span><br><span class="line"></span><br><span class="line">dpkg -i [依次是上面三个文件]</span><br><span class="line">dpkg -l | grep linux-image #查看当前内核</span><br><span class="line">apt remove linux-image-4.4.0-108-generic #删除旧版本内核</span><br><span class="line">update-grub #跟新grub文件</span><br><span class="line">ls /boot/vmlinuz*  #查看是否有4.9内核</span><br><span class="line">reboot #重启</span><br><span class="line">uname -a #查看当前内核</span><br><span class="line">vim /etc/sysctl.conf #配置文件</span><br></pre></td></tr></table></figure></p>
+<p>内容为<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net.core.default_qdisc=fq</span><br><span class="line">net.ipv4.tcp<span class="emphasis">_congestion_</span>control=bbr</span><br></pre></td></tr></table></figure></p>
+<p>保存后执行<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure></p>
+<p>出现 sysctl net.ipv4.tcp_congestion_control则已经启动，至此，就可以在youtube上纵享1080p了</p>
+<h1 id="ubuntu配置ss客户端"><a href="#ubuntu配置ss客户端" class="headerlink" title="ubuntu配置ss客户端"></a>ubuntu配置ss客户端</h1><h2 id="命令行启动"><a href="#命令行启动" class="headerlink" title="命令行启动"></a>命令行启动</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install shadowsocks</span><br></pre></td></tr></table></figure>
+<p>新建配置文件shadowsocks.json<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "server":"xxx",</span><br><span class="line">  "server_port":xxx,</span><br><span class="line">  "local_port":1080,</span><br><span class="line">  "password":"xxx",</span><br><span class="line">  "timeout":500,</span><br><span class="line">  "method":"aes-256-cfb"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后运行sslocal -c [配置文件路径]</p>
+<h2 id="安装shadowsocks-qt5客户端启动"><a href="#安装shadowsocks-qt5客户端启动" class="headerlink" title="安装shadowsocks-qt5客户端启动"></a>安装shadowsocks-qt5客户端启动</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:hzwhuang/ss-qt5</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install shadowsocks-qt5</span><br></pre></td></tr></table></figure>
+<p>然后在搜索栏搜shadow,看到图标，点击打开，和windows端一样</p>
+<h2 id="配置系统代理"><a href="#配置系统代理" class="headerlink" title="配置系统代理"></a>配置系统代理</h2><p>但仅仅这样是连不上网的,还得配置系统代理</p>
+<blockquote>
+<p>打开　<strong>设置－网络－网络代理</strong> 将http端口清空设置为０，然后第四个socks代理设置为　127.0.0.1，端口号写1080，这样就设置好了全局代理</p>
+</blockquote>
+<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><blockquote>
+<p>命令行输入gnome-session-properties,点击add,选择路径　/usr/bin/qt-5,保存</p>
+</blockquote>
+<h2 id="配置chrome实现自动切换"><a href="#配置chrome实现自动切换" class="headerlink" title="配置chrome实现自动切换"></a>配置chrome实现自动切换</h2><blockquote>
+<p>1.　在商店中下载SwitchyOmega</p>
+<p>２．新建情景模式，选择代理服务器,这里命名为ss</p>
+<p>３．代理协议为SOCKS5,代理服务器为127.0.0.1，代理端口为1080，点击应用选项保存</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/ss1.png" alt="ss1"></p>
+<blockquote>
+<p>４．点击自动切换,在规则列表规则一栏的情景模式为ss，默认情景模式一栏设置为直接连接</p>
+<p>５．规则列表格式为AUtoProxy，规则列表网址为<a href="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt，" target="_blank" rel="noopener">https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt，</a>　然后更新情景模式，最后应用选项．</p>
+</blockquote>
+<p><img src="/images/placeholder.png" alt="ss2" data-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/ss2.png" class="lazyload"></p>
+<blockquote>
+<p>６．右击右上角的图标，选择自动切换，打开google，能够连接说明配置成功</p>
+</blockquote>
+<h2 id="linux下设置PAC自动切换"><a href="#linux下设置PAC自动切换" class="headerlink" title="linux下设置PAC自动切换"></a>linux下设置PAC自动切换</h2><p>window在全局模式下git等可以使用但是linux下设置全局代理后如果使用git,wget等工具时还要设置http代理,比较麻烦，所以最好的是设置PAC自动切换.</p>
+<p>##生成pac文件<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install genpac #安装genpac用于生成pac文件</span><br><span class="line">cd /usr/local/lib/python2.7/dist-packages/shadowsocks　#进入默认的安装路径，或者直接将路径加入/bash/bin中</span><br><span class="line">sudo genpac --pac-proxy "SOCKS5 127.0.0.1:1080" --gfwlist-proxy="SOCKS5 127.0.0.1:1080" --gfwlist-url=https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt --output="autoproxy.pac"　# 生成pac文件</span><br><span class="line">sudo mv autoproxy.pac  ~／document　#将文件移动到document</span><br><span class="line">cd ~/document</span><br><span class="line">sudo chmod 777 autoproxy.pac　#赋予文件读写执行的权限</span><br></pre></td></tr></table></figure></p>
+<p>接下来设置网络代理，打开 <strong>设置－网络－网络代理</strong> ,方法自动，URL填写刚才的文件位置</p>
+<p><img src="/images/placeholder.png" alt="ss3" data-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/ss3.png" class="lazyload"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote>
+<p>在window下的配置比较简单，开启全局模式所有应用都能运行，但是在linux下开启全局模式会出现git,wget等http和https代理的问题，所以要安装genpac实现自动切换。</p>
+</blockquote>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate1.png">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate2.png">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/others/">-others</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/ubuntu/">ubuntu</a> <a class="tag-link" href="/tags/vps/">vps</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/xiaoma/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/xiaoma/">
+          浏览器被www.t999.cn劫持</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/vnc/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/vnc/">
+          CentOS7 安装vnc</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

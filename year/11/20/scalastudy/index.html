@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Scala基础学习 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		scala基础学习
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			3380
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h1 id="scala基础"><a href="#scala基础" class="headerlink" title="scala基础"></a>scala基础</h1><h2 id="scala类型体系"><a href="#scala类型体系" class="headerlink" title="scala类型体系"></a>scala类型体系</h2><a id="more"></a>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/scalastudy/scala%E7%B1%BB%E5%9E%8B%E4%BD%93%E7%B3%BB.png" alt="scala"></p>
+<blockquote>
+<p>新建scala worksheet文件，写入一下代码。</p>
+</blockquote>
+<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块:{}"></a>代码块:{}</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def hello(name: String): String = &#123;</span><br><span class="line">  s"hello,$&#123;name&#125;"</span><br><span class="line">&#125;</span><br><span class="line">hello("chanji")</span><br><span class="line">def hello2(name: String) = &#123;</span><br><span class="line">  s"hello,$&#123;name&#125;"</span><br><span class="line">&#125;</span><br><span class="line">hello2("chanji2")</span><br><span class="line">def add(x: Int, y: Int) = x + y</span><br><span class="line">add(2, 3)</span><br></pre></td></tr></table></figure>
+<h2 id="if与for表达式"><a href="#if与for表达式" class="headerlink" title="if与for表达式"></a>if与for表达式</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">val a1 = 1</span><br><span class="line">if (a1 == 1) a1</span><br><span class="line">if (a1 != 1) "not one" //返回unit()空值</span><br><span class="line">if (a1 != 1) "not one" else a1</span><br><span class="line"></span><br><span class="line">val l = List("alice", "bob", "cathy")</span><br><span class="line">for &#123;</span><br><span class="line">  s &lt;- l //generator</span><br><span class="line">&#125; println(s)</span><br><span class="line"></span><br><span class="line">for &#123;</span><br><span class="line">  s &lt;- l</span><br><span class="line">  if (s.length &gt; 3) //filter</span><br><span class="line">&#125; println(s)</span><br><span class="line"></span><br><span class="line">val reslut_for = for &#123;</span><br><span class="line">  s &lt;- l</span><br><span class="line">  s1 = s.toUpperCase() //variable binding</span><br><span class="line">  if (s1 != " ")</span><br><span class="line">&#125; yield (s1)</span><br></pre></td></tr></table></figure>
+<h2 id="try表达式"><a href="#try表达式" class="headerlink" title="try表达式"></a>try表达式</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  Integer.parseInt("dog")</span><br><span class="line">&#125; catch &#123;</span><br><span class="line">  case _ =&gt; 0</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">  println("always be printed")</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="match"><a href="#match" class="headerlink" title="match"></a>match</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val code = 1</span><br><span class="line">val result_match = code match &#123;</span><br><span class="line">  case 1 =&gt; "one"</span><br><span class="line">  case 2 =&gt; "two"</span><br><span class="line">  case _ =&gt; "others" //default</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="求值策略"><a href="#求值策略" class="headerlink" title="求值策略"></a>求值策略</h2><p>call by value　在函数运行时候会先计算参数值再执行函数，call by name则会先运行函数，参数值用到的时候再求值<br><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/scalastudy/scala%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5%EF%BC%91.png" alt="scala1"></p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/scalastudy/%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5%E4%BE%8B%E5%AD%90%EF%BC%92.png" alt="scala2"><br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def bar(x: Int, y: =&gt; Int): Int = 1</span><br><span class="line">def loop(): Int = loop()</span><br><span class="line">bar(1, loop()) //一开始没有用到loop()参数所以不会运行死循环</span><br><span class="line">//bar(loop,1) //没有返回值，因为是死循环</span><br></pre></td></tr></table></figure></p>
+<h2 id="高阶函数：以一个函数输入参数或者输出或者两者都有"><a href="#高阶函数：以一个函数输入参数或者输出或者两者都有" class="headerlink" title="高阶函数：以一个函数输入参数或者输出或者两者都有"></a>高阶函数：以一个函数输入参数或者输出或者两者都有</h2><p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/scalastudy/%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0.png" alt="scala3"><br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def operter(f: (Int, Int) =&gt; Int) = &#123;</span><br><span class="line">  f(4, 4)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/placeholder.png" alt="scala4" data-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/scalastudy/%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0.png" class="lazyload"></p>
+<h2 id="匿名函数-一个函数常量，没有函数名字"><a href="#匿名函数-一个函数常量，没有函数名字" class="headerlink" title="匿名函数:一个函数常量，没有函数名字"></a>匿名函数:一个函数常量，没有函数名字</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def greeting() = (name: String) =&gt; &#123;</span><br><span class="line">  "name" + " " + name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def curriedAddd(a: Int)(b: Int) = a + b</span><br><span class="line">curriedAddd(2)(2) //4</span><br><span class="line">val addOne = curriedAddd(1)_ //第一个参数为１，第二个待定</span><br><span class="line">addOne(3) //4</span><br></pre></td></tr></table></figure>
+<h2 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归　"></a>尾递归　</h2><p><img src="/images/placeholder.png" alt="scala3" data-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/scalastudy/%E5%B0%BE%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0.png" class="lazyload"><br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@annotation.tailrec</span><br><span class="line">def factorial(n: Int, m: Int): Int =</span><br><span class="line">  if (n &lt;= 0) m</span><br><span class="line">  else factorial(n - 1, m * n)</span><br><span class="line">factorial(5, 1)</span><br></pre></td></tr></table></figure></p>
+<h2 id="综合例子，求函数在-a-b-之间的整数参数的和"><a href="#综合例子，求函数在-a-b-之间的整数参数的和" class="headerlink" title="综合例子，求函数在(a,b)之间的整数参数的和"></a>综合例子，求函数在(a,b)之间的整数参数的和</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">def sum (f:Int =&gt; Int)(a:Int)(b:Int): Int= &#123;</span><br><span class="line">  @annotation.tailrec</span><br><span class="line">  def loop(n: Int, acc: Int): Int = &#123;</span><br><span class="line"><span class="code">    if (n &gt; b) &#123;</span></span><br><span class="line"><span class="code">      println(s"n=$&#123;n&#125;,acc=$&#123;acc&#125;")</span></span><br><span class="line"><span class="code">      acc</span></span><br><span class="line"><span class="code">    &#125; else &#123;</span></span><br><span class="line"><span class="code">      println(s"n=$&#123;n&#125;,acc=$&#123;acc&#125;")</span></span><br><span class="line"><span class="code">      loop(n + 1, acc + f(n))</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line">  &#125;</span><br><span class="line">  loop(a,0)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(x=&gt;x)(1)(5)//y = x</span><br><span class="line">sum(x=&gt; x <span class="bullet">* x)(1)(5)//y = x*</span>x</span><br><span class="line">sum(x=&gt; x <span class="bullet">* x *</span> x)(1)(5)//y = x<span class="emphasis">*x*</span>x</span><br><span class="line">val sumsquare = sum(x =&gt; x * x)_</span><br><span class="line">sumsquare(1)(5)</span><br></pre></td></tr></table></figure>
+<h2 id="connection"><a href="#connection" class="headerlink" title="connection"></a>connection</h2><h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">val a = List(1, 2, 3, 4)</span><br><span class="line">val b = 0 :: a</span><br><span class="line">val c = "x" :: "y" :: "z" :: Nil //从后往前两两依次计算</span><br><span class="line">val d = a ::: c</span><br><span class="line">//head</span><br><span class="line">a.head</span><br><span class="line">b.head</span><br><span class="line">c.head</span><br><span class="line">//tail尾列表</span><br><span class="line">a.tail</span><br><span class="line">b.tail</span><br><span class="line">c.tail</span><br><span class="line">//判断是否为空</span><br><span class="line">a.isEmpty</span><br><span class="line">Nil.isEmpty</span><br><span class="line">//filter</span><br><span class="line">//求奇数</span><br><span class="line">a.filter(x =&gt; x % 2 == 1)</span><br><span class="line">//字符串转化为数组</span><br><span class="line">val f = "hello1 world2, chanji3".toList</span><br><span class="line">//过滤出数字</span><br><span class="line">f.filter(x =&gt; Character.isDigit(x))</span><br><span class="line">//takewhile,当满条件时一直取</span><br><span class="line">f.takeWhile(x =&gt; x != 'c')</span><br></pre></td></tr></table></figure>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">c.map(x =&gt; x.toUpperCase())</span><br><span class="line">c.map(_.toUpperCase())</span><br><span class="line">a.filter(_ % 2 == 1)</span><br><span class="line">a.filter(<span class="emphasis">_ % 2 == 1).map(_</span> + 10)</span><br><span class="line">val q = List(a, List(4, 5, 6))</span><br><span class="line">q.map(x =&gt; x.filter(_ % 2 == 0))</span><br><span class="line">q.map(<span class="emphasis">_.filter(_</span> % 2 == 0))</span><br><span class="line">q.flatMap(<span class="emphasis">_.filter(_</span> % 2 == 0)) //将list 合并</span><br><span class="line">//reduceLeft和flodleft</span><br><span class="line">//reduceLeft(op:(T,T) =&gt; T)</span><br><span class="line">a.reduceLeft((x, y) =&gt; x + y)</span><br><span class="line">a.reduceLeft(<span class="emphasis">_ + _</span>)</span><br><span class="line">//foldLeft(Z:U)(op:(U,T) =&gt;U)</span><br><span class="line">a.foldLeft(0)(<span class="emphasis">_ + _</span>)</span><br><span class="line">a.foldLeft(0)((x,y)=&gt;x + y)</span><br><span class="line">a.foldLeft(1)(<span class="emphasis">_ * _</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="range"><a href="#range" class="headerlink" title="range"></a>range</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1 to 10</span><br><span class="line">1 to 10 by 2 //步长为二</span><br><span class="line">(1 to 10).toList</span><br><span class="line">//until [x,y)</span><br><span class="line">1 until 10</span><br><span class="line">//stream:lazy list</span><br><span class="line">1 #::2 #::3#::Stream.empty</span><br><span class="line">val stream = (1 to 10000).toStream</span><br><span class="line">stream.head</span><br><span class="line">stream.tail</span><br></pre></td></tr></table></figure>
+<h2 id="toupe与map"><a href="#toupe与map" class="headerlink" title="toupe与map"></a>toupe与map</h2><h3 id="toupe"><a href="#toupe" class="headerlink" title="toupe"></a>toupe</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(1,2)</span><br><span class="line">1 -&gt; 2</span><br><span class="line">val t = (1,"chanji","alice","Math",85.6)</span><br><span class="line">t._1</span><br><span class="line">t._2</span><br><span class="line">def sumSq(in: List[Int]):(Int,Int,Int) = &#123;</span><br><span class="line">  in.foldLeft((0,0,0))((t,v)=&gt;(t.<span class="emphasis">_1 + 1,t._</span>2 + v, t._3 + v*v))</span><br><span class="line">&#125;</span><br><span class="line">sumSq(a)</span><br></pre></td></tr></table></figure>
+<h3 id="map-1"><a href="#map-1" class="headerlink" title="map"></a>map</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">val p = Map(1 -&gt; "david",9-&gt;"mike")</span><br><span class="line">p(1)</span><br><span class="line">p(9)</span><br><span class="line">p.contains(1)</span><br><span class="line">p.contains(2)</span><br><span class="line">p.keys</span><br><span class="line">p.values</span><br><span class="line">p + (2 -&gt; "bob")</span><br><span class="line">p -1</span><br><span class="line">p ++ List(3-&gt;"aa",4-&gt;"bb")</span><br><span class="line">p -- List(1,9,3,4)</span><br><span class="line">p ++ List(3-&gt;"aa",4-&gt;"bb") -- List(1,9)</span><br></pre></td></tr></table></figure>
+<h2 id="实现快速排序"><a href="#实现快速排序" class="headerlink" title="实现快速排序"></a>实现快速排序</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def qSort(a:List[Int]):List[Int] = &#123;</span><br><span class="line">  if(a.length &lt; 2) a</span><br><span class="line">  else qSort(a.filter(_ &lt; a.head)) ++</span><br><span class="line">    a.filter(_ == a.head) ++</span><br><span class="line">    a.filter(_  &gt;a.head )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">qSort(List(8,5,3,7,83,7))</span><br></pre></td></tr></table></figure>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate1.png">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate2.png">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/bigdata/">-bigdata</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/big-data/">big data</a> <a class="tag-link" href="/tags/scala/">scala</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/spark_sougou_logs/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/spark_sougou_logs/">
+          spark项目基础实战</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/risk_wise/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/risk_wise/">
+          冒险的智慧</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

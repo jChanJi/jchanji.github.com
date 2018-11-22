@@ -119,12 +119,54 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/year/11/08/zookeeper/">从Paxos到ZooKeeper 分布式一致性原理与实战-基础知识</a>  
+		<a class="article-title" href="/year/11/22/paxos/">从Paxos到ZooKeeper 分布式一致性原理与实战-Paxos算法</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>Nov 08, 2018</time>
+			<time>Nov 22, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/ZooKeeper/">ZooKeeper</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>zookeeper中主要是采取了部分Paxos算法的思想，使用了Zookeeper Atomic Broadcast (ZAB,Zookeeper原子消息广播协议)作为其数据一致性的核心算法。此章节主要介绍Paxos算法。</p>
+<p>Paxos是一种提高分布式系统容错性的一致性算法，其最终目标在于提案的生成。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/year/11/22/paxos/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/year/11/22/zookeeper/">从Paxos到ZooKeeper 分布式一致性原理与实战-基础知识</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Nov 22, 2018</time>
 			
 				<span class="iconfont icon-star"></span>
 				            
@@ -147,7 +189,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/year/11/08/zookeeper/">Continue</a> 	
+		<a class="article-readmore" href="/year/11/22/zookeeper/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -160,16 +202,16 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/year/11/01/code_immortal/">代码不朽：编写可维护软件的10大要则（Java版）</a>  
+		<a class="article-title" href="/year/11/20/xiaoma/">浏览器被www.t999.cn劫持</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>Nov 01, 2018</time>
+			<time>Nov 20, 2018</time>
 			
 				<span class="iconfont icon-star"></span>
 				            
-						<a class="article-tag" href="/tags/book/">book</a>           
+						<a class="article-tag" href="/tags/Windows/">Windows</a>           
 				
 			
 		</div>
@@ -180,15 +222,19 @@
 
     
 	<div class="typo article-excerpt">	
-		
-			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>往往很多人注重自己的编程思维的锻炼、业务需求理解能力的提升、编程框架原理、网站架构的理解等等所谓的上层建筑，但是作为一位合格的程序员基本的要求是很够写出让别人容易理解，让自己思路清晰，让bug尽量减少的代码。</p>
+		 
+			<h2 id="使用小马激活后浏览器被www-t999-cn劫持"><a href="#使用小马激活后浏览器被www-t999-cn劫持" class="headerlink" title="使用小马激活后浏览器被www.t999.cn劫持"></a>使用小马激活后浏览器被www.t999.cn劫持</h2><blockquote>
+<p>1、查看文件路径:C:\Windows\System32\DRIVERS\mssafel.sys<br>右键&gt;属性，时间不对，数字签名为上海域联软件技术有限公司</p>
+<p>2、Win+R，输入regedit打开注册表，注册表路径:HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mssafel<br>注册表名称:ImagePath 注册表值:system32\DRIVERS\mssafel.sys</p>
+<p>3、删除C:\Windows\System32\DRIVERS\mssafel.sys</p>
+<p>4、重启</p>
 </blockquote>
+
 		  	  
 	</div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/year/11/01/code_immortal/">Continue</a> 	
+		<a class="article-readmore" href="/year/11/20/xiaoma/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -201,16 +247,18 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/year/10/29/mysql_copy/">Mysql复制</a>  
+		<a class="article-title" href="/year/11/20/vps/">digitalocean服务器搭建ss服务器</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>Oct 29, 2018</time>
+			<time>Nov 20, 2018</time>
 			
 				<span class="iconfont icon-star"></span>
 				            
-						<a class="article-tag" href="/tags/MySQL/">MySQL</a>           
+						<a class="article-tag" href="/tags/ubuntu/">ubuntu</a>           
+				            
+						<a class="article-tag" href="/tags/vps/">vps</a>           
 				
 			
 		</div>
@@ -222,14 +270,17 @@
     
 	<div class="typo article-excerpt">	
 		
-			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>本篇主要介绍mysql复制的相关流程和细节,Mysql实现的是异步复制，所以主从之间会存在一定的差异，一般实时性不高的数据从库中查询，而实时性要求高的依旧要从主库中查询，主库同时负责写入。</p>
+			<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>经朋友介绍digitalocean服务器对于学生而言比较划算，最基础的服务器5$一个月，通过推荐链接注册可以领取10$的优惠或通过其他网上的推荐码获得15$,25$等不等的优惠券，如果使用github学生优惠券的还可以领50$的优惠。我找到的是15$优惠券。这里比较人性的是这里的优惠券是直接充值到账户上的，和腾讯，阿里的的只能使用一次的优惠券有点不同。需要注意的是优惠码只能用一次，如果使用过一次再使用github优惠码的时候会失败。网上的说法是直接联系客服，联系后的回信是。</p>
+<p>Hello, and thank you for contacting DigitalOcean!<br>I apologize for the inconvenience, however as you already have a promotional code on this account, we are unable to apply any additional codes at this time.<br></p>
+<p>很无奈<br>不甘心的我又发了一封工单，结果50$到账！也就是说5$变成了70$.</p>
 </blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/img/ss4.PNG" alt="ss4"><br>
 		  	  
-	</div>
+	</p></div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/year/10/29/mysql_copy/">Continue</a> 	
+		<a class="article-readmore" href="/year/11/20/vps/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -242,16 +293,18 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/year/10/29/risk_wise/">冒险的智慧</a>  
+		<a class="article-title" href="/year/11/20/vnc/">CentOS7 安装vnc</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>Oct 29, 2018</time>
+			<time>Nov 20, 2018</time>
 			
 				<span class="iconfont icon-star"></span>
 				            
-						<a class="article-tag" href="/tags/book/">book</a>           
+						<a class="article-tag" href="/tags/CentOS/">CentOS</a>           
+				            
+						<a class="article-tag" href="/tags/vnc/">vnc</a>           
 				
 			
 		</div>
@@ -263,14 +316,13 @@
     
 	<div class="typo article-excerpt">	
 		
-			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>很多人不愿去冒险，往往归结于能力、年龄、家庭等等因素。我们可以解释为因为拥有的越多就越怕失去也可以解释为拥有的越少就越珍惜，但换个角度思考，我们是否仅仅可以认为因为没有充分地为自己而活？下面为摘录额部分语句。</p>
-</blockquote>
+			<h2 id="1-首先执行这一句防止系统文件被修改"><a href="#1-首先执行这一句防止系统文件被修改" class="headerlink" title="1.首先执行这一句防止系统文件被修改"></a>1.首先执行这一句防止系统文件被修改</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chattr +i /etc/resolv.conf</span><br></pre></td></tr></table></figure>
+<h2 id="2、然后安装tigervnc"><a href="#2、然后安装tigervnc" class="headerlink" title="2、然后安装tigervnc"></a>2、然后安装tigervnc</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y tigervnc tigervnc-server</span><br></pre></td></tr></table></figure>
 		  	  
 	</div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/year/10/29/risk_wise/">Continue</a> 	
+		<a class="article-readmore" href="/year/11/20/vnc/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -283,16 +335,16 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/year/09/27/redis-copy/">Redis复制</a>  
+		<a class="article-title" href="/year/11/20/ubuntu_only_background/">ubuntu只显示桌面，没有菜单栏</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>Sep 27, 2018</time>
+			<time>Nov 20, 2018</time>
 			
 				<span class="iconfont icon-star"></span>
 				            
-						<a class="article-tag" href="/tags/Redis/">Redis</a>           
+						<a class="article-tag" href="/tags/ubuntu/">-ubuntu</a>           
 				
 			
 		</div>
@@ -305,13 +357,13 @@
 	<div class="typo article-excerpt">	
 		
 			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>Redis复制2.8版本之前和2.8版本之后的的有比较大的区别，主要介绍新旧两个版本的区别<br>。</p>
+<p>在裝輸入法的時候好像刪了什麼東西導致電腦重啓的時候只能顯示桌面背景和文件，導航等都沒了，頓時嚇壞我了，找了好多教程終於成功了。</p>
 </blockquote>
 		  	  
 	</div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/year/09/27/redis-copy/">Continue</a> 	
+		<a class="article-readmore" href="/year/11/20/ubuntu_only_background/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -324,16 +376,18 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/year/09/26/redis-persistence/">Redis持久化</a>  
+		<a class="article-title" href="/year/11/20/tensorflow_step/">ubuntu16.04 anaconda环境下安装tensoflow(GPU)</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>Sep 26, 2018</time>
+			<time>Nov 20, 2018</time>
 			
 				<span class="iconfont icon-star"></span>
 				            
-						<a class="article-tag" href="/tags/Redis/">Redis</a>           
+						<a class="article-tag" href="/tags/deeplearning/">deeplearning</a>           
+				            
+						<a class="article-tag" href="/tags/tensorflow/">tensorflow</a>           
 				
 			
 		</div>
@@ -346,13 +400,13 @@
 	<div class="typo article-excerpt">	
 		
 			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>redis 的持久化方式哦有两种 RDB和AOF,本文重要介绍这两种方式的原理。</p>
+<p>目前深度学习炙手可热的框架毫无疑问是tensorflow,在本教程主要介绍tensorflow在anaconda中的安装，在火车上实在是无聊，电脑又没有网络，只能打发一下时间。</p>
 </blockquote>
 		  	  
 	</div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/year/09/26/redis-persistence/">Continue</a> 	
+		<a class="article-readmore" href="/year/11/20/tensorflow_step/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -365,16 +419,18 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/year/08/15/java_io_ByteArrayOutputStream/">java基础-IO-ByteArrayOutStream-02</a>  
+		<a class="article-title" href="/year/11/20/SrpingCloud-chapter10/">第十章:SpringCloud-hystrix解决雪崩效应</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>Aug 15, 2018</time>
+			<time>Nov 20, 2018</time>
 			
 				<span class="iconfont icon-star"></span>
 				            
-						<a class="article-tag" href="/tags/IO/">IO</a>           
+						<a class="article-tag" href="/tags/SpringCloud/">SpringCloud</a>           
+				            
+						<a class="article-tag" href="/tags/微服务/">微服务</a>           
 				
 			
 		</div>
@@ -387,13 +443,13 @@
 	<div class="typo article-excerpt">	
 		
 			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>本篇主要介绍OutPutStream和ByteArrayOutStream。</p>
+<p>本章节主要分析雪崩效应的原因、模拟雪崩效应、解决雪崩效应</p>
 </blockquote>
 		  	  
 	</div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/year/08/15/java_io_ByteArrayOutputStream/">Continue</a> 	
+		<a class="article-readmore" href="/year/11/20/SrpingCloud-chapter10/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -406,16 +462,16 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/year/08/13/java_io_ByteArrayInputStream/">java基础-IO-ByteArrayInputStream-01</a>  
+		<a class="article-title" href="/year/11/20/SSD-tensorflow/">Single Shot MultiBox Detector翻译</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>Aug 13, 2018</time>
+			<time>Nov 20, 2018</time>
 			
 				<span class="iconfont icon-star"></span>
 				            
-						<a class="article-tag" href="/tags/IO/">IO</a>           
+						<a class="article-tag" href="/tags/object-detection/">object detection</a>           
 				
 			
 		</div>
@@ -428,13 +484,15 @@
 	<div class="typo article-excerpt">	
 		
 			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>此篇为java基础笔记的第一篇，java基础系列文章将主要记录学习IO、集合、多线程等内容，大部分是对比较函数的介绍和源码的分析。由于时间有限，函数中输入值的范围以及异常处理不加以详细介绍,以实现原理和容易出错点为主。</p>
+<p>毕设的课题为基于SSD的深度学习目标检测研究，首先要对SSD框架的思想做到非常的了解，借此机会准备详细的翻译理解一下SSD的内容，如有错误指出，欢迎指出。原文链接：<a href="点我">https://arxiv.org/abs/1512.02325</a></p>
 </blockquote>
+<h2 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><blockquote>
+<p>我们展示了使用单层神经网络来检测图片中的物体的方法，称之为SSD,它将输出空间的bounding boxes (边界框)离散化为每一个特征图上的一系列不同纵横比和尺寸的（default boxes）默认框。在进行预测的时候，神经网络会对每个默认框中的每一个物体种类的存在形成一个分数，并且对默认框进行调整以更好的匹配目标的形状 。另外，这个网络还用了不同的方法来联合不同特征图上的预测结果以自然的解决不同尺寸的物体。SSD是一个相对简单的方法，它需要候选对象，因为它完全排除了生成候选对象和接下来对像素和特征重新采样的阶段并且将所有的计算都压缩在了一个单层网络里。这让SSD很容易的训练并且直接的应用到需要检测组件的系统中去。在PASACAL、VOC、COCO和ILASVRC数据集上的实验证明了SSD在精确度上和那些利用额外的候选目标步骤的方法相比很有竞争力并且更快，于此同时SSD还为训练和接口提供了一个统一的框架。，对PASCAL VOC 2007的数据集，在300×300像素的尺寸输入，SSD在Nvidia Titan X上59FPS时达到72.1％的mAP，500×500像素尺寸输入SSD达到75.1％的mAP，超过了相比较的state of art 模型Faster R-CNN 。和其他的单个步骤的方法相比，SSD对于更小尺寸图片的输入有着更好的检出率。<br>
 		  	  
-	</div>
+	</p></blockquote></div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/year/08/13/java_io_ByteArrayInputStream/">Continue</a> 	
+		<a class="article-readmore" href="/year/11/20/SSD-tensorflow/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -447,16 +505,18 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/year/08/12/java_article1/">Number1：java基础-&lt;? extends T&gt; and &lt;? super T&gt;</a>  
+		<a class="article-title" href="/year/11/20/springCloud-chapter9/">第九章:SpringCloud-feign</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>Aug 12, 2018</time>
+			<time>Nov 20, 2018</time>
 			
 				<span class="iconfont icon-star"></span>
 				            
-						<a class="article-tag" href="/tags/范型/">范型</a>           
+						<a class="article-tag" href="/tags/SpringCloud/">SpringCloud</a>           
+				            
+						<a class="article-tag" href="/tags/微服务/">微服务</a>           
 				
 			
 		</div>
@@ -469,54 +529,13 @@
 	<div class="typo article-excerpt">	
 		
 			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>本篇主要讲解&lt;? extends T&gt; 和 &lt;? super T&gt;的一些基础概念，参考了<a href="https://www.cnblogs.com/drizzlewithwind/p/6100164.html" target="_blank" rel="noopener">传送门</a>文章。</p>
+<p>第五章中手痛reset方式调用接口，本章节使用更为常用的feign的方式调用接口,feign自带了负载均衡</p>
 </blockquote>
 		  	  
 	</div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/year/08/12/java_article1/">Continue</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/year/08/11/Mysql_chapter3/">第三章：MySQL性能管理及架构设计-基准测试</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Aug 11, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/MySQL/">MySQL</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>在优化mysql性能之前需要学习下基准测试以便对性能进行评估。基准测试不关注业务的逻辑，所使用的查询和业务的逻辑没有任何关系，而压力测试则是针对不同的主题，所使用的查询也是真实用到的数据。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/year/08/11/Mysql_chapter3/">Continue</a> 	
+		<a class="article-readmore" href="/year/11/20/springCloud-chapter9/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -532,7 +551,7 @@
 
     
         <a class="next" href="/page/2/"> 
-            Next
+            下一页
             <i class="iconfont icon-right"></i>
         </a>
     
@@ -551,7 +570,7 @@
     
     <div class="search-container sildeUpMin">
         <div class="search-header">
-            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
             <span class="search-cancel">
                 <i class="iconfont icon-cancel">
             </i></span>
@@ -568,31 +587,31 @@
          
             
 
-            <a class="mobile-menu-link" href="/">Home
+            <a class="mobile-menu-link" href="/">首页
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">Archives
+            <a class="mobile-menu-link" href="/archives">归档
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">Tags
+            <a class="mobile-menu-link" href="/tags">标签
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/about">About
+            <a class="mobile-menu-link" href="/about">关于
             </a>
             
          
                           
 
-            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
             
          
       

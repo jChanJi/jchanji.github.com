@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Redis复制 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		Redis复制
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			2394
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>Redis复制2.8版本之前和2.8版本之后的的有比较大的区别，主要介绍新旧两个版本的区别<br>。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="2-8版本之前"><a href="#2-8版本之前" class="headerlink" title="2.8版本之前"></a>2.8版本之前</h2><blockquote>
+<p>Redis复制主要分为同步和命令传播两个操作，同步操作用于第一次复制时将主服务器的状态更新到从服务器的状态，而命令传播用于同步操作之后主从数据库状态不一致的情况下将主库的数据写入到从库的操作。</p>
+</blockquote>
+<h3 id="同步过程"><a href="#同步过程" class="headerlink" title="同步过程"></a>同步过程</h3><blockquote>
+<p>同步过程如下图所示,主库在接受到SYNC请求之后，执行BGSAVE命令，在后台生成RDB文件。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-copy-1.png" alt="redis复制过程-2.8之前"></p>
+<h3 id="旧版缺陷"><a href="#旧版缺陷" class="headerlink" title="旧版缺陷"></a>旧版缺陷</h3><blockquote>
+<p>在第一次复制的时候将全量的RDB文件复制到从服务器没有什么问题，但是一旦主从服务器断开连接，从服务器尝试连接主服务器成功的时，主服务器将再次全量的复制，效率很低。</p>
+</blockquote>
+<h2 id="2-8版之后"><a href="#2-8版之后" class="headerlink" title="2.8版之后"></a>2.8版之后</h2><blockquote>
+<p>新版的复制功能使用PSYNC代替了SYNC。PSYNC具有完整重同步和部分重同步两种模式。</p>
+</blockquote>
+<ol>
+<li>完整重同步用于第一次复制期间，和旧版本没什么不同</li>
+<li>部分重同步则使用在断线的情况下，它将从断线后的地方重新开始同步而不会全量的同步。</li>
+</ol>
+<h3 id="部分重同步的实现"><a href="#部分重同步的实现" class="headerlink" title="部分重同步的实现"></a>部分重同步的实现</h3><blockquote>
+<p>部分重同步在发生断线的情况下，在从服务器重新连接上主服务器的时候回从断开连接后的地方开始复制。部分重同步主要由三个部分组成</p>
+</blockquote>
+<h4 id="1-主、从服务器的复制偏移量-replication-offset"><a href="#1-主、从服务器的复制偏移量-replication-offset" class="headerlink" title="1. 主、从服务器的复制偏移量(replication offset)"></a>1. 主、从服务器的复制偏移量(replication offset)</h4><blockquote>
+<p>主从服务器都会保持一致的复制偏移量。主服务器发送长度为n字节的数据到从服务器时主服务器的复制偏移量会加n,而从服务器接受到主服务器的n个字节时偏移量也会加n,当主从的偏移量不一致的时候就会进行部分重同步。</p>
+</blockquote>
+<h4 id="2-主服务器的复制积压缓冲区-replication-backlog"><a href="#2-主服务器的复制积压缓冲区-replication-backlog" class="headerlink" title="2. 主服务器的复制积压缓冲区(replication backlog)"></a>2. 主服务器的复制积压缓冲区(replication backlog)</h4><blockquote>
+<p>当主服务器进行命令传播的时候会同时将写命令放入一个定长的队列当中（默认为1M），里面始终保存着最新的写命令，当从服务器重新连接成功时会通过PSYNC命令将自己的复制偏移量发送给主服务器。</p>
+</blockquote>
+<ol>
+<li>如果偏移量之后的数据仍然在复制积压缓冲区中那么将进行部分重同步操作，从积压缓冲区中将命令发送到从服务器。</li>
+<li>如果偏移量之后的数据不在积压复制积压 缓冲区中的话就会进行完全重同步操作。</li>
+</ol>
+<blockquote>
+<p>积压缓冲区的大小要根据业业务来定，一般为 2 <em> 断线后重新连接的平均时间 </em> 主服务器平均每秒钟产生的写命令的数量。</p>
+</blockquote>
+<h4 id="3-服务器的运行ID"><a href="#3-服务器的运行ID" class="headerlink" title="3. 服务器的运行ID"></a>3. 服务器的运行ID</h4><blockquote>
+<p>每个服务器都有自己的一个运行id,由40个随机的16进制字符组成，运行id的主要作用在于确认断线前后连接的是否为同一个主服务器。</p>
+</blockquote>
+<h3 id="PSYNC-命令的实现"><a href="#PSYNC-命令的实现" class="headerlink" title="PSYNC 命令的实现"></a>PSYNC 命令的实现</h3><p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-psync.png" alt="部分重同步过程"></p>
+<h3 id="复制的实现"><a href="#复制的实现" class="headerlink" title="复制的实现"></a>复制的实现</h3><ol>
+<li><p>设置主服务器的地址和端口</p>
+<blockquote>
+<p>使用saveof命令后从服务器中将保存主服务器的地址和端口，之后从服务器向发送saveof命令的客户端返回ok,之后复制工作才开始执行。 </p>
+ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">saveof XX.XX.XX.XX 6379</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>建立套接字连接</p>
+<blockquote>
+<p>从服务器将根据ip 和 端口创建连向主服务器的套接字连接，如果成功连接到主服务器从服务器将这个套接字关联一个专门用于处理复制工作的文件事务处理器。</p>
+<p>主服务器接受从服务器的套接字连接后为套接字创建相应的客户端状态，并将从服务器看作是<strong><em>主服务器的一个客户端</em></strong></p>
+</blockquote>
+</li>
+<li><p>发送PING命令</p>
+<blockquote>
+<p>从服务器成为主服务器的客户端后第一件事就是向主服务器发送PING命令。主要作用有两个</p>
+</blockquote>
+<ol>
+<li>通过PING命令检查套接字读写状态是否正常。</li>
+<li><p>检查主服务器是否能正常处理命令请求</p>
+<p>PING过程中可能出现的情况有：</p>
+</li>
+<li><p>主服务器像从服务器返回了命令但是从服务器读取超时，说明网络连接不佳，从服务器将断开并且重新创建连向主服务器的的套接字。</p>
+</li>
+<li>如果主服务器返回一个错误，那么表示主服务器暂时没有办法处理从服务器的命令请求（比如在处理一个超时的脚本），从服务器将重新创建连向主服务器的套接字。</li>
+<li><p>如果从服务器读到PONG回复那么主从服务器之间的网络状态正常并且能正常处理从服务器的的请求，将继续执行复制的下个步骤。</p>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-ping.png" alt="ping"></p>
+</li>
+</ol>
+</li>
+<li><p>身份验证</p>
+<blockquote>
+<p>如果从服务器设置了masterauth选项则进行身份验证，否则不进行。首相从服务器向主服务器发送一条AUTH命令，命令的参数为从服务器masterauth选项的值。主服务器密码选项的字段为requirepass,从服务器的验证字段为masterauth。验证流程和情况如下</p>
+</blockquote>
+<p> <img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-auth.png" alt="auth"></p>
+</li>
+<li><p>发送端口信息</p>
+<blockquote>
+<p>身份验证后从服务器将执行REPLICONF listening-port <port-number>命令，向主服务器发送从服务器的监听端口，主服务器将记录到slave_listening_port属性中。主服务器在执行INFO replication命令时将会打印出来。</port-number></p>
+</blockquote>
+</li>
+<li><p>同步</p>
+<blockquote>
+<p>接下来就要执行PSYC命令了，在执行PSYNC命令之前从服务器是主服务器的客户端，在同步之后主服务器也会成为从服务器的客户端。只有主服务器将缓冲区里的写命令和积压缓冲区的写命令发送给从服务器的时候都是作为客户点的角色执行的。</p>
+</blockquote>
+</li>
+<li><p>命令传播</p>
+<blockquote>
+<p>命令传播阶段主服务器只要一直讲执行的写命令发送给从服务器，从服务器直接接受并执行主服务器发送的写命令就可以保证主从一致。</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="/images/placeholder.png" alt="flow" data-src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-flow.png" class="lazyload"></p>
+<h3 id="心跳检测"><a href="#心跳检测" class="headerlink" title="心跳检测"></a>心跳检测</h3><blockquote>
+<p>从服务器将会以每秒一次的频率向主服务器发送 REPLCONF ACK <replication_offset> 命令。作用如下</replication_offset></p>
+</blockquote>
+<h4 id="1-检测主从服务器的网络连接状态"><a href="#1-检测主从服务器的网络连接状态" class="headerlink" title="1. 检测主从服务器的网络连接状态"></a>1. 检测主从服务器的网络连接状态</h4><blockquote>
+<p>在主服务器上执行INFO replication 命令，在列出的服务器列表的lag一栏中可以看出相应的服务器最后一次向主服务器发送 REPLCONF ACK 命令距离现在过了多少秒。如果超过1秒则表示连接故障。</p>
+</blockquote>
+<h4 id="2-辅助实现min-slaves配置选项"><a href="#2-辅助实现min-slaves配置选项" class="headerlink" title="2. 辅助实现min-slaves配置选项"></a>2. 辅助实现min-slaves配置选项</h4><blockquote>
+<p>主服务器中的min-slaves-to-write n,min-slaves-max-lag m,两个配置表示当从服务器数量少于n个，或者从服务器延时大于m时主服务器你拒绝执行写命令。这里的延时就是lag的值。</p>
+</blockquote>
+<h4 id="3-检测命令丢失"><a href="#3-检测命令丢失" class="headerlink" title="3. 检测命令丢失"></a>3. 检测命令丢失</h4><blockquote>
+<p>如果主服务器的写命令在半路丢失，当从服务器向主服务器发送REPLCONF ACK命令时，主服务器会根据从服务器的复制偏移量来进行同步。</p>
+</blockquote>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate1.png">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate2.png">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/Redis/">-Redis</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/Redis/">Redis</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/redis-persistence/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/redis-persistence/">
+          Redis持久化</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/mysql_copy/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/mysql_copy/">
+          Mysql复制</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

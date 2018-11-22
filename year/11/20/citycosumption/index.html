@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  K-Means算法-对31省消费水平分类 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		K-means算法-对31省消费水平分类
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1686
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><blockquote>
+<p>此篇笔记主要根据南京大学礼欣老师的<a href="http://www.icourse163.org/learn/BIT-1001872001?tid=1001965001#/learn/announce" target="_blank" rel="noopener">《Python机器学习应用》</a>整理而成，详细内容请看礼欣老师的mooc课程。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="数据介绍："><a href="#数据介绍：" class="headerlink" title="数据介绍："></a>数据介绍：</h2><p>现有1999年全国31个省份城镇居民家庭平均每人全年消费性支出的八个主<br>要变量数据，这八个变量分别是：食品、衣着、家庭设备用品及服务、医疗<br>保健、交通和通讯、娱乐教育文化服务、居住以及杂项商品和服务。利用已<br>有数据，对31个省份进行聚类。。数据下载<a href="https://github.com/jChanJi/static_resource/blob/master/clustering/TestData.txt" target="_blank" rel="noopener">点击我</a></p>
+<h2 id="主要参数"><a href="#主要参数" class="headerlink" title="主要参数"></a>主要参数</h2><ol>
+<li>n_clusters：用于指定聚类中心的个数</li>
+<li>init：初始聚类中心的初始化方法</li>
+<li>max_iter：最大的迭代次数</li>
+<li>一般调用时只用给出n_clusters即可，init<br>默认是k-means++，max_iter默认是300</li>
+<li>data：加载的数据</li>
+<li>label：聚类后各数据所属的标签</li>
+<li>axis: 按行求和</li>
+<li>fit_predict()：计算簇中心以及为簇分配序号</li>
+</ol>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadData</span><span class="params">(filePath)</span>:</span></span><br><span class="line">    fr = open(filePath,<span class="string">'r+'</span>)</span><br><span class="line">    lines = fr.readlines()</span><br><span class="line">    retData = []</span><br><span class="line">    retCityName = []</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">        items = line.strip().split(<span class="string">","</span>)</span><br><span class="line">        retCityName.append(items[<span class="number">0</span>])</span><br><span class="line">        retData.append([float(items[i]) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(items))])</span><br><span class="line">    <span class="keyword">return</span> retData,retCityName</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    data,cityName = loadData(<span class="string">'F:/data/clustering/city.txt'</span>)</span><br><span class="line">    km = KMeans(n_clusters=<span class="number">4</span>)</span><br><span class="line">    label = km.fit_predict(data)</span><br><span class="line">    expenses = np.sum(km.cluster_centers_,axis=<span class="number">1</span>)</span><br><span class="line">    <span class="comment">#print(expenses)</span></span><br><span class="line">    CityCluster = [[],[],[],[]]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(cityName)):</span><br><span class="line">        CityCluster[label[i]].append(cityName[i])</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(CityCluster)):</span><br><span class="line">        print(<span class="string">"Expenses:%.2f"</span> % expenses[i])</span><br><span class="line">        print(CityCluster[i])</span><br></pre></td></tr></table></figure>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Expenses:4441.04</span><br><span class="line">['安徽', '湖南', '湖北', '广西', '海南', '四川', '云南']</span><br><span class="line">Expenses:7754.66</span><br><span class="line">['北京', '上海', '广东']</span><br><span class="line">Expenses:5567.33</span><br><span class="line">['天津', '江苏', '浙江', '福建', '重庆', '西藏']</span><br><span class="line">Expenses:3788.76</span><br><span class="line">['河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江西', '山东', '河南', '贵州', '陕西', '甘肃', '青海', '宁夏', '新疆']</span><br></pre></td></tr></table></figure>
+<h2 id="注：当改变簇n-clusters为8-CityCluster长度也设置为8-时结果"><a href="#注：当改变簇n-clusters为8-CityCluster长度也设置为8-时结果" class="headerlink" title="注：当改变簇n_clusters为8(CityCluster长度也设置为8)时结果"></a>注：当改变簇n_clusters为8(CityCluster长度也设置为8)时结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Expenses:<span class="number">3497.85</span></span><br><span class="line">[<span class="string">'山西'</span>, <span class="string">'内蒙古'</span>, <span class="string">'黑龙江'</span>, <span class="string">'河南'</span>, <span class="string">'宁夏'</span>]</span><br><span class="line">Expenses:<span class="number">5311.98</span></span><br><span class="line">[<span class="string">'天津'</span>, <span class="string">'江苏'</span>, <span class="string">'重庆'</span>, <span class="string">'云南'</span>]</span><br><span class="line">Expenses:<span class="number">7010.02</span></span><br><span class="line">[<span class="string">'北京'</span>, <span class="string">'浙江'</span>]</span><br><span class="line">Expenses:<span class="number">7517.80</span></span><br><span class="line">[<span class="string">'广东'</span>]</span><br><span class="line">Expenses:<span class="number">4357.67</span></span><br><span class="line">[<span class="string">'安徽'</span>, <span class="string">'湖南'</span>, <span class="string">'湖北'</span>, <span class="string">'广西'</span>, <span class="string">'海南'</span>, <span class="string">'四川'</span>]</span><br><span class="line">Expenses:<span class="number">5287.90</span></span><br><span class="line">[<span class="string">'福建'</span>, <span class="string">'西藏'</span>]</span><br><span class="line">Expenses:<span class="number">8247.69</span></span><br><span class="line">[<span class="string">'上海'</span>]</span><br><span class="line">Expenses:<span class="number">3934.21</span></span><br><span class="line">[<span class="string">'河北'</span>, <span class="string">'辽宁'</span>, <span class="string">'吉林'</span>, <span class="string">'江西'</span>, <span class="string">'山东'</span>, <span class="string">'贵州'</span>, <span class="string">'陕西'</span>, <span class="string">'甘肃'</span>, <span class="string">'青海'</span>, <span class="string">'新疆'</span>]</span><br></pre></td></tr></table></figure>
+<p>我们发现簇多所分的层次就越多</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/donate2.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/machinelearning/">-machinelearning</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/K-means/">K-means</a> <a class="tag-link" href="/tags/machinelearning/">machinelearning</a> <a class="tag-link" href="/tags/python/">python</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/codeparse_gbk2utf/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/codeparse_gbk2utf/">
+          使用java将文件夹下的文件批量的从gbk编码转化成utf-8编码</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/01/10/docker/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/01/10/docker/">
+          ubuntu下Docker的安装和使用</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

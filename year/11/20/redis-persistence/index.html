@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Redis持久化 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		Redis持久化
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 20, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1329
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>redis 的持久化方式哦有两种 RDB和AOF,本文重要介绍这两种方式的原理。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="RDB持久化"><a href="#RDB持久化" class="headerlink" title="RDB持久化"></a>RDB持久化</h3><blockquote>
+<p>服务器在载入RDB文件的期间服务器会一直处于阻塞的状态。</p>
+</blockquote>
+<h4 id="SAVE"><a href="#SAVE" class="headerlink" title="SAVE"></a>SAVE</h4><blockquote>
+<p>SAVE命令由主进程执行，会阻塞服务器的主进程 </p>
+</blockquote>
+<h4 id="BGSAVE"><a href="#BGSAVE" class="headerlink" title="BGSAVE"></a>BGSAVE</h4><blockquote>
+<p>BGSAVE会派生出一个子进程然后由子进程创建RDB文件，完成创建RDB文件后向父进程发送信号，而父进程通过轮询等待子进程的信号。</p>
+</blockquote>
+<h4 id="RDB和AOF的执行顺序"><a href="#RDB和AOF的执行顺序" class="headerlink" title="RDB和AOF的执行顺序"></a>RDB和AOF的执行顺序</h4><blockquote>
+<p>如果开启了AOF功能服务器将会优先使用AOF文件还原数据</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-persistence.png" alt="RDB和AOF执行顺序"></p>
+<h4 id="BGSAVE执行时的服务器状态"><a href="#BGSAVE执行时的服务器状态" class="headerlink" title="BGSAVE执行时的服务器状态"></a>BGSAVE执行时的服务器状态</h4><p>在BGSAVE执行期间：</p>
+<ol>
+<li>SAVE命令将会被拒绝，防止父进程和子进程同时执行两个rdbSave，产生竞争</li>
+<li>BGSAV命令将会被拒绝，两个BGSAVE命令也会产生竞争</li>
+<li>BGREWRITEAOF命令将会被延时到BGSAVE执行之后执行，相反如果先BGREWRITEAOF执行过程中BGSAVE 命令将会被拒绝。这两个命令都由子进程执行，不会产生竞争，但是为了性能考虑，不能同时有两个子进程产生大量的IO。</li>
+</ol>
+<h3 id="AOF-append-only-file-持久化"><a href="#AOF-append-only-file-持久化" class="headerlink" title="AOF(append only file)持久化"></a>AOF(append only file)持久化</h3><blockquote>
+<p>AOF持久化保存Redis服务器所执行的写命令来记录数据库状态</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/redis/redis-aof-persistence.png" alt="AOF持久化"></p>
+<h4 id="AOF持久化的实现"><a href="#AOF持久化的实现" class="headerlink" title="AOF持久化的实现"></a>AOF持久化的实现</h4><blockquote>
+<p>持久化的实现可以分为三个部分：命令的追加、文件的写入、文件的同步。</p>
+</blockquote>
+<h5 id="命令追加"><a href="#命令追加" class="headerlink" title="命令追加"></a>命令追加</h5><blockquote>
+<p>服务器执行完写命令后会以协议格式讲过命令追加到aof_buf缓冲区的末尾</p>
+</blockquote>
+<h5 id="文件写入"><a href="#文件写入" class="headerlink" title="文件写入"></a>文件写入</h5><blockquote>
+<p>在每次结束事件循环前都会调用flushAppendOnlyFile函数考虑是否将aof_buf缓冲区内容写入和保存到AOF文件里。</p>
+<h5 id="文件同步"><a href="#文件同步" class="headerlink" title="文件同步"></a>文件同步</h5><p>flushAppendOnlyFile函数的行为主要有服务器配置的appendfsync选项的值来决定的。</p>
+</blockquote>
+<ol>
+<li>always:每一个事件循环都会清空aof_buf缓冲区，效率最低但也是最安全的，只会丢失一个循环中的命令指令。</li>
+<li>everysec:每一秒钟清空一下缓冲区，对AOF文件进行同步，这个同步操作是由一个线程专门负责执行的。效率较高，只会丢失一秒钟的指令。</li>
+<li>no：将aof_buf缓冲区的内容写入带AOF文件中，但是不对AOF文件进行同步，何时同步由操作系统决定。写入速度是最快的，单次同步时长是三种模式中最长的，平均来说和everysec模式效率类似，但是出现故障停机时将丢失同步AOF文件后的所有写命令。</li>
+</ol>
+<h4 id="AOF重写"><a href="#AOF重写" class="headerlink" title="AOF重写"></a>AOF重写</h4><blockquote>
+<p>随着AOF文件中的内容越来越多文件体积会越来越大，为了给AOF文件瘦身，Redis提供了重写的功能。AOF的重写不需要对现有的AOF文件有任何的读取、分析或者写入操作，重写AOF文件的内容是通过读取数据库状态（数据）实现的。重写过程：</p>
+</blockquote>
+<ol>
+<li>创建新AOF文件</li>
+<li>遍历数据库，忽略已经过期的键、根据键的类型对键进行重写（五种基本类型）、如果有过期时间过期时间也要进行重写</li>
+<li>AOF重写使用了一个子进程，在重写过程中父进程将重写期间的命令存放到AOF重写缓冲区中，重写完成后将缓冲区内容写到新的AOF文件中</li>
+<li>对新的AOF文件尽心改名，覆盖现有的AOF文件</li>
+</ol>
+<blockquote>
+<p>在AOF重写过程中父进程有三个工作：1、执行客户端发送的命令。2、将执行的命令追加到AOF缓冲区、3、将执行后的写命令追加到AOF重写缓冲区。</p>
+</blockquote>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/donate2.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/Redis/">-Redis</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/Redis/">Redis</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/risk_wise/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/20/risk_wise/">
+          冒险的智慧</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/20/redis-copy/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/20/redis-copy/">
+          Redis复制</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
