@@ -92,7 +92,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			2569
+			4200
 		</span>
 	
 </div>
@@ -173,6 +173,43 @@
 <p>在Acceptor没有收到任何提案的情况下，4个Acceptor已经批准了来之Propose2的提案[M0,V0]，而此时Proposer1 产生了一个具有其他Value的值，并且为编号更高的提案[M1，V2],并且发送给Acceptor1，根据P1，Acceptor必须要批准该提案，但是这与P2a相矛盾，于是就出现了强化版的P2a:P2b.即严格程度：P2b &gt; P2a &gt; p2。</p>
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/zookeeper/p2a.png" alt="p2a"></p>
+<h3 id="Proposer提案生成"><a href="#Proposer提案生成" class="headerlink" title="Proposer提案生成"></a>Proposer提案生成</h3><blockquote>
+<p>对于Poposer来说获取已经诶通过的提案比被预测未来可能通过的提案要来的简单，所以Proposer在产生一个编号为Mn的提案时，必须 要知道某个将要或者已经被半数以上Acceptor批准的，编号小于Mn但为最大提案编号的提案。并且，Proposer会要求所有的Acceptor都不要再批准任何编号小于Mn的提案。提案生成的步骤如下：</p>
+</blockquote>
+<ol>
+<li>Proposer选择一个新的提案编号Mn。然后向Acceptor集合的成员发送请求，该集合的Acceptor的回应为：<ol>
+<li>向Proposer承诺，保证不会再批准任何编号小于Mn的提案</li>
+<li>如果Acceptor已经批准过任何提案，那么其就向Proposer反馈当前已经批准的编号小于Mn但为最大编号的提案的<strong>值</strong></li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>以上为阶段一的Prepare请求</p>
+</blockquote>
+<ol>
+<li>第二步有两种情况，收到的Acceptor响应结果多余半数和少于半数。<ol>
+<li>如果收到半数以上的Acceptor的响应结果，那么久可以生成编号为Mn值为Vn的提案，这里的Vn就是编号小于Mn但编号最大的提案的Value值。</li>
+<li>如果收到的Acceptor结果少于半数，即响应中没有包含任何的提案，Vn值由Proposer任意选择。</li>
+</ol>
+</li>
+</ol>
+<p>以上的过程称为prepare请求，此时的[Mn,Vn]提案还未发送给Acceptor进行选举。此后，我们称之为阶段二，Proposer会将该提案再次发送个一个Aceepor集合（和之前的不是一个集合），并期望被批准,我们成为Accept请求。</p>
+<h3 id="Acceptor批准提案"><a href="#Acceptor批准提案" class="headerlink" title="Acceptor批准提案"></a>Acceptor批准提案</h3><p>根据提案生成的过程我们可以看出，一个提案的生成可以分为Prepare和Accept两个阶段。</p>
+<ol>
+<li>对于Prepare请求，Acceptor可以在任何时候响应一个Prepare请求</li>
+<li>在不违背Acceptor现有承诺的前提下，可以响应任何的Accept请求。对Acceptor的逻辑处理的约束条件大概定义如下：<br>一个Acceptor只要没有响应过任何编号大于Mn的Prepare请求，那么久可以接受这个编号为Mn的提案。</li>
+</ol>
+<h3 id="算法优化"><a href="#算法优化" class="headerlink" title="算法优化"></a>算法优化</h3><p>假设一个Acceptor收到了一个编号为Mn的请求，但此时该Acceptor已经对编号大于Mn的Prepare请求做出了响应，因此他不会批准任何编号为Mn的提案，所有Acceptor久没有必要对这个Prepare请求做出响应，于是Acceptor可以选择忽略这样的Prepare请求。同时Acceptor也可以忽略掉那些已经批准过的提案的Prepare请求.</p>
+<h3 id="提案获取"><a href="#提案获取" class="headerlink" title="提案获取"></a>提案获取</h3><p>提案获取由Acceptor将提案发送给Learner，有三种方案：</p>
+<ol>
+<li>Acceptor每通过一个提案就将提案发送给所有的Learner，同信次数为mxn（m为Acceptor个数，n为Learner个数）</li>
+<li>Acceptor将提案的批准情统一的发送给一个Learner(主Learner),然后主Learner将结果发送给其他的Learner，这样通信次数为m + n,但是会出现主Learner的单点问题。</li>
+<li>Acceptor将提案结果发送给一个Leanrner集合，集合中的每个Learner都可以在提案被批准后发送给其他的Learner.Learner集合的元素越多，其性能久越稳定，但是其网络通信的复杂度久越高。</li>
+</ol>
+<h3 id="通过选取主Proposer保证算法的活性"><a href="#通过选取主Proposer保证算法的活性" class="headerlink" title="通过选取主Proposer保证算法的活性"></a>通过选取主Proposer保证算法的活性</h3><blockquote>
+<p>编号 M1 和 M2 （M2 &gt; M1）的提案同时通过阶段一，这时候Acceptor已经不会批准任何提案编号小于M2的提案，于是M1进入阶段二的时候会Acceptor会忽略M1的提案，这个时候M3通过了阶段一，M2通过阶段二的时候也会被忽略,依次类推，将发生死循环。</p>
+<p>为了避免死循环的发生我们必须要选择一个主Proposer,并规定只有主Proposer才能提出提案。这样只需要主Proposer和过半的Acceptor能够<br>正常通信，那么但凡主Proposer提出一个编号更高的提案，该提案最终一定会被批准。</p>
+</blockquote>
   	
 					
 	  </div>     
@@ -288,7 +325,7 @@
     
     <div class="search-container sildeUpMin">
         <div class="search-header">
-            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
             <span class="search-cancel">
                 <i class="iconfont icon-cancel">
             </i></span>
@@ -305,31 +342,31 @@
          
             
 
-            <a class="mobile-menu-link" href="/">首页
+            <a class="mobile-menu-link" href="/">Home
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">归档
+            <a class="mobile-menu-link" href="/archives">Archives
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">标签
+            <a class="mobile-menu-link" href="/tags">Tags
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/about">关于
+            <a class="mobile-menu-link" href="/about">About
             </a>
             
          
                           
 
-            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
             
          
       
