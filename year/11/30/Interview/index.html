@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  面试问题集合 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		面试问题集合
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 30, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			8190
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>距离毕业还有一年半不到，开始准备面试，以下是面试题积累。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="2018-11-26"><a href="#2018-11-26" class="headerlink" title="2018.11.26"></a>2018.11.26</h2><h3 id="1-HashMap实现原理？是线程安全的吗？如果不是用什么替代（concurrenthashmap）？实现原理是什么？"><a href="#1-HashMap实现原理？是线程安全的吗？如果不是用什么替代（concurrenthashmap）？实现原理是什么？" class="headerlink" title="1. HashMap实现原理？是线程安全的吗？如果不是用什么替代（concurrenthashmap）？实现原理是什么？"></a>1. HashMap实现原理？是线程安全的吗？如果不是用什么替代（concurrenthashmap）？实现原理是什么？</h3><h4 id="1-1-hashMap原理"><a href="#1-1-hashMap原理" class="headerlink" title="1.1  hashMap原理"></a>1.1  hashMap原理</h4><blockquote>
+<p>HashMap 是一个存储键值对映射的<strong>散列表</strong></p>
+<p>继承了AbstractMap，实现了Map、Cloneable、java.io.Serializable接口。</p>
+<p>HashMap 的实现不是同步的，这意味着它不是线程安全的。它的key、value都可以为null。此外，HashMap中的映射不是有序的。HashMap将“key为null”的元素都放在table的位置0处。</p>
+<p>有两个参数影响其性能：“初始容量” 和 “加载因子”初始容量 只是哈希表在创建时的容量。加载因子 是哈希表在其容量自动增加之前可以达到多满的一种尺度。当哈希表中的条目数超出了加载因子与当前容量的乘积时，则要对该哈希表进行 rehash 操作（即重建内部数据结构），从而哈希表将具有大约两倍的桶数。</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">从图中可以看出： </span><br><span class="line">(01) HashMap继承于AbstractMap类，实现了Map接口。Map是"key-value键值对"接口，AbstractMap实现了"键值对"的通用函数接口。 </span><br><span class="line">(02) HashMap是通过"拉链法"实现的哈希表。它包括几个重要的成员变量：table, size, threshold, loadFactor, modCount。</span><br><span class="line">　　table是一个Entry[]数组类型，而Entry实际上就是一个单向链表。哈希表的"key-value键值对"都是存储在Entry数组中的。 </span><br><span class="line">　　size是HashMap的大小，它是HashMap保存的键值对的数量。 </span><br><span class="line">　　threshold是HashMap的阈值，用于判断是否需要调整HashMap的容量。threshold的值="容量*加载因子"，当HashMap中存储数据的数量达到threshold时，就需要将HashMap的容量加倍。</span><br><span class="line">　　loadFactor就是加载因子。 </span><br><span class="line">　　modCount是用来实现fail-fast机制的。</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/hashmap01.jpg" alt="hashmap01"></p>
+<h4 id="1-2-HashMap线程不安全，需要使用ConcurrentHashMap"><a href="#1-2-HashMap线程不安全，需要使用ConcurrentHashMap" class="headerlink" title="1.2 HashMap线程不安全，需要使用ConcurrentHashMap"></a>1.2 HashMap线程不安全，需要使用ConcurrentHashMap</h4><blockquote>
+<p>因为HashMap中没有对方法进行同步，所以是线程不安全的。ConcurrentHashMap是线程安全的</p>
+<p>　Hashtable是线程安全的哈希表，它是通过synchronized来保证线程安全的；即，多线程通过同一个“对象的同步锁”来实现并发控制。Hashtable在线程竞争激烈时，效率比较低(此时建议使用ConcurrentHashMap)！因为当一个线程访问Hashtable的同步方法时，其它线程就访问Hashtable的同步方法时，可能会进入阻塞状态。</p>
+</blockquote>
+<h5 id="1-2-1-ConcurrentHashMap原理"><a href="#1-2-1-ConcurrentHashMap原理" class="headerlink" title="1.2.1 ConcurrentHashMap原理"></a>1.2.1 ConcurrentHashMap原理</h5><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(01) ConcurrentHashMap继承于AbstractMap抽象类。</span><br><span class="line">(02) Segment是ConcurrentHashMap中的内部类，它就是ConcurrentHashMap中的“锁分段”对应的存储结构。ConcurrentHashMap与Segment是组合关系，1个ConcurrentHashMap对象包含若干个Segment对象。在代码中，这表现为ConcurrentHashMap类中存在“Segment数组”成员。</span><br><span class="line">(03) Segment类继承于ReentrantLock类，所以Segment本质上是一个可重入的互斥锁<span class="strong">**(独占锁)**</span>。</span><br><span class="line">(04) HashEntry也是ConcurrentHashMap的内部类，是单向链表节点，存储着key-value键值对。Segment与HashEntry是组合关系，Segment类中存在“HashEntry数组”成员，“HashEntry数组”中的每个HashEntry就是一个单向链表。</span><br><span class="line"></span><br><span class="line">对于多线程访问对一个“哈希表对象”竞争资源，Hashtable是通过一把锁来控制并发；而ConcurrentHashMap则是将哈希表分成许多片段，对于每一个片段分别通过一个互斥锁来控制并发。ConcurrentHashMap对并发的控制更加细腻，它也更加适应于高并发场景！</span><br></pre></td></tr></table></figure>
+<h5 id="1-2-2-ConcurrentHashMap创建时的参数"><a href="#1-2-2-ConcurrentHashMap创建时的参数" class="headerlink" title="1.2.2 ConcurrentHashMap创建时的参数"></a>1.2.2 ConcurrentHashMap创建时的参数</h5><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(01)ConcurrentHashMap(int initialCapacity,float loadFactor, int concurrencyLevel)</span><br><span class="line">concurrencyLevel的作用就是用来计算segments数组的容量大小。先计算出“大于或等于concurrencyLevel的最小的<span class="strong">**2的N次方值**</span>”，然后将其保存为“segments的容量大小(ssize)”。</span><br><span class="line">(02) initialCapacity是哈希表的初始容量。需要注意的是，哈希表的实际容量=“segment的数量” x “segment的长度”。</span><br><span class="line">(03) loadFactor是加载因子，默认也是0.75。它是哈希表在其容量自动增加之前可以达到多满的一种尺度。</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/ConcurrrentHashMap.png" alt="ConcurrentHashMap"></p>
+<h3 id="2-ArrayList和LinkList的区别"><a href="#2-ArrayList和LinkList的区别" class="headerlink" title="2. ArrayList和LinkList的区别"></a>2. ArrayList和LinkList的区别</h3><h4 id="2-1-ArrayList原理"><a href="#2-1-ArrayList原理" class="headerlink" title="2.1 ArrayList原理"></a>2.1 ArrayList原理</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(01) ArrayList 是一个数组队列，相当于 <span class="strong">**动态数组**</span>,存放的是Object对象。与Java中的数组相比，它的容量能动态增长。它继承于AbstractList，实现了List, RandomAccess, Cloneable, java.io.Serializable这些接口。</span><br><span class="line"></span><br><span class="line">(02) ArrayList 继承了AbstractList，实现了List。它是一个数组队列，提供了相关的添加、删除、修改、遍历等功能。</span><br><span class="line"></span><br><span class="line">(03) ArrayList 实现了RandmoAccess接口，即提供了随机访问功能。RandmoAccess是java中用来被List实现，为List提供快速访问功能的。在ArrayList中，我们即可以通过元素的序号快速获取元素对象；这就是快速随机访问。遍历效率从高到底依次为：随机访问、for循环遍历、迭代器。</span><br><span class="line"></span><br><span class="line">(04) ArrayList 实现了Cloneable接口，即覆盖了函数clone()，能被克隆。</span><br><span class="line"></span><br><span class="line">(05) ArrayList 实现java.io.Serializable接口，这意味着ArrayList支持序列化，能通过序列化去传输。</span><br><span class="line"></span><br><span class="line">(06) 和Vector不同，ArrayList中的操作 "不是线程安全" 的！所以，建议在单线程中才使用ArrayList，而在多线程中可以选择Vector或者CopyOnWriteArrayList。</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/java/arrayList.png" alt="arrayList"></p>
+<h4 id="2-2-LinkList的原理"><a href="#2-2-LinkList的原理" class="headerlink" title="2.2 LinkList的原理"></a>2.2 LinkList的原理</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class LinkedList&lt;E&gt;</span><br><span class="line"><span class="code">    extends AbstractSequentialList&lt;E&gt;</span></span><br><span class="line"><span class="code">    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable&#123;</span></span><br><span class="line"><span class="code">    </span></span><br><span class="line"><span class="code">    transient int size = 0;</span></span><br><span class="line"><span class="code">    </span></span><br><span class="line"><span class="code">    transient Node&lt;E&gt; first;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    transient Node&lt;E&gt; last;</span></span><br><span class="line"><span class="code">    			...</span></span><br><span class="line"><span class="code">    			</span></span><br><span class="line"> private static class Node&lt;E&gt; &#123;</span><br><span class="line"><span class="code">        E item;</span></span><br><span class="line"><span class="code">        Node&lt;E&gt; next;</span></span><br><span class="line"><span class="code">        Node&lt;E&gt; prev;</span></span><br><span class="line"></span><br><span class="line"><span class="code">        Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;</span></span><br><span class="line"><span class="code">            this.item = element;</span></span><br><span class="line"><span class="code">            this.next = next;</span></span><br><span class="line"><span class="code">            this.prev = prev;</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"><span class="code">    			...</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的源码可以看出：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(01) LinkedList 是一个继承于AbstractSequentialList的 "双向链表"。它也可以被当作堆栈、队列或双端队列进行操作。</span><br><span class="line">(02) LinkedList 实现 List 接口，能对它进行队列操作。</span><br><span class="line">(03) LinkedList 实现 Deque 接口，即能将LinkedList当作双端队列使用。</span><br><span class="line">(04) AbstractSequentialList 继承了 AbstractList, 所以LinkedList 是非同步的。</span><br><span class="line">(05) 顺序访问会非常高效，而随机访问效率比较低,实现了List接口&#123;也就是说，它实现了get(int location)、remove(int location)等“根据索引值来获取、删除节点的函数”&#125;。调用get(int location)时，首先会比较“location”和“双向链表长度的1/2”；若前者大，则从链表头开始往后查找，直到location位置；否则，从链表末尾开始先前查找，直到location位置。</span><br><span class="line">(06) 遍历LinkedList时，使用removeFist()或removeLast()效率最高。但用它们遍历时，会删除原始数据。单纯只读取，而不删除，应该使用for循环遍历。随机访问的速度最慢。</span><br></pre></td></tr></table></figure>
+<h3 id="3-ArrayList是线程安全的吗？如何解决线程不安全-CopyOnWriteArrayList-？"><a href="#3-ArrayList是线程安全的吗？如何解决线程不安全-CopyOnWriteArrayList-？" class="headerlink" title="3. ArrayList是线程安全的吗？如何解决线程不安全(CopyOnWriteArrayList)？"></a>3. ArrayList是线程安全的吗？如何解决线程不安全(CopyOnWriteArrayList)？</h3><h4 id="3-1-线程不安全原因"><a href="#3-1-线程不安全原因" class="headerlink" title="3.1 线程不安全原因"></a>3.1 线程不安全原因</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(01) 新建了一个ArrayList，名称为arrayList。</span><br><span class="line">(02) 向arrayList中添加内容。</span><br><span class="line">(03) 新建一个“线程a”，并在“线程a”中通过Iterator反复的读取arrayList的值。</span><br><span class="line">(04) 新建一个“线程b”，在“线程b”中删除arrayList中的一个“节点A”。</span><br><span class="line">(05) 这时，就会产生有趣的事件了。</span><br><span class="line"><span class="code">       在某一时刻，“线程a”创建了arrayList的Iterator。此时“节点A”仍然存在于arrayList中，创建arrayList时，expectedModCount = modCount(假设它们此时的值为N)。</span></span><br><span class="line"><span class="code">       在“线程a”在遍历arrayList过程中的某一时刻，“线程b”执行了，并且“线程b”删除了arrayList中的“节点A”。“线程b”执行remove()进行删除操作时，在remove()中执行了“modCount++”，此时modCount变成了N+1！</span></span><br><span class="line">“线程a”接着遍历，当它执行到next()函数时，调用checkForComodification()比较“expectedModCount”和“modCount”的大小；而“expectedModCount=N”，“modCount=N+1”,这样，便抛出ConcurrentModificationException异常，产生fail-fast事件。</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-CopyOnWriteArrayList原理"><a href="#3-2-CopyOnWriteArrayList原理" class="headerlink" title="3.2 CopyOnWriteArrayList原理"></a>3.2 CopyOnWriteArrayList原理</h4><p>CopyOnWriteArrayList迭代器源码：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 返回集合对应的迭代器</span><br><span class="line">public Iterator&lt;E&gt; iterator() &#123;</span><br><span class="line"><span class="code">	return new COWIterator&lt;E&gt;(getArray(), 0);</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private COWIterator(Object[] elements, int initialCursor) &#123;</span><br><span class="line"><span class="code">	cursor = initialCursor;</span></span><br><span class="line">   // 新建COWIterator时，将集合中的元素保存到一个新的拷贝数组中。</span><br><span class="line">   // 这样，当原始集合的数据改变，拷贝数据中的值也不会变化。</span><br><span class="line">   snapshot = elements;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>从上面可以看出：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(01) 和ArrayList继承于AbstractList不同，CopyOnWriteArrayList没有继承于AbstractList，它仅仅只是实现了List接口。</span><br><span class="line">(02) ArrayList的iterator()函数返回的Iterator是在AbstractList中实现的；而CopyOnWriteArrayList是自己实现Iterator。 “拷贝了原列表而非在原始列表上操作”</span><br><span class="line">(03) ArrayList的Iterator实现类中调用next()时，会“调用checkForComodification()比较‘expectedModCount’和‘modCount’的大小”；但是，CopyOnWriteArrayList的Iterator实现类中，没有所谓的checkForComodification()，更不会抛出ConcurrentModificationException异常！</span><br></pre></td></tr></table></figure>
+<h3 id="4-synchronized-有哪几种用法？以及它的作用域"><a href="#4-synchronized-有哪几种用法？以及它的作用域" class="headerlink" title="4. synchronized 有哪几种用法？以及它的作用域"></a>4. synchronized 有哪几种用法？以及它的作用域</h3><h4 id="三条规则"><a href="#三条规则" class="headerlink" title="三条规则"></a>三条规则</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(01) 当一个线程访问“某对象”的“synchronized方法”或者“synchronized代码块”时，其他线程对“该对象”的该“synchronized方法”或者“synchronized代码块”的访问将被阻塞。</span><br><span class="line">(02) 当一个线程访问“某对象”的“synchronized方法”或者“synchronized代码块”时，其他线程仍然可以访问“该对象”的非同步代码块。</span><br><span class="line">(03) 当一个线程访问“某对象”的“synchronized方法”或者“synchronized代码块”时，其他线程对“该对象”的其他的“synchronized方法”或者“synchronized代码块”的访问将被阻塞。</span><br></pre></td></tr></table></figure>
+<h4 id="实例锁和全局锁"><a href="#实例锁和全局锁" class="headerlink" title="实例锁和全局锁"></a>实例锁和全局锁</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">实例锁 -- 锁在某一个实例对象上。如果该类是单例，那么该锁也具有全局锁的概念。</span><br><span class="line"><span class="code">               实例锁对应的就是synchronized关键字。</span></span><br><span class="line">全局锁 -- 该锁针对的是类，无论实例多少个对象，那么线程都共享该锁。</span><br><span class="line"><span class="code">               全局锁对应的就是static synchronized（或者是锁在该类的class或者classloader对象上）。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pulbic class Something &#123;</span><br><span class="line">public synchronized void isSyncA()&#123;&#125;</span><br><span class="line">public synchronized void isSyncB()&#123;&#125;</span><br><span class="line">public static synchronized void cSyncA()&#123;&#125;</span><br><span class="line">public static synchronized void cSyncB()&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下为实例锁和对象锁的几种情况和结果</p>
+<h5 id="01-x-isSyncA-与x-isSyncB"><a href="#01-x-isSyncA-与x-isSyncB" class="headerlink" title="(01) x.isSyncA()与x.isSyncB()"></a>(01) x.isSyncA()与x.isSyncB()</h5><pre><code>访问的是x对象的两个同步方法，所以不能同时被访问。
+</code></pre><h5 id="02-x-isSyncA-与y-isSyncA"><a href="#02-x-isSyncA-与y-isSyncA" class="headerlink" title="(02) x.isSyncA()与y.isSyncA()"></a>(02) x.isSyncA()与y.isSyncA()</h5><pre><code>访问的是x,y不同实例的同步方法，所以可以被访问
+</code></pre><h5 id="03-x-cSyncA-与y-cSyncB"><a href="#03-x-cSyncA-与y-cSyncB" class="headerlink" title="(03) x.cSyncA()与y.cSyncB()"></a>(03) x.cSyncA()与y.cSyncB()</h5><pre><code>因为cSyncA()和cSyncB()都是static类型，x.cSyncA()相当于Something.isSyncA()，
+y.cSyncB()相当于Something.isSyncB()，因此它们共用一个同步锁，不能被同时反问.
+</code></pre><h5 id="04-x-isSyncA-与Something-cSyncA"><a href="#04-x-isSyncA-与Something-cSyncA" class="headerlink" title="(04) x.isSyncA()与Something.cSyncA()"></a>(04) x.isSyncA()与Something.cSyncA()</h5><pre><code>因为isSyncA()是实例方法，x.isSyncA()使用的是对象x的锁；而cSyncA()是静态方法，
+Something.cSyncA()可以理解对使用的是“类的锁”。因此，它们是可以被同时访问的。
+</code></pre><h3 id="5-JVM内存分配策略（堆内存、栈内存）"><a href="#5-JVM内存分配策略（堆内存、栈内存）" class="headerlink" title="5. JVM内存分配策略（堆内存、栈内存）"></a>5. JVM内存分配策略（堆内存、栈内存）</h3><p>完全空白，后面补充</p>
+<h3 id="6-final修饰变量、方法、类的特点"><a href="#6-final修饰变量、方法、类的特点" class="headerlink" title="6. final修饰变量、方法、类的特点"></a>6. final修饰变量、方法、类的特点</h3><h4 id="6-1-变量"><a href="#6-1-变量" class="headerlink" title="6.1 变量"></a>6.1 变量</h4><blockquote>
+<p>final成员变量表示常量，只能被赋值一次，赋值后值不再改变。</p>
+</blockquote>
+<h5 id="6-1-1-final修饰基本类型和对象引用"><a href="#6-1-1-final修饰基本类型和对象引用" class="headerlink" title="6.1.1 final修饰基本类型和对象引用"></a>6.1.1 final修饰基本类型和对象引用</h5><blockquote>
+<ol>
+<li>final修饰基本类型时，值一但初始化之后就不能再改变</li>
+<li>final修饰对象引用时，一但初始化就不能再指向其他对象，但是所指向的对象的值是可以改变的。</li>
+</ol>
+</blockquote>
+<h5 id="6-1-2-final修饰成员变量-属性"><a href="#6-1-2-final修饰成员变量-属性" class="headerlink" title="6.1.2 final修饰成员变量(属性)"></a>6.1.2 final修饰成员变量(属性)</h5><blockquote>
+<p>必须要<strong>显示初始化</strong>。这里有两种初始化方式:</p>
+</blockquote>
+<ol>
+<li>一种是在变量声明的时候初始化</li>
+<li>第二种方法是在声明变量的时候不赋初值，但是要在这个变量所在的类的<strong>所有的构造函数</strong>中对这个变量赋初值。</li>
+</ol>
+<h5 id="6-1-3-final变量和普通变量区别"><a href="#6-1-3-final变量和普通变量区别" class="headerlink" title="6.1.3 final变量和普通变量区别"></a>6.1.3 final变量和普通变量区别</h5><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123; </span><br><span class="line"><span class="code">    public static void main(String[] args)  &#123; </span></span><br><span class="line"><span class="code">        String a = "hello2";   </span></span><br><span class="line"><span class="code">        final String b = "hello"; </span></span><br><span class="line"><span class="code">        String d = "hello"; </span></span><br><span class="line"><span class="code">        String c = b + 2;   </span></span><br><span class="line"><span class="code">        String e = d + 2; </span></span><br><span class="line"><span class="code">        //true</span></span><br><span class="line"><span class="code">        System.out.println((a == c)); </span></span><br><span class="line"><span class="code">        //false</span></span><br><span class="line"><span class="code">        System.out.println((a == e)); </span></span><br><span class="line"><span class="code">    &#125; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当final变量是基本数据类型以及String类型时，如果在编译期间能知道它的确切值，则编译器会把它当做编译期常量使用。也就是说在用到该final变量的地方，相当于直接访问的这个常量，不需要在运行时确定。这种和C语言中的宏替换有点像。因此在上面的一段代码中，由于变量b被final修饰，因此会被当做编译器常量，所以在使用到b的地方会直接将变量b 替换为它的值。而对于变量d的访问却需要在运行时通过链接来进行。</p>
+<p>好吧，其实上面这段话关于为什么编译器常量加上2和String变量加上2不相等解释的还不够详细。之所以a = c是因为：</p>
+<ol>
+<li>a 和 b + 2都放在了字符串常量池中，内存地址一样。</li>
+<li>而e = d + 2 则是构造了 new String(“hello2”) 放在了堆里面。</li>
+<li>String s = “hello” 这种申明方式的变量都是放在字符串常量池中</li>
+<li>如果是 e = s + 2 这种情况，如果 s 是final修饰的，那么e最终也是放在字符串常量池中的，但如果e不是final修饰的那么e类似于new String(s + 2),放在堆里。</li>
+</ol>
+</blockquote>
+<h5 id="6-1-4-只有在编译期间能确切知道final变量值的情况下，编译器才会进行这样的优化"><a href="#6-1-4-只有在编译期间能确切知道final变量值的情况下，编译器才会进行这样的优化" class="headerlink" title="6.1.4 只有在编译期间能确切知道final变量值的情况下，编译器才会进行这样的优化"></a>6.1.4 只有在编译期间能确切知道final变量值的情况下，编译器才会进行这样的优化</h5><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123; </span><br><span class="line"><span class="code">    public static void main(String[] args)  &#123; </span></span><br><span class="line"><span class="code">        String a = "hello2";   </span></span><br><span class="line"><span class="code">        final String b = getHello(); </span></span><br><span class="line"><span class="code">        String c = b + 2; </span></span><br><span class="line"><span class="code">        //false  </span></span><br><span class="line"><span class="code">        System.out.println((a == c)); </span></span><br><span class="line">  </span><br><span class="line"><span class="code">    &#125; </span></span><br><span class="line"><span class="code">      </span></span><br><span class="line"><span class="code">    public static String getHello() &#123; </span></span><br><span class="line"><span class="code">        return "hello"; </span></span><br><span class="line"><span class="code">    &#125; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="6-2-方法"><a href="#6-2-方法" class="headerlink" title="6.2 方法"></a>6.2 方法</h4><blockquote>
+<p>被final修饰的方法不能被重写，而重写的前提是方法能够被继承。</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(01) 被private修饰的方法不能被继承，所以使用private修饰的方法时，在B中的方法此时并不是继承自A中的方法，而是重新定义的新的方法。因此不会发生重写和final的冲突。</span><br><span class="line">(02) 当方法是public时，子类B能够继承父类A的方法，而A中的方法被final修饰，不能够被重写。所以编译时会报错。</span><br></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class A &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">    *private</span></span><br><span class="line"><span class="code">    */</span></span><br><span class="line"><span class="code">    private final void getName()&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    /**</span></span><br><span class="line"><span class="code">    *public可以被继承</span></span><br><span class="line"><span class="code">    */</span></span><br><span class="line"> /*   public final void getName()&#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    &#125;*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class B extends A &#123;</span><br><span class="line"></span><br><span class="line"><span class="code">    public void getName()&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="6-3-类"><a href="#6-3-类" class="headerlink" title="6.3 类"></a>6.3 类</h4><pre><code>final修饰类的时候不能够被继承
+</code></pre><h3 id="7-线程池阐述、拒绝策略？"><a href="#7-线程池阐述、拒绝策略？" class="headerlink" title="7. 线程池阐述、拒绝策略？"></a>7. 线程池阐述、拒绝策略？</h3><h3 id="8-事务的特点，ACID以及阐述应用？"><a href="#8-事务的特点，ACID以及阐述应用？" class="headerlink" title="8. 事务的特点，ACID以及阐述应用？"></a>8. 事务的特点，ACID以及阐述应用？</h3><h3 id="9-ZooKeeper-选取基数台服务器的原因，选举原理？有哪几种节点？"><a href="#9-ZooKeeper-选取基数台服务器的原因，选举原理？有哪几种节点？" class="headerlink" title="9. ZooKeeper 选取基数台服务器的原因，选举原理？有哪几种节点？"></a>9. ZooKeeper 选取基数台服务器的原因，选举原理？有哪几种节点？</h3><h3 id="10-负载均衡策略有那几种？"><a href="#10-负载均衡策略有那几种？" class="headerlink" title="10. 负载均衡策略有那几种？"></a>10. 负载均衡策略有那几种？</h3><h3 id="11-redis如何保持主从一致性？新加入一个Redis服务器，如何进行数据同步的？"><a href="#11-redis如何保持主从一致性？新加入一个Redis服务器，如何进行数据同步的？" class="headerlink" title="11. redis如何保持主从一致性？新加入一个Redis服务器，如何进行数据同步的？"></a>11. redis如何保持主从一致性？新加入一个Redis服务器，如何进行数据同步的？</h3><blockquote>
+<p>第一次电话面试（虽然模拟的），感觉虚的不行，完全答不上来，给自己40分。</p>
+</blockquote>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img lazyload" src="/images/placeholder.png" alt="No Donate Image!" data-src="/images/donate2.png">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/article/">article</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/12/20/test/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/12/20/test/">
+          Untitled</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/27/zookeeper_scenes/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/27/zookeeper_scenes/">
+          从Paxos到ZooKeeper 分布式一致性原理与实战-ZooKeeper使用场景</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">About
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

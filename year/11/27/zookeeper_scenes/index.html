@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  从Paxos到ZooKeeper 分布式一致性原理与实战-ZooKeeper使用场景 |   Jonas </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		从Paxos到ZooKeeper 分布式一致性原理与实战-ZooKeeper使用场景
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		Nov 27, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			2714
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>ZooKeeper在分布式场景中的作用非常的广泛，许多分布式组件都使用了ZooKeeper为其提供相应的功能。其中使用最为频繁的就是ZooKeeper临时子节点的创建、删除、监听，这种实时的调整在分布式系统中尤为重要，很多功能都是基于这一原理。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="典型应用场景"><a href="#典型应用场景" class="headerlink" title="典型应用场景"></a>典型应用场景</h2><h3 id="数据发布-订阅"><a href="#数据发布-订阅" class="headerlink" title="数据发布/订阅"></a>数据发布/订阅</h3><blockquote>
+<p>即所谓的配置中心，顾名思义，就是发布者将数据发布到Zookeeper的一个或者一系列的节点上，供订阅者进行订阅。从而达到动态的获取数据的目的。</p>
+<p>配置中心一般分为两种设计模式，一个是<strong>推</strong>（Push）模式，一个是<strong>拉</strong>（Pull）模式。ZooKeeper采用的是<strong>推拉结合</strong>的方式。客户端向服务器注册自己需要关注的节点，一但该节点的数据发生变更，那么服务端就会向相应的客户端发送Watcher事件通知，客户端接收到这个消息之后，需要主动的到服务端获取最新的数据。</p>
+</blockquote>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><blockquote>
+<p>关于负载均衡我们可以使用自动化的DNS服务作为例子进行分析。</p>
+</blockquote>
+<h4 id="域名注册"><a href="#域名注册" class="headerlink" title="域名注册"></a>域名注册</h4><ol>
+<li>服务提供者将域名、IP、端口发送给Register集群，如 serviceA.xxx.com -&gt; 192.168.0.1：8080。</li>
+<li>Register获取到域名、IP、端口配置后，根据域名将对应信息写到ZooKeeper域名节点中。</li>
+</ol>
+<h4 id="域名探测"><a href="#域名探测" class="headerlink" title="域名探测"></a>域名探测</h4><blockquote>
+<p>域名探测是指对域名下所注册的IP地址和端口的可用性进行检测。一般分为两种方式：</p>
+</blockquote>
+<ol>
+<li>服务器主动发起健康度心跳检测，这种方式需要在服务器和客户端之间建立tcp长连接。</li>
+<li>第二种是客户端主动发起健康度心跳检测。在DDNS（Dynamic Domain Name  Service）中采取的是第二种。</li>
+</ol>
+<blockquote>
+<p>其中DDNS会使用Scanner组件对客户端的心跳的检测，如果超过5秒没有收到状态汇报，就认定为IP和端口不可用，进行域名的清理，在ZooKeeper中将对应域名节点下的IP和端口号清除。</p>
+</blockquote>
+<h3 id="命名服务"><a href="#命名服务" class="headerlink" title="命名服务"></a>命名服务</h3><blockquote>
+<p>命名服务作为一种最基本的公共服务之一，其目的在于使用指定的名称来获取对应资源的实体、服务地址和提供者信息等。</p>
+<p>因为要唯一的定位到某一资源的地址等信息，所以名称必须是全局唯一的，这里就用到了ZooKeeper的顺序子节点。生成唯一ID的基本步骤为：</p>
+</blockquote>
+<ol>
+<li>客户端根据自己的任务类型，在指定任务下面调用create()接口来创建一个<strong>顺序节点</strong>如”job-“节点。</li>
+<li>节点创建完成后create()接口会返回完整的节点名称，例如：“job-0000000003”。</li>
+<li>客户端拿到返回值后拼接上type类型，例如“type2-job-0000000003”。 </li>
+</ol>
+<h3 id="分布式协调-通知"><a href="#分布式协调-通知" class="headerlink" title="分布式协调/通知"></a>分布式协调/通知</h3><blockquote>
+<p>分布式协调主要依赖于ZooKeeper中特有的<strong>Watcher注册</strong>和<strong>异步通知</strong>机制。能够实现对分布式环境下的不同机器甚至是不同系统之间的协调与通知功能，从而对数据的变更进行实施的处理。</p>
+<h4 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h4><p>不听的客户端对ZooKeeper上同一个数据节点进行Wathcer注册，监听数据节点的变化（数据节点本身还有其子节点），一但数据发生变化那么所有订阅的客户端都能够接收到响应的Watcher通知。</p>
+</blockquote>
+<h4 id="Mysql数据复制总线：-Mysql-Replicator"><a href="#Mysql数据复制总线：-Mysql-Replicator" class="headerlink" title="Mysql数据复制总线： Mysql_Replicator"></a>Mysql数据复制总线： Mysql_Replicator</h4><h5 id="任务注册"><a href="#任务注册" class="headerlink" title="任务注册"></a>任务注册</h5><blockquote>
+<p>Mysql_Replicator的<strong>core进程</strong>在进行数据复制执行任务时，首先会在ZooKeeeper上注册节点，如“/mysql_replicator/tasks/copy_hot_item”。</p>
+</blockquote>
+<h5 id="任务热备份"><a href="#任务热备份" class="headerlink" title="任务热备份"></a>任务热备份</h5><blockquote>
+<p>无论在第一步是否创建了任务节点，每台机器都要在”/mysql_replicator/tasks/copy_hot_item/instances”下将自己的主机名注册上去，这里的节点类型是<strong>临时顺序节点</strong>，如：“/mysql_replicator/tasks/copy_hot_item/instances/[HostName]-1”。创建完子节点之后，每台任务机器都可以获取到自己创建的节点的完整节点名和所有子节点列表。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/zookeeper/cool_replicator.png" alt="cool_replicator"></p>
+<h5 id="热备切换"><a href="#热备切换" class="headerlink" title="热备切换"></a>热备切换</h5><blockquote>
+<p>在注册完所有的任务子节点后，再根据节点的最小序列号确定节点属于运行状态RUNNING还是待命状态STANDBY。实行“小序号优先策略”。一但RUNNING的节点故障，那么就会再次根据“小序号优先”策略选出RUNNING机器来执行。实现方法为，在STANDBY状态节点上注册“子节点列表变更”的Wather监听，一但RUNNING节点宕机，就会给STANDBY节点发送Watcher通知，然后进行新一轮的RUNNING选举。</p>
+</blockquote>
+<h5 id="冷备切换"><a href="#冷备切换" class="headerlink" title="冷备切换"></a>冷备切换</h5><blockquote>
+<p>在热备切换中虽然保证了系统的实时性但起码要有两台机器，比较消耗系统资源。还有一种备份方式为冷备切换，和热备切换最大的区别在于<strong>*Core进程被配置了所属的Group</strong>。</p>
+<p>在Core进程启动的时候回获取所属Group的所有Task列表，拿到Task列表之后或遍历其下的instance节点，如果没有子节点就会创建一个临时的顺序节点，在此过程中其他Core进程也会创建类似的节点。然后根据“小序号优先“策略，将顺序小的标记为RUNNING，其他的Core进程将自动删除自己的节点，然后继续遍历下一个Task节点。这叫做<strong>“冷备份扫描”</strong>。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/jChanJi/static_resource/master/zookeeper/cool_scan.png" alt="cool_scan"></p>
+<h3 id="集群管理"><a href="#集群管理" class="headerlink" title="集群管理"></a>集群管理</h3><blockquote>
+<p>传统的集群管理体系是基于Agent的，在每个机器上都部署Agent客户端。这种方式有很多弊端，例如：1. 大规模升级困难 2. 虽然能够监控CUP使用率，负载等信息但是无法对和业务耦合紧密的任务进行监控，比如每个机器上任务的执行情况。3. 不同的编程语言要提供不同的客户端，<strong>异构系统</strong>的数据整合面临巨大挑战。</p>
+<p>使用ZooKeeper同样是利用其临时子节点和Watcher机制，实时的监听任务节点的状态变更、宕机等情况。</p>
+</blockquote>
+<h3 id="Master选举"><a href="#Master选举" class="headerlink" title="Master选举"></a>Master选举</h3><blockquote>
+<p>master选举的关键点在于<strong>保证数据的唯一性</strong>，即只能够存在一个Master。使用关系型数据库的主键唯一性也可以实现数据的唯一性，同时插入相同ID的数据，成功插入的那条数据对应的机器成为Master，但是有个弊端就是如果Master挂掉了，无法实施的检测并且动态的重新选举Master。</p>
+<p>这时候利用ZooKeeper的强一致性就可以很方便的解决这一问题。客户端集群每天定时的忘ZooKeeper上创建临时节点，如“master_election/2018-11-27/binding”,只要有一个客户端成功的创建了节点，就成为了Master,然后其他没能成功注册信息的节点在“master_election/2018-11-27”下注册Watcher监听，用来监控Master节点是否存活。一但挂了就再次进行Master选举。</p>
+</blockquote>
+<h3 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h3><h3 id="分布式队列"><a href="#分布式队列" class="headerlink" title="分布式队列"></a>分布式队列</h3><h2 id="大型分布式系统中的应用"><a href="#大型分布式系统中的应用" class="headerlink" title="大型分布式系统中的应用"></a>大型分布式系统中的应用</h2><h3 id="hadoop"><a href="#hadoop" class="headerlink" title="hadoop"></a>hadoop</h3><h3 id="Hbase"><a href="#Hbase" class="headerlink" title="Hbase"></a>Hbase</h3><h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3>  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+        
+
+
+
+
+<span class="donate-btn">
+	<span class="iconfont icon-donate"></span>
+</span>
+
+
+<div id="donate-box" class="sildeUpMin">
+
+	<span class="donate-cancel iconfont icon-cancel"></span>
+
+	<div class="donate-img-box">
+		<img id="donate-qr-wechat" class="noLazyLoad donate-img" src="/images/donate1.png" alt="No Donate Image!">	
+		<img id="donate-qr-alipay" class="noLazyLoad donate-img" src="/images/donate2.png" alt="No Donate Image!">	
+	</div>
+
+	<span class="donate-word">世界美好 你也是</span>
+
+	<div class="donate-list">
+		<span class="iconfont icon-donate-wechat"></span>
+		<span class="iconfont icon-donate-alipay"></span>
+	</div>
+
+</div>
+
+ 
+      </span>           
+      <span class="post-footer-item">
+        
+	
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+	
+	<span class="share-btn">
+	<span class="iconfont icon-share"></span>
+	</span>
+
+
+	<div class="-mob-share sildeUpMin">
+		<div class="-mob-inner">
+		   			             
+            <a class="iconfont icon-share-qq -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weixin -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-weibo -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-douban -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-facebook -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-twitter -mob-share-link"></a>		
+     	   			             
+            <a class="iconfont icon-share-google -mob-share-link"></a>		
+     	   
+		</div>
+	</div>	
+
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/ZooKeeper/">ZooKeeper</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/year/11/30/Interview/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/year/11/30/Interview/">
+          面试问题集合</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/year/11/22/paxos/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/year/11/22/paxos/">
+          从Paxos到ZooKeeper 分布式一致性原理与实战-Paxos算法</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">About
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Jonas
+		<br>
+
+		Theme by
+		<a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>	
+		</div>			
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

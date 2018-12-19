@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jchanji.github.io/year/12/20/test/</loc>
+    
+    <lastmod>2018-12-19T23:49:25.432Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/30/Interview/</loc>
+    
+    <lastmod>2018-12-04T11:48:56.283Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/27/zookeeper_scenes/</loc>
+    
+    <lastmod>2018-11-27T09:02:34.746Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jchanji.github.io/year/11/22/paxos/</loc>
     
     <lastmod>2018-11-26T04:08:11.218Z</lastmod>
@@ -16,6 +37,13 @@
   </url>
   
   <url>
+    <loc>http://jchanji.github.io/year/11/20/vps/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.173Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jchanji.github.io/year/11/20/xiaoma/</loc>
     
     <lastmod>2018-11-20T08:07:31.173Z</lastmod>
@@ -23,9 +51,9 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/vps/</loc>
+    <loc>http://jchanji.github.io/year/11/20/vnc/</loc>
     
-    <lastmod>2018-11-20T08:07:31.173Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.172Z</lastmod>
     
   </url>
   
@@ -37,9 +65,9 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/vnc/</loc>
+    <loc>http://jchanji.github.io/year/11/20/tensorflow_step/</loc>
     
-    <lastmod>2018-11-20T08:07:31.172Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.171Z</lastmod>
     
   </url>
   
@@ -65,9 +93,9 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/tensorflow_step/</loc>
+    <loc>http://jchanji.github.io/year/11/20/spark_step/</loc>
     
-    <lastmod>2018-11-20T08:07:31.171Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.170Z</lastmod>
     
   </url>
   
@@ -86,9 +114,9 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/spark_step/</loc>
+    <loc>http://jchanji.github.io/year/11/20/risk_wise/</loc>
     
-    <lastmod>2018-11-20T08:07:31.170Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.169Z</lastmod>
     
   </url>
   
@@ -107,14 +135,14 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/risk_wise/</loc>
+    <loc>http://jchanji.github.io/year/11/20/redis-copy/</loc>
     
-    <lastmod>2018-11-20T08:07:31.169Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.168Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/redis-copy/</loc>
+    <loc>http://jchanji.github.io/year/01/09/pca/</loc>
     
     <lastmod>2018-11-20T08:07:31.168Z</lastmod>
     
@@ -128,9 +156,9 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/01/09/pca/</loc>
+    <loc>http://jchanji.github.io/year/11/20/mysql_copy/</loc>
     
-    <lastmod>2018-11-20T08:07:31.168Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.167Z</lastmod>
     
   </url>
   
@@ -149,9 +177,16 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/mysql_copy/</loc>
+    <loc>http://jchanji.github.io/year/11/20/internet_of_everthing_for_new_industrial_revolution/</loc>
     
-    <lastmod>2018-11-20T08:07:31.167Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.166Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/java_article1/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.166Z</lastmod>
     
   </url>
   
@@ -170,28 +205,7 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/internet_of_everthing_for_new_industrial_revolution/</loc>
-    
-    <lastmod>2018-11-20T08:07:31.166Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/11/20/java_article1/</loc>
-    
-    <lastmod>2018-11-20T08:07:31.166Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://jchanji.github.io/year/11/20/idea_scala_spark/</loc>
-    
-    <lastmod>2018-11-20T08:07:31.165Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/11/20/install_ubuntu/</loc>
     
     <lastmod>2018-11-20T08:07:31.165Z</lastmod>
     
@@ -205,14 +219,21 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/hello-world/</loc>
+    <loc>http://jchanji.github.io/year/11/20/install_ubuntu/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.165Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/hbase_step/</loc>
     
     <lastmod>2018-11-20T08:07:31.164Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/hbase_step/</loc>
+    <loc>http://jchanji.github.io/year/11/20/hello-world/</loc>
     
     <lastmod>2018-11-20T08:07:31.164Z</lastmod>
     
@@ -226,14 +247,7 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/01/10/docker/</loc>
-    
-    <lastmod>2018-11-20T08:07:31.163Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/11/20/combineByKey/</loc>
+    <loc>http://jchanji.github.io/year/11/20/code_immortal/</loc>
     
     <lastmod>2018-11-20T08:07:31.163Z</lastmod>
     
@@ -247,21 +261,21 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/code_immortal/</loc>
+    <loc>http://jchanji.github.io/year/11/20/combineByKey/</loc>
     
     <lastmod>2018-11-20T08:07:31.163Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/SrpingCloud-chapter10/</loc>
+    <loc>http://jchanji.github.io/year/01/10/docker/</loc>
     
-    <lastmod>2018-11-20T08:07:31.162Z</lastmod>
+    <lastmod>2018-11-20T08:07:31.163Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter7/</loc>
+    <loc>http://jchanji.github.io/year/11/20/citycosumption/</loc>
     
     <lastmod>2018-11-20T08:07:31.162Z</lastmod>
     
@@ -275,7 +289,14 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/citycosumption/</loc>
+    <loc>http://jchanji.github.io/year/11/20/SrpingCloud-chapter10/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.162Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter7/</loc>
     
     <lastmod>2018-11-20T08:07:31.162Z</lastmod>
     
@@ -303,13 +324,6 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter3/</loc>
-    
-    <lastmod>2018-11-20T08:07:31.160Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://jchanji.github.io/year/01/09/NMF_PCA/</loc>
     
     <lastmod>2018-11-20T08:07:31.160Z</lastmod>
@@ -324,6 +338,13 @@
   </url>
   
   <url>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter3/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.160Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jchanji.github.io/year/11/20/Mysql_chapter3/</loc>
     
     <lastmod>2018-11-20T08:07:31.159Z</lastmod>
@@ -331,7 +352,7 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/MySQL/</loc>
+    <loc>http://jchanji.github.io/year/11/20/Mysql_chapter1/</loc>
     
     <lastmod>2018-11-20T08:07:31.158Z</lastmod>
     
@@ -345,7 +366,7 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/Mysql_chapter1/</loc>
+    <loc>http://jchanji.github.io/year/11/20/MySQL/</loc>
     
     <lastmod>2018-11-20T08:07:31.158Z</lastmod>
     
