@@ -4,7 +4,7 @@
   <url>
     <loc>http://jchanji.github.io/year/12/20/test/</loc>
     
-    <lastmod>2018-12-19T23:49:25.432Z</lastmod>
+    <lastmod>2018-12-19T23:51:19.200Z</lastmod>
     
   </url>
   
@@ -37,14 +37,14 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/vps/</loc>
+    <loc>http://jchanji.github.io/year/11/20/xiaoma/</loc>
     
     <lastmod>2018-11-20T08:07:31.173Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/xiaoma/</loc>
+    <loc>http://jchanji.github.io/year/11/20/vps/</loc>
     
     <lastmod>2018-11-20T08:07:31.173Z</lastmod>
     
@@ -79,13 +79,6 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/springCloud-chapter9/</loc>
-    
-    <lastmod>2018-11-20T08:07:31.171Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://jchanji.github.io/year/11/20/springbootstudy/</loc>
     
     <lastmod>2018-11-20T08:07:31.171Z</lastmod>
@@ -93,7 +86,14 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/spark_step/</loc>
+    <loc>http://jchanji.github.io/year/11/20/springCloud-chapter9/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.171Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/springCloud-chapter2/</loc>
     
     <lastmod>2018-11-20T08:07:31.170Z</lastmod>
     
@@ -107,21 +107,21 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/springCloud-chapter2/</loc>
+    <loc>http://jchanji.github.io/year/11/20/spark_step/</loc>
     
     <lastmod>2018-11-20T08:07:31.170Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/risk_wise/</loc>
+    <loc>http://jchanji.github.io/year/11/20/spark_sougou_logs/</loc>
     
     <lastmod>2018-11-20T08:07:31.169Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/spark_sougou_logs/</loc>
+    <loc>http://jchanji.github.io/year/11/20/risk_wise/</loc>
     
     <lastmod>2018-11-20T08:07:31.169Z</lastmod>
     
@@ -163,13 +163,6 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/knowledgegraph/</loc>
-    
-    <lastmod>2018-11-20T08:07:31.167Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://jchanji.github.io/year/11/20/markdown/</loc>
     
     <lastmod>2018-11-20T08:07:31.167Z</lastmod>
@@ -177,14 +170,21 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/internet_of_everthing_for_new_industrial_revolution/</loc>
+    <loc>http://jchanji.github.io/year/11/20/knowledgegraph/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.167Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/java_article1/</loc>
     
     <lastmod>2018-11-20T08:07:31.166Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/java_article1/</loc>
+    <loc>http://jchanji.github.io/year/11/20/java_io_ByteArrayInputStream/</loc>
     
     <lastmod>2018-11-20T08:07:31.166Z</lastmod>
     
@@ -198,7 +198,7 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/java_io_ByteArrayInputStream/</loc>
+    <loc>http://jchanji.github.io/year/11/20/internet_of_everthing_for_new_industrial_revolution/</loc>
     
     <lastmod>2018-11-20T08:07:31.166Z</lastmod>
     
@@ -226,14 +226,14 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/hbase_step/</loc>
+    <loc>http://jchanji.github.io/year/11/20/hello-world/</loc>
     
     <lastmod>2018-11-20T08:07:31.164Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/hello-world/</loc>
+    <loc>http://jchanji.github.io/year/11/20/hbase_step/</loc>
     
     <lastmod>2018-11-20T08:07:31.164Z</lastmod>
     
@@ -243,13 +243,6 @@
     <loc>http://jchanji.github.io/year/11/20/hadoop/</loc>
     
     <lastmod>2018-11-20T08:07:31.164Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/11/20/code_immortal/</loc>
-    
-    <lastmod>2018-11-20T08:07:31.163Z</lastmod>
     
   </url>
   
@@ -275,14 +268,21 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/citycosumption/</loc>
+    <loc>http://jchanji.github.io/year/11/20/code_immortal/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.163Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter7/</loc>
     
     <lastmod>2018-11-20T08:07:31.162Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter8/</loc>
+    <loc>http://jchanji.github.io/year/11/20/citycosumption/</loc>
     
     <lastmod>2018-11-20T08:07:31.162Z</lastmod>
     
@@ -296,9 +296,16 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter7/</loc>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter8/</loc>
     
     <lastmod>2018-11-20T08:07:31.162Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter4/</loc>
+    
+    <lastmod>2018-11-20T08:07:31.161Z</lastmod>
     
   </url>
   
@@ -317,14 +324,7 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter4/</loc>
-    
-    <lastmod>2018-11-20T08:07:31.161Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jchanji.github.io/year/01/09/NMF_PCA/</loc>
+    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter3/</loc>
     
     <lastmod>2018-11-20T08:07:31.160Z</lastmod>
     
@@ -338,7 +338,7 @@
   </url>
   
   <url>
-    <loc>http://jchanji.github.io/year/11/20/SpringCloud-chapter3/</loc>
+    <loc>http://jchanji.github.io/year/01/09/NMF_PCA/</loc>
     
     <lastmod>2018-11-20T08:07:31.160Z</lastmod>
     
